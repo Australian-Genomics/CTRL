@@ -16,3 +16,7 @@ jobs:
           shell: /bin/bash -l
           command: |
            bundle exec rspec
+      - store_test_results:
+          path: /tmp/rspec
+      - store_artifacts:
+          path: ./coverage
