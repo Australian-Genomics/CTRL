@@ -5,13 +5,12 @@ jobs:
       - image: circleci/ruby:2.4.1
     steps:
       - checkout
-      - run: echo "A first hello"
       - run:
           name: Setup the environment
           shell: /bin/bash -l
           command: |
            bundle install
-#           service postgresql restart
+           service postgresql restart
            bundle exec rake db:drop
            bundle exec rake db:create
            bundle exec rake db:migrate
