@@ -6,3 +6,8 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
+      - run:
+          name: Run RSpec
+          shell: /bin/bash -l
+          command: |
+           bundle exec rspec
