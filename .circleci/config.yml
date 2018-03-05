@@ -7,6 +7,11 @@ jobs:
       - checkout
       - run: echo "A first hello"
       - run:
+          name: Setup the environment
+          shell: /bin/bash -l
+          command: |
+           bundle install
+      - run:
           name: Run RSpec
           shell: /bin/bash -l
           command: |
