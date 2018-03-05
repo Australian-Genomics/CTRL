@@ -16,6 +16,11 @@ jobs:
           shell: /bin/bash -l
           command: |
            bundle exec rspec
+      - run:
+          name: Run Cucumber
+          shell: /bin/bash -l
+          command: |
+            bundle exec cucumber
       - store_test_results:
           path: /tmp/rspec
       - store_artifacts:

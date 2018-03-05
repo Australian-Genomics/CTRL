@@ -59,6 +59,7 @@
     <orderEntry type="library" scope="PROVIDED" name="database_cleaner (v1.6.2, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="devise (v4.4.1, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.3, rbenv: 2.5.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="docile (v1.1.5, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.7.0, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v2.7.0, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.9.23, rbenv: 2.5.0) [gem]" level="application" />
@@ -66,6 +67,7 @@
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.1, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.9.5, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jbuilder (v2.7.0, rbenv: 2.5.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="json (v2.1.0, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="listen (v3.1.5, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.2.0, rbenv: 2.5.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.7.0, rbenv: 2.5.0) [gem]" level="application" />
