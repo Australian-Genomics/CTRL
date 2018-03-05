@@ -2,7 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: curvetomorrow/auslan-dev-image:v7.8
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+    working_directory: /var/www/app
+    environment:
+      - CIRCLE_CI: 'true'
     steps:
       - checkout
       - run:
