@@ -11,6 +11,7 @@ jobs:
       - CIRCLE_CI: 'true'
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Setup the environment
           shell: /bin/bash -l
