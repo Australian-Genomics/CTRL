@@ -11,7 +11,7 @@ jobs:
           shell: /bin/bash -l
           command: |
            bundle install
-           service postgresql restart
+#           service postgresql restart
            bundle exec rake db:drop
            bundle exec rake db:create
            bundle exec rake db:migrate
