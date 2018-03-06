@@ -21,6 +21,11 @@ jobs:
            bundle exec rake db:create
            bundle exec rake db:migrate
       - run:
+          name: Run Rubocop
+          shell: /bin/bash -l
+          command: |
+           bundle exec rubocop
+      - run:
           name: Run RSpec
           shell: /bin/bash -l
           command: |

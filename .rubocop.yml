@@ -1,0 +1,21 @@
+Metrics/LineLength:
+  Max: 200
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'lib/tasks/*.rake' # auto-generated
+    - 'lib/tasks'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'Gemfile'
+
+Style/Documentation:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
