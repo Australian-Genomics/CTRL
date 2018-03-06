@@ -1,6 +1,5 @@
-# feature/hello_cucumber.feature
 Feature: Hello Cucumber
-  As a product manager
+  As an Admin
   I want our users to be greeted when they visit our site
   So that they have a better experience
 
