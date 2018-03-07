@@ -41,6 +41,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'letter_opener'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -58,6 +60,8 @@ group :test do
   gem 'cucumber-rails', :require => false
 # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'capybara'
 end
 
 
