@@ -18,6 +18,7 @@ jobs:
           command: |
            bundle install
            service postgresql restart
+           sleep 2
            bundle exec rake db:create
            bundle exec rake db:migrate
       - run:
