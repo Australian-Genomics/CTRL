@@ -19,3 +19,8 @@ Style/BlockComments:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+  Exclude:
+      - "db/migrate/*.rb"
