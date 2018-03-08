@@ -6,7 +6,21 @@
 
 require 'cucumber/rails'
 require 'database_cleaner'
+require 'capybara/rails'
+require 'capybara/rspec'
 
+Capybara.register_driver :selenium do |app|
+  if ENV['SELENIUM_DRIVER_URL'].present?
+    Capybara::Selenium::Driver.new(
+        app,
+        browser: :remote,
+        url: ENV.fetch('SELENIUM_DRIVER_URL'),
+        desired_capabilities: :chrome
+    )
+  else
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
+end
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
