@@ -4,8 +4,8 @@ jobs:
    docker:
       - image: curvetomorrow/auslan-dev-image:v7.8
         auth:
-           username: $DOCKER_USER
-           password: $DOCKER_PASS
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     working_directory: /var/www/app
     steps:
       - checkout
