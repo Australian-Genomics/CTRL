@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-   docker:
+    docker:
       - image: curvetomorrow/auslan-dev-image:v7.8
         auth:
           username: $DOCKER_USER
