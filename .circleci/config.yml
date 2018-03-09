@@ -7,8 +7,6 @@ jobs:
           username: $DOCKER_USER
           password: $DOCKER_PASS
     working_directory: /var/www/app
-    environment:
-      - CIRCLE_CI: 'true'
     steps:
       - checkout
       - setup_remote_docker
@@ -16,8 +14,12 @@ jobs:
           name: Setup the environment
           shell: /bin/bash -l
           command: |
+           apt-get update
+           apt-get --only-upgrade install google-chrome-stable
+           export CHROME_BIN=$(which google-chrome)
            bundle install
            service postgresql restart
+           sleep 2
            bundle exec rake db:create
            bundle exec rake db:migrate
       - run:
