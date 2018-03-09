@@ -11,6 +11,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Setup Heroku
+          shell: /bin/bash -l
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ./.circleci/setup-heroku.sh
+            fi
+      - run:
           name: Setup the environment
           shell: /bin/bash -l
           command: |
@@ -41,3 +48,13 @@ jobs:
           path: /tmp/rspec
       - store_artifacts:
           path: ./coverage
+      - deploy:
+          name: Deploy Master to Heroku
+          shell: /bin/bash -l
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]
+            then
+              git push heroku master -f
+              heroku run rake db:migrate
+              heroku restart
+            fi
