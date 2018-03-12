@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'chromedriver-helper'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
-
+gem 'rollbar'
 # postgres
 gem 'pg', '0.19.0'
 # Use Capistrano for deployment
