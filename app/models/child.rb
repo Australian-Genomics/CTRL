@@ -1,2 +1,0 @@
-class Child < ApplicationRecord
-end
