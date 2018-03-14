@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_07_064905) do
+ActiveRecord::Schema.define(version: 2018_03_14_044702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "children", force: :cascade do |t|
+    t.string "first_name"
+    t.string "middle_name"
+    t.string "family_name"
+    t.string "dob"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "studies", force: :cascade do |t|
+    t.string "flagship"
+    t.string "study_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,6 +44,22 @@ ActiveRecord::Schema.define(version: 2018_03_07_064905) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "middle_name"
+    t.string "family_name"
+    t.string "phone_no"
+    t.datetime "dob"
+    t.string "preferred_contact_method"
+    t.string "address"
+    t.string "suburb"
+    t.string "state"
+    t.string "post_code"
+    t.boolean "is_parent"
+    t.string "kin_first_name"
+    t.string "kin_middle_name"
+    t.string "kin_family_name"
+    t.string "kin_contact_no"
+    t.string "kin_email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
