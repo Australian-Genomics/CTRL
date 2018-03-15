@@ -4,8 +4,8 @@ class AddColumnsToUsers < ActiveRecord::Migration[5.2]
     add_column :users, :middle_name, :string
     add_column :users, :family_name, :string
     add_column :users, :phone_no, :string
-    add_column :users, :dob, :datetime
-    add_column :users, :preferred_contact_method, :string
+    add_column :users, :dob, :date
+    add_column :users, :preferred_contact_method, :string, default: 'Email'
     add_column :users, :address, :string
     add_column :users, :suburb, :string
     add_column :users, :state, :string

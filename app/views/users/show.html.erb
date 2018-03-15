@@ -1,0 +1,56 @@
+<h1>My Personal Details</h1>
+
+<div align="left">
+  <div>
+    First Name <%= current_user.first_name %>
+  </div>
+  <div>
+    Middle Name <%= current_user.middle_name %>
+  </div>
+  <div>
+    Family Name <%= current_user.family_name %>
+  </div>
+  <div>
+    Date Of Birth <%= current_user.dob %>
+  </div>
+  <%#= link_to render(:partial => 'personal_details_form'), edit_user_path(current_user) %>
+  <%= link_to 'Update', edit_user_path(current_user)%>
+</div>
+
+<div>
+  <div>
+    <div class="inline">
+      Email <p class="tooltip">Registered Email for the platform and also the email used for notifications</p> <%= current_user.email %>
+    </div>
+    <div>
+      Mobile Phone <%= current_user.phone_no %>
+    </div>
+    <div>
+      Address <%= current_user.address %>
+    </div>
+    <div>
+      Preferred Contact Method <%= current_user.preferred_contact_method %>
+    </div>
+    <%= link_to 'Update', edit_user_path(current_user)%>
+  </div>
+
+  <div>
+    <div>
+      Register as a parent/guardian or carer <%= current_user.is_parent %>
+    </div>
+    Registering on behalf of
+    <div>
+      First Name <%= current_user.phone_no %>
+    </div>
+    <div>
+      Middle Name <%= current_user.address %>
+    </div>
+    <div>
+      Family Name <%= current_user.preferred_contact_method %>
+    </div>
+    <div>
+      Date Of Birth <%= current_user.preferred_contact_method %>
+    </div>
+    <%= link_to 'Update', edit_user_path(current_user)%>
+  </div>
+</div>

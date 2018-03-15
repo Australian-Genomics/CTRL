@@ -32,10 +32,10 @@ gem 'rollbar'
 gem 'pg', '0.19.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
+gem 'simple_form'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
