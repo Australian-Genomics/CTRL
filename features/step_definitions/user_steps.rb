@@ -4,8 +4,11 @@ def create_visitor
 end
 
 def create_user
-  @visitor ||= { email: 'example@example.com',
-                 password: 'please2', password_confirmation: 'please2' }
+  @visitor ||= { first_name: 'Sushant',
+                 middle_name: 'Ahuja',
+                 email: 'example@example.com',
+                 password: 'please2',
+                 password_confirmation: 'please2' }
 end
 
 def sign_in
@@ -16,10 +19,12 @@ def sign_in
 end
 
 def sign_up
+  fill_in 'user_first_name', with: @visitor[:first_name]
+  fill_in 'user_middle_name', with: @visitor[:middle_name]
   fill_in 'user_email', with: @visitor[:email]
   fill_in 'user_password', with: @visitor[:password]
   fill_in 'user_password_confirmation', with: @visitor[:password_confirmation]
-  click_button 'Sign up'
+  click_button 'Create User'
 end
 
 When('I sign in with valid credentials') do
@@ -27,7 +32,7 @@ When('I sign in with valid credentials') do
   sign_in
 end
 
-When('I click on Sign up') do
+When('I click on Register') do
   visit 'users/sign_up'
 end
 

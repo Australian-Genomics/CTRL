@@ -9,6 +9,6 @@ Feature: Welcome Page
     And I should be signed out
 
   Scenario: User signs up successfully
-    When I click on Sign up
+    When I click on Register
     And I fill in the user details
     Then I should see the welcome message
