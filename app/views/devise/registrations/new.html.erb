@@ -2,13 +2,13 @@
 
 <%= simple_form_for @user do |f| %>
   <%= f.input :first_name, required: true %>
-  <%= f.input :middle_name, required: true %>
+  <%= f.input :family_name, required: true %>
   <%= f.input :email, required: true %>
   <%= f.input :password, required: true %>
   <%= f.input :password_confirmation, required: true %>
-  <%= f.button :submit %>
+  <%= f.button :submit, 'Register Now' %>
 <% end %>
 
   <%= devise_error_messages! %>
 
-<%= render "devise/shared/links" %>
+If you already have an account, please <%= link_to "Log in", new_session_path(@user) %>
