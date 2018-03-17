@@ -4,6 +4,8 @@ FactoryBot.define do
       "test#{n}@email.com"
     end
 
+    first_name 'sushant'
+    family_name 'ahuja'
     password 'password'
     password_confirmation 'password'
   end

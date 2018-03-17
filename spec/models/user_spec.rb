@@ -5,4 +5,7 @@ RSpec.describe User, type: :model do
 
   it { expect(user.email).to eq('test1@email.com') }
   it { expect(user.password).to eq('password') }
+  it { expect(user.first_name).to eq('sushant') }
+  it { expect(user.family_name).to eq('ahuja') }
+
 end
