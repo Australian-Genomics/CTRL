@@ -32,7 +32,7 @@ end
 
 def delete_user
   @user ||= User.where(email: @visitor[:email]).first
-  @user&.destroy
+  @user.destroy unless @user.nil?
 end
 
 Given('I am not logged in') do
