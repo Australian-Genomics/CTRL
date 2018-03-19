@@ -1,14 +1,15 @@
 def create_visitor
-  @visitor ||= { :first_name => 'Sushant',
-                 :family_name => 'Ahuja',
-                 :email => 'some@ahuja.com',
-                 :password => 'please2',
-                 :password_confirmation => 'please2' }
+  @visitor ||= { first_name: 'Sushant',
+                 family_name: 'Ahuja',
+                 email: 'some@ahuja.com',
+                 password: 'please2',
+                 password_confirmation: 'please2' }
 end
 
 def create_user
   create_visitor
-  # @user = User.create(@visitor)
+  delete_user
+  @user = User.create(@visitor)
 end
 
 def sign_in
@@ -27,12 +28,17 @@ def sign_up
   click_button 'Register Now'
 end
 
-Given /^I am not logged in$/ do
+def delete_user
+  @user ||= User.where(email: @visitor[:email]).first
+  @user&.destroy
+end
+
+Given('I am not logged in') do
   visit 'users/sign_in'
   expect(page).to_not have_content('Hello Cucumber')
 end
 
-Given /^I exist as a user$/ do
+Given('I exist as a user') do
   create_user
 end
 
@@ -41,13 +47,13 @@ When('I sign in with valid credentials') do
   sign_in
 end
 
-When /^I sign in with a wrong email$/ do
-  @visitor = @visitor.merge(:email => "wrong@example.com")
+When('I sign in with a wrong email') do
+  @visitor = @visitor.merge(email: 'wrong@example.com')
   sign_in
 end
 
-When /^I sign in with a wrong password$/ do
-  @visitor = @visitor.merge(:password => "wrongpass")
+When('I sign in with a wrong password') do
+  @visitor = @visitor.merge(password: 'wrongpass')
   sign_in
 end
 
@@ -56,7 +62,7 @@ When('I click on Register') do
 end
 
 When('I fill in the user details') do
-  create_user
+  create_visitor
   sign_up
 end
 
@@ -73,6 +79,6 @@ Then('I should see the welcome message') do
   expect(page).to have_content 'Hello Cucumber'
 end
 
-Then("I should be signed in") do
-  page.should have_content "Hello Cucumber"
+Then('I should be signed in') do
+  page.should have_content 'Hello Cucumber'
 end
