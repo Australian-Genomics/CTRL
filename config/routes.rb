@@ -3,5 +3,4 @@ Rails.application.routes.draw do
   resources :users
   get 'welcome/index'
   root 'welcome#index'
-end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htmlend
+end  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htmlend

@@ -4,6 +4,7 @@
   <%= f.input :first_name, required: true %>
   <%= f.input :family_name, required: true %>
   <%= f.input :email, required: true %>
+  <%= f.input :flagship, :collection => User.flagships.keys, include_blank: false, include_hidden: false %>
   <%= f.input :password, required: true %>
   <%= f.input :password_confirmation, required: true %>
   <%= f.button :submit, 'Register Now' %>

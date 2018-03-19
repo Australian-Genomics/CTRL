@@ -1,6 +1,7 @@
 def create_visitor
   @visitor ||= { first_name: 'Sushant',
                  family_name: 'Ahuja',
+                 flagship: 'Acute Care Genomic Testing',
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2' }
@@ -23,6 +24,7 @@ def sign_up
   fill_in 'user_first_name', with: @visitor[:first_name]
   fill_in 'user_family_name', with: @visitor[:family_name]
   fill_in 'user_email', with: @visitor[:email]
+  select 'Acute Care Genomic Testing', from: 'user_flagship'
   fill_in 'user_password', with: @visitor[:password]
   fill_in 'user_password_confirmation', with: @visitor[:password_confirmation]
   click_button 'Register Now'
@@ -30,7 +32,7 @@ end
 
 def delete_user
   @user ||= User.where(email: @visitor[:email]).first
-  @user.destroy unless @user.nil?
+  @user&.destroy
 end
 
 Given('I am not logged in') do

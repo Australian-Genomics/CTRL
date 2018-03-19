@@ -8,13 +8,16 @@ RSpec.describe User, type: :model do
   it { expect(user.first_name).to eq('sushant') }
   it { expect(user.family_name).to eq('ahuja') }
 
+  it 'should have a flagship' do
+    expect(user.save).to be true
+  end
+
   context 'validations' do
     it 'should have a mandatory first name' do
       user.first_name = nil
       expect(user.save).to be false
       expect(user.errors[:first_name]).to include('can\'t be blank')
     end
-
     it 'should have a mandatory last name' do
       user.family_name = nil
       expect(user.save).to be false
