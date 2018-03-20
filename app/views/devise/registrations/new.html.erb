@@ -1,15 +1,82 @@
-<h2>Register</h2>
+<div class="container my-15 my-sm-180">
+  <div class="row flex-column">
+    <div class="col-12 col-md-8 col-lg-6 mx-auto">
+      <div class="bg-white border px-15">
+        <!--inject:../components/html/header-modal.html-->
+        <%= render partial: 'layouts/header-modal' %>
+        <%= simple_form_for @user, defaults: { input_html: { class: 'form-control mb-0' } } do |f| %>
+          <div class="form-row">
+            <div class="col-12 col-sm-6 pr-sm-3 mb-30">
+              <div class="position-relative">
+                <%= f.input :first_name, placeholder: 'First Name', required: true %>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 pl-sm-3 mb-30">
+              <div class="position-relative">
+                <%= f.input :family_name, placeholder: 'Family Name', required: true %>
+              </div>
+            </div>
+          </div>
 
-<%= simple_form_for @user do |f| %>
-  <%= f.input :first_name, required: true %>
-  <%= f.input :family_name, required: true %>
-  <%= f.input :email, required: true %>
-  <%= f.input :flagship, :collection => User.flagships.keys, include_blank: false, include_hidden: false %>
-  <%= f.input :password, required: true %>
-  <%= f.input :password_confirmation, required: true %>
-  <%= f.button :submit, 'Register Now' %>
-<% end %>
+          <div class="form-row">
+            <div class="col mb-30">
+              <div class="position-relative">
+                <%= f.input :email, placeholder: 'Email', required: true %>
+              </div>
+            </div>
+          </div>
 
-  <%= devise_error_messages! %>
+          <div class="form-row">
+            <div class="col-12 col-sm-6 pr-sm-3 mb-30">
+              <div class="position-relative">
+                  <%= f.input :password, placeholder: 'Password', required: true %>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 pl-sm-3 mb-30">
+              <div class="position-relative">
+                <%= f.input :password_confirmation, placeholder: 'Re-enter Password', required: true %>
+              </div>
+            </div>
+          </div>
 
-If you already have an account, please <%= link_to "Log in", new_session_path(@user) %>
+          <div class="form-row">
+            <div class="col-12 col-sm-6 pr-sm-3 mb-30">
+              <div class="position-relative">
+                <%= f.input :flagship, :collection => User.flagships.keys, include_blank: false, include_hidden: false, class: "form-control" %>
+                </div>
+              </div>
+            <div class="col-12 col-sm-6 pl-sm-3 mb-30">
+              <div class="position-relative">
+                <input
+                type="text"
+                class="form-control mb-0"
+                name="studyID"
+                id="studyID"
+                placeholder="Study ID"
+                >
+                <label for="studyID" class="position-absolute">
+                  Study ID
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex">
+            <button
+            type="submit"
+            class="btn btn-primary mb-30 mx-auto"
+            >
+              Register Now
+            </button>
+          </div>
+
+        <% end %>
+      </div>
+      <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
+                <span class="d-block">
+                    If you already have an account, please
+                </span>
+        <%= link_to "Log in", new_session_path(@user), class: "d-block ml-2 mt-2 mt-sm-0" %>
+      </div>
+    </div>
+  </div>
+</div>
