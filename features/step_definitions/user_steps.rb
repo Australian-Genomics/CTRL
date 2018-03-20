@@ -15,9 +15,9 @@ end
 
 def sign_in
   visit 'users/sign_in'
-  fill_in 'user_email', with: @visitor[:email]
-  fill_in 'user_password', with: @visitor[:password]
-  click_button 'Log in'
+  fill_in 'user[email]', with: @visitor[:email]
+  fill_in 'user[password]', with: @visitor[:password]
+  click_button 'Log In'
 end
 
 def sign_up
@@ -69,11 +69,11 @@ When('I fill in the user details') do
 end
 
 Then('I see an invalid login message') do
-  expect(page).to have_content('Invalid Email or password')
+  expect(page).to have_content('If you don’t have an account, please Register')
 end
 
 Then('I should be signed out') do
-  expect(page).to have_content 'Log in'
+  expect(page).to have_content 'Log In'
   expect(page).to_not have_content 'Logout'
 end
 
