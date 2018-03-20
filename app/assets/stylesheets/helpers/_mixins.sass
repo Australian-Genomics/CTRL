@@ -1,0 +1,167 @@
+/* BEM  */
+
+=element( $element, $component : "" )
+	@if $component != ""
+		@at-root & .#{$component}__#{$element}
+			@content
+	@else
+		@at-root &__#{$element}
+			@content
+
+=elements( $elements, $component : "" )
+	@each $element in $elements
+		@if $component != ""
+			@at-root & .#{$component}__#{$element}
+				@content
+		@else
+			@at-root &__#{$element}
+				@content
+
+=modifier( $modifier )
+	@if str-slice( $modifier, 1, 1 ) == ":"
+		@at-root &#{$modifier}
+			@content
+	@else
+		@at-root &_#{$modifier}
+			@content
+
+=modifiers( $modifiers )
+	@each $modifier in $modifiers
+		@if str-slice( $modifier, 1, 1 ) == ":"
+			@at-root &#{$modifier}
+				@content
+		@else
+			@at-root &_#{$modifier}
+				@content
+
+/* Animation and transforms */
+
+=do-animation($a)
+	-webkit-animation: $a
+	animation: $a
+
+=add-animation-fill-mode($m)
+	-webkit-animation-fill-mode: $m
+	animation-fill-mode: $m
+
+=do-transform($t)
+	-webkit-transform: $t
+	transform: $t
+
+=do-transition($t)
+	-webkit-transition: $t
+	transition: $t
+
+/* Text selection */
+
+=user-select( $s )
+	-webkit-user-select: $s
+	-moz-user-select: $s
+	-ms-user-select: $s
+	user-select: $s
+
+=set-selection( $color, $background )
+	::selection
+		background-color: $background
+		color: $color
+
+	::-moz-selection
+		background-color: $background
+		color: $color
+
+	::-o-selection
+		background-color: $background
+		color: $color
+
+	::-ms-selection
+		background-color: $background
+		color: $color
+
+	::-webkit-selection
+		background-color: $background
+		color: $color
+
+/* Text overflow */
+
+=add-text-overflow($w)
+	display: inline-block
+	max-width: $w
+	white-space: nowrap
+	text-overflow: ellipsis
+	overflow: hidden
+
+/* Common mixins */
+	
+=add-shadow($s...)
+	-webkit-box-shadow: $s
+	-moz-box-shadow: $s
+	box-shadow: $s
+
+/* Flex box model */
+
+=display-flex
+	display: -webkit-flex !important
+	display: -ms-flexbox !important
+	display: flex !important
+
+=display-inline-flex
+	display: -webkit-inline-flex !important
+	display: -ms-inline-flexbox !important
+	display: inline-flex !important
+
+=flex-basis($b)
+	-webkit-flex-basis: $b
+	-ms-flex-preferred-size: $b
+	flex-basis: $b
+
+=flex-flow($f)
+	-webkit-flex-flow: $f
+	-ms-flex-flow: $f
+	flex-flow: $f
+
+=flex-wrap($w)
+	-webkit-flex-wrap: $w
+	-ms-flex-wrap: $w
+	flex-wrap: $w
+	
+=flex-direction($d)
+	-webkit-flex-direction: $d 
+	flex-direction: $d
+	box-orient: vertical
+	
+=flex-justify($j)
+	-webkit-box-pack: $j
+	-webkit-justify-content: $j
+	justify-content: $j
+	@if $j == space-around
+		-ms-flex-pack: distribute
+	@else if $j == space-between
+		-ms-flex-pack: justify
+
+=flex-grow($g)
+	-webkit-box-flex: $g
+	-webkit-flex-grow: $g
+	-ms-flex-positive: $g
+	flex-grow: $g
+	
+=flex($f)
+	-webkit-box-flex: $f
+	-webkit-flex: $f
+	-ms-flex: $f
+	flex: $f
+
+=align-self($a)
+	-webkit-align-self: $a
+	-ms-flex-item-align: $a
+	align-self: $a
+
+=align-content($p)
+	-webkit-align-content: $p
+	-ms-flex-line-pack: $p
+	align-content: $p
+
+=align-flex-item($p)
+	-webkit-box-align: $p
+	-webkit-align-items: $p
+	-ms-flex-align: $p
+	align-items: $p
