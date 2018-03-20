@@ -37,7 +37,7 @@ end
 
 Given('I am not logged in') do
   visit 'users/sign_in'
-  expect(page).to_not have_content('Hello Cucumber')
+  expect(page).to_not have_content('Logout')
 end
 
 Given('I exist as a user') do
@@ -78,9 +78,9 @@ Then('I should be signed out') do
 end
 
 Then('I should see the welcome message') do
-  expect(page).to have_content 'Hello Cucumber'
+  expect(page).to have_content 'Logout'
 end
 
 Then('I should be signed in') do
-  page.should have_content 'Hello Cucumber'
+  expect(page).to have_content 'Logout'
 end

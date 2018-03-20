@@ -4,7 +4,7 @@
       <div class="bg-white border px-15">
         <!--inject:../components/html/header-modal.html-->
         <%= render partial: 'layouts/header-modal' %>
-        <%= simple_form_for @user, defaults: { input_html: { class: 'form-control mb-0' } } do |f| %>
+        <%= simple_form_for @user, defaults: {input_html: {class: 'form-control mb-0'}} do |f| %>
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
@@ -29,7 +29,7 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
-                  <%= f.input :password, placeholder: 'Password', required: true %>
+                <%= f.input :password, placeholder: 'Password', required: true %>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
@@ -41,10 +41,10 @@
 
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
-              <div class="position-relative">
-                <%= f.input :flagship, :collection => User.flagships.keys, include_blank: false, include_hidden: false, class: "form-control" %>
-                </div>
+              <div class="position-relative show">
+                <%= f.input :flagship, collection: User.flagships.keys, include_blank: false, include_hidden: false, class: "form-control" %>
               </div>
+            </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
                 <input
