@@ -22,5 +22,4 @@ class User < ApplicationRecord
                   'Neuromuscular Disorders',
                   'Renal Genetic Disorders',
                   'Solid Tumours']
-
 end
