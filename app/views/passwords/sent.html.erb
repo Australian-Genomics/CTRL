@@ -1,0 +1,33 @@
+<div class="container my-15 my-sm-180">
+  <div class="row flex-column">
+    <div class="col-12 col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="bg-ice-one border px-15">
+        <header id="header" class="header">
+          <div class="container d-flex">
+            <a href="/" class="header__logo d-block mt-45 mx-auto">
+              <%= image_tag "agha-logo.png", alt: "logo", class: "h-100" %>
+            </a>
+          </div>
+        </header>
+        <form action="" method="post" class="mt-45">
+          <input
+          class="form-control"
+          type="hidden"
+          name="register-form"
+          value='home-page'
+          >
+
+          <p class="text-center mt-60 mb-30">
+            Your request was successfully sent.
+            We will get back to you as soon as
+            possible. Thank you!
+          </p>
+
+        </form>
+      </div>
+      <div class="mx-auto text-center py-3 bg-light">
+        <%= link_to "Log In", new_session_path(resource_name), class: "ml-2" %>
+      </div>
+    </div>
+  </div>
+</div>
