@@ -79,8 +79,10 @@ end
 
 Then('I should see the welcome message') do
   expect(page).to have_content 'Logout'
+  expect(page).to have_content 'registered'
 end
 
 Then('I should be signed in') do
   expect(page).to have_content 'Logout'
+  expect(page).to have_content 'Sushant'
 end
