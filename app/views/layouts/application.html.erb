@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Agha</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Agha</title>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-  <p class="alert"><%= alert %></p>
-  <p class="notice"><%= notice %></p>
-  <% if user_signed_in? %>
-    <li>
-      Logged in as <%= current_user.email %>
-      <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-    </li>
-  <% end %>
-    <%= yield %>
-  </body>
+<body>
+<% if user_signed_in? %>
+  <li>
+    Logged in as <%= current_user.email %>
+    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+  </li>
+<% end %>
+<%= yield %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</body>
 </html>

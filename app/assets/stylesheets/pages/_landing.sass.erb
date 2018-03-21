@@ -1,0 +1,18 @@
+.landing-page
+    position: relative
+    height: calc(100vh - 120px - 45px - #{$logo-height})
+
+    &__text
+        font-size: 24px
+
+    &__bg
+        position: absolute
+        z-index: -1
+        top: 240px
+        right: 0
+        bottom: 0
+        left: 0
+        background-image: url(<%= asset_path 'agha-bg-landing' %>)
+        background-position: top
+        background-repeat: no-repeat
+        background-size: cover

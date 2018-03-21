@@ -14,6 +14,7 @@ AllCops:
     - 'config/**/*'
     - 'bin/**/*'
     - 'Gemfile'
+    - 'vendor/**/*'
 
 Style/Documentation:
   Enabled: false

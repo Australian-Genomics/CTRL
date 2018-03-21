@@ -1,26 +1,41 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="container my-15 my-sm-180">
+  <div class="row flex-column">
+    <div class="col-12 col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="bg-white border px-15">
+        <%= render partial: 'layouts/header-modal' %>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-row">
+            <div class="col mb-30">
+              <div class="position-relative">
+                <%= f.label :email, for: "email", class: "position-absolute" %><br/>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: "Email" %>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col mb-30">
+              <div class="position-relative">
+                <%= f.label :password, for: "inputPassword", class: "position-absolute", placeholder: "Password" %><br/>
+                <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: "Password" %>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex">
+            <button
+            type="submit"
+            class="btn btn-primary mb-30 mx-auto">
+              Log In
+            </button>
+          </div>
+        <% end %>
+      </div>
+      <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
+                <span class="d-block">
+                    If you don’t have an account, please
+                </span>
+        <%= link_to "Register", new_registration_path(@user), class: "d-block ml-2 mt-2 mt-sm-0" %>
+      </div>
     </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
+<%#= render "devise/shared/links" %>

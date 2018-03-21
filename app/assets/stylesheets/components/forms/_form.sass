@@ -1,0 +1,39 @@
+form
+    .form-control
+        border: none
+        border-bottom: 2px solid $silver
+        border-radius: 0
+        box-shadow: none
+        padding: 15px 20px
+        height: 54px !important
+        font-size: 15px
+        &:focus
+            border: none
+            border-bottom: 2px solid $light-blue
+            box-shadow: none
+            ~ label
+                display: block !important
+        &[readonly]
+            background: inherit
+            cursor: pointer
+        &.invalid
+            color: $danger
+            ~ label
+                display: block !important
+                color: $danger
+
+    .dropdown-menu
+        right: 0
+        border: none
+        box-shadow: 0 20px 40px 0 rgba(73, 96, 136, 0.05)
+        button
+            cursor: pointer
+
+
+    label
+        display: none
+        left: 0
+        top: -12px
+        height: 12px
+        font-size: 10px
+        color: $silver
