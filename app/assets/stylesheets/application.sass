@@ -10,6 +10,21 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+
+@import "bootstrap/variables"
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap"
+
+@import helpers/mixins
+
+@import layout/colors
+@import layout/fonts
+@import layout/base
+
+@import components/header
+@import components/buttons/button
+@import components/forms/form
+
+@import pages/landing

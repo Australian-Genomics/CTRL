@@ -15,6 +15,10 @@ AllCops:
     - 'bin/**/*'
     - 'Gemfile'
     - 'vendor/**/*'
+
+
+
+
 Style/Documentation:
   Enabled: false
 
