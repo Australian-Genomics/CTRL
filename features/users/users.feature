@@ -13,6 +13,26 @@ Feature: Welcome Page
     And I fill in the user details
     Then I should see the welcome message
 
+  Scenario: User didn't fills the name while signing up
+    When I click on Register
+    And I fill in the user details without filling the first name
+    Then I should not see the welcome message
+
+  Scenario: User enters the invalid email while signing up
+    When I click on Register
+    And I fill in the user details with invalid email
+    Then I should see an error 'is invalid' on the page
+
+  Scenario: User enters the short password
+    When I click on Register
+    And I fill in the user details with short password
+    Then I should see an error under the password field
+
+  Scenario: User enters the wrong confirm password
+    When I click on Register
+    And I fill in the user details with wrong confirm password
+    Then I should see an error under the confirm password field
+
   Scenario: User signs in successfully
     Given I exist as a user
     And I am not logged in
