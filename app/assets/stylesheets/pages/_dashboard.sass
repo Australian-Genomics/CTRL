@@ -1,0 +1,9 @@
+$component: 'dashboard'
+
+.#{$component}
+
+    +element('topper')
+        box-shadow: 0 1px 0 0 $gray-100
+        @include media-breakpoint-down(xs)
+            .btn
+                width: 100%

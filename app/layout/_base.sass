@@ -1,0 +1,23 @@
+/* Common layout styles */
+
+*
+	font-family: $fontRoboto
+
+h1, .h1
+	font-weight: 300
+	@include media-breakpoint-down(md)
+		font-size: 36px
+h2, .h2
+	@include media-breakpoint-down(xs)
+		font-size: 24px
+
+.top-0
+	top: 0
+.right-0
+	right: 0
+
+.fit-contain
+	object-fit: contain
+
+.text-bigger
+	font-size: 18px

@@ -1,12 +1,12 @@
 // Color system
 
 $white:    #fff;
-$gray-100: #f5f7fa; // brand
-$gray-200: #e9ecef;
+$gray-100: #f5f7fa; //brand
+$gray-200: #e7eaef; //brand
 $gray-300: #dee2e6;
 $gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
+$gray-500: #9faec9; //brand
+$gray-600: #8f9bb0; //brand
 $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
@@ -28,13 +28,14 @@ $grays: map-merge((
 $indigo:  #6610f2;
 $purple:  #6f42c1;
 $pink:    #e83e8c;
-$red:     #dc3545;
+$red:     #db4402; //brand
 $orange:  #fd7e14;
 $yellow:  #ffc107;
-$teal:    #20c997;
 $cyan:    #17a2b8;
 $ice-one:       #fcfdff; //brand
 $ice-two:       #f8fbff; //brand
+$ice-blue:      #f1f7ff; //brand
+$teal:          #a8deef; //brand
 $blue:          #004d95; //brand
 $light-blue:    #02b0db; //brand
 $green:         #92cd8a; //brand
@@ -44,15 +45,12 @@ $silver:        #c4cad3; //brand
 
 $colors: ();
 $colors: map-merge((
-        //"blue":         $blue,
         "indigo":       $indigo,
         "purple":       $purple,
         "pink":         $pink,
         "red":          $red,
         "orange":       $orange,
         "yellow":       $yellow,
-        //"green":        $green,
-        "teal":         $teal,
         "cyan":         $cyan,
         "white":        $white,
         "gray":         $gray-600,
@@ -60,6 +58,8 @@ $colors: map-merge((
         "light-gray":   $gray-100,      //brand
         "ice-one":      $ice-one,       //brand
         "ice-two":      $ice-two,       //brand
+        "ice-blue":     $ice-blue,      //brand
+        "teal":         $teal,          //brand
         "blue":         $blue,          //brand
         "light-blue":   $light-blue,    //brand
         "green":        $green,         //brand
@@ -75,7 +75,7 @@ $info:          $cyan;
 $warning:       $yellow;
 $danger:        $red;
 $light:         $gray-100;
-$dark:          $gray-800;
+$dark:          $gray-600;
 
 $theme-colors: ();
 $theme-colors: map-merge((
@@ -87,8 +87,11 @@ $theme-colors: map-merge((
         "danger":       $danger,
         "light":        $light,
         "dark":         $dark,
+        "light-gray":   $gray-100,      //brand
         "ice-one":      $ice-one,       //brand
         "ice-two":      $ice-two,       //brand
+        "ice-blue":     $ice-blue,      //brand
+        "teal":         $teal,          //brand
         "blue":         $blue,          //brand
         "light-blue":   $light-blue,    //brand
         "green":        $green,         //brand
@@ -110,9 +113,12 @@ $spacers: map-merge((
         5: ($spacer * 3),     // 48px
         //custom
         "15":   15px,
+        "12":   12px,
+        "20":   20px,
         "30":   30px,
         "45":   45px,
         "60":   60px,
+        "90":   90px,
         "120":  120px,
         "180":  180px,
 ), $spacers);
@@ -120,65 +126,28 @@ $spacers: map-merge((
 
 // Body
 $body-color:      $dark-purple;
-$body-bg:         $ice-one;
-
-
-// Options
-//$enable-rounded:  false;
+$body-bg:         $ice-two;
 
 
 // Fonts
 //$font-family-sans-serif:      'Lato', 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-size-base:              1rem;
-//$font-weight-bold:            600;
-//
+
 //$headings-font-family:        'Poppins', sans-serif;
 //$headings-margin-bottom:      0;
 $headings-color:              $dark-blue;
-//
+
 $h1-font-size:  $font-size-base * 4.5;    // 72px
-//$h2-font-size:  $font-size-base * 2.5;    // 40px
-//$h3-font-size:  $font-size-base * 1.5;    // 24px
+$h2-font-size:  $font-size-base * 2.25;   // 36px
+$h3-font-size:  $font-size-base * 1.5;    // 24px
 //$h4-font-size:  $font-size-base * 1.375;  // 22px
 //$h5-font-size:  $font-size-base * 1.25;   // 20px
 //$h6-font-size:  $font-size-base * 1.125;  // 18px
-//
-//$display4-size:               2.25rem;
-//$display4-weight:             500;
-//$display-line-height:         1;
-//
-//$text-muted:                  $gray-400;
-
-
-// Links
-//$link-color:                $headings-color;
-//$link-hover-decoration:     none;
-
-
-// Grid breakpoints & containers
-//$grid-breakpoints: (
-//        xs: 0,
-//        sm: 576px,
-//        md: 768px,
-//        lg: 992px,
-//        xl: 1280px
-//);
-//$container-max-widths: (
-//        //sm: 540px,
-//        md: 720px,
-//        lg: 960px,
-//        xl: 1170px
-//);
 
 
 // Components
-//$line-height-base:  1.75;
-//$line-height-lg:    1.75;
-//$line-height-sm:    1.75;
-
 $border-width:                2px;
 $border-color:                $gray-100;
-
 $border-radius:               0;
 
 
@@ -187,24 +156,17 @@ $input-color:         $body-color;
 $input-border-color:  $silver;
 $input-placeholder-color:               $silver;
 
-//$input-padding-y:                       15px;
-//$input-padding-x:                       20px;
-//$input-line-height:                     1.5rem;
 
+// Navbar
+$navbar-light-color:                $body-color;
+$navbar-light-hover-color:          $body-color;
+$navbar-light-active-color:         $light-blue;
 
-// Dropdowns
-//$dropdown-padding-y:                0;
-//$dropdown-spacer:                   0;
-//$dropdown-bg:                       $blue;
-//$dropdown-border-width:             0;
-//$dropdown-divider-bg:               $white;
-//
-//$dropdown-link-color:               $white;
-//$dropdown-link-hover-color:         $white;
-//$dropdown-link-hover-bg:            $red;
+$navbar-padding-y:                  ($spacer / 2) !default;
+$navbar-padding-x:                  $spacer !default;
 
+$navbar-nav-link-padding-x:         .5rem !default;
 
-// Breadcrumbs
-//$breadcrumb-bg:                     none;
-//$breadcrumb-divider-color:          $white;
-//$breadcrumb-active-color:           $danger;
+//$nav-link-height:                   ($font-size-base * $line-height-base + $nav-link-padding-y * 2) !default;
+//$navbar-brand-height:               $navbar-brand-font-size * $line-height-base !default;
+//$navbar-brand-padding-y:            ($nav-link-height - $navbar-brand-height) / 2 !default;
