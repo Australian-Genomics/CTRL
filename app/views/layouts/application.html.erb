@@ -11,12 +11,6 @@
 </head>
 
 <body>
-<% if user_signed_in? %>
-  <li>
-    Logged in as <%= current_user.email %>
-    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-  </li>
-<% end %>
 <%= yield %>
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </body>

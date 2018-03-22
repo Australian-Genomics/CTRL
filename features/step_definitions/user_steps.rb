@@ -68,6 +68,46 @@ When('I fill in the user details') do
   sign_up
 end
 
+When('I did not fill in the user details') do
+  create_visitor
+  @visitor = @visitor.merge(first_name: '')
+  @visitor = @visitor.merge(family_name: '')
+  @visitor = @visitor.merge(email: '')
+  @visitor = @visitor.merge(password: '')
+  @visitor = @visitor.merge(password_confirmation: '')
+  sign_up
+end
+
+When('I fill in the user details without filling the first name') do
+  create_visitor
+  @visitor = @visitor.merge(first_name: '')
+  sign_up
+end
+
+When('I fill in the user details without filling the family name') do
+  create_visitor
+  @visitor = @visitor.merge(family_name: '')
+  sign_up
+end
+
+When('I fill in the user details with invalid email') do
+  create_visitor
+  @visitor = @visitor.merge(email: 'wrongexample.com')
+  sign_up
+end
+
+When('I fill in the user details with short password') do
+  create_visitor
+  @visitor = @visitor.merge(password: 'wrong')
+  sign_up
+end
+
+When('I fill in the user details with wrong confirm password') do
+  create_visitor
+  @visitor = @visitor.merge(password_confirmation: 'wrongpass')
+  sign_up
+end
+
 Then('I see an invalid login message') do
   expect(page).to have_content('If you don’t have an account, please Register')
 end
@@ -78,9 +118,33 @@ Then('I should be signed out') do
 end
 
 Then('I should see the welcome message') do
+  visit '/consent'
   expect(page).to have_content 'Logout'
+  expect(page).to have_content 'registered'
 end
 
 Then('I should be signed in') do
+  visit '/dashboard'
   expect(page).to have_content 'Logout'
+  expect(page).to have_content 'Sushant'
+end
+
+Then('I should not see the welcome message') do
+  expect(page).to have_content "can't be blank"
+end
+
+Then('I should see an error {string} on the page') do |_string|
+  expect(page).to have_content 'is invalid'
+end
+
+Then('I should see an error under the password field') do
+  expect(page).to have_content 'is too short (minimum is 6 characters)'
+end
+
+Then('I should see an error under the confirm password field') do
+  expect(page).to have_content "doesn't match Password"
+end
+
+Then('I should see the error cannot be blank') do
+  expect(page).to have_content "can't be blank"
 end

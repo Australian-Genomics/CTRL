@@ -15,8 +15,11 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.label :password, for: "inputPassword", class: "position-absolute", placeholder: "Password" %><br/>
+                <%= f.label :password, for: "inputPassword", class: "position-absolute" %><br/>
                 <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: "Password" %>
+                <div class="position-absolute top-0 right-0 h-100 d-flex">
+                  <%= link_to "Forgot?", new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
+                </div>
               </div>
             </div>
           </div>
