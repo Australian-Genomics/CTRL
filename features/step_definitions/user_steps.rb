@@ -74,6 +74,12 @@ When('I fill in the user details without filling the first name') do
   sign_up
 end
 
+When('I fill in the user details without filling the family name') do
+  create_visitor
+  @visitor = @visitor.merge(family_name: '')
+  sign_up
+end
+
 When('I fill in the user details with invalid email') do
   create_visitor
   @visitor = @visitor.merge(email: 'wrongexample.com')

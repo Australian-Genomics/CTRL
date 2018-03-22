@@ -13,9 +13,14 @@ Feature: Welcome Page
     And I fill in the user details
     Then I should see the welcome message
 
-  Scenario: User didn't fills the name while signing up
+  Scenario: User didn't fills the first name while signing up
     When I click on Register
     And I fill in the user details without filling the first name
+    Then I should not see the welcome message
+
+  Scenario: User didn't fills the family name while signing up
+    When I click on Register
+    And I fill in the user details without filling the family name
     Then I should not see the welcome message
 
   Scenario: User enters the invalid email while signing up
