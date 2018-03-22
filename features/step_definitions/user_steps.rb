@@ -68,7 +68,7 @@ When('I fill in the user details') do
   sign_up
 end
 
-When("I did not fill in the user details") do
+When('I did not fill in the user details') do
   create_visitor
   @visitor = @visitor.merge(first_name: '')
   @visitor = @visitor.merge(family_name: '')
@@ -145,6 +145,6 @@ Then('I should see an error under the confirm password field') do
   expect(page).to have_content "doesn't match Password"
 end
 
-Then("I should see the error cannot be blank") do
+Then('I should see the error cannot be blank') do
   expect(page).to have_content "can't be blank"
 end
