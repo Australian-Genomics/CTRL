@@ -118,9 +118,8 @@ Then('I should be signed out') do
 end
 
 Then('I should see the welcome message') do
-  visit '/consent'
-  expect(page).to have_content 'Logout'
-  expect(page).to have_content 'registered'
+  visit '/step_one'
+  expect(page).to have_content 'Introduction to this platform'
 end
 
 Then('I should be signed in') do
