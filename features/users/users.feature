@@ -13,6 +13,11 @@ Feature: Welcome Page
     And I fill in the user details
     Then I should see the welcome message
 
+  Scenario: User tries to sign up without filling in the details
+    When I click on Register
+    And I did not fill in the user details
+    Then I should see the error cannot be blank
+
   Scenario: User didn't fills the first name while signing up
     When I click on Register
     And I fill in the user details without filling the first name
