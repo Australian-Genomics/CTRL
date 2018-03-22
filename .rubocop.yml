@@ -16,8 +16,9 @@ AllCops:
     - 'Gemfile'
     - 'vendor/**/*'
 
-
-
+Style/SafeNavigation:
+  Exclude:
+    - 'features/**/*'
 
 Style/Documentation:
   Enabled: false
