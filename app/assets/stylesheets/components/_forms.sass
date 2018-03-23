@@ -16,11 +16,14 @@ form
         &[readonly]
             background: inherit
             cursor: pointer
+        ~ .error-label
+            display: none
         &.invalid
-            color: $danger
-            ~ label
-                display: block !important
+            ~ .error-label
+                display: block
+                left: 0
                 color: $danger
+                font-size: 12px
 
     .dropdown-menu
         right: 0

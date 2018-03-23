@@ -3,4 +3,7 @@
     <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
   </li>
 <% end %>
-<%= current_user.first_name %> has been registered..!!
+<%= link_to('Back', step_one_path) %>
+<%= link_to('Save and Exit', '/dashboard') %>
+<%= link_to('Next' ) %>
+

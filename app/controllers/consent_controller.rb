@@ -1,4 +1,7 @@
 class ConsentController < ApplicationController
   before_action :authenticate_user!
-  def index; end
+
+  def step_one; end
+
+  def step_two; end
 end

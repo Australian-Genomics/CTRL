@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { passwords: 'passwords' }
-  resources :users, :dashboard, :consent
+  resources :users, :dashboard
+    get "step_one", to: "consent#step_one", as: "step_one"
+    get "step_two", to: "consent#step_two", as: "step_two"
   devise_scope :user do
     get '/passwords/sent'
   end

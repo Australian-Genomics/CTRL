@@ -1,0 +1,113 @@
+$component: 'controls'
+
+%checkbox
+    left: 7px
+    top: 3px
+    width: 8px
+    height: 13px
+    border: solid $gray-500
+    border-width: 0 2px 2px 0
+    transform: rotate(40deg)
+
+%radiobutton
+    top: 3px
+    left: 3px
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    background: $gray-500
+
+.#{$component}
+
+    // Customize the label (the $component)
+
+    display: block
+    position: relative
+    top: 0
+    padding-left: 24px
+    margin-bottom: 12px
+    cursor: pointer
+    font-size: 16px
+    user-select: none
+    color: $gray-600
+
+    // Hide the browser's default checkbox
+    input
+        position: absolute
+        opacity: 0
+        cursor: pointer
+
+    // Create a custom checkbox
+    .checkmark
+        position: absolute
+        top: 0
+        left: 0
+        height: 24px
+        width: 24px
+        background-color: $white
+        border-radius: 99px
+        border: solid 1px $gray-200
+        text-align: center
+    +element('radio')
+        .checkmark
+            height: 18px
+            width: 18px
+            margin-top: 2px
+
+    // On mouse-over, add a background color
+    //&:hover input ~ .checkmark
+    //    background-color: #ccc
+
+    // When the checkbox is checked, add a b background */
+    input:checked ~ .label-text
+        color: $dark-purple
+    +element('checkbox')
+        +modifier('blue')
+            input:checked ~ .checkmark
+                background-color: $light-blue
+                border-color: $light-blue
+    +element('radio')
+        +modifier('blue')
+            input:checked ~ .checkmark
+                border: 2px solid $light-blue
+        +modifier('red')
+            input:checked ~ .checkmark
+                border: 2px solid $red
+        +modifier('green')
+            input:checked ~ .checkmark
+                border: 2px solid $green
+
+    // Create the checkmark/indicator (hidden w not checked) */
+    .checkmark:after
+        content: ""
+        position: absolute
+        display: none
+    +element('checkbox')
+        .checkmark:after
+            content: ""
+            position: absolute
+            @extend %checkbox
+            display: block
+
+    // Show the checkmark when checked
+    input:checked ~ .checkmark:after
+        display: block
+        border-color: $white
+
+    // Style the checkmark/indicator
+    +element('checkbox')
+        .checkmark:after
+            @extend %checkbox
+    +element('radio')
+        +modifier('blue')
+            .checkmark:after
+                @extend %radiobutton
+                background: $light-blue
+        +modifier('red')
+            .checkmark:after
+                @extend %radiobutton
+                background: $red
+        +modifier('green')
+            .checkmark:after
+                @extend %radiobutton
+                background: $green
