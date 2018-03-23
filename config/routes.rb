@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { passwords: 'passwords' }
+  devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations' }
   resources :users, :dashboard
     get "step_one", to: "consent#step_one", as: "step_one"
     get "step_two", to: "consent#step_two", as: "step_two"
