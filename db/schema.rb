@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2018_03_14_044357) do
     t.string "state"
     t.string "post_code"
     t.string "flagship"
+    t.string "steps"
     t.boolean "is_parent"
     t.string "kin_first_name"
     t.string "kin_middle_name"
