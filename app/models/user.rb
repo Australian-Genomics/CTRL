@@ -22,4 +22,11 @@ class User < ApplicationRecord
                   'Neuromuscular Disorders',
                   'Renal Genetic Disorders',
                   'Solid Tumours']
+
+    enum steps: [ 'step_one',
+                  'step_two',
+                  'step_three',
+                  'step_four',
+                  'step_five' ]
+
 end

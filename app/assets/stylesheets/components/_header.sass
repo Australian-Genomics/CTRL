@@ -7,6 +7,11 @@ $logo-height: 45px
         height: 200px
         font-size: 18px
 
+    +modifier('big')
+        height: 140px
+        @include media-breakpoint-up(md)
+            height: 200px
+
     +element('logo')
         height: $logo-height
 
@@ -20,6 +25,9 @@ $logo-height: 45px
             position: absolute
             left: 0
             padding-left: 90px
+            +modifier('big')
+                position: static
+                padding-left: 0
 
     +element('progress-wrapper')
         max-width: 460px

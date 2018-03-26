@@ -111,3 +111,60 @@ $component: 'controls'
             .checkmark:after
                 @extend %radiobutton
                 background: $green
+
+
+    // Switcher
+
+    +element('switch')
+        /* The switch - the box around the slider */
+        position: relative
+        display: inline-block
+        width: 42px
+        height: 24px
+
+        /* Hide default HTML checkbox */
+        input
+            display: none
+
+        /* The slider */
+        .slider
+            position: absolute
+            cursor: pointer
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            border-radius: 34px
+            background-color: $red
+            transition: .4s
+
+        .slider:before
+            position: absolute
+            content: ""
+            height: 18px
+            width: 18px
+            left: 3px
+            bottom: 3px
+            border-radius: 50%
+            background-color: white
+            box-shadow: 3px 3px 12px 0 rgba(0, 0, 0, 0.2)
+            transition: .4s
+
+        input:checked + .slider
+            background-color: $green
+
+        input:focus + .slider
+            box-shadow: 0 0 1px $green
+
+        input:checked + .slider:before
+            transform: translateX(18px)
+
+
+    // Datetimepicker
+
+    +element('datetimepicker')
+        right: 24px
+        top: 0
+        bottom: 0
+        display: flex
+        align-items: center

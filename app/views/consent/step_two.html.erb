@@ -1,9 +1,207 @@
-<% if user_signed_in? %>
-  <li>
-    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-  </li>
-<% end %>
-<%= link_to('Back', step_one_path) %>
-<%= link_to('Save and Exit', '/dashboard') %>
-<%= link_to('Next' ) %>
+<header id="header" class="header header_steps position-relative bg-ice-one">
+  <div class="container">
+    <div class="row px-15">
+      <div class="header__logo-wrapper col-12 d-flex">
+        <a
+        href="/"
+        class="header__logo d-block mt-45 mx-auto ml-xl-0"
+        >
+          <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+        </a>
+      </div>
+      <div class="col-12 col-md-8 col-xl mx-auto mt-30 mt-xl-45">
+        <div class="header__progress-wrapper mx-auto">
+          <div class="mb-2">Step 2 of 5</div>
+          <div class="header__progress header__progress_step2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="steps steps_pushed-up container">
+  <div class="row">
+    <div class="steps__box col mx-auto">
+      <form action="" method="post" class="bg-ice-one border pt-30 px-30">
+        <h3 class="text-center mt-2 mb-15">
+          Consent for genomics test
+        </h3>
+        <div class="d-flex mb-30">
+          <p class="steps__description text-center mx-auto mb-0">
+            You will need to agree to ALL of the below
+            statements to get a genomics test.
+          </p>
+        </div>
+        <div class="options">
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand that xxxx
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow1"
+              aria-expanded="false"
+              aria-controls="stepsRow1"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <input type="checkbox" name="" checked="checked">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow1"
+            >
+              <div>
+                Every new computer that’s brought home from the
+                store has an operating system installed onto it. But
+                what most new computer users don’t realize, is that
+                without an operating system, that computer would be
+                a simple shell of possibilities. A powered computer
+                lacking an operating system wouldn’t display
+                anything more than a bunch of confusing text
+                messages that describe the computer’s boot process.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I acknowledge that xxxx
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow2"
+              aria-expanded="false"
+              aria-controls="stepsRow2"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <input type="checkbox" name="" checked="checked">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow2"
+            >
+              <div>
+                Every new computer that’s brought home from the
+                store has an operating system installed onto it. But
+                what most new computer users don’t realize, is that
+                without an operating system, that computer would be
+                a simple shell of possibilities. A powered computer
+                lacking an operating system wouldn’t display
+                anything more than a bunch of confusing text
+                messages that describe the computer’s boot process.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand that xxxx
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow3"
+              aria-expanded="false"
+              aria-controls="stepsRow3"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <input type="checkbox" name="">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow3"
+            >
+              <div>
+                Every new computer that’s brought home from the
+                store has an operating system installed onto it. But
+                what most new computer users don’t realize, is that
+                without an operating system, that computer would be
+                a simple shell of possibilities. A powered computer
+                lacking an operating system wouldn’t display
+                anything more than a bunch of confusing text
+                messages that describe the computer’s boot process.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I acknowledge that xxxx
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow4"
+              aria-expanded="false"
+              aria-controls="stepsRow4"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <input type="checkbox" name="">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow4"
+            >
+              <div>
+                Every new computer that’s brought home from the
+                store has an operating system installed onto it. But
+                what most new computer users don’t realize, is that
+                without an operating system, that computer would be
+                a simple shell of possibilities. A powered computer
+                lacking an operating system wouldn’t display
+                anything more than a bunch of confusing text
+                messages that describe the computer’s boot process.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex text-right mt-3 mb-2 pr-3">
+          <span class="ml-auto mr-2">Select All</span>
+          <label class="controls controls__checkbox controls__checkbox_blue">
+            <input id="controlsSelectAll" type="checkbox" onclick="selectAllOptions()" name="">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+
+        <div class="d-flex text-right pr-3">
+          <span class="ml-auto mr-2">Unselect All</span>
+          <label class="controls controls__checkbox controls__checkbox_blue">
+            <input id="controlsUnselectAll1" type="checkbox" onclick="unselectAllOptions()" name="">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="row flex-md-row">
+          <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
+            <%= link_to('Back', step_one_path, class: "btn btn-outline-success mr-auto") %>
+          </div>
+          <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
+            <%= link_to('Next', step_three_path, class: "btn btn-success ml-auto") %>
+          </div>
+          <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
+            <%= link_to('Save and Exit', '/dashboard', class: "steps__btn-save btn btn-primary mx-auto") %>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
 
