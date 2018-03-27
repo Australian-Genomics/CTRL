@@ -45,6 +45,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'letter_opener'
   gem 'factory_bot_rails'
+  gem 'awesome_print'
 end
 
 group :development do
