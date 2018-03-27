@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-=======
-<% if user_signed_in? %>
-  <li>
-    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-  </li>
-<% end %>
->>>>>>> e7fe8831a8badd383d575beeed7428aad4b5aadd
 <header id="header" class="header header_steps position-relative bg-ice-one">
   <div class="container">
     <div class="row px-15">
@@ -29,22 +21,24 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <form action="" method="post" class="bg-ice-one border pt-30 px-30">
+      <%= form_tag('/confirm_answers', class: "bg-ice-one border pt-30 px-30") do %>
         <h3 class="text-center mt-2 mb-15">
           Consent for genomics test
         </h3>
         <div class="d-flex mb-30">
           <p class="steps__description text-center mx-auto mb-0">
-            You will need to agree to ALL of the below
-            statements to get a genomics test.
+            This section follows on from your consent to participate in the Australian Genomics study. Your doctor or
+            genetic counsellor will have already discussed the genomic test with you. The answers are all pre-selected,
+            meaning that you understand and agree to have the test. If you unselect any statements we will contact you
+            to talk about whether you still consent to having the test.
           </p>
         </div>
-<<<<<<< HEAD
         <div class="options">
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand that xxxx
+                I understand I have provided a sample so that my DNA can be extracted and all of my genes could be
+                looked at. This is called a genomic test.
               </div>
               <i
               class="icon__i mr-30 mr-sm-60"
@@ -55,7 +49,7 @@
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
-                <input type="checkbox" name="" checked="checked">
+                <%= check_box_tag("answer_1", "", true, onclick: "Options()") %>
                 <span class="checkmark"></span>
               </label>
             </div>
@@ -64,14 +58,18 @@
             id="stepsRow1"
             >
               <div>
-                Every new computer that’s brought home from the
-                store has an operating system installed onto it. But
-                what most new computer users don’t realize, is that
-                without an operating system, that computer would be
-                a simple shell of possibilities. A powered computer
-                lacking an operating system wouldn’t display
-                anything more than a bunch of confusing text
-                messages that describe the computer’s boot process.
+                The sample you have given may have been blood, saliva, hair follicle, skin or other sample already
+                collected as part of your medical care. All of these samples contain your cells, and your DNA can be
+                extracted from the cells in the sample. Your DNA is needed for the genomic test.
+                DNA makes up genes. Genes are inside almost every cell of your body. There are over 20,000 genes in each
+                of your cells, and together these genes make up your “genome”. Each gene has a specific function,
+                however the function of all genes is not yet known. Variations in genetic information in different
+                people can occur, which is why we are all unique. Most variations are harmless, but other variations can
+                make a gene not work, resulting in a disorder or health condition. Identifying variations may help to
+                find the cause of your health condition.
+                Previously, testing to look for variations in genes involved looking at only one gene at a time. There
+                are now new ways where tests can look at many or all of our genes at once. This is known as “genomic
+                testing”.
               </div>
             </div>
           </div>
@@ -79,7 +77,7 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I acknowledge that xxxx
+                I understand having a genomic test may not find the genetic cause of my condition.
               </div>
               <i
               class="icon__i mr-30 mr-sm-60"
@@ -90,7 +88,7 @@
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
-                <input type="checkbox" name="" checked="checked">
+                <%= check_box_tag("answer_2", "", true, onclick: "Options()") %>
                 <span class="checkmark"></span>
               </label>
             </div>
@@ -99,14 +97,12 @@
             id="stepsRow2"
             >
               <div>
-                Every new computer that’s brought home from the
-                store has an operating system installed onto it. But
-                what most new computer users don’t realize, is that
-                without an operating system, that computer would be
-                a simple shell of possibilities. A powered computer
-                lacking an operating system wouldn’t display
-                anything more than a bunch of confusing text
-                messages that describe the computer’s boot process.
+                The likelihood of finding a genetic cause depends on a number of things, including your health condition
+                and how much is already known about it. We are still learning about what genes do and how they work.
+                Between 30 and 60% of rare disease patients receive a diagnosis through genomic testing. That is, 3 to 6
+                people in every 10 tested will receive a genetic explanation for their condition. We expect more
+                patients will receive a diagnosis in the future, as the technology and our ability to interpret genomic
+                information improve.
               </div>
             </div>
           </div>
@@ -114,7 +110,8 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand that xxxx
+                I understand my sample and genomic information will be stored by the testing laboratory so that it could
+                be looked at again in the future, when we know more about genes that cause my health condition.
               </div>
               <i
               class="icon__i mr-30 mr-sm-60"
@@ -125,7 +122,7 @@
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
-                <input type="checkbox" name="">
+                <%= check_box_tag("answer_3", "", false, onclick: "Options()") %>
                 <span class="checkmark"></span>
               </label>
             </div>
@@ -134,14 +131,12 @@
             id="stepsRow3"
             >
               <div>
-                Every new computer that’s brought home from the
-                store has an operating system installed onto it. But
-                what most new computer users don’t realize, is that
-                without an operating system, that computer would be
-                a simple shell of possibilities. A powered computer
-                lacking an operating system wouldn’t display
-                anything more than a bunch of confusing text
-                messages that describe the computer’s boot process.
+                How long the laboratory stores the sample is defined by its own standard practices and relevant legal
+                requirements. You should expect the sample may be kept for at least three months, but perhaps years.
+                The testing laboratory will keep the genomic information they get from your sample so that if there is a
+                specific reason or request to do so, they can look at your genomic information again (do a re-analysis).
+                An example of when this might be done is if new gene variants linked with your health condition are
+                identified.
               </div>
             </div>
           </div>
@@ -149,7 +144,8 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I acknowledge that xxxx
+                I understand that my genomic testing results will be considered confidential but shared with the medical
+                team involved in my care.
               </div>
               <i
               class="icon__i mr-30 mr-sm-60"
@@ -160,7 +156,7 @@
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
-                <input type="checkbox" name="">
+                <%= check_box_tag("answer_4", "", false, onclick: "Options()") %>
                 <span class="checkmark"></span>
               </label>
             </div>
@@ -169,23 +165,237 @@
             id="stepsRow4"
             >
               <div>
-                Every new computer that’s brought home from the
-                store has an operating system installed onto it. But
-                what most new computer users don’t realize, is that
-                without an operating system, that computer would be
-                a simple shell of possibilities. A powered computer
-                lacking an operating system wouldn’t display
-                anything more than a bunch of confusing text
-                messages that describe the computer’s boot process.
+                This may include your Clinical Geneticist and other specialist doctors, Genetic Counsellor and GP.
               </div>
             </div>
           </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand that the testing laboratory may share my anonymised genomic information with other
+                laboratories, in order to understand more about the genetic changes that can cause my health condition
+                or other conditions.
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow5"
+              aria-expanded="false"
+              aria-controls="stepsRow5"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <%= check_box_tag("answer_5", "", false, onclick: "Options()") %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow5"
+            >
+              <div>
+                Sharing your genomic information could be with clinical or research laboratories. All of your personal
+                information is removed before it is shared, so there is very little chance it could be linked back to
+                you. Your information is anonymised in this case, meaning the record that it is your sample is not kept.
+                This means that you will probably not personally benefit from anything that sharing your information
+                finds.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand the laboratory performing my test will store and may sometimes use my DNA sample for
+                purposes like reference and control material.
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow6"
+              aria-expanded="false"
+              aria-controls="stepsRow6"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <%= check_box_tag("answer_6", "", false, onclick: "Options()") %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow6"
+            >
+              <div>
+                Your DNA is stored in the testing laboratory, for at least three months, but perhaps years.
+                When doing any laboratory test, it is important to compare the test sample with a control sample. Your
+                DNA may end up being used as the control sample. All of your personal, identifying information will be
+                removed from it, if it is used for this purpose.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand there are certain risks involved in having a genomic test. These may include finding out
+                something that may be important for my family’s health, incidental findings, or having to disclose the
+                genomic information.
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow7"
+              aria-expanded="false"
+              aria-controls="stepsRow7"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <%= check_box_tag("answer_7", "", false, onclick: "Options()") %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow7"
+            >
+              <div>
+                The main risks involved in having a genomic test are related to the information that you may get, rather
+                than any physical harm.
+                Waiting for the test results, or the results you receive, may bring up a number of different emotions.
+                We may be uncertain about the significance of your result.
+                It may be uncomfortable or cause stress to share a result with your family.
+                The test may find something important to your health that you or the doctors were not expecting (an
+                inicidental finding).
+                You may have to disclosure the information to insurance companies or employers (there is more
+                information on this below).
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand that it might be important to tell my family members about genetic changes that could
+                directly affect their health. Every attempt will be made for them to receive that information from me,
+                supported by my medical team.
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow8"
+              aria-expanded="false"
+              aria-controls="stepsRow8"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <%= check_box_tag("answer_8", "", false, onclick: "Options()") %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow8"
+            >
+              <div>
+                Family members who may have an interest in knowing about your result are your biological, or blood
+                relatives. These people could include your parents, children, aunties and uncles and cousins. If you are
+                planning to have (more) children with your partner, they may need to know. Exactly who needs to know is
+                different on a case by case basis. Your medical team will help you by telling you who will need to know.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand that if I am taking out a new policy for life, critical illness or income protection
+                insurance, the insurer may ask me to disclose that I have had a genetic test and require me to provide
+                my results.
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow9"
+              aria-expanded="false"
+              aria-controls="stepsRow9"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <%= check_box_tag("answer_9", "", false, onclick: "Options()") %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow9"
+            >
+              <div>
+                In Australia, how having had genetic or genomic testing affects your ability to gain certain types of
+                insurance is currently being debated by government. If you would like more information about the impact
+                of genetic testing on certain insurance products, visit the Centre for Genetics Education insurance fact
+                sheet.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand my employer, or future employers, may ask for my results to decide whether there is a risk
+                associated with a particular job role.
+              </div>
+              <i
+              class="icon__i mr-30 mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow10"
+              aria-expanded="false"
+              aria-controls="stepsRow10"
+              >
+              </i>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <%= check_box_tag("answer_10", "", false, onclick: "Options()") %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow10"
+            >
+              <div>
+                It is lawful for an employer to ask for your genetic testing results, if they think it is relevant in
+                deciding whether you are able to fulfil a job role.
+                In reality, very few employers do ask for your genetic testing results at this time, but it's important
+                that you know it may become more relevant in the future.
+              </div>
+            </div>
+          </div>
+
+          <div class="steps__row">
+            <div class="steps__row-main">
+              <div class="mr-auto">
+                I understand all of the information and statements well enough to answer them.
+              </div>
+              <label class="controls controls__checkbox controls__checkbox_blue">
+                <%= check_box_tag("answer_11", "", false, onclick: "Options()") %>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div
+            class="steps__row-collapse collapse"
+            id="stepsRow11"
+            >
+            </div>
+          </div>
+
         </div>
+
 
         <div class="d-flex text-right mt-3 mb-2 pr-3">
           <span class="ml-auto mr-2">Select All</span>
           <label class="controls controls__checkbox controls__checkbox_blue">
-            <input id="controlsSelectAll" type="checkbox" onclick="selectAllOptions()" name="">
+            <%= check_box_tag("answer_5", "", false, id: "controlsSelectAll", onclick: "selectAllOptions()") %>
             <span class="checkmark"></span>
           </label>
         </div>
@@ -193,7 +403,7 @@
         <div class="d-flex text-right pr-3">
           <span class="ml-auto mr-2">Unselect All</span>
           <label class="controls controls__checkbox controls__checkbox_blue">
-            <input id="controlsUnselectAll1" type="checkbox" onclick="unselectAllOptions()" name="">
+            <%= check_box_tag("answer_5", "", false, id: "controlsUnselectAll", onclick: "unselectAllOptions()") %>
             <span class="checkmark"></span>
           </label>
         </div>
@@ -202,193 +412,13 @@
             <%= link_to('Back', step_one_path, class: "btn btn-outline-success mr-auto") %>
           </div>
           <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-            <%= link_to('Next', step_three_path, class: "btn btn-success ml-auto") %>
+            <%= submit_tag('Next', class: "btn btn-success ml-auto", onchange: "ButtonOptions") %>
           </div>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
             <%= link_to('Save and Exit', '/dashboard', class: "steps__btn-save btn btn-primary mx-auto") %>
           </div>
         </div>
-
-      </form>
+      <% end %>
     </div>
   </div>
 </section>
-=======
->>>>>>> e7fe8831a8badd383d575beeed7428aad4b5aadd
-
-        <div class="steps__row">
-          <div class="steps__row-main">
-            <div class="mr-auto">
-              I understand that xxxx
-            </div>
-            <i
-            class="icon__i mr-30 mr-sm-60"
-            data-toggle="collapse"
-            data-target="#stepsRow1"
-            aria-expanded="false"
-            aria-controls="stepsRow1"
-            >
-            </i>
-            <label class="controls controls__checkbox controls__checkbox_blue">
-              <input type="checkbox" name="" checked="checked">
-              <span class="checkmark"></span>
-            </label>
-            <%= check_box("tag", tag.id, {checked: true}, class: "controls controls__checkbox controls__checkbox_blue") %>
-          </div>
-          <div
-          class="steps__row-collapse collapse"
-          id="stepsRow1"
-          >
-            <div>
-              Every new computer that’s brought home from the
-              store has an operating system installed onto it. But
-              what most new computer users don’t realize, is that
-              without an operating system, that computer would be
-              a simple shell of possibilities. A powered computer
-              lacking an operating system wouldn’t display
-              anything more than a bunch of confusing text
-              messages that describe the computer’s boot process.
-            </div>
-          </div>
-        </div>
-
-        <div class="steps__row">
-          <div class="steps__row-main">
-            <div class="mr-auto">
-              I acknowledge that xxxx
-            </div>
-            <i
-            class="icon__i mr-30 mr-sm-60"
-            data-toggle="collapse"
-            data-target="#stepsRow2"
-            aria-expanded="false"
-            aria-controls="stepsRow2"
-            >
-            </i>
-            <label class="controls controls__checkbox controls__checkbox_blue">
-              <input type="checkbox" name="" checked="checked">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div
-          class="steps__row-collapse collapse"
-          id="stepsRow2"
-          >
-            <div>
-              Every new computer that’s brought home from the
-              store has an operating system installed onto it. But
-              what most new computer users don’t realize, is that
-              without an operating system, that computer would be
-              a simple shell of possibilities. A powered computer
-              lacking an operating system wouldn’t display
-              anything more than a bunch of confusing text
-              messages that describe the computer’s boot process.
-            </div>
-          </div>
-        </div>
-
-        <div class="steps__row">
-          <div class="steps__row-main">
-            <div class="mr-auto">
-              I understand that xxxx
-            </div>
-            <i
-            class="icon__i mr-30 mr-sm-60"
-            data-toggle="collapse"
-            data-target="#stepsRow3"
-            aria-expanded="false"
-            aria-controls="stepsRow3"
-            >
-            </i>
-            <label class="controls controls__checkbox controls__checkbox_blue">
-              <input type="checkbox" name="">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div
-          class="steps__row-collapse collapse"
-          id="stepsRow3"
-          >
-            <div>
-              Every new computer that’s brought home from the
-              store has an operating system installed onto it. But
-              what most new computer users don’t realize, is that
-              without an operating system, that computer would be
-              a simple shell of possibilities. A powered computer
-              lacking an operating system wouldn’t display
-              anything more than a bunch of confusing text
-              messages that describe the computer’s boot process.
-            </div>
-          </div>
-        </div>
-
-        <div class="steps__row">
-          <div class="steps__row-main">
-            <div class="mr-auto">
-              I acknowledge that xxxx
-            </div>
-            <i
-            class="icon__i mr-30 mr-sm-60"
-            data-toggle="collapse"
-            data-target="#stepsRow4"
-            aria-expanded="false"
-            aria-controls="stepsRow4"
-            >
-            </i>
-            <label class="controls controls__checkbox controls__checkbox_blue">
-              <input type="checkbox" name="">
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div
-          class="steps__row-collapse collapse"
-          id="stepsRow4"
-          >
-            <div>
-              Every new computer that’s brought home from the
-              store has an operating system installed onto it. But
-              what most new computer users don’t realize, is that
-              without an operating system, that computer would be
-              a simple shell of possibilities. A powered computer
-              lacking an operating system wouldn’t display
-              anything more than a bunch of confusing text
-              messages that describe the computer’s boot process.
-            </div>
-          </div>
-        </div>
-
-        <div class="d-flex text-right mt-3 mb-2 pr-3">
-          <span class="ml-auto mr-2">Select All</span>
-          <label class="controls controls__checkbox controls__checkbox_blue">
-            <input id="controlsSelectAll" type="checkbox" name="">
-            <span class="checkmark"></span>
-          </label>
-        </div>
-
-        <div class="d-flex text-right pr-3">
-          <span class="ml-auto mr-2">Unselect All</span>
-          <label class="controls controls__checkbox controls__checkbox_blue">
-            <input id="controlsUnselectAll" type="checkbox" name="">
-            <span class="checkmark"></span>
-          </label>
-        </div>
-        <div class="row flex-md-row">
-          <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
-            <%= link_to('Back', step_one_path, class: "btn btn-outline-success mr-auto") %>
-          </div>
-          <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-            <%= link_to('Next',step_three_path, class: "btn btn-success ml-auto") %>
-          </div>
-          <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
-            <%= link_to('Save and Exit', '/dashboard', class: "steps__btn-save btn btn-primary mx-auto") %>
-          </div>
-        </div>
-
-      </form>
-    </div>
-  </div>
-</section>
-<%= simple_form_for @user do |f| %>
-  <%= f.input :steps %>
-  <%= f.button :submit %>
-<% end %>
