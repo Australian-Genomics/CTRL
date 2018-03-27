@@ -21,7 +21,7 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= form_tag('/confirm_answers', class: "bg-ice-one border pt-30 px-30") do %>
+      <%= form_tag('/review_answers', class: "bg-ice-one border pt-30 px-30", id:"step_two_form") do %>
         <h3 class="text-center mt-2 mb-15">
           Consent for genomics test
         </h3>
@@ -111,7 +111,7 @@
             <div class="steps__row-main">
               <div class="mr-auto">
                 I understand my sample and genomic information will be stored by the testing laboratory so that it could
-                be looked at again in the future, when we know more about genes that cause my health condition.
+                be looked at again in the </br> future, when we know more about genes that cause my health condition.
               </div>
               <i
               class="icon__i mr-30 mr-sm-60"
@@ -310,7 +310,7 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand that if I am taking out a new policy for life, critical illness or income protection
+                I understand that if I am taking out a new policy for life, critical </br> illness or income protection
                 insurance, the insurer may ask me to disclose that I have had a genetic test and require me to provide
                 my results.
               </div>
@@ -412,7 +412,7 @@
             <%= link_to('Back', step_one_path, class: "btn btn-outline-success mr-auto") %>
           </div>
           <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-            <%= submit_tag('Next', class: "btn btn-success ml-auto", onchange: "ButtonOptions") %>
+            <%= submit_tag('Next', class: "btn btn-success ml-auto") %>
           </div>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
             <%= link_to('Save and Exit', '/dashboard', class: "steps__btn-save btn btn-primary mx-auto") %>

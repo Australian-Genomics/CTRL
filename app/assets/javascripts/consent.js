@@ -1,13 +1,13 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 function selectAllOptions() {
-        $("#controlsUnselectAll").each(function () {
-            this.checked = false
-        });
-        $(".options .controls__checkbox input").each(function () {
-            this.checked = true
-        });
-    // debugger
+    $("#controlsUnselectAll").each(function () {
+        this.checked = false
+    });
+    $(".options .controls__checkbox input").each(function () {
+        this.checked = true
+    });
+    changeFormRoute();
 }
 
 function unselectAllOptions() {
@@ -17,6 +17,7 @@ function unselectAllOptions() {
     $(".options .controls__checkbox input").each(function () {
         this.checked = false
     });
+    changeFormRoute();
 }
 
 function Options() {
@@ -26,11 +27,12 @@ function Options() {
     $("#controlsUnselectAll").each(function () {
         this.checked = false
     });
+    changeFormRoute();
 }
-
-function ButtonOptions() {
-    if ($(".options .controls__checkbox input")) {
-        this.checked = false
+function changeFormRoute() {
+    if ($('.options input[type="checkbox"]').length == $('.options input[type="checkbox"]:checked').length) {
+        $("#step_two_form")[0].action = 'confirm_answers'
+    } else {
+        $("#step_two_form")[0].action = 'review_answers'
     }
-    location.href = "/review_answers"
 }
