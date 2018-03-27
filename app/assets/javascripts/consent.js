@@ -18,3 +18,19 @@ function unselectAllOptions() {
         this.checked = false
     });
 }
+
+function Options() {
+    $("#controlsSelectAll").each(function () {
+        this.checked = false
+    });
+    $("#controlsUnselectAll").each(function () {
+        this.checked = false
+    });
+}
+
+function ButtonOptions() {
+    if ($(".options .controls__checkbox input")) {
+        this.checked = false
+    }
+    location.href = "/review_answers"
+}
