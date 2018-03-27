@@ -23,9 +23,9 @@ class User < ApplicationRecord
                   'Renal Genetic Disorders',
                   'Solid Tumours']
 
-  enum steps: %w[step_one
-                 step_two
-                 step_three
-                 step_four
-                 step_five]
+  enum current_consent_step: ['step_one',
+                              'step_two',
+                              'step_three',
+                              'step_four',
+                              'step_five']
 end
