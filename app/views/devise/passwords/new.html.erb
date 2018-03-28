@@ -3,15 +3,14 @@
     <div class="col-12 col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="bg-ice-one border px-15">
         <%= render partial: 'layouts/header-modal' %>
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, defaults: {input_html: {class: 'form-control mb-0 pr-60'}}) do |f| %>
           <p class="text-center mt-60">
             Please enter the email address you registered with to receive a link to reset your password.
           </p>
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.label :email %><br/>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-0 pr-60", id: "email", placeholder: "Email", required: true %>
+                <%= f.input :email, required: true, autofocus: true, placeholder: "Email", error: "Invalid E-mail" %>
               </div>
             </div>
           </div>
