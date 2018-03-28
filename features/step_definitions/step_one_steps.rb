@@ -2,21 +2,21 @@ When('I click on Next') do
   click_link('Next')
 end
 
-When('I click on Save and Exit') do
+When('I click on link Save and Exit') do
   click_link('Save and Exit')
 end
 
-Then('I should see the step one of consent') do
+Then('I should be on the step one of consent') do
   expect(page).to have_content('Introduction to this platform')
   expect(page).to have_link('Next')
   expect(page).to have_link('Save and Exit')
 end
 
-Then('I should see the step two of the consent') do
+Then('I should be on the step two of the consent') do
   expect(page).to have_link('Back')
 end
 
-Then('I should come back to the step one') do
+Then('I should come back to the step one page') do
   click_link('Back')
 end
 
