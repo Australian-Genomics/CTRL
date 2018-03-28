@@ -1,4 +1,4 @@
-When('I click on Next') do
+When('I click on link Next') do
   click_link('Next')
 end
 

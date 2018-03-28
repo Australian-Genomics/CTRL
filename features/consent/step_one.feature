@@ -11,14 +11,14 @@ Feature: Consent Page
   Scenario: User signs up successfully
     When I click on Register
     And I fill in the user details
-    Then I should see the step one of consent
+    Then I should be on the step one of consent
 
   Scenario: User can go to the step two of the consent
     When I click on Register
     And I fill in the user details
-    Then I should see the step one of consent
-    When I click on Next
-    Then I should see the step two of the consent
-    And I should come back to the step one
-    When I click on Save and Exit
+    Then I should be on the step one of consent
+    When I click on link Next
+    Then I should be on the step two of the consent
+    And I should come back to the step one page
+    When I click on link Save and Exit
     Then I should the dashboard page
