@@ -8,7 +8,5 @@ RSpec.describe ConsentController, type: :controller do
       get :step_one
       expect(user.current_consent_step).to eq('step_1')
     end
-
   end
-
 end
