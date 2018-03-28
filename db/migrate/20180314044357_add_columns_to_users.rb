@@ -11,7 +11,6 @@ class AddColumnsToUsers < ActiveRecord::Migration[5.2]
     add_column :users, :state, :string
     add_column :users, :post_code, :string
     add_column :users, :flagship, :string
-    add_column :users, :steps, :string
     add_column :users, :is_parent, :boolean
     add_column :users, :kin_first_name, :string
     add_column :users, :kin_middle_name, :string

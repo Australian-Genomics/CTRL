@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_28_060654) do
+ActiveRecord::Schema.define(version: 2018_03_28_201644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,13 +39,13 @@ ActiveRecord::Schema.define(version: 2018_03_28_060654) do
     t.string "state"
     t.string "post_code"
     t.integer "flagship"
-    t.integer "current_consent_step"
     t.boolean "is_parent"
     t.string "kin_first_name"
     t.string "kin_middle_name"
     t.string "kin_family_name"
     t.string "kin_contact_no"
     t.string "kin_email"
+    t.integer "current_consent_step"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
