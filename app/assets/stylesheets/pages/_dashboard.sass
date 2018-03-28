@@ -7,3 +7,96 @@ $component: 'dashboard'
         @include media-breakpoint-down(xs)
             .btn
                 width: 100%
+
+    +element('row')
+        transition: all 100ms ease-in-out
+
+        i
+            margin-top: -2px
+        @include media-breakpoint-down(xs)
+            .btn
+                width: 100%
+
+        +modifier(':hover')
+            border-radius: 3px
+            background-color: $ice-one
+            box-shadow: 0 20px 40px 0 rgba(73, 96, 136, 0.05)
+            transition: all 100ms ease-in-out
+
+        +modifier('done')
+            background-color: $ice-blue
+            .icon__num
+                @extend .icon__num_done
+            .icon_placeholder
+                @extend .icon__check
+        +modifier('active')
+            background-color: $white
+            .icon__num
+                @extend .icon__num_active
+            .icon_placeholder
+                @extend .icon__circle
+                @extend .icon__circle_warn
+        +modifier('disabled')
+            background-color: $ice-light
+            color: $gray-500
+            .icon__num
+                @extend .icon__num_disabled
+            .icon_placeholder
+                @extend .icon__circle
+                @extend .icon__circle_disabled
+
+    +element('redirect')
+        display: flex
+        flex-flow: column
+        align-items: center
+        min-height: 100vh
+        background-color: rgba(30, 46, 71, 0.7)
+        > div
+            margin: 20px
+            padding: 20px
+            border-radius: 3px
+            background-color: $ice-one
+            box-shadow: 0 20px 40px 0 rgba(73, 96, 136, 0.05)
+        @include media-breakpoint-up(md)
+            justify-content: center
+            > div
+                max-width: 720px
+                padding: 60px
+
+    +element('table')
+        margin-bottom: 15px
+        .row
+            margin-top: 18px
+            margin-bottom: 18px
+        > div
+            background-color: $ice-one
+            border-radius: 3px
+            padding: 6px 15px 24px
+            @include media-breakpoint-up(md)
+                padding: 6px 24px 24px
+
+
+    +element('edit')
+        display: flex
+        flex-flow: column
+        align-items: center
+        min-height: 100vh
+        .icon__close
+            top: 20px
+            right: 20px
+
+    +element('modal')
+        background-color: $ice-one
+        //background-color: $yellow
+        border-radius: 3px
+        width: 100%
+        margin: 15px 15px 50px
+        padding: 56px 15px 30px
+        @include media-breakpoint-up(sm)
+            width: 546px
+            margin-top: 130px
+            margin-bottom: 300px
+            padding: 60px 93px 24px
+        .h3
+            margin-bottom: 28px
+

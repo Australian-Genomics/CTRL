@@ -1,3 +1,11 @@
+%angle
+    width: 10px
+    height: 10px
+    margin: 2px
+    border-left: 2px solid $silver
+    border-top: 2px solid $silver
+    cursor: pointer
+
 $component: 'icon'
 
 .#{$component}
@@ -6,11 +14,12 @@ $component: 'icon'
         position: relative
         width: 24px
         height: 24px
-        padding: 0 11px
+        padding: 2px 11px
         color: $teal
         border-radius: 999px
         border: 1px solid $teal
         cursor: pointer
+        font-size: 15px
         +modifier(':after')
             content: 'i'
             font-style: normal
@@ -19,8 +28,14 @@ $component: 'icon'
             bottom: 0
             left: 42%
             right: 0
+        +modifier(':focus')
+            outline: none !important
+        +modifier('active')
+            color: $white
+            background-color: $teal
 
-    +element('check')
+
+    +element('check-big')
         position: relative
         display: block
         height: 83px
@@ -41,7 +56,7 @@ $component: 'icon'
             border-width: 0 3px 3px 0
             transform: rotate(40deg)
 
-    +element('warn')
+    +element('warn-big')
         position: relative
         display: block
         height: 83px
@@ -67,12 +82,34 @@ $component: 'icon'
             height: 9px
             background-color: $white
 
+    +element('check')
+        position: relative
+        display: block
+        height: 24px
+        width: 24px
+        padding: 0 9px
+        background-color: $green
+        border-radius: 999px
+        border: solid 3px $green
+        text-align: center
+        +modifier(':after')
+            content: ""
+            position: absolute
+            left: 5px
+            top: 1px
+            width: 8px
+            height: 13px
+            border: solid #fff
+            border-width: 0 2px 2px 0
+            transform: rotate(40deg)
+
     +element('num')
         display: flex
         align-items: center
         justify-content: center
         width: 27px
         height: 27px
+        padding: 0 6px
         border-radius: 99px
         font-size: 18px
         font-style: normal
@@ -87,3 +124,56 @@ $component: 'icon'
         +modifier('disabled')
             background-color: $teal
             border: solid 3px $teal
+
+
+    +element('circle')
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 27px
+        height: 27px
+        padding: 0 6px
+        border-radius: 99px
+        font-size: 18px
+        font-style: normal
+        +modifier('warn')
+            background-color: $yellow
+            border: solid 3px
+            border-color: $yellow
+        +modifier('disabled')
+            background-color: $gray-200
+            border: solid 3px $gray-200
+
+    +element('close')
+        position: relative
+        display: block
+        width: 20px
+        height: 20px
+        overflow: hidden
+        cursor: pointer
+        &::before,
+        &::after
+            content: ''
+            position: absolute
+            height: 1px
+            width: 100%
+            top: 50%
+            left: 0
+            margin-top: -1px
+            background: #000
+        &::before
+            transform: rotate(45deg)
+        &::after
+            transform: rotate(-45deg)
+
+
+
+    +element('angle-down')
+        @extend %angle
+        transform: rotate(225deg)
+    +element('angle-left')
+        @extend %angle
+        transform: rotate(315deg)
+    +element('angle-right')
+        @extend %angle
+        transform: rotate(135deg)

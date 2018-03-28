@@ -22,4 +22,10 @@ class User < ApplicationRecord
                   'Neuromuscular Disorders',
                   'Renal Genetic Disorders',
                   'Solid Tumours']
+
+  enum current_consent_step: %w[step_1
+                                step_2
+                                step_3
+                                step_4
+                                step_5]
 end

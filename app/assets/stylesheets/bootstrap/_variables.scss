@@ -30,10 +30,11 @@ $purple:  #6f42c1;
 $pink:    #e83e8c;
 $red:     #db4402; //brand
 $orange:  #fd7e14;
-$yellow:  #ffc107;
+$yellow:  #f8d05c; //brand
 $cyan:    #17a2b8;
 $ice-one:       #fcfdff; //brand
 $ice-two:       #f8fbff; //brand
+$ice-light:     #fbfdff; //brand
 $ice-blue:      #f1f7ff; //brand
 $teal:          #a8deef; //brand
 $blue:          #004d95; //brand
@@ -58,6 +59,7 @@ $colors: map-merge((
         "light-gray":   $gray-100,      //brand
         "ice-one":      $ice-one,       //brand
         "ice-two":      $ice-two,       //brand
+        "ice-light":    $ice-light,     //brand
         "ice-blue":     $ice-blue,      //brand
         "teal":         $teal,          //brand
         "blue":         $blue,          //brand
@@ -90,6 +92,7 @@ $theme-colors: map-merge((
         "light-gray":   $gray-100,      //brand
         "ice-one":      $ice-one,       //brand
         "ice-two":      $ice-two,       //brand
+        "ice-light":    $ice-light,     //brand
         "ice-blue":     $ice-blue,      //brand
         "teal":         $teal,          //brand
         "blue":         $blue,          //brand
@@ -112,8 +115,9 @@ $spacers: map-merge((
         4: ($spacer * 1.5),   // 24px
         5: ($spacer * 3),     // 48px
         //custom
-        "15":   15px,
         "12":   12px,
+        "15":   15px,
+        "18":   18px,
         "20":   20px,
         "30":   30px,
         "45":   45px,

@@ -8,6 +8,12 @@ $component: 'steps'
         @include media-breakpoint-up(xl)
             margin-top: -55px
 
+    +modifier('pulled-up')
+        margin-top: -10px
+        margin-bottom: 15px
+        @include media-breakpoint-up(md)
+            margin-top: -55px
+
     +element('box')
         @include media-breakpoint-up(md)
             max-width: 720px
@@ -25,8 +31,6 @@ $component: 'steps'
 
     +element('description')
         max-width: 480px
-        display: flex
-        justify-content: center
 
     +element('row')
         margin-bottom: .5rem
@@ -47,7 +51,10 @@ $component: 'steps'
         display: flex
         padding: 15px
         +modifier('deeper')
-            padding: 24px 18px 22px
+            padding: 14px 18px
+            align-items: center
+            @include media-breakpoint-down(md)
+                padding: 22px 18px
 
     +element('row-collapse')
         background-color: $white
