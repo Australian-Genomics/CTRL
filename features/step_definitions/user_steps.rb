@@ -124,7 +124,7 @@ end
 
 Then('I should be signed in') do
   visit '/dashboard'
-  expect(page).to have_content 'Logout'
+  expect(page).to have_content 'Log Out'
   expect(page).to have_content 'Sushant'
 end
 

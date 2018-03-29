@@ -11,5 +11,5 @@ Then('I should see the step four of the consent') do
 end
 
 Then('I should see the step five of the consent') do
-  expect(page).to have_content('FIVE')
+  expect(page).to have_content('Step 5 of 5')
 end
