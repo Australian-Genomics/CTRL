@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "step_two", to: "consent#step_two", as: "step_two"
     get "step_three", to: "consent#step_three", as: "step_three"
     post "step_four", to: "consent#step_four", as: "step_four"
+    post "step_five", to: "consent#step_five", as: "step_five"
 
     post "confirm_answers", to: "consent#confirm_answers", as: "confirm_answers"
     post "review_answers", to: "consent#review_answers", as: "review_answers"
