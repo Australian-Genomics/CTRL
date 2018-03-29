@@ -26,12 +26,9 @@ class ConsentController < ApplicationController
     end
   end
 
-  def step_four;
-  end
+  def step_four; end
 
-  def confirm_answers;
-  end
+  def confirm_answers; end
 
-  def review_answers;
-  end
+  def review_answers; end
 end
