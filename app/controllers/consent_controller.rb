@@ -39,7 +39,7 @@ class ConsentController < ApplicationController
       render 'step_five.html.erb'
     else
       redirect_to :back
-      end
+    end
   end
 
   def confirm_answers; end
