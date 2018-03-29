@@ -34,7 +34,13 @@ class ConsentController < ApplicationController
     end
   end
 
-  def step_five; end
+  def step_five
+    if current_user.update(current_consent_step: 4)
+      render 'step_five.html.erb'
+    else
+      redirect_to :back
+      end
+  end
 
   def confirm_answers; end
 
