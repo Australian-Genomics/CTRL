@@ -33,3 +33,8 @@ Metrics/MethodLength:
   CountComments: false
   Exclude:
       - "db/migrate/*.rb"
+
+Metrics/BlockLength:
+  Exclude:
+      - "**/*_spec.rb"
+      - "spec/factories/*"

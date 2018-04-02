@@ -5,7 +5,7 @@ def create_visitor
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
-                 study_id: 'Curve18'}
+                 study_id: 'Curve18' }
 end
 
 def create_user
@@ -110,7 +110,7 @@ When('I fill in the user details with wrong confirm password') do
   sign_up
 end
 
-When("I fill in the user details without filling the Study ID") do
+When('I fill in the user details without filling the Study ID') do
   create_visitor
   @visitor = @visitor.merge(study_id: '')
   sign_up
