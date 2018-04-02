@@ -28,6 +28,11 @@ Feature: Welcome Page
     And I fill in the user details without filling the family name
     Then I should not see the welcome message
 
+  Scenario: User didn't fills the study id while signing up
+    When I click on Register
+    And I fill in the user details without filling the Study ID
+    Then I should not see the welcome message
+
   Scenario: User enters the invalid email while signing up
     When I click on Register
     And I fill in the user details with invalid email

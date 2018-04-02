@@ -12,6 +12,10 @@ RSpec.describe User, type: :model do
     expect(user.save).to be true
   end
 
+  it 'should have a study id' do
+    expect(user.save).to be true
+  end
+
   context 'validations' do
     it 'should have a mandatory first name' do
       user.first_name = nil
