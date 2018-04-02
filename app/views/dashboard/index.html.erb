@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white p-0">
   <div class="container align-items-stretch px-30 px-md-15">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <%= image_tag "icon-256x256.png", class: "fit-contain", width: "50", height: "50", alt: "logo icon" %>
     </a>
     <div
@@ -16,76 +16,21 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 h-100">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">My Activities
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">My Personal Details</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
         <li class="nav-item ml-md-auto py-30 py-md-0">
-          <%= link_to('Log Out', destroy_user_session_path, method: :delete , class: "btn btn-outline-primary") %>
+          <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") %>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<!DOCTYPE html>
-<html>
-<style>
-  body, html {
-    height: 100%;
-    margin: 0;
-  }
-
-  .bgimg {
-    background-image: url(<%= asset_path 'agha-bg-landing' %>);
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    color: Black;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 25px;
-  }
-
-  .topleft {
-    position: absolute;
-    top: 0;
-    left: 16px;
-  }
-
-  .bottomleft {
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-  }
-
-  .middle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  hr {
-    margin: auto;
-    width: 40%;
-  }
-</style>
 <body>
 
 <div class="bgimg">
   <div class="topleft">
-      Hey <%= current_user.first_name %>, you're logged in..!!
+    Hey <%= current_user.first_name %>, you're logged in..!!
   </div>
-  <div class="middle">
-    <h1 align="center">DASHBOARD..!!</h1>
+  <div class="middle" align="center">
+    <h1>DASHBOARD..!!</h1>
     <h2>COMING SOON</h2>
     <hr>
     <p>Few days left</p>
@@ -93,4 +38,3 @@
 </div>
 
 </body>
-</html>
