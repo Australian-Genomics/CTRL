@@ -4,7 +4,8 @@ def create_visitor
                  flagship: 'Acute Care Genomic Testing',
                  email: 'some@ahuja.com',
                  password: 'please2',
-                 password_confirmation: 'please2' }
+                 password_confirmation: 'please2',
+                 study_id: 'Curve18' }
 end
 
 def create_user
@@ -25,6 +26,7 @@ def sign_up
   fill_in 'user_family_name', with: @visitor[:family_name]
   fill_in 'user_email', with: @visitor[:email]
   select 'Acute Care Genomic Testing', from: 'user_flagship'
+  fill_in 'user_study_id', with: @visitor[:study_id]
   fill_in 'user_password', with: @visitor[:password]
   fill_in 'user_password_confirmation', with: @visitor[:password_confirmation]
   click_button 'Register Now'
@@ -105,6 +107,12 @@ end
 When('I fill in the user details with wrong confirm password') do
   create_visitor
   @visitor = @visitor.merge(password_confirmation: 'wrongpass')
+  sign_up
+end
+
+When('I fill in the user details without filling the Study ID') do
+  create_visitor
+  @visitor = @visitor.merge(study_id: '')
   sign_up
 end
 
