@@ -1,0 +1,12 @@
+<%= simple_form_for @user do |f| %>
+  <%= f.input :first_name, required: false %>
+  <%= f.input :middle_name, required: false %>
+  <%= f.input :family_name, required: false %>
+  <%= f.input :dob, required: false %>
+  <%= f.input :flagship, collection: User.flagships.keys, include_blank: false, include_hidden: false %>
+  <%= f.input :study_id, required: false %>
+  <%= f.input :email, required: false %>
+  <%= f.input :address, required: false %>
+  <%= f.button :submit, 'Update' %>
+  <%= link_to 'Cancel', user_path %>
+<% end %>
