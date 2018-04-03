@@ -26,11 +26,20 @@ $component: 'steps'
 
     +element('iframe')
         height: 240px
+        border-radius: 2px
         @include media-breakpoint-up(md)
             height: 480px
+        +modifier('left')
+            max-width: 720px
+        +modifier('shadow')
+            iframe,
+            video
+                box-shadow: 0 20px 40px 0 rgba(73, 96, 136, 0.05)
 
     +element('description')
-        max-width: 480px
+        max-width: 626px
+        padding-left: 15px
+        padding-right: 15px
 
     +element('row')
         margin-bottom: .5rem
