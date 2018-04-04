@@ -85,11 +85,6 @@
               <%= current_user.dob %>
             </div>
           </div>
-          <!--<div>-->
-          <!--<button class="btn btn-primary btn-block-xs-down">-->
-          <!--Update-->
-          <!--</button>-->
-          <!--</div>-->
         </div>
       </div>
 
@@ -136,7 +131,7 @@
               <%= current_user.address %>
               <%= current_user.suburb %>
               <%= current_user.state %>
-               <%= current_user.post_code %>
+              <%= current_user.post_code %>
             </div>
           </div>
           <div class="row no-gutters">
@@ -147,11 +142,6 @@
               <%= current_user.preferred_contact_method %>
             </div>
           </div>
-          <!--<div>-->
-          <!--<button class="btn btn-primary btn-block-xs-down">-->
-          <!--Update-->
-          <!--</button>-->
-          <!--</div>-->
         </div>
       </div>
 
@@ -173,11 +163,6 @@
               <%= current_user.study_id %>
             </div>
           </div>
-          <!--<div>-->
-          <!--<button class="btn btn-primary btn-block-xs-down">-->
-          <!--Update-->
-          <!--</button>-->
-          <!--</div>-->
         </div>
       </div>
 
@@ -188,58 +173,26 @@
               Register as a parent/guardian or carer
             </div>
             <div class="col-6">
-              <%= current_user.is_parent %>
+              <% if current_user.is_parent == true %>
+                Yes
+              <% else %>
+                No
+              <% end %>
             </div>
           </div>
-          <div class="row no-gutters">
-            <div class="col-6">
-              Registering on behalf of
-            </div>
-            <div class="col-6"></div>
+          <div class="col-6">
+            Registering on behalf of
           </div>
-          <div class="row no-gutters">
-            <div class="col-6">
-              First Name
-            </div>
-            <div class="col-6">
-              John
-            </div>
-          </div>
-          <div class="row no-gutters">
-            <div class="col-6">
-              Middle Name
-            </div>
-            <div class="col-6">
-              Jaremy
-            </div>
-          </div>
-          <div class="row no-gutters">
-            <div class="col-6">
-              Family Name
-            </div>
-            <div class="col-6">
-              Smith
-            </div>
-          </div>
-          <div class="row no-gutters">
-            <div class="col-6">
-              Date of Birth
-            </div>
-            <div class="col-6">
-              12 Mar 2001
-            </div>
-          </div>
-          <!--<div>-->
-          <!--<button class="btn btn-primary btn-block-xs-down">-->
-          <!--Update-->
-          <!--</button>-->
-          <!--</div>-->
-
+          <% if current_user.is_parent == true %>
+            <%= render partial: 'users/child_details' %>
+          <% else %>
+            <%= render partial: 'users/kin_details' %>
+          <% end %>
         </div>
       </div>
-      <!--<div>-->
-      <!--<%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>-->
-      <!--</div>-->
+      <div>
+        <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
 
