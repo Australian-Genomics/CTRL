@@ -1,74 +1,17 @@
-<section class="dashboard dashboard__edit">
-  <%= simple_form_for @user, defaults: {input_html: {class: 'form-control'}}  do |f| %>
-  <form class="dashboard__modal position-relative" action="" method="post">
-
-    <div class="icon__close position-absolute"></div>
-
-    <h3 class="h3 text-center">
-      Edit personal details
-    </h3>
-
-    <div class="form-row">
-      <div class="col-12 mb-30">
-        <div class="position-relative">
-          First Name<%= f.input :first_name, required: false, placeholder: "First Name" %>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="col mb-30">
-        <div class="position-relative">
-          <%= f.input :middle_name, required: false, placeholder: "Middle Name" %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="col-12 mb-30">
-        <div class="position-relative">
-          <%= f.input :family_name, required: false, placeholder: "Family Name" %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="col-12 mb-30">
-        <div class="position-relative">
-          <%= f.input :dob, required: false, placeholder: "Date of Birth" %>
-          <input
-          type="text"
-          class="form-control mb-0"
-          name="dateBirth"
-          id="dateBirth"
-          placeholder="Date of Birth"
-          readonly
-          >
-          <label
-          for="dateBirth"
-          class="position-absolute"
-          >
-            Date of Birth
-          </label>
-          <div class="error-label position-absolute">
-            can't be blank
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="d-flex flex-column align-items-center">
-      <button
-      type="submit"
-      class="btn btn-primary btn-block mb-18 mx-auto"
-      >
-        Update
-      </button>
-      <a href="#">Cancel</a>
-    </div>
-
-  </form>
+<%= simple_form_for @user do |f| %>
+  <%= f.input :first_name, required: true, placeholder: "First Name", error: 'ghcv' %>
+  <%= f.input :middle_name, required: false, placeholder: "Middle Name" %>
+  <%= f.input :family_name, required: false, placeholder: "Family Name" %>
+  <%= f.input :dob, required: false %>
+  <%= f.input :flagship, collection: User.flagships.keys, include_blank: false, include_hidden: false %>
+  <%= f.input :study_id, required: false %>
+  <%= f.input :email, required: false %>
+  <%= f.input :phone_no, required: false %>
+  <%= f.input :address, required: false %>
+  <%= f.input :preferred_contact_method, required: false %>
+  <%= f.input :is_parent, required: false %>
+  <%= f.button :submit, 'Update' %>
+  <%= link_to 'Cancel', user_path %>
 <% end %>
-</section>
+
+

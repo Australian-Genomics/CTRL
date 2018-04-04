@@ -19,7 +19,6 @@
         <li class="nav-item ">
           <%= link_to('My Activities', dashboard_index_path, class: "nav-link") %>
           <span class="sr-only">(current)</span>
-          </a>
         </li>
         <li class="nav-item active">
           <%= link_to('My Personal Details', user_path(current_user), class: "nav-link") %>
@@ -232,7 +231,7 @@
         </div>
       </div>
       <div>
-        <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary btn-block-xs-down" %>
+        <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>
       </div>
     </div>
   </div>
