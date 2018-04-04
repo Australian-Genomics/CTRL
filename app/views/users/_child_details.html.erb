@@ -6,7 +6,7 @@
     First Name
   </div>
   <div class="col-6">
-    John
+    <%= current_user.child_first_name %>
   </div>
 </div>
 <div class="row no-gutters">
@@ -14,7 +14,7 @@
     Middle Name
   </div>
   <div class="col-6">
-    Jaremy
+    <%= current_user.child_middle_name %>
   </div>
 </div>
 <div class="row no-gutters">
@@ -22,7 +22,7 @@
     Family Name
   </div>
   <div class="col-6">
-    Smith
+    <%= current_user.child_family_name %>
   </div>
 </div>
 <div class="row no-gutters">
@@ -30,6 +30,6 @@
     Date of Birth
   </div>
   <div class="col-6">
-    12 Mar 2001
+    <%= current_user.child_dob %>
   </div>
 </div>
