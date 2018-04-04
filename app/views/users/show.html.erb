@@ -42,6 +42,10 @@
     <div class="h2 mt-20 mb-15 px-15 px-md-0">
       My Personal Details
     </div>
+    <div>
+      <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>
+    </div>
+    <br>
   </div>
 
   <div class="container px-md-0">
@@ -130,6 +134,9 @@
             </div>
             <div class="col-6">
               <%= current_user.address %>
+              <%= current_user.suburb %>
+              <%= current_user.state %>
+               <%= current_user.post_code %>
             </div>
           </div>
           <div class="row no-gutters">
@@ -230,9 +237,9 @@
 
         </div>
       </div>
-      <div>
-        <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>
-      </div>
+      <!--<div>-->
+      <!--<%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>-->
+      <!--</div>-->
     </div>
   </div>
 
