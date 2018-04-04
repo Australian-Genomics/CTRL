@@ -133,7 +133,6 @@ end
 Then('I should be signed in') do
   visit '/dashboard'
   expect(page).to have_content 'Log Out'
-  expect(page).to have_content 'Sushant'
 end
 
 Then('I should not see the welcome message') do
