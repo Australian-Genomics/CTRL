@@ -16,24 +16,19 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 h-100">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">My Activities
-            <span class="sr-only">(current)</span>
+        <li class="nav-item ">
+          <%= link_to('My Activities', dashboard_index_path, class: "nav-link") %>
+          <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <%= link_to('My Personal Details', user_path(current_user), class: "nav-link") %>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
         <li class="nav-item ml-md-auto py-30 py-md-0">
-          <button
-          class="btn btn-outline-primary"
-          type="button"
-          >
-            Log Out
-          </button>
+          <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") %>
         </li>
       </ul>
     </div>
@@ -87,11 +82,11 @@
               <%= current_user.dob %>
             </div>
           </div>
-          <div>
-            <button class="btn btn-primary btn-block-xs-down">
-              Update
-            </button>
-          </div>
+          <!--<div>-->
+          <!--<button class="btn btn-primary btn-block-xs-down">-->
+          <!--Update-->
+          <!--</button>-->
+          <!--</div>-->
         </div>
       </div>
 
@@ -146,11 +141,11 @@
               <%= current_user.preferred_contact_method %>
             </div>
           </div>
-          <div>
-            <button class="btn btn-primary btn-block-xs-down">
-              Update
-            </button>
-          </div>
+          <!--<div>-->
+          <!--<button class="btn btn-primary btn-block-xs-down">-->
+          <!--Update-->
+          <!--</button>-->
+          <!--</div>-->
         </div>
       </div>
 
@@ -172,11 +167,11 @@
               <%= current_user.study_id %>
             </div>
           </div>
-          <div>
-            <button class="btn btn-primary btn-block-xs-down">
-              Update
-            </button>
-          </div>
+          <!--<div>-->
+          <!--<button class="btn btn-primary btn-block-xs-down">-->
+          <!--Update-->
+          <!--</button>-->
+          <!--</div>-->
         </div>
       </div>
 
@@ -228,17 +223,17 @@
               12 Mar 2001
             </div>
           </div>
-          <div>
-            <button class="btn btn-primary btn-block-xs-down">
-              Update
-            </button>
-          </div>
+          <!--<div>-->
+          <!--<button class="btn btn-primary btn-block-xs-down">-->
+          <!--Update-->
+          <!--</button>-->
+          <!--</div>-->
+
         </div>
       </div>
       <div>
-        <%= link_to 'Update', edit_user_path(current_user)%>
+        <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary btn-block-xs-down" %>
       </div>
-
     </div>
   </div>
 
