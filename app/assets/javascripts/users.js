@@ -19,7 +19,7 @@ $('#user_is_parent').change(function () {
     }
 })
 
-$(window).on('load', function () {
+$(window).on('page: load', function () {
     if ($('#user_is_parent').is(":checked")) {
         $('#kin').hide();
         $('#child').show();
