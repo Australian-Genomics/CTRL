@@ -3,8 +3,8 @@
     <div class="row px-15">
       <div class="header__logo-wrapper col-12 d-flex">
         <a
-        href="/"
-        class="header__logo d-block mt-45 mx-auto ml-xl-0"
+          href="/"
+          class="header__logo d-block mt-45 mx-auto ml-xl-0"
         >
           <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
         </a>
@@ -21,7 +21,7 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= form_tag('/step_five',method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+      <%= form_tag('/step_five', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
         <h3 class="text-center mt-2 mb-15">
           Preferences for knowing my genomic test results
         </h3>
@@ -39,7 +39,7 @@
             <br>
 
             However you choose to answer these questions will not prevent you having the test, but we would like to ask
-            for your preference when receiving results.
+            for your <u>preference</u> when receiving results.
           </p>
         </div>
         <div class="steps__general text-center py-2 mb-30">
@@ -50,40 +50,41 @@
           <div class="steps__row-main d-block d-sm-flex">
             <div class="d-flex w-100">
               <div class="mr-auto">
-                I want to know about the genetic change if it is <b>medically actionable </b>(will alter my health management
+                I want to know about the genetic change if it is <b>medically actionable </b>(<u>will</u> alter
+                <u>my health</u> management
                 or treatment).
               </div>
               <i
-              class="icon__i mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow1"
-              aria-expanded="false"
-              aria-controls="stepsRow1"
+                class="icon__i mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow1"
+                aria-expanded="false"
+                aria-controls="stepsRow1"
               >
               </i></div>
 
             <div class="d-flex mt-3 mt-sm-0">
               <label class="controls controls__radio controls__radio_blue ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow1"
-                checked="checked"
+                  type="radio"
+                  name="radioRow1"
+                  checked="checked"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1 text-nowrap">Not sure</span>
               </label>
               <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow1"
+                  type="radio"
+                  name="radioRow1"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">No</span>
               </label>
               <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow1"
+                  type="radio"
+                  name="radioRow1"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">Yes</span>
@@ -91,8 +92,8 @@
             </div>
           </div>
           <div
-          class="steps__row-collapse collapse"
-          id="stepsRow1"
+            class="steps__row-collapse collapse"
+            id="stepsRow1"
           >
             <div>
               For example, there are some types of cancers that run in families. Sometimes we can find a genetic change
@@ -107,40 +108,41 @@
           <div class="steps__row-main d-block d-sm-flex">
             <div class="d-flex w-100">
               <div class="mr-auto">
-                I want to know about the genetic change even if it is <b>non-medically actionable </b>(will not alter my health
+                I want to know about the genetic change even if it is <b>non-medically actionable </b>(<u>will not</u>
+                alter <u>my health</u>
                 management or treatment)
               </div>
               <i
-              class="icon__i mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow2"
-              aria-expanded="false"
-              aria-controls="stepsRow2"
+                class="icon__i mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow2"
+                aria-expanded="false"
+                aria-controls="stepsRow2"
               >
               </i></div>
 
             <div class="d-flex mt-3 mt-sm-0">
               <label class="controls controls__radio controls__radio_blue ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow2"
-                checked="checked"
+                  type="radio"
+                  name="radioRow2"
+                  checked="checked"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1 text-nowrap">Not sure</span>
               </label>
               <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow2"
+                  type="radio"
+                  name="radioRow2"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">No</span>
               </label>
               <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow2"
+                  type="radio"
+                  name="radioRow2"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">Yes</span>
@@ -148,8 +150,8 @@
             </div>
           </div>
           <div
-          class="steps__row-collapse collapse"
-          id="stepsRow2"
+            class="steps__row-collapse collapse"
+            id="stepsRow2"
           >
             <div>
               There are some conditions that we know can run in families and we know the genetic cause of, but cannot be
@@ -164,40 +166,40 @@
           <div class="steps__row-main d-block d-sm-flex">
             <div class="d-flex w-100">
               <div class="mr-auto">
-                I want to know if I am a carrier of a genetic change that can cause disease (it might affect decisions I
+                I want to know if I am a <b>carrier</b> of a genetic change that can cause disease (it might affect decisions I
                 make about having children, or for my grandchildren)
               </div>
               <i
-              class="icon__i mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow3"
-              aria-expanded="false"
-              aria-controls="stepsRow3"
+                class="icon__i mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow3"
+                aria-expanded="false"
+                aria-controls="stepsRow3"
               >
               </i></div>
 
             <div class="d-flex mt-3 mt-sm-0">
               <label class="controls controls__radio controls__radio_blue ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow3"
-                checked="checked"
+                  type="radio"
+                  name="radioRow3"
+                  checked="checked"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1 text-nowrap">Not sure</span>
               </label>
               <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow3"
+                  type="radio"
+                  name="radioRow3"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">No</span>
               </label>
               <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow3"
+                  type="radio"
+                  name="radioRow3"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">Yes</span>
@@ -205,8 +207,8 @@
             </div>
           </div>
           <div
-          class="steps__row-collapse collapse"
-          id="stepsRow3"
+            class="steps__row-collapse collapse"
+            id="stepsRow3"
           >
             <div>
               Sometimes we can be “carriers” of genetic changes that do not affect our health but can cause problems
@@ -228,25 +230,25 @@
             <div class="d-flex mt-3 mt-sm-0">
               <label class="controls controls__radio controls__radio_blue ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow4"
-                checked="checked"
+                  type="radio"
+                  name="radioRow4"
+                  checked="checked"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1 text-nowrap">Not sure</span>
               </label>
               <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow4"
+                  type="radio"
+                  name="radioRow4"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">No</span>
               </label>
               <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow4"
+                  type="radio"
+                  name="radioRow4"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">Yes</span>
@@ -259,40 +261,41 @@
           <div class="steps__row-main d-block d-sm-flex">
             <div class="d-flex w-100">
               <div class="mr-auto">
-                I would like a summary of the <b>main findings of my genomic testing report</b> stored here, so I can access it
+                I would like a summary of the <b>main findings of my genomic testing report</b> stored here, so I can
+                access it
                 at any time
               </div>
               <i
-              class="icon__i mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow5"
-              aria-expanded="false"
-              aria-controls="stepsRow5"
+                class="icon__i mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow5"
+                aria-expanded="false"
+                aria-controls="stepsRow5"
               >
               </i></div>
 
             <div class="d-flex mt-3 mt-sm-0">
               <label class="controls controls__radio controls__radio_blue ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow5"
-                checked="checked"
+                  type="radio"
+                  name="radioRow5"
+                  checked="checked"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1 text-nowrap">Not sure</span>
               </label>
               <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow5"
+                  type="radio"
+                  name="radioRow5"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">No</span>
               </label>
               <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
                 <input
-                type="radio"
-                name="radioRow5"
+                  type="radio"
+                  name="radioRow5"
                 >
                 <span class="checkmark"></span>
                 <span class="label-text ml-1">Yes</span>
@@ -300,8 +303,8 @@
             </div>
           </div>
           <div
-          class="steps__row-collapse collapse"
-          id="stepsRow5"
+            class="steps__row-collapse collapse"
+            id="stepsRow5"
           >
             <div>
               We are developing ways of showing your genomic results in a way that is understandable to you, your family
@@ -317,7 +320,7 @@
               <div class="mr-auto">
                 I understand all of the information and statements well enough to answer them.
               </div>
-              </div>
+            </div>
 
             <label class="controls controls__checkbox controls__checkbox_blue">
               <%= check_box_tag("answer_1", "", true) %>
