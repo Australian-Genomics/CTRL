@@ -42,10 +42,6 @@
     <div class="h2 mt-20 mb-15 px-15 px-md-0">
       My Personal Details
     </div>
-    <div>
-      <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>
-    </div>
-    <br>
   </div>
 
   <div class="container px-md-0">
@@ -180,7 +176,7 @@
               <% end %>
             </div>
           </div>
-          <div class="col-6">
+          <div>
             Registering on behalf of
           </div>
           <% if current_user.is_parent == true %>
@@ -190,10 +186,10 @@
           <% end %>
         </div>
       </div>
-      <div>
-        <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary" %>
-      </div>
     </div>
+  </div>
+  <div class="container px-md-4">
+    <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary", style: "margin:auto;display:block" %>
   </div>
 
 </section>

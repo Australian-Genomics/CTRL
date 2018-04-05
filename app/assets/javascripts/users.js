@@ -7,9 +7,13 @@ $(document).ready(function () {
 
 $('#user_is_parent').change(function () {
     if ($(this).is(":checked")) {
+        $(':input', '#kin').val('');
+        $(':input','#child').val('');
         $('#kin').hide();
         $('#child').show();
     } else {
+        $(':input','#child').val('');
+        $(':input', '#kin').val('');
         $('#kin').show();
         $('#child').hide();
     }
