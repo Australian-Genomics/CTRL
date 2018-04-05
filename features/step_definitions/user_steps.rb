@@ -120,7 +120,7 @@ Then('I see an invalid login message') do
   expect(page).to have_content('If you don’t have an account, please Register')
 end
 
-Then('I should be signed out') do
+Then('I should not be signed in') do
   expect(page).to have_content 'Log In'
   expect(page).to_not have_content 'Logout'
 end
@@ -131,7 +131,6 @@ Then('I should see the welcome message') do
 end
 
 Then('I should be signed in') do
-  visit '/dashboard'
   expect(page).to have_content 'Log Out'
   expect(page).to have_content 'Sushant'
 end
