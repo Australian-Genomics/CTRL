@@ -6,7 +6,7 @@ Feature: Welcome Page
   Scenario: User is not signed up
     When I sign in with valid credentials
     Then I see an invalid login message
-    And I should be signed out
+    And I should not be signed in
 
   Scenario: User signs up successfully
     When I click on Register
@@ -59,11 +59,11 @@ Feature: Welcome Page
     And I am not logged in
     When I sign in with a wrong email
     Then I see an invalid login message
-    And I should be signed out
+    And I should not be signed in
 
   Scenario: User enters wrong password
     Given I exist as a user
     And I am not logged in
     When I sign in with a wrong password
     Then I see an invalid login message
-    And I should be signed out
+    And I should not be signed in

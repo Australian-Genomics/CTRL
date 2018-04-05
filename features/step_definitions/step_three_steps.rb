@@ -3,7 +3,7 @@ When('I click Next') do
 end
 
 Then('I should be on the step three page of consent') do
-  expect(page).to have_content('Agreement to participate in AGHA research')
+  expect(page).to have_content('Step 3 of 5')
 end
 
 Then('I should see the step four of the consent') do

@@ -6,7 +6,7 @@ Feature: Consent Page
   Scenario: User is not signed up
     When I sign in with valid credentials
     Then I see an invalid login message
-    And I should be signed out
+    And I should not be signed in
 
   Scenario: User can see the step two page of the consent
     When I click on Register
