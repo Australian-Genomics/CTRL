@@ -3,8 +3,8 @@
     <div class="row px-15">
       <div class="header__logo-wrapper col-12 d-flex">
         <a
-          href="/"
-          class="header__logo d-block mt-45 mx-auto ml-xl-0"
+        href="/"
+        class="header__logo d-block mt-45 mx-auto ml-xl-0"
         >
           <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
         </a>
@@ -21,7 +21,7 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= form_tag('/step_four', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+      <%= form_tag('/step_four',method: :get, class: "bg-ice-one border pt-30 px-30") do %>
         <h3 class="text-center mt-2 mb-15">
           Australian Genomics Research Participation
         </h3>
@@ -43,33 +43,31 @@
                 I understand that the researchers will collect information from my <b>health records.</b>
               </div>
               <i
-                class="icon__i mr-sm-60"
-                data-toggle="collapse"
-                data-target="#stepsRow1"
-                aria-expanded="false"
-                aria-controls="stepsRow1"
+              class="icon__i mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow1"
+              aria-expanded="false"
+              aria-controls="stepsRow1"
               >
               </i></div>
             <label class="controls controls__checkbox controls__checkbox_blue">
               <%= check_box_tag("answer_1", "", true) %>
               <span class="checkmark"></span>
             </label>
-            <div
-              class="steps__row-collapse collapse"
-              id="stepsRow1"
-            >
-              <div>
-                We will ask the Commonwealth Government Department of Health for your Medical Benefit Scheme (MBS) and
-                Pharmaceutical Benefits Scheme (PBS) information, covering a period of up to 8 years.
-                We will ask Data Linkage agencies in each State or Territory of Australia for your hospital inpatient
-                records and emergency visit records. This information will cover a period of up to 14 years.
-                This information will be very important for us to understand how having a genomic test and a genomic
-                diagnosis might reduce the long-term costs of health care for the government. Access to the information
-                is
-                tightly regulated to protect your privacy, and we only receive it after applying for it through the
-                proper
-                channels. We will also be required to destroy it after we finished using it.
-              </div>
+          </div>
+          <div
+          class="steps__row-collapse collapse"
+          id="stepsRow1"
+          >
+            <div>
+              We will ask the Commonwealth Government Department of Health for your Medical Benefit Scheme (MBS) and
+              Pharmaceutical Benefits Scheme (PBS) information, covering a period of up to 8 years.
+              We will ask Data Linkage agencies in each State or Territory of Australia for your hospital inpatient
+              records and emergency visit records. This information will cover a period of up to 14 years.
+              This information will be very important for us to understand how having a genomic test and a genomic
+              diagnosis might reduce the long-term costs of health care for the government. Access to the information is
+              tightly regulated to protect your privacy, and we only receive it after applying for it through the proper
+              channels. We will also be required to destroy it after we finished using it.
             </div>
           </div>
         </div>
@@ -79,16 +77,15 @@
             <div class="d-flex w-100">
               <div class="mr-auto">
                 I understand that at times during the research project I will be asked to complete <b>surveys or
-                questionnaires.</b> I’ll be reminded when they are ready to complete and know that I can ask for help
-                to do
+                questionnaires.</b> I’ll be reminded when they are ready to complete and know that I can ask for help to do
                 them.
               </div>
               <i
-                class="icon__i mr-sm-60"
-                data-toggle="collapse"
-                data-target="#stepsRow2"
-                aria-expanded="false"
-                aria-controls="stepsRow2"
+              class="icon__i mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow2"
+              aria-expanded="false"
+              aria-controls="stepsRow2"
               >
               </i></div>
             <label class="controls controls__checkbox controls__checkbox_blue">
@@ -97,8 +94,8 @@
             </label>
           </div>
           <div
-            class="steps__row-collapse collapse"
-            id="stepsRow2"
+          class="steps__row-collapse collapse"
+          id="stepsRow2"
           >
             <div>
               The surveys and questionnaires will be very important for us to understand aspects like your views of
