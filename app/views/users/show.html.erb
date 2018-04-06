@@ -1,0 +1,195 @@
+<nav class="navbar navbar-expand-md navbar-light bg-white p-0">
+  <div class="container align-items-stretch px-30 px-md-15">
+    <a class="navbar-brand" href="/">
+      <%= image_tag "icon-256x256.png", class: "fit-contain", width: "50", height: "50", alt: "logo icon" %>
+    </a>
+    <div
+    class="nav-toggler py-3 pl-3"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    >
+      <span class="nav-to-open">Menu</span>
+      <span class="nav-to-close">Close</span>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav w-100 h-100">
+        <li class="nav-item ">
+          <%= link_to('My Activities', dashboard_index_path, class: "nav-link") %>
+          <span class="sr-only">(current)</span>
+        </li>
+        <li class="nav-item active">
+          <%= link_to('My Personal Details', user_path(current_user), class: "nav-link") %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item ml-md-auto py-30 py-md-0">
+          <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<section class="dashboard pb-sm-60 pb-md-180">
+
+
+  <div class="container px-md-4">
+    <div class="h2 mt-20 mb-15 px-15 px-md-0">
+      My Personal Details
+    </div>
+  </div>
+
+  <div class="container px-md-0">
+    <div class="row">
+
+      <div class="dashboard__table col-12 col-md-6">
+        <div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              First Name
+            </div>
+            <div class="col-6 text-ellipsis">
+              <%= current_user.first_name %>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Middle Name
+            </div>
+            <div class="col-6 text-ellipsis">
+              <%= current_user.middle_name %>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Family Name
+            </div>
+            <div class="col-6 text-ellipsis">
+              <%= current_user.family_name %>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Date of Birth
+            </div>
+            <div class="col-6">
+              <%= current_user.dob %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard__table col-12 col-md-6">
+        <div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Email
+              <i
+              class="icon__i icon__i_popover ml-2"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="bottom"
+              data-html="true"
+              >
+              </i>
+              <div class="popover-content d-none">
+                <div class="text-dark pb-12 pt-4">
+                  Registered email for the platform
+                  and also the email used for
+                  notifications.
+                </div>
+              </div>
+            </div>
+            <div class="col-6 text-ellipsis">
+              <%= current_user.email %>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Mobile phone
+            </div>
+            <div class="col-6">
+              <%= current_user.phone_no %>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Address
+            </div>
+            <div class="col-6">
+              <%= current_user.address %>
+              <%= current_user.suburb %>
+              <%= current_user.state %>
+              <%= current_user.post_code %>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Preferred contact method
+            </div>
+            <div class="col-6">
+              <%= current_user.preferred_contact_method %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard__table col-12 col-md-6">
+        <div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Flagship
+            </div>
+            <div class="col-6">
+              <%= current_user.flagship %>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Study ID
+            </div>
+            <div class="col-6">
+              <%= current_user.study_id %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard__table col-12 col-md-6">
+        <div>
+          <div class="row no-gutters">
+            <div class="col-6">
+              Register as a parent/guardian or carer
+            </div>
+            <div class="col-6">
+              <% if current_user.is_parent == true %>
+                Yes
+              <% else %>
+                No
+              <% end %>
+            </div>
+          </div>
+          <div>
+            Registering on behalf of
+          </div>
+          <% if current_user.is_parent == true %>
+            <%= render partial: 'users/child_details' %>
+          <% else %>
+            <%= render partial: 'users/kin_details' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container px-md-4">
+    <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary update" %>
+  </div>
+
+</section>

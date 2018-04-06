@@ -16,6 +16,16 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav w-100 h-100">
+        <li class="nav-item active">
+          <%= link_to('My Activities', dashboard_index_path, class: "nav-link") %>
+            <span class="sr-only">(current)</span>
+        </li>
+        <li class="nav-item">
+          <%= link_to('My Personal Details', user_path(current_user), class: "nav-link") %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
         <li class="nav-item ml-md-auto py-30 py-md-0">
           <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") %>
         </li>
@@ -27,7 +37,6 @@
 
 <div class="bgimg">
   <div class="topleft">
-    Hey <%= current_user.first_name %>, you're logged in..!!
   </div>
   <div class="middle" align="center">
     <h1>DASHBOARD..!!</h1>

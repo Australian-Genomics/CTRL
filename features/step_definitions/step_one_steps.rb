@@ -21,5 +21,5 @@ Then('I should come back to the step one page') do
 end
 
 Then('I should the dashboard page') do
-  expect(page).to have_content('logged in')
+  expect(page).to have_content('Log Out')
 end

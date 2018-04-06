@@ -38,6 +38,7 @@ gem 'pg', '0.19.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
 gem 'simple_form'
+gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
