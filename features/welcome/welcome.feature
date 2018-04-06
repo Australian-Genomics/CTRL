@@ -21,3 +21,11 @@ Feature: Welcome Page
     Then I should be signed in
     When I click on Log Out
     Then I should be signed out
+
+  Scenario: User sees the dashboard page when logged in
+    Given I exist as a user
+    And I am not logged in
+    When I sign in with valid credentials
+    Then I should be signed in
+    When I visit homepage
+    Then I should see the dashboard page
