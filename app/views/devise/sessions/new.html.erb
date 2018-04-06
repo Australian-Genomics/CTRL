@@ -3,27 +3,31 @@
     <div class="col-12 col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="bg-white border px-15">
         <%= render partial: 'layouts/header-modal' %>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name),defaults: {input_html: {class: 'form-control mb-0'}})  do |f| %>
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.label :email, for: "email", class: "position-absolute" %><br/>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: "Email" %>
+                <%= f.input :email, required: false, autofocus: true , input_html: {class: 'form-control mb-0'}%>
               </div>
             </div>
           </div>
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.label :password, for: "inputPassword", class: "position-absolute" %><br/>
-                <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: "Password" %>
+                <%= f.input :password, required: false , input_html: {class: 'form-control mb-0'}%>
                 <div class="position-absolute top-0 right-0 h-100 d-flex">
                   <%= link_to "Forgot?", new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
                 </div>
               </div>
             </div>
           </div>
+          <% if flash[:alert].present? %>
+            <div class="flash alert">
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
           <div class="d-flex">
+
             <button
             type="submit"
             class="btn btn-primary mb-30 mx-auto">

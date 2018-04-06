@@ -8,12 +8,12 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :first_name, placeholder: 'First Name', required: true %>
+                <%= f.input :first_name, label: false, placeholder: 'First Name', required: false%>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :family_name, placeholder: 'Family Name', required: true %>
+                <%= f.input :family_name, label: false, placeholder: 'Family Name', required: false%>
               </div>
             </div>
           </div>
@@ -21,7 +21,7 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :email, placeholder: 'Email', required: true %>
+                <%= f.input :email, label: false, placeholder: 'Email'%>
               </div>
             </div>
           </div>
@@ -29,12 +29,12 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :password, placeholder: 'Password', required: true %>
+                <%= f.input :password, label: false, placeholder: 'Password'%>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :password_confirmation, placeholder: 'Re-enter Password', required: true %>
+                <%= f.input :password_confirmation, label: false, placeholder: 'Re-enter Password'%>
               </div>
             </div>
           </div>
@@ -42,12 +42,12 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative show">
-                <%= f.input :flagship, collection: User.flagships.keys, include_blank: false, include_hidden: false, class: "form-control" %>
+                <%= f.input :flagship, label: false, collection: User.flagships.keys, include_blank: false, include_hidden: false, class: "form-control", required: false %>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :study_id, placeholder: 'Study ID' %>
+                <%= f.input :study_id, label: false, placeholder: 'Study ID', required: false %>
               </div>
             </div>
           </div>
