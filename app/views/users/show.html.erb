@@ -51,7 +51,7 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              First Name
+              <b>First Name</b>
             </div>
             <div class="col-6 text-ellipsis">
               <%= current_user.first_name %>
@@ -59,7 +59,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              Middle Name
+              <b>Middle Name</b>
             </div>
             <div class="col-6 text-ellipsis">
               <%= current_user.middle_name %>
@@ -67,7 +67,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              Family Name
+              <b>Family Name</b>
             </div>
             <div class="col-6 text-ellipsis">
               <%= current_user.family_name %>
@@ -75,7 +75,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              Date of Birth
+              <b>Date of Birth</b>
             </div>
             <div class="col-6">
               <%= current_user.dob %>
@@ -88,7 +88,7 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              Email
+              <b>Email</b>
               <i
               class="icon__i icon__i_popover ml-2"
               tabindex="0"
@@ -113,7 +113,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              Mobile phone
+              <b>Mobile phone</b>
             </div>
             <div class="col-6">
               <%= current_user.phone_no %>
@@ -121,7 +121,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              Address
+              <b>Address</b>
             </div>
             <div class="col-6">
               <%= current_user.address %>
@@ -132,7 +132,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              Preferred contact method
+              <b>Preferred contact method</b>
             </div>
             <div class="col-6">
               <%= current_user.preferred_contact_method %>
@@ -145,7 +145,7 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              Flagship
+              <b>Flagship</b>
             </div>
             <div class="col-6">
               <%= current_user.flagship %>
@@ -153,7 +153,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              Study ID
+              <b>Study ID</b>
             </div>
             <div class="col-6">
               <%= current_user.study_id %>
@@ -166,7 +166,7 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              Register as a parent/guardian or carer
+              <b>Register as a parent/guardian or carer</b>
             </div>
             <div class="col-6">
               <% if current_user.is_parent == true %>
@@ -177,7 +177,7 @@
             </div>
           </div>
           <div>
-            Registering on behalf of
+            <b>Registering on behalf of</b>
           </div>
           <% if current_user.is_parent == true %>
             <%= render partial: 'users/child_details' %>
