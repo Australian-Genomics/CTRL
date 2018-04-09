@@ -4,12 +4,12 @@
       <%= image_tag "icon-256x256.png", class: "fit-contain", width: "50", height: "50", alt: "logo icon" %>
     </a>
     <div
-    class="nav-toggler py-3 pl-3"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
+      class="nav-toggler py-3 pl-3"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
       <span class="nav-to-open">Menu</span>
       <span class="nav-to-close">Close</span>
@@ -18,7 +18,7 @@
       <ul class="navbar-nav w-100 h-100">
         <li class="nav-item active">
           <%= link_to('My Activities', dashboard_index_path, class: "nav-link") %>
-            <span class="sr-only">(current)</span>
+          <span class="sr-only">(current)</span>
         </li>
         <li class="nav-item">
           <%= link_to('My Personal Details', user_path(current_user), class: "nav-link") %>
@@ -33,6 +33,18 @@
     </div>
   </div>
 </nav>
+
+<div class="dashboard">
+
+  <div class="dashboard__topper bg-ice-one">
+    <div class="container d-flex flex-column flex-sm-row align-items-center px-30 px-md-15">
+      <div class="text-bigger text-dark-blue text-center text-md-left mt-30 mt-sm-0">
+        Your personal details need to be completed
+      </div>
+      <%= link_to('Complete', user_path(current_user), class: "btn btn-primary ml-sm-30 my-15 my-sm-20") %>
+    </div>
+  </div>
+</div>
 <body>
 
 <div class="bgimg">
