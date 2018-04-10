@@ -1,0 +1,53 @@
+<body class="bg-dark">
+
+
+<div class="container my-15 my-sm-45">
+  <div class="row flex-column">
+    <div class="steps__submitting col-12 mx-auto">
+      <div class="bg-ice-one border px-20">
+        <div class="mt-20">
+
+          <div class="d-flex">
+            <i class="icon__warn-big mx-auto"></i>
+          </div>
+
+          <h3 class="text-center mt-20 mb-15">
+            Are you sure you don’t want the test?
+          </h3>
+          <div class="d-flex mb-20">
+            <p class="step2__text text-center mx-auto mb-0">
+              You have not selected all statements, which means you have not agreed to have genomic testing.
+            </p>
+          </div>
+
+          <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
+            <%= link_to("Review Answers", step_two_path, class: "btn btn-success d-block d-sm-inline-block mb-15") %>
+            <%= link_to("I don't want the test", dashboard_index_path, class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
+          </div>
+
+          <p class="subtext mb-20 mb-sm-30">
+                        <span>
+                            Please click “Review Answers” if
+                            you would like to go back and
+                            change your responses.
+                        </span>
+            <br>
+            <span>
+                            Click “I don’t want the test” if
+                            you are sure you do not want the
+                            genomics test.
+                        </span>
+            <br>
+
+                        <span>
+                          <b>If you choose “I don't want the test” an Australian Genomics Genetic Counsellor will contact you to talk about your options.</b>
+                        </span>
+
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

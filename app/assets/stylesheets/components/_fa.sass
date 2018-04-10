@@ -1,0 +1,16 @@
+$component-a: 'fa'
+$component-b: 'far'
+
+.#{$component-a},
+.#{$component-b}
+    font-size: 24px
+    color: $gray-200
+
+    +modifier('green')
+        color: $green
+
+    +modifier('blue')
+        color: $light-blue
+
+    +modifier('teal')
+        color: $teal

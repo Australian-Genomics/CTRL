@@ -1,0 +1,61 @@
+form
+    .form-row
+        img
+            position: absolute
+            right: 20px
+            top: 25%
+    .form-control
+        border: none
+        border-bottom: 2px solid $silver
+        border-radius: 0
+        box-shadow: none
+        padding: 15px 20px
+        height: 54px !important
+        font-size: 15px
+        &:focus
+            border: none
+            border-bottom: 2px solid $light-blue
+            box-shadow: none
+            ~ label
+                display: block !important
+        &[readonly]
+            background: inherit
+            cursor: pointer
+        ~ .error-label
+            display: none
+        &.invalid
+            ~ .error-label
+                display: block
+                left: 0
+                color: $danger
+                font-size: 12px
+        &_muted
+            color: $gray-500
+            border-bottom: none
+            box-shadow: 0 2px 0 0 #f3f6fb
+            ~ label
+                display: block !important
+            &:focus
+                color: $gray-500
+                border-bottom: none
+                box-shadow: 0 2px 0 0 #f3f6fb
+
+    .dropdown-menu
+        right: 0
+        border: none
+        box-shadow: 0 20px 40px 0 rgba(73, 96, 136, 0.05)
+        button
+            cursor: pointer
+
+
+    label
+        display: table
+        left: 0
+        top: -12px
+        height: 12px
+        font-size: 10px
+        color: $silver
+
+    .icon__angle-down
+        right: 22px
+        top: 35%

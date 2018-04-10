@@ -1,0 +1,176 @@
+// Color system
+
+$white:    #fff;
+$gray-100: #f5f7fa; //brand
+$gray-200: #e7eaef; //brand
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #9faec9; //brand
+$gray-600: #8f9bb0; //brand
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+
+$grays: ();
+$grays: map-merge((
+        "100": $gray-100,
+        "200": $gray-200,
+        "300": $gray-300,
+        "400": $gray-400,
+        "500": $gray-500,
+        "600": $gray-600,
+        "700": $gray-700,
+        "800": $gray-800,
+        "900": $gray-900
+), $grays);
+
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #db4402; //brand
+$orange:  #fd7e14;
+$yellow:  #f8d05c; //brand
+$cyan:    #17a2b8;
+$ice-one:       #fcfdff; //brand
+$ice-two:       #f8fbff; //brand
+$ice-light:     #fbfdff; //brand
+$ice-blue:      #f1f7ff; //brand
+$teal:          #a8deef; //brand
+$blue:          #004d95; //brand
+$light-blue:    #02b0db; //brand
+$green:         #92cd8a; //brand
+$dark-blue:     #1e2e47; //brand
+$dark-purple:   #496088; //brand
+$silver:        #c4cad3; //brand
+
+$colors: ();
+$colors: map-merge((
+        "indigo":       $indigo,
+        "purple":       $purple,
+        "pink":         $pink,
+        "red":          $red,
+        "orange":       $orange,
+        "yellow":       $yellow,
+        "cyan":         $cyan,
+        "white":        $white,
+        "gray":         $gray-600,
+        "gray-dark":    $gray-800,
+        "light-gray":   $gray-100,      //brand
+        "ice-one":      $ice-one,       //brand
+        "ice-two":      $ice-two,       //brand
+        "ice-light":    $ice-light,     //brand
+        "ice-blue":     $ice-blue,      //brand
+        "teal":         $teal,          //brand
+        "blue":         $blue,          //brand
+        "light-blue":   $light-blue,    //brand
+        "green":        $green,         //brand
+        "dark-blue":    $dark-blue,     //brand
+        "dark-purple":  $dark-purple,   //brand
+        "silver":       $silver,        //brand
+), $colors);
+
+$primary:       $light-blue;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-100;
+$dark:          $gray-600;
+
+$theme-colors: ();
+$theme-colors: map-merge((
+        "primary":      $primary,
+        "secondary":    $secondary,
+        "success":      $success,
+        "info":         $info,
+        "warning":      $warning,
+        "danger":       $danger,
+        "light":        $light,
+        "dark":         $dark,
+        "light-gray":   $gray-100,      //brand
+        "ice-one":      $ice-one,       //brand
+        "ice-two":      $ice-two,       //brand
+        "ice-light":    $ice-light,     //brand
+        "ice-blue":     $ice-blue,      //brand
+        "teal":         $teal,          //brand
+        "blue":         $blue,          //brand
+        "light-blue":   $light-blue,    //brand
+        "green":        $green,         //brand
+        "dark-blue":    $dark-blue,     //brand
+        "dark-purple":  $dark-purple,   //brand
+        "silver":       $silver,        //brand
+        "white":        $white,         //brand
+), $theme-colors);
+
+// Spacing
+$spacer: 1rem;
+$spacers: ();
+$spacers: map-merge((
+        0: 0,
+        1: ($spacer * .25),   // 4px
+        2: ($spacer * .5),    // 8px
+        3: $spacer,           // 16px
+        4: ($spacer * 1.5),   // 24px
+        5: ($spacer * 3),     // 48px
+        //custom
+        "12":   12px,
+        "15":   15px,
+        "18":   18px,
+        "20":   20px,
+        "30":   30px,
+        "45":   45px,
+        "60":   60px,
+        "90":   90px,
+        "120":  120px,
+        "180":  180px,
+), $spacers);
+
+
+// Body
+$body-color:      $dark-purple;
+$body-bg:         $ice-two;
+
+
+// Fonts
+//$font-family-sans-serif:      'Lato', 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-size-base:              1rem;
+
+//$headings-font-family:        'Poppins', sans-serif;
+//$headings-margin-bottom:      0;
+$headings-color:              $dark-blue;
+
+$h1-font-size:  $font-size-base * 4.5;    // 72px
+$h2-font-size:  $font-size-base * 2.25;   // 36px
+$h3-font-size:  $font-size-base * 1.5;    // 24px
+//$h4-font-size:  $font-size-base * 1.375;  // 22px
+//$h5-font-size:  $font-size-base * 1.25;   // 20px
+//$h6-font-size:  $font-size-base * 1.125;  // 18px
+
+
+// Components
+$border-width:                2px;
+$border-color:                $gray-100;
+$border-radius:               0;
+
+
+// Forms
+$input-color:         $body-color;
+$input-border-color:  $silver;
+$input-placeholder-color:               $silver;
+
+
+// Navbar
+$navbar-light-color:                $body-color;
+$navbar-light-hover-color:          $body-color;
+$navbar-light-active-color:         $light-blue;
+
+$navbar-padding-y:                  ($spacer / 2) !default;
+$navbar-padding-x:                  $spacer !default;
+
+$navbar-nav-link-padding-x:         .5rem !default;
+
+//$nav-link-height:                   ($font-size-base * $line-height-base + $nav-link-padding-y * 2) !default;
+//$navbar-brand-height:               $navbar-brand-font-size * $line-height-base !default;
+//$navbar-brand-padding-y:            ($nav-link-height - $navbar-brand-height) / 2 !default;

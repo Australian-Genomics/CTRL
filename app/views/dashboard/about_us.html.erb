@@ -1,0 +1,66 @@
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-white p-0">
+  <div class="container align-items-stretch px-30 px-md-15">
+    <a class="navbar-brand" href="/">
+      <%= image_tag "icon-256x256.png", class: "fit-contain", width: "50", height: "50", alt: "logo icon"%>
+    </a>
+    <div
+      class="nav-toggler py-3 pl-3"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="nav-to-open">Menu</span>
+      <span class="nav-to-close">Close</span>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav w-100 h-100">
+        <li class="nav-item">
+          <%= link_to('My Activities', dashboard_index_path, class: "nav-link") %>
+          <span class="sr-only">(current)</span>
+        </li>
+        <li class="nav-item">
+          <%= link_to('My Personal Details', user_path(current_user), class: "nav-link") %>
+        </li>
+        <li class="nav-item active">
+          <%= link_to('About', about_us_path, class: "nav-link") %>
+        </li>
+        <li class="nav-item ml-md-auto py-30 py-md-0">
+          <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="dashboard">
+
+  <section class="steps container px-sm-0 mb-15 mb-sm-120">
+
+    <div class="h2 mt-30 mb-15 px-15">
+      Introduction to this platform
+    </div>
+
+    <div class="steps__iframe steps__iframe_left steps__iframe_shadow mx-15">
+      <p class="mb-30">
+        To begin with, though you might use
+        search engines, you must not pick the
+        first site that you come across.
+      </p>
+      <iframe
+        width="100%"
+        height="100%"
+        src="https://www.youtube.com/embed/mO3Q4bRQZ3k?rel=0&amp;controls=0&amp;showinfo=0"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+  </section>
+
+</div>
+</body>

@@ -1,0 +1,35 @@
+/* BEM  */
+
+=element( $element, $component : "" )
+	@if $component != ""
+		@at-root & .#{$component}__#{$element}
+			@content
+	@else
+		@at-root &__#{$element}
+			@content
+
+=elements( $elements, $component : "" )
+	@each $element in $elements
+		@if $component != ""
+			@at-root & .#{$component}__#{$element}
+				@content
+		@else
+			@at-root &__#{$element}
+				@content
+
+=modifier( $modifier )
+	@if str-slice( $modifier, 1, 1 ) == ":"
+		@at-root &#{$modifier}
+			@content
+	@else
+		@at-root &_#{$modifier}
+			@content
+
+=modifiers( $modifiers )
+	@each $modifier in $modifiers
+		@if str-slice( $modifier, 1, 1 ) == ":"
+			@at-root &#{$modifier}
+				@content
+		@else
+			@at-root &_#{$modifier}
+				@content

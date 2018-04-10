@@ -1,0 +1,467 @@
+<header id="header" class="header header_steps position-relative bg-ice-one">
+  <div class="container">
+    <div class="row px-15">
+      <div class="header__logo-wrapper col-12 d-flex">
+        <a
+        href="/"
+        class="header__logo d-block mt-45 mx-auto ml-xl-0"
+        >
+          <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+        </a>
+      </div>
+      <div class="col-12 col-md-8 col-xl mx-auto mt-30 mt-xl-45">
+        <div class="header__progress-wrapper mx-auto">
+          <div class="mb-2">Step 5 of 5</div>
+          <div class="header__progress header__progress_step5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="steps steps_pushed-up container">
+  <div class="row">
+    <div class="steps__box col mx-auto bg-ice-one border pt-30 px-30">
+      <%= form_tag(method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+        <h3 class="text-center mt-2 mb-15">
+          Preferences for sharing of my genetic sample
+        </h3>
+        <div class="d-flex mb-30">
+          <p class="steps__description mx-auto mb-0 text-justify">
+            Genomic testing is not yet routinely done and we still don’t know a lot about genetic changes that cause
+            health conditions. Sometimes we would like to share some of your sample or the genomic information and your
+            other health related information with other researchers in Australia and internationally. We will only share
+            this information with researchers whose projects meet our criteria and have been approved by a <b>Human
+            Research Ethics Committee (HREC).</b><br>
+            <br>
+
+            A HREC is a group of medical, scientific and ethics experts, as well as members of the public, who look
+            closely at planned research to make sure it is going to be beneficial and not harmful to humans. This role
+            is taken very seriously, and any study that you are involved in should be able to give you the details of
+            their HREC approval.<br>
+            <br>
+
+            Whether we share this information outside the current study is your choice, and you can use this section to
+            change your mind any time you want to. Your answers to these questions will not stop you having the genomic
+            test.<br>
+            <br>
+
+            We will remove your personal details from your samples, genomic and health information (de-identify them),
+            but there always remains a very small chance someone could work out who you are from your genomic
+            information.<br>
+            <br>
+
+            De-identified samples are coded and so it remains possible to re-identify you. We will keep the
+            re-identification code with us, it will not be shared. By keeping the code, it means that in some cases we
+            may be able to contact you if the research finds something that will benefit you personally.
+
+          </p>
+        </div>
+        <div class="steps__general text-center py-2 mb-30">
+          <b>Who can have access to my de-identified samples and information?</b>
+
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                Not-for-profit research organisations (eg Murdoch Children’s Research Institute)
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow1"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow1"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                Universities and research institutes (eg The University of Melbourne)
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow2"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow2"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                Government (eg Australian Government Department of Health)
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow3"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow3"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                Commercial companies (eg pharmaceutical companies)
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow4"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow4"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__general text-center py-2 mb-30">
+          <b>What kinds of research can they do with my de-identified samples and information?</b>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                General research use and clinical care
+              </div>
+              <i
+              class="icon__i mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow5"
+              aria-expanded="false"
+              aria-controls="stepsRow5"
+              >
+              </i></div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow5"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow5"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+          <div
+          class="steps__row-collapse collapse"
+          id="stepsRow5"
+          >
+            <div>
+              General research use and clinical care refers to research where, for example, your genomic information
+              might shared through clinical networks internationally to see if there are any other cases in the world
+              like yours. This is for clinical benefit, but because of the close links between clinical and research
+              genomics, your genomic and other health information will likely also end up in a research setting.
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                Health/medical/biomedical research
+              </div>
+              <i
+              class="icon__i mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow6"
+              aria-expanded="false"
+              aria-controls="stepsRow6"
+              >
+              </i></div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow6"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow6"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+          <div
+          class="steps__row-collapse collapse"
+          id="stepsRow6"
+          >
+            <div>
+              Health, medical and biomedical research could include research into understanding how a genetic change
+              affects the functioning of a tissue or organ or whole-body system and is done in a research laboratory
+              setting.
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                Research specific to my condition
+              </div>
+              <i
+              class="icon__i mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow7"
+              aria-expanded="false"
+              aria-controls="stepsRow7"
+              >
+              </i></div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow7"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow7"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+          <div
+          class="steps__row-collapse collapse"
+          id="stepsRow7"
+          >
+            <div>
+              Your genomic information may be helpful to study other health conditions, but if you prefer, we can
+              restrict sharing your genomic information to research into your condition.
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                Population and ancestry research
+              </div>
+              <i
+              class="icon__i mr-sm-60"
+              data-toggle="collapse"
+              data-target="#stepsRow8"
+              aria-expanded="false"
+              aria-controls="stepsRow8"
+              >
+              </i></div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow8"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow8"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+          <div
+          class="steps__row-collapse collapse"
+          id="stepsRow8"
+          >
+            <div>
+              Population and ancestry research may include working out how or when a certain genetic change arose in a
+              population, studying traits of certain populations, or your information may be aggregated with many other
+              people’s information to be part of a control or reference dataset. This helps to determine normal
+              variation in populations.
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                I agree to my health information being shared with other research studies that don’t need my genomic
+                information (eg just my MRIs, blood test or other results)
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow9"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow9"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main d-block d-sm-flex">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                In the above sections I have agreed to my samples and genomic / health information being used in some
+                way for other research projects, both now and in the future. I would prefer to be contacted every time
+                my de-identified samples or information is shared
+              </div>
+            </div>
+
+            <div class="d-flex mt-3 mt-sm-0">
+              <label class="controls controls__radio controls__radio_red ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow10"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">No</span>
+              </label>
+              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
+                <input
+                type="radio"
+                name="radioRow10"
+                checked="checked"
+                >
+                <span class="checkmark"></span>
+                <span class="label-text ml-1">Yes</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps__row">
+          <div class="steps__row-main">
+            <div class="d-flex w-100">
+              <div class="mr-auto">
+                I understand all of the information and statements well enough to answer them.
+              </div>
+            </div>
+
+            <label class="controls controls__checkbox controls__checkbox_blue">
+              <%= check_box_tag("answer_1", "", true) %>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+
+
+        <div class="row flex-md-row">
+          <div class="col-12 col-md-3 order-0 d-flex my-15 my-md-30">
+            <%= link_to('Back', step_four_path, class: "btn btn-outline-success mx-auto ml-md-0") %>
+          </div>
+          <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
+            <%= link_to('Save and Exit', dashboard_index_path, class: "steps__btn-save btn btn-primary mx-auto") %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

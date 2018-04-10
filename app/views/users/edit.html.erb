@@ -1,0 +1,213 @@
+<section class="dashboard dashboard__edit">
+  <%= simple_form_for @user, :html => {class: "dashboard__modal position-relative form-control mb-0"} do |f| %>
+
+
+    <h3 class="h3 text-center">
+      Edit personal details
+    </h3>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :first_name, label: 'First Name', required: false, placeholder: "First Name", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col mb-30">
+        <div class="position-relative">
+          <%= f.input :middle_name, label: 'Middle Name', required: false, placeholder: "Middle Name", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :family_name, label: 'Family Name', required: false, placeholder: "Family Name", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :dob, as: 'string', label: 'Date of Birth', required: false, placeholder: "Date Of Birth", input_html: {class: "form-control mb-0 datepicker"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :email, label: 'Email', required: false, placeholder: "Email", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :address, label: 'Address Line', required: false, placeholder: "Address", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :suburb, label: 'Suburb', required: false, placeholder: "Suburb", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :state, label: 'State/Territory', required: false, placeholder: "State", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :post_code, label: 'Postcode', required: false, placeholder: "Post Code", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :phone_no, label: 'Mobile Phone', required: false, placeholder: "Mobile Phone", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :preferred_contact_method, placeholder: "Preferred contact method", required: false, input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :flagship, collection: User.flagships.keys, required: false, label: 'Flagship', include_blank: false, include_hidden: false, input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-12 mb-30">
+        <div class="position-relative">
+          <%= f.input :study_id, label: 'Study ID', required: false, placeholder: "Study ID", input_html: {class: "form-control mb-0"} %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="d-flex align-items-center mb-30">
+      <p class="mb-0">
+        Register as a parent/guardian or carer
+      </p>
+      <div class="d-flex ml-auto pl-15">
+        <div class="text-dark mr-2">No</div>
+        <label class="controls controls__switch">
+          <%= f.check_box :is_parent, as: :boolean, input_html: {class: "form-control mb-0"} %>
+          <span class="slider"></span>
+        </label>
+        <div class="ml-2">Yes</div>
+      </div>
+    </div>
+
+    <div id="kin">
+      Next of kin:<br>
+      </br>
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :kin_first_name, label: 'First Name', required: false, placeholder: "First Name", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :kin_middle_name, label: 'Middle Name', required: false, placeholder: "Middle Name", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :kin_family_name, label: 'Family Name', required: false, placeholder: "Family Name", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :kin_contact_no, label: 'Contact phone', required: false, placeholder: "Contact Phone", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :kin_email, label: 'Email', required: false, placeholder: "Email", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="child">
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :child_first_name, label: 'First Name', required: false, placeholder: "Child First Name", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :child_middle_name, label: 'Middle Name', required: false, placeholder: "Child Middle Name", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :child_family_name, label: 'Family Name', required: false, placeholder: "Child Family Name", input_html: {class: "form-control mb-0"} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :child_dob, as: 'string', label: 'Date of Birth', required: false, placeholder: "Child Date Of Birth", input_html: {class: "form-control mb-0 datepicker"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column align-items-center">
+      <%= submit_tag('Update', class: "btn btn-primary btn-block mb-18 mx-auto") %>
+      <%= link_to('Cancel', user_path(current_user)) %>
+    </div>
+
+  <% end %>
+
+</section>
