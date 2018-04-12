@@ -1,27 +1,42 @@
-<header id="header" class="header header_steps position-relative bg-ice-one">
-  <div class="container">
-    <div class="row px-15">
-      <div class="header__logo-wrapper col-12 d-flex">
+<% if params[:registration_step_three] %>
+  <header id="header" class="header header_steps position-relative bg-ice-one">
+    <div class="container">
+      <div class="row px-15">
+        <div class="header__logo-wrapper col-12 d-flex">
+          <a
+            href="/"
+            class="header__logo d-block mt-45 mx-auto ml-xl-0"
+          >
+            <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+          </a>
+        </div>
+        <div class="col-12 col-md-8 col-xl mx-auto mt-30 mt-xl-45">
+          <div class="header__progress-wrapper mx-auto">
+            <div class="mb-2">Step 3 of 5</div>
+            <div class="header__progress header__progress_step3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<% else %>
+  <header id="header" class="header header_big position-relative bg-ice-one">
+    <div class="container">
+      <div class="header__logo-wrapper header__logo-wrapper_big d-flex">
         <a
-        href="/"
-        class="header__logo d-block mt-45 mx-auto ml-xl-0"
+          href="/"
+          class="header__logo d-block mt-45 mx-auto"
         >
           <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
         </a>
       </div>
-      <div class="col-12 col-md-8 col-xl mx-auto mt-30 mt-xl-45">
-        <div class="header__progress-wrapper mx-auto">
-          <div class="mb-2">Step 3 of 5</div>
-          <div class="header__progress header__progress_step3"></div>
-        </div>
-      </div>
     </div>
-  </div>
-</header>
+  </header>
+<% end %>
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= form_tag('/step_four',method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+      <%= form_tag('/step_four', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
         <h3 class="text-center mt-2 mb-15">
           Australian Genomics Research Participation
         </h3>
@@ -43,11 +58,11 @@
                 I understand that the researchers will collect information from my <b>health records.</b>
               </div>
               <i
-              class="icon__i mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow1"
-              aria-expanded="false"
-              aria-controls="stepsRow1"
+                class="icon__i mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow1"
+                aria-expanded="false"
+                aria-controls="stepsRow1"
               >
               </i></div>
             <label class="controls controls__checkbox controls__checkbox_blue">
@@ -56,8 +71,8 @@
             </label>
           </div>
           <div
-          class="steps__row-collapse collapse"
-          id="stepsRow1"
+            class="steps__row-collapse collapse"
+            id="stepsRow1"
           >
             <div>
               We will ask the Commonwealth Government Department of Health for your Medical Benefit Scheme (MBS) and
@@ -77,15 +92,16 @@
             <div class="d-flex w-100">
               <div class="mr-auto">
                 I understand that at times during the research project I will be asked to complete <b>surveys or
-                questionnaires.</b> I’ll be reminded when they are ready to complete and know that I can ask for help to do
+                questionnaires.</b> I’ll be reminded when they are ready to complete and know that I can ask for help to
+                do
                 them.
               </div>
               <i
-              class="icon__i mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow2"
-              aria-expanded="false"
-              aria-controls="stepsRow2"
+                class="icon__i mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow2"
+                aria-expanded="false"
+                aria-controls="stepsRow2"
               >
               </i></div>
             <label class="controls controls__checkbox controls__checkbox_blue">
@@ -94,8 +110,8 @@
             </label>
           </div>
           <div
-          class="steps__row-collapse collapse"
-          id="stepsRow2"
+            class="steps__row-collapse collapse"
+            id="stepsRow2"
           >
             <div>
               The surveys and questionnaires will be very important for us to understand aspects like your views of
@@ -122,11 +138,15 @@
 
         <div class="row flex-md-row">
           <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
-            <%= link_to('Back', step_two_path, class: "btn btn-outline-success mr-auto") %>
+            <% if params[:registration_step_three] %>
+              <%= link_to('Back', step_two_path(registration_step_two: true), class: "btn btn-outline-success mr-auto") %>
+            <% end %>
           </div>
-          <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-            <%= submit_tag('Next', class: "btn btn-success ml-auto") %>
-          </div>
+          <% if params[:registration_step_three] %>
+            <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
+              <%= submit_tag('Next', name: 'registration_step_four', class: "btn btn-success ml-auto") %>
+            </div>
+          <% end %>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
             <%= link_to('Save and Exit', dashboard_index_path, class: "steps__btn-save btn btn-primary mx-auto") %>
           </div>

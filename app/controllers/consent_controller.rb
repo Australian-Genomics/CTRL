@@ -42,7 +42,9 @@ class ConsentController < ApplicationController
     end
   end
 
-  def confirm_answers; end
+  def confirm_answers;
+  end
 
-  def review_answers; end
+  def review_answers;
+  end
 end

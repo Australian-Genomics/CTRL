@@ -1,23 +1,38 @@
-<header id="header" class="header header_steps position-relative bg-ice-one">
-  <div class="container">
-    <div class="row px-15">
-      <div class="header__logo-wrapper col-12 d-flex">
+<% if params[:registration_step_two] %>
+  <header id="header" class="header header_steps position-relative bg-ice-one">
+    <div class="container">
+      <div class="row px-15">
+        <div class="header__logo-wrapper col-12 d-flex">
+          <a
+            href="/"
+            class="header__logo d-block mt-45 mx-auto ml-xl-0"
+          >
+            <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+          </a>
+        </div>
+        <div class="col-12 col-md-8 col-xl mx-auto mt-30 mt-xl-45">
+          <div class="header__progress-wrapper mx-auto">
+            <div class="mb-2">Step 2 of 5</div>
+            <div class="header__progress header__progress_step2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+<% else %>
+  <header id="header" class="header header_big position-relative bg-ice-one">
+    <div class="container">
+      <div class="header__logo-wrapper header__logo-wrapper_big d-flex">
         <a
-        href="/"
-        class="header__logo d-block mt-45 mx-auto ml-xl-0"
+          href="/"
+          class="header__logo d-block mt-45 mx-auto"
         >
           <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
         </a>
       </div>
-      <div class="col-12 col-md-8 col-xl mx-auto mt-30 mt-xl-45">
-        <div class="header__progress-wrapper mx-auto">
-          <div class="mb-2">Step 2 of 5</div>
-          <div class="header__progress header__progress_step2"></div>
-        </div>
-      </div>
     </div>
-  </div>
-</header>
+  </header>
+<% end %>
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
@@ -28,7 +43,8 @@
         <div class="d-flex mb-30">
           <p class="steps__description mx-auto mb-0 text-justify">
             This section follows on from your consent to participate in the Australian Genomics study. Your doctor or
-            genetic counsellor will have already discussed <u>the genomic test</u> with you. The answers are all pre-selected,
+            genetic counsellor will have already discussed <u>the genomic test</u> with you. The answers are all
+            pre-selected,
             meaning that you understand and agree to have the test. If you unselect any statements we will contact you
             to talk about whether you still consent to having the test.
           </p>
@@ -42,11 +58,11 @@
                 looked at. This is called a <b>genomic test.</b>
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow1"
-              aria-expanded="false"
-              aria-controls="stepsRow1"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow1"
+                aria-expanded="false"
+                aria-controls="stepsRow1"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -55,8 +71,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow1"
+              class="steps__row-collapse collapse"
+              id="stepsRow1"
             >
               <div>
                 The sample you have given may have been blood, saliva, hair follicle, skin or other sample already
@@ -81,11 +97,11 @@
                 I understand having a genomic test <b>may not find the genetic<br> cause</b> of my condition.
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow2"
-              aria-expanded="false"
-              aria-controls="stepsRow2"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow2"
+                aria-expanded="false"
+                aria-controls="stepsRow2"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -94,8 +110,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow2"
+              class="steps__row-collapse collapse"
+              id="stepsRow2"
             >
               <div>
                 The likelihood of finding a genetic cause depends on a number of things, including your health condition
@@ -113,14 +129,15 @@
               <div class="mr-auto">
                 I understand my sample and genomic information will be <b>stored</b> by the testing laboratory so that
                 it <b><u>could</u>
-                be looked at again </b> in the </br> future, when we know more about genes that cause my health condition.
+                be looked at again </b> in the </br> future, when we know more about genes that cause my health
+                condition.
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow3"
-              aria-expanded="false"
-              aria-controls="stepsRow3"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow3"
+                aria-expanded="false"
+                aria-controls="stepsRow3"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -129,8 +146,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow3"
+              class="steps__row-collapse collapse"
+              id="stepsRow3"
             >
               <div>
                 How long the laboratory stores the sample is defined by its own standard practices and relevant legal
@@ -150,11 +167,11 @@
                 team</b> involved in my care.
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow4"
-              aria-expanded="false"
-              aria-controls="stepsRow4"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow4"
+                aria-expanded="false"
+                aria-controls="stepsRow4"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -163,8 +180,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow4"
+              class="steps__row-collapse collapse"
+              id="stepsRow4"
             >
               <div>
                 This may include your Clinical Geneticist and other specialist doctors, Genetic Counsellor and GP.
@@ -180,11 +197,11 @@
                 or other conditions.
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow5"
-              aria-expanded="false"
-              aria-controls="stepsRow5"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow5"
+                aria-expanded="false"
+                aria-controls="stepsRow5"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -193,8 +210,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow5"
+              class="steps__row-collapse collapse"
+              id="stepsRow5"
             >
               <div>
                 Sharing your genomic information could be with clinical or research laboratories. All of your personal
@@ -213,11 +230,11 @@
                 purposes like <b>reference and control material.</b>
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow6"
-              aria-expanded="false"
-              aria-controls="stepsRow6"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow6"
+                aria-expanded="false"
+                aria-controls="stepsRow6"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -226,8 +243,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow6"
+              class="steps__row-collapse collapse"
+              id="stepsRow6"
             >
               <div>
                 Your DNA is stored in the testing laboratory, for at least three months, but perhaps years.
@@ -241,16 +258,18 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand there are certain <b>risks</b> involved in having a genomic test. These may include finding out
-                something that may be important for my <b>family’s health, incidental findings,</b> or having to <b>disclose the
-                genomic information.</b>
+                I understand there are certain <b>risks</b> involved in having a genomic test. These may include finding
+                out
+                something that may be important for my <b>family’s health, incidental findings,</b> or having to
+                <b>disclose the
+                  genomic information.</b>
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow7"
-              aria-expanded="false"
-              aria-controls="stepsRow7"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow7"
+                aria-expanded="false"
+                aria-controls="stepsRow7"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -259,8 +278,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow7"
+              class="steps__row-collapse collapse"
+              id="stepsRow7"
             >
               <div>
                 The main risks involved in having a genomic test are related to the information that you may get, rather
@@ -279,16 +298,17 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand that it might be important to tell my <b>family members </b>about genetic changes that could
+                I understand that it might be important to tell my <b>family members </b>about genetic changes that
+                could
                 directly affect their health. Every attempt will be made for them to receive that information from me,
                 supported by my medical team.
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow8"
-              aria-expanded="false"
-              aria-controls="stepsRow8"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow8"
+                aria-expanded="false"
+                aria-controls="stepsRow8"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -297,8 +317,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow8"
+              class="steps__row-collapse collapse"
+              id="stepsRow8"
             >
               <div>
                 Family members who may have an interest in knowing about your result are your biological, or blood
@@ -312,16 +332,18 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand that if I am taking out a new policy for <b>life, critical </br> illness</b> or <b>income protection
-                insurance</b>, the insurer may ask me to <b>disclose</b> that I have had a genetic test and require me to provide
+                I understand that if I am taking out a new policy for <b>life, critical </br> illness</b> or
+                <b>income protection
+                  insurance</b>, the insurer may ask me to <b>disclose</b> that I have had a genetic test and require me
+                to provide
                 my results.
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow9"
-              aria-expanded="false"
-              aria-controls="stepsRow9"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow9"
+                aria-expanded="false"
+                aria-controls="stepsRow9"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -330,8 +352,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow9"
+              class="steps__row-collapse collapse"
+              id="stepsRow9"
             >
               <div>
                 In Australia, how having had genetic or genomic testing affects your ability to gain certain types of
@@ -349,11 +371,11 @@
                 associated with a particular job role.</b>
               </div>
               <i
-              class="icon__i mr-30 mr-sm-60"
-              data-toggle="collapse"
-              data-target="#stepsRow10"
-              aria-expanded="false"
-              aria-controls="stepsRow10"
+                class="icon__i mr-30 mr-sm-60"
+                data-toggle="collapse"
+                data-target="#stepsRow10"
+                aria-expanded="false"
+                aria-controls="stepsRow10"
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
@@ -362,8 +384,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow10"
+              class="steps__row-collapse collapse"
+              id="stepsRow10"
             >
               <div>
                 It is lawful for an employer to ask for your genetic testing results, if they think it is relevant in
@@ -385,8 +407,8 @@
               </label>
             </div>
             <div
-            class="steps__row-collapse collapse"
-            id="stepsRow11"
+              class="steps__row-collapse collapse"
+              id="stepsRow11"
             >
             </div>
           </div>
@@ -411,11 +433,15 @@
         </div>
         <div class="row flex-md-row">
           <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
-            <%= link_to('Back', step_one_path, class: "btn btn-outline-success mr-auto") %>
+            <% if params[:registration_step_two] %>
+              <%= link_to('Back', step_one_path(registration: true), class: "btn btn-outline-success mr-auto") %>
+            <% end %>
           </div>
-          <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-            <%= submit_tag('Next', class: "btn btn-success ml-auto") %>
-          </div>
+          <% if params[:registration_step_two] %>
+            <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
+              <%= submit_tag('Next', name: 'registration_step_three: true', class: "btn btn-success ml-auto") %>
+            </div>
+          <% end %>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
             <%= link_to('Save and Exit', '/dashboard', class: "steps__btn-save btn btn-primary mx-auto") %>
           </div>
