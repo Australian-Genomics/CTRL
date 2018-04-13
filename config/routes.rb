@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get "step_four", to: "consent#step_four", as: "step_four"
     get "step_five", to: "consent#step_five", as: "step_five"
 
+    post "goto_step", to: "consent#goto_step", as: "goto_step"
+
     get "about_us", to: "dashboard#about_us", as: "about_us"
 
     post "confirm_answers", to: "consent#confirm_answers", as: "confirm_answers"
