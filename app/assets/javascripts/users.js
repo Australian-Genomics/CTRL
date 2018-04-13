@@ -18,13 +18,3 @@ $('#user_is_parent').change(function () {
         $('#child').hide();
     }
 })
-
-$(window).on('page: load', function () {
-    if ($('#user_is_parent').is(":checked")) {
-        $('#kin').hide();
-        $('#child').show();
-    } else {
-        $('#kin').show();
-        $('#child').hide();
-    }
-})

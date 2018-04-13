@@ -125,7 +125,7 @@
       </div>
     </div>
 
-    <div id="kin">
+    <div id="kin" style="<%= 'display: none' if current_user.is_parent == true %>">
       Next of kin:<br>
       </br>
       <div class="form-row">
@@ -169,7 +169,7 @@
       </div>
     </div>
 
-    <div id="child">
+    <div id="child" style="<%= 'display: none' if current_user.is_parent == false %>">
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
