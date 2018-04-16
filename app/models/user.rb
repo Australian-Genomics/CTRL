@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :family_name, :flagship, :study_id
+  has_many :steps, dependent: :destroy
 
   enum flagship: ['Acute Care Genomic Testing',
                   'Acute Lymphoblastic Leukaemia',
@@ -23,9 +24,4 @@ class User < ApplicationRecord
                   'Renal Genetic Disorders',
                   'Solid Tumours']
 
-  enum current_consent_step: %w[step_1
-                                step_2
-                                step_3
-                                step_4
-                                step_5]
 end
