@@ -37,8 +37,6 @@
   <div class="row">
     <div class="steps__box col mx-auto">
       <div class="bg-ice-one border p-15">
-<<<<<<< HEAD
-        <%= form_tag('/goto_step') do %>
           <h3 class="text-center mt-2 mb-15">Introduction to this platform</h3>
           <p class="text-center mb-30">
             It is a long established fact that a reader
@@ -54,29 +52,6 @@
               allow="autoplay; encrypted-media"
               allowfullscreen
             ></iframe>
-=======
-        <h3 class="text-center mt-2 mb-15">Introduction to this platform</h3>
-        <p class="text-center mb-30">
-          It is a long established fact that a reader
-          will be distracted by the readable content
-          of a page when looking at its layout.
-        </p>
-        <div class="steps__iframe">
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/mO3Q4bRQZ3k?rel=0&amp;controls=0&amp;showinfo=0"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="row flex-md-row-reverse">
-          <div class="col-12 col-md-3 d-flex my-15 my-md-30">
-            <% if params[:registration] %>
-              <%= link_to('Next', step_two_path(registration_step_two: true), class: "btn btn-success mx-auto mr-md-0") %>
-            <% end %>
->>>>>>> 120963391bea50101fc8032d604a35252a44f8db
           </div>
           <div class="row flex-md-row-reverse">
             <div class="col-12 col-md-3 d-flex my-15 my-md-30">
@@ -85,12 +60,11 @@
               <% end %>
             </div>
             <div class="col-12 col-md-6 offset-md-3 d-flex mb-30 mt-md-30">
-              <%= submit_tag('Save and Exit', name: 'save', class: "steps__btn-save btn btn-primary mx-auto") %>
+              <%= link_to('Save and Exit',dashboard_index_path, name: 'save', class: "steps__btn-save btn btn-primary mx-auto") %>
             </div>
             <%#= submit_tag('Next',name:'next', class: "btn btn-success mx-auto mr-md-0") %>
             <%#= submit_tag('Save and eeic',name:'save', class: "btn btn-success mx-auto mr-md-0") %>
           </div>
-        <% end %>
       </div>
     </div>
   </div>
