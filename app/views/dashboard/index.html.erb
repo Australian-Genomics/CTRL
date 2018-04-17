@@ -60,7 +60,7 @@
         }
     -->
 
-    <% if current_user.current_consent_step == 'step_1' %>
+    <% if current_user.steps == '1' %>
 
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
@@ -325,7 +325,7 @@
         </div>
       </div>
 
-    <% elsif current_user.current_consent_step == 'step_2' %>
+    <% elsif current_user.steps == '2' %>
 
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
@@ -590,7 +590,7 @@
         </div>
       </div>
 
-    <% elsif current_user.current_consent_step == 'step_3' %>
+    <% elsif current_user.steps == '3' %>
 
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
@@ -855,7 +855,7 @@
         </div>
       </div>
 
-    <% elsif current_user.current_consent_step == 'step_4' %>
+    <% elsif current_user.steps == '4' %>
 
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
@@ -1120,7 +1120,7 @@
         </div>
       </div>
 
-    <% elsif current_user.current_consent_step == 'step_5' %>
+    <% elsif current_user.steps == '5' %>
 
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
