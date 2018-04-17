@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 2018_04_16_122836) do
   create_table "questions", force: :cascade do |t|
     t.integer "number"
     t.boolean "answer"
-    t.bigint "steps_id"
+    t.bigint "step_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["steps_id"], name: "index_questions_on_steps_id"
+    t.index ["step_id"], name: "index_questions_on_step_id"
   end
 
   create_table "steps", force: :cascade do |t|

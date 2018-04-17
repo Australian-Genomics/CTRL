@@ -3,7 +3,7 @@ class CreateQuestions < ActiveRecord::Migration[5.2]
     create_table :questions do |t|
       t.integer :number
       t.boolean :answer
-      t.references :steps
+      t.references :step
       t.timestamps
     end
   end
