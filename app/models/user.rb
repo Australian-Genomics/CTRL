@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :family_name, :flagship, :study_id
   has_many :steps, dependent: :destroy
+  after_save :create_consent_step
 
   enum flagship: ['Acute Care Genomic Testing',
                   'Acute Lymphoblastic Leukaemia',
@@ -24,4 +25,11 @@ class User < ApplicationRecord
                   'Renal Genetic Disorders',
                   'Solid Tumours']
 
+  def create_consent_step
+    self.steps.create(number: 1,accepted: false)
+    self.steps.create(number: 2,accepted: false)
+    self.steps.create(number: 3,accepted: false)
+    self.steps.create(number: 4,accepted: false)
+    self.steps.create(number: 5,accepted: false)
+  end
 end
