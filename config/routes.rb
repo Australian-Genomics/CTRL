@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations' }
-  resources :users, :dashboard
+  resources :users, :dashboard, :steps
 
     get "step_one", to: "consent#step_one", as: "step_one"
     get "step_two", to: "consent#step_two", as: "step_two"
@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     get "step_four", to: "consent#step_four", as: "step_four"
     get "step_five", to: "consent#step_five", as: "step_five"
 
-    post "goto_step", to: "consent#goto_step", as: "goto_step"
 
     get "about_us", to: "dashboard#about_us", as: "about_us"
 

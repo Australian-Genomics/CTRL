@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :family_name, :flagship, :study_id
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
-  before_save :create_consent_step
+  after_create :create_consent_step
 
   enum flagship: ['Acute Care Genomic Testing',
                   'Acute Lymphoblastic Leukaemia',
@@ -26,6 +26,26 @@ class User < ApplicationRecord
                   'Renal Genetic Disorders',
                   'Solid Tumours']
 
+  def step_one
+    self.steps.find_by(number: 1)
+  end
+
+  def step_two
+    self.steps.find_by(number: 2)
+  end
+
+  def step_three
+    self.steps.find_by(number: 3)
+  end
+
+  def step_four
+    self.steps.find_by(number: 4)
+  end
+
+  def step_five
+    self.steps.find_by(number: 5)
+  end
+
   def create_consent_step
     create_step_one
     create_step_two
@@ -33,7 +53,7 @@ class User < ApplicationRecord
     create_step_four
     create_step_five
   end
-  
+
   def create_step_one
     self.steps.build(number: 1, accepted: false)
   end
@@ -52,7 +72,7 @@ class User < ApplicationRecord
     step_two.questions.build(number: 10, answer: nil)
     step_two.questions.build(number: 11, answer: nil)
   end
-  
+
   def create_step_three
     step_three = self.steps.build(number: 3, accepted: false)
     step_three.questions.build(number: 1, answer: nil)

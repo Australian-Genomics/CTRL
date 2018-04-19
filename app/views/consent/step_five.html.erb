@@ -482,3 +482,9 @@
     </div>
   </div>
 </section>
+
+
+<%= simple_form_for @step, method: :put do |f| %>
+  <%= f.hidden_field :accepted, value: "1" %>
+  <%= f.button :submit, 'Save and Exit' %>
+<% end %>

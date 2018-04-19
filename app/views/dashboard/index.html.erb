@@ -60,7 +60,7 @@
         }
     -->
 
-    <% if current_user.steps == '1' %>
+    <% if current_user.steps.first.accepted ==   true %>
 
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
@@ -110,1278 +110,6 @@
             <%= link_to('View', step_one_path, class: "btn btn-primary") %>
           </div>
 
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">2</i>
-              <div class="mr-auto">
-                Consent for genomic test
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Consent for genomic test
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                -
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_two_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">3</i>
-              <div class="mr-auto">
-                Agreement to participate in AGHA research
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Agreement to participate in AGHA research
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_three_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">4</i>
-              <div class="mr-auto">
-                Preferences for knowing my genomic test results
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for knowing my genomic test results
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_four_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">5</i>
-              <div class="mr-auto">
-                Preferences for sharing of my genetic sample
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for sharing of my genetic sample
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_five_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    <% elsif current_user.steps == '2' %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">1</i>
-            <div class="mr-auto">
-              Platform introduction
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="top"
-              data-html="true"
-            >
-            </i>
-            <div class="popover-content d-none">
-              <div class="text-dark-purple mb-2">
-                Platform introduction
-              </div>
-              <div class="text-dark mb-2">
-                The economic survey is required for
-                xxxxxxxxxxxxxxxxxxx.
-              </div>
-              <div class="text-dark mb-2">
-                You will be notified by email when
-                the survey is available.
-              </div>
-              <button class="btn btn-primary">Ok</button>
-            </div>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('View', step_one_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">2</i>
-              <div class="mr-auto">
-                Consent for genomic test
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Consent for genomic test
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                -
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_two_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">3</i>
-              <div class="mr-auto">
-                Agreement to participate in AGHA research
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Agreement to participate in AGHA research
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_three_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">4</i>
-              <div class="mr-auto">
-                Preferences for knowing my genomic test results
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for knowing my genomic test results
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_four_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">5</i>
-              <div class="mr-auto">
-                Preferences for sharing of my genetic sample
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for sharing of my genetic sample
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_five_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    <% elsif current_user.steps == '3' %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">1</i>
-            <div class="mr-auto">
-              Platform introduction
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="top"
-              data-html="true"
-            >
-            </i>
-            <div class="popover-content d-none">
-              <div class="text-dark-purple mb-2">
-                Platform introduction
-              </div>
-              <div class="text-dark mb-2">
-                The economic survey is required for
-                xxxxxxxxxxxxxxxxxxx.
-              </div>
-              <div class="text-dark mb-2">
-                You will be notified by email when
-                the survey is available.
-              </div>
-              <button class="btn btn-primary">Ok</button>
-            </div>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('View', step_one_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">2</i>
-              <div class="mr-auto">
-                Consent for genomic test
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Consent for genomic test
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                -
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_two_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">3</i>
-              <div class="mr-auto">
-                Agreement to participate in AGHA research
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Agreement to participate in AGHA research
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_three_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">4</i>
-              <div class="mr-auto">
-                Preferences for knowing my genomic test results
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for knowing my genomic test results
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_four_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">5</i>
-              <div class="mr-auto">
-                Preferences for sharing of my genetic sample
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for sharing of my genetic sample
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_five_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    <% elsif current_user.steps == '4' %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">1</i>
-            <div class="mr-auto">
-              Platform introduction
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="top"
-              data-html="true"
-            >
-            </i>
-            <div class="popover-content d-none">
-              <div class="text-dark-purple mb-2">
-                Platform introduction
-              </div>
-              <div class="text-dark mb-2">
-                The economic survey is required for
-                xxxxxxxxxxxxxxxxxxx.
-              </div>
-              <div class="text-dark mb-2">
-                You will be notified by email when
-                the survey is available.
-              </div>
-              <button class="btn btn-primary">Ok</button>
-            </div>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('View', step_one_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">2</i>
-              <div class="mr-auto">
-                Consent for genomic test
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Consent for genomic test
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                -
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_two_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">3</i>
-              <div class="mr-auto">
-                Agreement to participate in AGHA research
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Agreement to participate in AGHA research
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_three_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">4</i>
-              <div class="mr-auto">
-                Preferences for knowing my genomic test results
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for knowing my genomic test results
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_four_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">5</i>
-              <div class="mr-auto">
-                Preferences for sharing of my genetic sample
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for sharing of my genetic sample
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_five_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    <% elsif current_user.steps == '5' %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">1</i>
-            <div class="mr-auto">
-              Platform introduction
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="top"
-              data-html="true"
-            >
-            </i>
-            <div class="popover-content d-none">
-              <div class="text-dark-purple mb-2">
-                Platform introduction
-              </div>
-              <div class="text-dark mb-2">
-                The economic survey is required for
-                xxxxxxxxxxxxxxxxxxx.
-              </div>
-              <div class="text-dark mb-2">
-                You will be notified by email when
-                the survey is available.
-              </div>
-              <button class="btn btn-primary">Ok</button>
-            </div>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('View', step_one_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">2</i>
-              <div class="mr-auto">
-                Consent for genomic test
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Consent for genomic test
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                -
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_two_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">3</i>
-              <div class="mr-auto">
-                Agreement to participate in AGHA research
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Agreement to participate in AGHA research
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_three_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">4</i>
-              <div class="mr-auto">
-                Preferences for knowing my genomic test results
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for knowing my genomic test results
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_four_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_done">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">5</i>
-              <div class="mr-auto">
-                Preferences for sharing of my genetic sample
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for sharing of my genetic sample
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Reviewed
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Edit', step_five_path, class: "btn btn-primary") %>
-            </div>
-
-          </div>
         </div>
       </div>
 
@@ -1424,7 +152,7 @@
           <div class="d-flex w-100 mb-15 mb-md-0">
             <i class="icon_placeholder mr-2"></i>
             <div class="mr-auto">
-              Review Required
+              Review required
             </div>
             <div class="mr-md-3">
               -
@@ -1438,219 +166,440 @@
         </div>
       </div>
 
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+    <% end %>
 
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">2</i>
-              <div class="mr-auto">
-                Consent for genomic test
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Consent for genomic test
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
+    <% if current_user.steps.second.accepted == true %>
+
+      <div class="steps__row dashboard__row dashboard__row_done">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">2</i>
+            <div class="mr-auto">
+              Platform introduction
             </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
               </div>
-              <div class="mr-md-3">
-                -
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
               </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
             </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_two_path, class: "btn btn-primary") %>
-            </div>
-
           </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Reviewed
+            </div>
+            <div class="mr-md-3">
+              -
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Edit', step_two_path, class: "btn btn-primary") %>
+          </div>
+
         </div>
       </div>
 
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+    <% else %>
 
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">3</i>
-              <div class="mr-auto">
-                Agreement to participate in AGHA research
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Agreement to participate in AGHA research
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
+      <div class="steps__row dashboard__row dashboard__row_active">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">2</i>
+            <div class="mr-auto">
+              Platform introduction
             </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
               </div>
-              <div class="mr-md-3">
-                ‒
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
               </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
             </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_three_path, class: "btn btn-primary") %>
-            </div>
-
           </div>
-        </div>
-      </div>
 
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">4</i>
-              <div class="mr-auto">
-                Preferences for knowing my genomic test results
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for knowing my genomic test results
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Review required
             </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
+            <div class="mr-md-3">
+              -
             </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_four_path, class: "btn btn-primary") %>
-            </div>
-
           </div>
-        </div>
-      </div>
 
-      <div class="steps__row">
-        <div class="dashboard__row dashboard__row_active">
-          <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-            <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-              <i class="icon__num mr-12">5</i>
-              <div class="mr-auto">
-                Preferences for sharing of my genetic sample
-              </div>
-              <i
-                class="icon__i icon__i_popover mr-md-60 ml-auto"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="top"
-                data-html="true"
-              >
-              </i>
-              <div class="popover-content d-none">
-                <div class="text-dark-purple mb-2">
-                  Preferences for sharing of my genetic sample
-                </div>
-                <div class="text-dark mb-2">
-                  The economic survey is required for
-                  xxxxxxxxxxxxxxxxxxx.
-                </div>
-                <div class="text-dark mb-2">
-                  You will be notified by email when
-                  the survey is available.
-                </div>
-                <button class="btn btn-primary">Ok</button>
-              </div>
-            </div>
-
-            <div class="d-flex w-100 mb-15 mb-md-0">
-              <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
-                Review required
-              </div>
-              <div class="mr-md-3">
-                ‒
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end mnw-120">
-              <%= link_to('Review', step_five_path, class: "btn btn-primary") %>
-            </div>
-
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Review', step_two_path, class: "btn btn-primary") %>
           </div>
+
         </div>
       </div>
 
     <% end %>
+
+    <% if current_user.steps.third.accepted == true %>
+
+      <div class="steps__row dashboard__row dashboard__row_done">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">3</i>
+            <div class="mr-auto">
+              Platform introduction
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
+              </div>
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
+              </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
+            </div>
+          </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Reviewed
+            </div>
+            <div class="mr-md-3">
+              -
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Edit', step_three_path, class: "btn btn-primary") %>
+          </div>
+
+        </div>
+      </div>
+
+    <% else %>
+
+      <div class="steps__row dashboard__row dashboard__row_active">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">3</i>
+            <div class="mr-auto">
+              Platform introduction
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
+              </div>
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
+              </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
+            </div>
+          </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Review required
+            </div>
+            <div class="mr-md-3">
+              -
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Review', step_three_path, class: "btn btn-primary") %>
+          </div>
+
+        </div>
+      </div>
+
+    <% end %>
+
+    <% if current_user.steps.fourth.accepted == true %>
+
+      <div class="steps__row dashboard__row dashboard__row_done">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">4</i>
+            <div class="mr-auto">
+              Platform introduction
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
+              </div>
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
+              </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
+            </div>
+          </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Reviewed
+            </div>
+            <div class="mr-md-3">
+              -
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Edit', step_four_path, class: "btn btn-primary") %>
+          </div>
+
+        </div>
+      </div>
+
+    <% else %>
+
+      <div class="steps__row dashboard__row dashboard__row_active">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">4</i>
+            <div class="mr-auto">
+              Platform introduction
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
+              </div>
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
+              </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
+            </div>
+          </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Review required
+            </div>
+            <div class="mr-md-3">
+              -
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Review', step_four_path, class: "btn btn-primary") %>
+          </div>
+
+        </div>
+      </div>
+
+    <% end %>
+
+    <% if current_user.steps.fifth.accepted == true %>
+
+      <div class="steps__row dashboard__row dashboard__row_done">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">5</i>
+            <div class="mr-auto">
+              Platform introduction
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
+              </div>
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
+              </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
+            </div>
+          </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Reviewed
+            </div>
+            <div class="mr-md-3">
+              -
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Edit', step_five_path, class: "btn btn-primary") %>
+          </div>
+
+        </div>
+      </div>
+
+    <% else %>
+
+      <div class="steps__row dashboard__row dashboard__row_active">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">5</i>
+            <div class="mr-auto">
+              Platform introduction
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="top"
+              data-html="true"
+            >
+            </i>
+            <div class="popover-content d-none">
+              <div class="text-dark-purple mb-2">
+                Platform introduction
+              </div>
+              <div class="text-dark mb-2">
+                The economic survey is required for
+                xxxxxxxxxxxxxxxxxxx.
+              </div>
+              <div class="text-dark mb-2">
+                You will be notified by email when
+                the survey is available.
+              </div>
+              <button class="btn btn-primary">Ok</button>
+            </div>
+          </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              Review required
+            </div>
+            <div class="mr-md-3">
+              -
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <%= link_to('Review', step_five_path, class: "btn btn-primary") %>
+          </div>
+
+        </div>
+      </div>
+
+    <% end %>
+
   </section>
 
 </div>

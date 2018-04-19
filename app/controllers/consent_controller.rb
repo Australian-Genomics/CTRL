@@ -3,29 +3,27 @@ class ConsentController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def step_one
-    @user = User.new
-    @user.steps.build(step_params)
+    @step = current_user.step_one
     render 'step_one.html.erb'
-    # if params[:next]
-    #   redirect_to step_two_path
-    # elsif params[:save]
-    #   redirect_to dashboard_index_path
-    # end
   end
 
   def step_two
+    @step = current_user.step_two
     render 'step_two.html.erb'
   end
 
   def step_three
+    @step = current_user.step_three
     render 'step_three.html.erb'
   end
 
   def step_four
+    @step = current_user.step_four
     render 'step_four.html.erb'
   end
 
   def step_five
+    @step = current_user.step_five
     render 'step_five.html.erb'
   end
 
@@ -35,10 +33,5 @@ class ConsentController < ApplicationController
   def review_answers;
   end
 
-  private
-
-  def step_params
-    params.permit({steps_attributes: [:number,:accpeted]})
-  end
 
 end

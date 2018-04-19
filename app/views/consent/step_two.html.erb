@@ -36,7 +36,13 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= form_tag('/review_answers', class: "bg-ice-one border pt-30 px-30", id: "step_two_form") do %>
+      <%#= form_tag('/review_answers', class: "bg-ice-one border pt-30 px-30", id: "step_two_form") do %>
+      <%= simple_form_for @step do |f| %>
+        <%= f.simple_fields_for :questions do |qf| %>
+          <%#= qf.input :answer, as: :hidden %>
+          <%#= qf.input :answer, label: qf.object.answer, input_html: {id: qf.object.answer} %>
+          <%= qf.check_box :answer, as: :boolean %>
+        <% end %>
         <h3 class="text-center mt-2 mb-15">
           Consent for genomics test
         </h3>
@@ -78,10 +84,12 @@
                 The sample you have given may have been blood, saliva, hair follicle, skin or other sample already
                 collected as part of your medical care. All of these samples contain your cells, and your DNA can be
                 extracted from the cells in the sample. Your DNA is needed for the genomic test.
-                DNA makes up genes. Genes are inside almost every cell of your body. There are over 20,000 genes in each
+                DNA makes up genes. Genes are inside almost every cell of your body. There are over 20,000 genes in
+                each
                 of your cells, and together these genes make up your “genome”. Each gene has a specific function,
                 however the function of all genes is not yet known. Variations in genetic information in different
-                people can occur, which is why we are all unique. Most variations are harmless, but other variations can
+                people can occur, which is why we are all unique. Most variations are harmless, but other variations
+                can
                 make a gene not work, resulting in a disorder or health condition. Identifying variations may help to
                 find the cause of your health condition.
                 Previously, testing to look for variations in genes involved looking at only one gene at a time. There
@@ -114,11 +122,14 @@
               id="stepsRow2"
             >
               <div>
-                The likelihood of finding a genetic cause depends on a number of things, including your health condition
+                The likelihood of finding a genetic cause depends on a number of things, including your health
+                condition
                 and how much is already known about it. We are still learning about what genes do and how they work.
-                Between 30 and 60% of rare disease patients receive a diagnosis through genomic testing. That is, 3 to 6
+                Between 30 and 60% of rare disease patients receive a diagnosis through genomic testing. That is, 3 to
+                6
                 people in every 10 tested will receive a genetic explanation for their condition. We expect more
-                patients will receive a diagnosis in the future, as the technology and our ability to interpret genomic
+                patients will receive a diagnosis in the future, as the technology and our ability to interpret
+                genomic
                 information improve.
               </div>
             </div>
@@ -141,6 +152,7 @@
               >
               </i>
               <label class="controls controls__checkbox controls__checkbox_blue">
+                <%#= qf.check_box :answer, as: :boolean %>
                 <%= check_box_tag("answer_3", "", false, onclick: "Options()") %>
                 <span class="checkmark"></span>
               </label>
@@ -152,8 +164,10 @@
               <div>
                 How long the laboratory stores the sample is defined by its own standard practices and relevant legal
                 requirements. You should expect the sample may be kept for at least three months, but perhaps years.
-                The testing laboratory will keep the genomic information they get from your sample so that if there is a
-                specific reason or request to do so, they can look at your genomic information again (do a re-analysis).
+                The testing laboratory will keep the genomic information they get from your sample so that if there is
+                a
+                specific reason or request to do so, they can look at your genomic information again (do a
+                re-analysis).
                 An example of when this might be done is if new gene variants linked with your health condition are
                 identified.
               </div>
@@ -163,8 +177,9 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto text-justify">
-                I understand that my genomic testing results will be considered <br>confidential but shared with the <b>medical
-                team</b> involved in my care.
+                I understand that my genomic testing results will be considered <br>confidential but shared with the
+                <b>medical
+                  team</b> involved in my care.
               </div>
               <i
                 class="icon__i mr-30 mr-sm-60"
@@ -216,7 +231,8 @@
               <div>
                 Sharing your genomic information could be with clinical or research laboratories. All of your personal
                 information is removed before it is shared, so there is very little chance it could be linked back to
-                you. Your information is anonymised in this case, meaning the record that it is your sample is not kept.
+                you. Your information is anonymised in this case, meaning the record that it is your sample is not
+                kept.
                 This means that you will probably not personally benefit from anything that sharing your information
                 finds.
               </div>
@@ -226,7 +242,8 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand the laboratory performing my test will <b>store </b>and may sometimes use my DNA sample for
+                I understand the laboratory performing my test will <b>store </b>and may sometimes use my DNA sample
+                for
                 purposes like <b>reference and control material.</b>
               </div>
               <i
@@ -258,7 +275,8 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto">
-                I understand there are certain <b>risks</b> involved in having a genomic test. These may include finding
+                I understand there are certain <b>risks</b> involved in having a genomic test. These may include
+                finding
                 out
                 something that may be important for my <b>family’s health, incidental findings,</b> or having to
                 <b>disclose the
@@ -282,7 +300,8 @@
               id="stepsRow7"
             >
               <div>
-                The main risks involved in having a genomic test are related to the information that you may get, rather
+                The main risks involved in having a genomic test are related to the information that you may get,
+                rather
                 than any physical harm.
                 Waiting for the test results, or the results you receive, may bring up a number of different emotions.
                 We may be uncertain about the significance of your result.
@@ -322,9 +341,12 @@
             >
               <div>
                 Family members who may have an interest in knowing about your result are your biological, or blood
-                relatives. These people could include your parents, children, aunties and uncles and cousins. If you are
-                planning to have (more) children with your partner, they may need to know. Exactly who needs to know is
-                different on a case by case basis. Your medical team will help you by telling you who will need to know.
+                relatives. These people could include your parents, children, aunties and uncles and cousins. If you
+                are
+                planning to have (more) children with your partner, they may need to know. Exactly who needs to know
+                is
+                different on a case by case basis. Your medical team will help you by telling you who will need to
+                know.
               </div>
             </div>
           </div>
@@ -334,7 +356,8 @@
               <div class="mr-auto">
                 I understand that if I am taking out a new policy for <b>life, critical </br> illness</b> or
                 <b>income protection
-                  insurance</b>, the insurer may ask me to <b>disclose</b> that I have had a genetic test and require me
+                  insurance</b>, the insurer may ask me to <b>disclose</b> that I have had a genetic test and require
+                me
                 to provide
                 my results.
               </div>
@@ -357,8 +380,10 @@
             >
               <div>
                 In Australia, how having had genetic or genomic testing affects your ability to gain certain types of
-                insurance is currently being debated by government. If you would like more information about the impact
-                of genetic testing on certain insurance products, visit the Centre for Genetics Education insurance fact
+                insurance is currently being debated by government. If you would like more information about the
+                impact
+                of genetic testing on certain insurance products, visit the Centre for Genetics Education insurance
+                fact
                 sheet.
               </div>
             </div>
@@ -390,7 +415,8 @@
               <div>
                 It is lawful for an employer to ask for your genetic testing results, if they think it is relevant in
                 deciding whether you are able to fulfil a job role.
-                In reality, very few employers do ask for your genetic testing results at this time, but it's important
+                In reality, very few employers do ask for your genetic testing results at this time, but it's
+                important
                 that you know it may become more relevant in the future.
               </div>
             </div>
@@ -431,21 +457,22 @@
             <span class="checkmark"></span>
           </label>
         </div>
-        <div class="row flex-md-row">
-          <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
-            <% if params[:registration_step_two] %>
-              <%= link_to('Back', step_one_path(registration: true), class: "btn btn-outline-success mr-auto") %>
-            <% end %>
-          </div>
+      <div class="row flex-md-row">
+        <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
           <% if params[:registration_step_two] %>
-            <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-              <%= submit_tag('Next', name: 'registration_step_three: true', class: "btn btn-success ml-auto") %>
-            </div>
+            <%= link_to('Back', step_one_path(registration: true), class: "btn btn-outline-success mr-auto") %>
           <% end %>
-          <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
-            <%= link_to('Save and Exit', '/dashboard', class: "steps__btn-save btn btn-primary mx-auto") %>
-          </div>
         </div>
+        <% if params[:registration_step_two] %>
+          <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
+            <%= submit_tag('Next', name: 'registration_step_three: true', class: "btn btn-success ml-auto") %>
+          </div>
+        <% end %>
+        <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
+          <%= f.hidden_field :accepted, value: "1" %>
+          <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
+        </div>
+      </div>
       <% end %>
     </div>
   </div>
