@@ -1,4 +1,4 @@
-<% if params[:regsitration_step_five] %>
+<% if params[:registration_step_five] %>
   <header id="header" class="header header_steps position-relative bg-ice-one">
     <div class="container">
       <div class="row px-15">
@@ -35,8 +35,12 @@
 <% end %>
 <section class="steps steps_pushed-up container">
   <div class="row">
-    <div class="steps__box col mx-auto bg-ice-one border pt-30 px-30">
-      <%= form_tag(method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+    <div class="steps__box col mx-auto">
+      <%#= form_tag(method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+      <%= simple_form_for @step, method: :put do |f| %>
+        <%= f.simple_fields_for :questions do |qf| %>
+          <%= qf.collection_radio_buttons :answer, [[true, 'Yes'] ,[false, 'No']], :first, :last%>
+        <% end %>
         <h3 class="text-center mt-2 mb-15">
           Preferences for sharing of my genetic sample
         </h3>
@@ -470,21 +474,16 @@
 
         <div class="row flex-md-row">
           <div class="col-12 col-md-3 order-0 d-flex my-15 my-md-30">
-            <% if params[:regsitration_step_five] %>
+            <% if params[:registration_step_five] %>
               <%= link_to('Back', step_four_path(registration_step_four: true), class: "btn btn-outline-success mx-auto ml-md-0") %>
             <% end %>
           </div>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
-            <%= link_to('Save and Exit', dashboard_index_path, class: "steps__btn-save btn btn-primary mx-auto") %>
+            <%= f.hidden_field :accepted, value: "1" %>
+            <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
 </section>
-
-
-<%= simple_form_for @step, method: :put do |f| %>
-  <%= f.hidden_field :accepted, value: "1" %>
-  <%= f.button :submit, 'Save and Exit' %>
-<% end %>

@@ -1,5 +1,5 @@
 When('I click on Next') do
-  click_link('Next')
+  click_button('Next')
 end
 
 When('I click on link Save and Exit') do

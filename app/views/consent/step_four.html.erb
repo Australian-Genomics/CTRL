@@ -37,7 +37,11 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= form_tag('/step_five', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+      <%#= form_tag('/step_five', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+      <%= simple_form_for @step, method: :put do |f| %>
+        <%= f.simple_fields_for :questions do |qf| %>
+          <%= qf.check_box :answer, as: :boolean %>
+        <% end %>
         <h3 class="text-center mt-2 mb-15">
           Preferences for knowing my genomic test results
         </h3>
@@ -349,21 +353,17 @@
               <%= link_to('Back', step_three_path(registration_step_three: true), class: "btn btn-outline-success mr-auto") %>
             <% end %>
           </div>
+          <%= f.hidden_field :accepted, value: "1" %>
           <% if params[:registration_step_four] %>
             <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-              <%= submit_tag('Next', name: 'regsitration_step_five', class: "btn btn-success ml-auto") %>
+              <%= f.button :submit, 'Next', name: 'registration_step_five', class: "btn btn-success ml-auto" %>
             </div>
           <% end %>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
-            <%= link_to('Save and Exit', dashboard_index_path, class: "steps__btn-save btn btn-primary mx-auto") %>
+            <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
 </section>
-
-<%= simple_form_for @step, method: :put do |f| %>
-  <%= f.hidden_field :accepted, value: "1" %>
-  <%= f.button :submit, 'Save and Exit' %>
-<% end %>

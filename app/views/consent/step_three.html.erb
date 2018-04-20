@@ -36,7 +36,11 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= form_tag('/step_four', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
+      <%= simple_form_for @step, method: :put do |f| %>
+        <%= f.simple_fields_for :questions do |qf| %>
+          <%= qf.check_box :answer, as: :boolean %>
+        <% end %>
+        <%#= form_tag('/step_four', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
         <h3 class="text-center mt-2 mb-15">
           Australian Genomics Research Participation
         </h3>
@@ -80,8 +84,10 @@
               We will ask Data Linkage agencies in each State or Territory of Australia for your hospital inpatient
               records and emergency visit records. This information will cover a period of up to 14 years.
               This information will be very important for us to understand how having a genomic test and a genomic
-              diagnosis might reduce the long-term costs of health care for the government. Access to the information is
-              tightly regulated to protect your privacy, and we only receive it after applying for it through the proper
+              diagnosis might reduce the long-term costs of health care for the government. Access to the information
+              is
+              tightly regulated to protect your privacy, and we only receive it after applying for it through the
+              proper
               channels. We will also be required to destroy it after we finished using it.
             </div>
           </div>
@@ -92,7 +98,8 @@
             <div class="d-flex w-100">
               <div class="mr-auto">
                 I understand that at times during the research project I will be asked to complete <b>surveys or
-                questionnaires.</b> I’ll be reminded when they are ready to complete and know that I can ask for help to
+                questionnaires.</b> I’ll be reminded when they are ready to complete and know that I can ask for help
+                to
                 do
                 them.
               </div>
@@ -142,13 +149,14 @@
               <%= link_to('Back', step_two_path(registration_step_two: true), class: "btn btn-outline-success mr-auto") %>
             <% end %>
           </div>
+          <%= f.hidden_field :accepted, value: "1" %>
           <% if params[:registration_step_three] %>
             <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-              <%= submit_tag('Next', name: 'registration_step_four', class: "btn btn-success ml-auto") %>
+              <%= f.button :submit, 'Next', name: 'registration_step_four', class: "btn btn-success ml-auto" %>
             </div>
           <% end %>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
-            <%= link_to('Save and Exit', dashboard_index_path, class: "steps__btn-save btn btn-primary mx-auto") %>
+            <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
           </div>
         </div>
 
@@ -156,8 +164,3 @@
     </div>
   </div>
 </section>
-
-<%= simple_form_for @step, method: :put do |f| %>
-  <%= f.hidden_field :accepted, value: "1" %>
-  <%= f.button :submit, 'Save and Exit' %>
-<% end %>

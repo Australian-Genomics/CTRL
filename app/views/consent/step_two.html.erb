@@ -37,11 +37,14 @@
   <div class="row">
     <div class="steps__box col mx-auto">
       <%#= form_tag('/review_answers', class: "bg-ice-one border pt-30 px-30", id: "step_two_form") do %>
-      <%= simple_form_for @step do |f| %>
+      <%= simple_form_for(@step, defaults: {input_html: {class: "bg-ice-one border pt-30 px-30"}}) do |f| %>
         <%= f.simple_fields_for :questions do |qf| %>
-          <%#= qf.input :answer, as: :hidden %>
-          <%#= qf.input :answer, label: qf.object.answer, input_html: {id: qf.object.answer} %>
-          <%= qf.check_box :answer, as: :boolean %>
+          <%# questions.each do |field| %>
+            <%#= qf.input :answer, as: :hidden %>
+            <%#= qf.input :answer, label: qf.object.answer, input_html: {id: qf.object.answer} %>
+            <%= qf.check_box :answer, as: :boolean %>
+            <%#= field.check_box :answer, as: :boolean %>
+          <%# end %>
         <% end %>
         <h3 class="text-center mt-2 mb-15">
           Consent for genomics test
@@ -457,22 +460,22 @@
             <span class="checkmark"></span>
           </label>
         </div>
-      <div class="row flex-md-row">
-        <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
-          <% if params[:registration_step_two] %>
-            <%= link_to('Back', step_one_path(registration: true), class: "btn btn-outline-success mr-auto") %>
-          <% end %>
-        </div>
-        <% if params[:registration_step_two] %>
-          <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-            <%= submit_tag('Next', name: 'registration_step_three: true', class: "btn btn-success ml-auto") %>
+        <div class="row flex-md-row">
+          <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
+            <% if params[:registration_step_two] %>
+              <%= link_to('Back', step_one_path(registration: true), class: "btn btn-outline-success mr-auto") %>
+            <% end %>
           </div>
-        <% end %>
-        <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
           <%= f.hidden_field :accepted, value: "1" %>
-          <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
+          <% if params[:registration_step_two] %>
+            <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
+              <%= f.button :submit,'Next', name: 'registration_step_three', class: "btn btn-success ml-auto" %>
+            </div>
+          <% end %>
+          <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
+            <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
+          </div>
         </div>
-      </div>
       <% end %>
     </div>
   </div>
