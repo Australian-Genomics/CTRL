@@ -37,11 +37,7 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%#= form_tag('/step_five', method: :get, class: "bg-ice-one border pt-30 px-30") do %>
-      <%= simple_form_for @step, method: :put do |f| %>
-        <%= f.simple_fields_for :questions do |qf| %>
-          <%= qf.check_box :answer, as: :boolean %>
-        <% end %>
+      <%= simple_form_for @step,html: {class: "bg-ice-one border pt-30 px-30"}, method: :put do |f| %>
         <h3 class="text-center mt-2 mb-15">
           Preferences for knowing my genomic test results
         </h3>
@@ -63,289 +59,62 @@
           </p>
         </div>
 
-        <div class="steps__row">
-          <div class="steps__row-main d-block d-sm-flex">
-            <div class="d-flex w-100">
+        <%= f.simple_fields_for :questions, (@step.questions.count == 0 ? @step.questions : @step.questions.order(question_id: :asc)) do |qf| %>
+          <% current_question = QUS[:step_four_questions].find {|x| x[:question_id] == qf.object.question_id} %>
+          <div class="steps__row">
+            <div class="steps__row-main">
               <div class="mr-auto">
-                I want to know about the genetic change if it is <b>medically actionable </b>(<u>will</u> alter
-                <u>my health</u> management
-                or treatment).
+                <%= current_question[:qus] %>
               </div>
-              <i
-                class="icon__i mr-sm-60"
-                data-toggle="collapse"
-                data-target="#stepsRow1"
-                aria-expanded="false"
-                aria-controls="stepsRow1"
-              >
-              </i></div>
-
-            <div class="d-flex mt-3 mt-sm-0">
-              <label class="controls controls__radio controls__radio_blue ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow1"
-                  checked="checked"
+              <% if current_question[:description] != '' %>
+                <i
+                  class="icon__i mr-30 mr-sm-60"
+                  data-toggle="collapse"
+                  data-target="#stepsRow<%= qf.object.question_id %>"
+                  aria-expanded="false"
+                  aria-controls="stepsRow1"
                 >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1 text-nowrap">Not sure</span>
-              </label>
-              <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow1"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">No</span>
-              </label>
-              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow1"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">Yes</span>
-              </label>
+                </i>
+              <% end %>
+              <% if current_question[:question_id] == 20 %>
+                <label class="controls controls__checkbox controls__checkbox_blue">
+                  <%= qf.check_box :answer, {}, 'true', 'false' %>
+                  <span class="checkmark"></span>
+                </label>
+              <% else %>
+                <div class="d-flex mt-3 mt-sm-0">
+                  <%= qf.collection_radio_buttons :answer, [[true, 'Yes'], [false, 'No'], ['Not Sure', 'Not Sure']], :first, :last %>
+                </div>
+              <% end %>
             </div>
-          </div>
-          <div
-            class="steps__row-collapse collapse"
-            id="stepsRow1"
-          >
-            <div>
-              For example, there are some types of cancers that run in families. Sometimes we can find a genetic change
-              that means a family is more likely to develop a cancer throughout their lifetime. If this genetic change
-              is medically actionable, it means these families can reduce that risk through closer surveillance or
-              surgical options.
-            </div>
-          </div>
-        </div>
-
-        <div class="steps__row">
-          <div class="steps__row-main d-block d-sm-flex">
-            <div class="d-flex w-100">
-              <div class="mr-auto">
-                I want to know about the genetic change even if it is <b>non-medically actionable </b>(<u>will not</u>
-                alter <u>my health</u>
-                management or treatment)
-              </div>
-              <i
-                class="icon__i mr-sm-60"
-                data-toggle="collapse"
-                data-target="#stepsRow2"
-                aria-expanded="false"
-                aria-controls="stepsRow2"
-              >
-              </i></div>
-
-            <div class="d-flex mt-3 mt-sm-0">
-              <label class="controls controls__radio controls__radio_blue ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow2"
-                  checked="checked"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1 text-nowrap">Not sure</span>
-              </label>
-              <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow2"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">No</span>
-              </label>
-              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow2"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">Yes</span>
-              </label>
-            </div>
-          </div>
-          <div
-            class="steps__row-collapse collapse"
-            id="stepsRow2"
-          >
-            <div>
-              There are some conditions that we know can run in families and we know the genetic cause of, but cannot be
-              treated. An example of this is early onset Alzheimer’s disease. This type of result would mean that you
-              would know that you are at risk of developing this condition, but at this time your health management or
-              treatment would not change.
-            </div>
-          </div>
-        </div>
-
-        <div class="steps__row">
-          <div class="steps__row-main d-block d-sm-flex">
-            <div class="d-flex w-100">
-              <div class="mr-auto">
-                I want to know if I am a <b>carrier</b> of a genetic change that can cause disease (it might affect
-                decisions I
-                make about having children, or for my grandchildren)
-              </div>
-              <i
-                class="icon__i mr-sm-60"
-                data-toggle="collapse"
-                data-target="#stepsRow3"
-                aria-expanded="false"
-                aria-controls="stepsRow3"
-              >
-              </i></div>
-
-            <div class="d-flex mt-3 mt-sm-0">
-              <label class="controls controls__radio controls__radio_blue ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow3"
-                  checked="checked"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1 text-nowrap">Not sure</span>
-              </label>
-              <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow3"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">No</span>
-              </label>
-              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow3"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">Yes</span>
-              </label>
-            </div>
-          </div>
-          <div
-            class="steps__row-collapse collapse"
-            id="stepsRow3"
-          >
-            <div>
-              Sometimes we can be “carriers” of genetic changes that do not affect our health but can cause problems
-              when we have a baby with a partner who also carries that same genetic change. An example of this is cystic
-              fibrosis.
-            </div>
-          </div>
-        </div>
-
-        <div class="steps__row">
-          <div class="steps__row-main d-block d-sm-flex">
-            <div class="d-flex w-100">
-              <div class="mr-auto">
-                For any changes that don’t fit in the above categories, my medical team and the testing laboratory can
-                decide whether I should be told about the findings on a case by case basis
+            <div class="steps__row-collapse collapse" id="stepsRow<%= qf.object.question_id %>">
+              <div>
+                <%= current_question[:description] %>
               </div>
             </div>
-
-            <div class="d-flex mt-3 mt-sm-0">
-              <label class="controls controls__radio controls__radio_blue ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow4"
-                  checked="checked"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1 text-nowrap">Not sure</span>
-              </label>
-              <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow4"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">No</span>
-              </label>
-              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow4"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">Yes</span>
-              </label>
-            </div>
           </div>
-        </div>
+          <%= qf.input :question_id, as: :hidden, input_html: {value: current_question[:question_id]} %>
+          <%= qf.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+        <% end %>
+<!--                      <div class="d-flex mt-3 mt-sm-0">-->
+<!--                        <label class="controls controls__radio controls__radio_red ml-sm-15">-->
+<!--                          <input-->
+<!--                            type="radio"-->
+<!--                          >-->
+<!--                          <span class="checkmark"></span>-->
+<!--                          <span class="label-text ml-1">No</span>-->
+<!--                        </label>-->
+<!--                        <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">-->
+<!--                          <input-->
+<!--                            type="radio"-->
+<!--                            name="radioRow1"-->
+<!--                            checked="checked"-->
+<!--                          >-->
+<!--                          <span class="checkmark"></span>-->
+<!--                          <span class="label-text ml-1">Yes</span>-->
+<!--                        </label>-->
+<!--                      </div>-->
 
-        <div class="steps__row">
-          <div class="steps__row-main d-block d-sm-flex">
-            <div class="d-flex w-100">
-              <div class="mr-auto">
-                I would like a summary of the <b>main findings of my genomic testing report</b> stored here, so I can
-                access it
-                at any time
-              </div>
-              <i
-                class="icon__i mr-sm-60"
-                data-toggle="collapse"
-                data-target="#stepsRow5"
-                aria-expanded="false"
-                aria-controls="stepsRow5"
-              >
-              </i></div>
-
-            <div class="d-flex mt-3 mt-sm-0">
-              <label class="controls controls__radio controls__radio_blue ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow5"
-                  checked="checked"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1 text-nowrap">Not sure</span>
-              </label>
-              <label class="controls controls__radio controls__radio_red mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow5"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">No</span>
-              </label>
-              <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">
-                <input
-                  type="radio"
-                  name="radioRow5"
-                >
-                <span class="checkmark"></span>
-                <span class="label-text ml-1">Yes</span>
-              </label>
-            </div>
-          </div>
-          <div
-            class="steps__row-collapse collapse"
-            id="stepsRow5"
-          >
-            <div>
-              We are developing ways of showing your genomic results in a way that is understandable to you, your family
-              and anyone else you would like to show them to. We will make this available to you as soon as it is ready,
-              if you indicate that you would like to have it.
-            </div>
-          </div>
-        </div>
-
-        <div class="steps__row">
-          <div class="steps__row-main">
-            <div class="d-flex w-100">
-              <div class="mr-auto">
-                I understand all of the information and statements well enough to answer them.
-              </div>
-            </div>
-
-            <label class="controls controls__checkbox controls__checkbox_blue">
-              <%= check_box_tag("answer_1", "", true) %>
-              <span class="checkmark"></span>
-            </label>
-          </div>
-        </div>
 
         <div class="row flex-md-row">
           <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
