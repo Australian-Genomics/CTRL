@@ -47,61 +47,6 @@ class User < ApplicationRecord
   end
 
   def create_consent_step
-    create_step_one
-    create_step_two
-    create_step_three
-    create_step_four
-    create_step_five
-  end
-
-  def create_step_one
-    self.steps.build(number: 1, accepted: false)
-  end
-
-  def create_step_two
-    step_two = self.steps.build(number: 2, accepted: false)
-    step_two.questions.build(number: 1, answer: nil)
-    step_two.questions.build(number: 2, answer: nil)
-    step_two.questions.build(number: 3, answer: nil)
-    step_two.questions.build(number: 4, answer: nil)
-    step_two.questions.build(number: 5, answer: nil)
-    step_two.questions.build(number: 6, answer: nil)
-    step_two.questions.build(number: 7, answer: nil)
-    step_two.questions.build(number: 8, answer: nil)
-    step_two.questions.build(number: 9, answer: nil)
-    step_two.questions.build(number: 10, answer: nil)
-    step_two.questions.build(number: 11, answer: nil)
-  end
-
-  def create_step_three
-    step_three = self.steps.build(number: 3, accepted: false)
-    step_three.questions.build(number: 1, answer: nil)
-    step_three.questions.build(number: 2, answer: nil)
-    step_three.questions.build(number: 3, answer: nil)
-  end
-
-  def create_step_four
-    step_four = self.steps.build(number: 4, accepted: false)
-    step_four.questions.build(number: 1, answer: nil)
-    step_four.questions.build(number: 2, answer: nil)
-    step_four.questions.build(number: 3, answer: nil)
-    step_four.questions.build(number: 4, answer: nil)
-    step_four.questions.build(number: 5, answer: nil)
-    step_four.questions.build(number: 6, answer: nil)
-  end
-
-  def create_step_five
-    step_five = self.steps.build(number: 5, accepted: false)
-    step_five.questions.build(number: 1, answer: nil)
-    step_five.questions.build(number: 2, answer: nil)
-    step_five.questions.build(number: 3, answer: nil)
-    step_five.questions.build(number: 4, answer: nil)
-    step_five.questions.build(number: 5, answer: nil)
-    step_five.questions.build(number: 6, answer: nil)
-    step_five.questions.build(number: 7, answer: nil)
-    step_five.questions.build(number: 8, answer: nil)
-    step_five.questions.build(number: 9, answer: nil)
-    step_five.questions.build(number: 10, answer: nil)
-    step_five.questions.build(number: 11, answer: nil)
+    (1..5).each {|step_number| self.steps.create(number: step_number, accepted: false) }
   end
 end
