@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
     get "about_us", to: "dashboard#about_us", as: "about_us"
 
-    post "confirm_answers", to: "consent#confirm_answers", as: "confirm_answers"
-    post "review_answers", to: "consent#review_answers", as: "review_answers"
+    get "confirm_answers", to: "consent#confirm_answers", as: "confirm_answers"
+    get "review_answers", to: "consent#review_answers", as: "review_answers"
 
   devise_scope :user do
     get '/passwords/sent'
