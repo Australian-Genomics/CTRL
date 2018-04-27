@@ -27,26 +27,26 @@ class User < ApplicationRecord
                   'Solid Tumours']
 
   def step_one
-    self.steps.find_by(number: 1)
+    steps.find_by(number: 1)
   end
 
   def step_two
-    self.steps.find_by(number: 2)
+    steps.find_by(number: 2)
   end
 
   def step_three
-    self.steps.find_by(number: 3)
+    steps.find_by(number: 3)
   end
 
   def step_four
-    self.steps.find_by(number: 4)
+    steps.find_by(number: 4)
   end
 
   def step_five
-    self.steps.find_by(number: 5)
+    steps.find_by(number: 5)
   end
 
   def create_consent_step
-    (1..5).each {|step_number| self.steps.create(number: step_number, accepted: false) }
+    (1..5).each { |step_number| steps.create(number: step_number, accepted: false) }
   end
 end

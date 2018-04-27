@@ -12,5 +12,5 @@ if Rails.env.development? || Rails.env.test?
     t.options = ['--display-cop-names']
   end
 
-  Rake::Task[:default].enhance [:rubocop, :spec, :cucumber]
+  Rake::Task[:default].enhance %i[rubocop spec cucumber]
 end

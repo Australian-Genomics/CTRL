@@ -2,7 +2,7 @@ class Step < ApplicationRecord
   has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions
 
-  def build_question_for_step step, user_id
+  def build_question_for_step(step, user_id)
     question_arr = case step
                    when :two
                      (1..11)
@@ -16,6 +16,5 @@ class Step < ApplicationRecord
     question_arr.each do |time|
       questions.build(question_id: time, user_id: user_id)
     end
-
   end
 end

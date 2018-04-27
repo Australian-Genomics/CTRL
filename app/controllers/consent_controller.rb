@@ -31,11 +31,7 @@ class ConsentController < ApplicationController
     render 'step_five.html.erb'
   end
 
-  def confirm_answers;
-  end
+  def confirm_answers; end
 
-  def review_answers;
-  end
-
-
+  def review_answers; end
 end
