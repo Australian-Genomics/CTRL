@@ -6,7 +6,11 @@ class StepsController < ApplicationController
     if params[:registration_step_two]
       redirect_to step_two_path(registration_step_two: true)
     elsif params[:registration_step_three]
-      redirect_to step_three_path(registration_step_three: true)
+      if params[:step][:questions_attributes].select {|x| params[:step][:questions_attributes][x][:answer] == '0'}.empty?
+        redirect_to confirm_answers_path
+      else
+        redirect_to review_answers_path
+      end
     elsif params[:registration_step_four]
       redirect_to step_four_path(registration_step_four: true)
     elsif params[:registration_step_five]
@@ -19,6 +23,6 @@ class StepsController < ApplicationController
   private
 
   def step_params
-    params.require(:step).permit(:accepted, questions_attributes: [:answer, :id])
+    params.require(:step).permit(:accepted, questions_attributes: [:answer, :id, :question_id, :user_id])
   end
 end
