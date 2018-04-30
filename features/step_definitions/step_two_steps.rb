@@ -11,7 +11,7 @@ When('I click on Select All') do
 end
 
 When('I click on Unselect All') do
-  find("#controlsUnselectAll + span").click
+  find('#controlsUnselectAll + span').click
 end
 
 Then('I should see the step one of consent') do
