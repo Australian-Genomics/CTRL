@@ -62,20 +62,22 @@
         <%= f.simple_fields_for :questions, (@step.questions.count == 0 ? @step.questions : @step.questions.order(question_id: :asc)) do |qf| %>
           <% current_question = QUS[:step_four_questions].find {|x| x[:question_id] == qf.object.question_id} %>
           <div class="steps__row">
-            <div class="steps__row-main">
-              <div class="mr-auto">
-                <%= current_question[:qus] %>
+            <div class="steps__row-main d-block d-sm-flex">
+              <div class='d-flex w-100'>
+                <div class="mr-auto">
+                  <%= current_question[:qus] %>
+                </div>
+                <% if current_question[:description] != '' %>
+                  <i
+                    class="icon__i mr-sm-60"
+                    data-toggle="collapse"
+                    data-target="#stepsRow<%= qf.object.question_id %>"
+                    aria-expanded="false"
+                    aria-controls="stepsRow1"
+                    >
+                  </i>
+                <% end %>
               </div>
-              <% if current_question[:description] != '' %>
-                <i
-                  class="icon__i mr-30 mr-sm-60"
-                  data-toggle="collapse"
-                  data-target="#stepsRow<%= qf.object.question_id %>"
-                  aria-expanded="false"
-                  aria-controls="stepsRow1"
-                >
-                </i>
-              <% end %>
               <% if current_question[:question_id] == 20 %>
                 <label class="controls controls__checkbox controls__checkbox_blue">
                   <%= qf.check_box :answer, {}, 'true', 'false' %>
@@ -83,7 +85,14 @@
                 </label>
               <% else %>
                 <div class="d-flex mt-3 mt-sm-0">
-                  <%= qf.collection_radio_buttons :answer, [[true, 'Yes'], [false, 'No'], ['Not Sure', 'Not Sure']], :first, :last %>
+                  <%= qf.collection_radio_buttons :answer,
+                    [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
+                    :first,
+                    :second do |b|
+                      b.label(class: collection_option_class(b.text)) {
+                        b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
+                      }
+                    end %>
                 </div>
               <% end %>
             </div>
@@ -96,26 +105,6 @@
           <%= qf.input :question_id, as: :hidden, input_html: {value: current_question[:question_id]} %>
           <%= qf.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
         <% end %>
-<!--                      <div class="d-flex mt-3 mt-sm-0">-->
-<!--                        <label class="controls controls__radio controls__radio_red ml-sm-15">-->
-<!--                          <input-->
-<!--                            type="radio"-->
-<!--                          >-->
-<!--                          <span class="checkmark"></span>-->
-<!--                          <span class="label-text ml-1">No</span>-->
-<!--                        </label>-->
-<!--                        <label class="controls controls__radio controls__radio_green mx-auto ml-sm-15">-->
-<!--                          <input-->
-<!--                            type="radio"-->
-<!--                            name="radioRow1"-->
-<!--                            checked="checked"-->
-<!--                          >-->
-<!--                          <span class="checkmark"></span>-->
-<!--                          <span class="label-text ml-1">Yes</span>-->
-<!--                        </label>-->
-<!--                      </div>-->
-
-
         <div class="row flex-md-row">
           <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
             <% if params[:registration_step_four] %>

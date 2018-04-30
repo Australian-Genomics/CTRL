@@ -1,3 +1,3 @@
 class Question < ApplicationRecord
-  enum answer: ['false', 'true', 'Not Sure']
+  enum answer: ['false', 'true', 'not_sure']
 end
