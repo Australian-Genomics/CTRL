@@ -1,15 +1,21 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the ConsentHelper. For example:
-#
-# describe ConsentHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe ConsentHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#collection_option_class' do
+    it 'should return empty string if no option_value is passed' do
+      expect(helper.collection_option_class).to eq ''
+    end
+
+    it 'should return "green mx-auto" string if option_value is Yes' do
+      expect(helper.collection_option_class('Yes')).to include 'green mx-auto'
+    end
+
+    it 'should return "red mx-auto" string if option_value is No' do
+      expect(helper.collection_option_class('No')).to include 'red mx-auto'
+    end
+
+    it 'should return "blue" string if option_value is Not Sure' do
+      expect(helper.collection_option_class('Not Sure')).to include 'blue'
+    end
+  end
 end

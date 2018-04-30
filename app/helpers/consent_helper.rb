@@ -1,5 +1,5 @@
 module ConsentHelper
-  def collection_option_class(option_value)
+  def collection_option_class(option_value = nil)
     return '' unless option_value
     class_to_append = {
       Yes: 'green mx-auto',
