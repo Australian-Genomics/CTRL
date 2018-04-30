@@ -31,3 +31,4 @@
 
 #Ignore test coverage
 /coverage
+config/secrets.yml

@@ -22,7 +22,7 @@ jobs:
           shell: /bin/bash -l
           command: |
            apt-get update
-           apt-get --only-upgrade install google-chrome-stable
+           apt-get --only-upgrade install google-chrome-stable -y
            export CHROME_BIN=$(which google-chrome)
            bundle install
            service postgresql restart
