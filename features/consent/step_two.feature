@@ -40,7 +40,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Select All
-    And I click on Next button
+    And I click on Next
     Then I should see the confirm answers page
 
   Scenario: User can go to the review answers page
@@ -50,5 +50,5 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Unselect All
-    And I click on Next button
+    And I click on Next
     Then I should see the review answers page
