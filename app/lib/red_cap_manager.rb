@@ -24,4 +24,16 @@ class RedCapManager
       Rollbar.error("Error connecting to RedCap - #{e.message}")
     end
   end
+
+  def self.get_survey_one_return_code(participant_id)
+    data = { :token => '69712346139C3ED3BE4795341852A598', :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => participant_id,
+             :returnFormat => 'json' }
+
+    begin
+      response = HTTParty.post('https://redcap.mcri.edu.au/api/', body: data)
+      return response.parsed_response if response.success? && response.parsed_response.present?
+    rescue HTTParty::Error, SocketError => e
+      Rollbar.error("Error connecting to RedCap - #{e.message}")
+    end
+  end
 end
