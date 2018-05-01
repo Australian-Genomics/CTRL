@@ -4,7 +4,7 @@ module ConsentHelper
     class_to_append = {
       Yes: 'green mx-auto',
       No: 'red mx-auto',
-      'Not Sure': 'blue'
+      :'Not Sure' => 'blue'
     }[option_value.to_sym]
     'controls controls__radio controls__radio_' + class_to_append + ' ml-sm-15'
   end
