@@ -4,7 +4,7 @@ class RedCapManager
 
     begin
       response = HTTParty.post('https://redcap.mcri.edu.au/api/', :body => data)
-      if response.success? && response.parsed_response.present?
+      if response.success? && response.parsed_response.present? && response.parsed_response.first.present?
         participant_data = response.parsed_response.first
         return participant_data.slice('ethic_cons_sign_date', 'cmdt_resul_dte')
       end
