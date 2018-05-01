@@ -116,4 +116,49 @@ describe RedCapManager do
       expect(dates_hash).to be_blank
     end
   end
+
+  context 'get survey 1 return code from rare_disease_patient_survey_complete' do
+    it 'should get the survey 1 link for the patient' do
+      record_id = 'A0120001'
+      data = { :token => '***REMOVED***', :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id,
+               :returnFormat => 'json' }
+      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      survey_one_return_code = 'SDFSA34'
+
+      response_mock = double('redcap response', parsed_response: survey_one_return_code)
+
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
+      expect(response_mock).to receive(:success?).and_return(true)
+
+      survey_link = RedCapManager.get_survey_one_return_code(record_id)
+      expect(survey_link).to eql(survey_one_return_code)
+    end
+
+    it 'should get a nil result if response is not successful' do
+      record_id = 'A0120001'
+      data = { :token => '***REMOVED***', :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id,
+               :returnFormat => 'json' }
+      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+
+      response_mock = double('redcap response')
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
+      expect(response_mock).to receive(:success?).and_return(false)
+
+      dates_hash = RedCapManager.get_survey_one_return_code(record_id)
+      expect(dates_hash).to be_blank
+    end
+
+    it 'should return nil if there is an error with the post' do
+      record_id = 'A0120001'
+      data = { :token => '***REMOVED***', :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id,
+               :returnFormat => 'json' }
+      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_raise(HTTParty::Error)
+      expect(Rollbar).to receive(:error).with('Error connecting to RedCap - HTTParty::Error')
+
+      dates_hash = RedCapManager.get_survey_one_return_code(record_id)
+      expect(dates_hash).to be_blank
+    end
+  end
 end
