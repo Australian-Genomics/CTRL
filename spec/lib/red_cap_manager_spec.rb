@@ -4,13 +4,13 @@ describe RedCapManager do
   context 'get dates' do
     it 'should get the record date consent signed "ethic_cons_sign_date" and "cmdt_resul_dte"' do
       record_id = 'A0120001'
-      data = {:token => "69712346139C3ED3BE4795341852A598", :content => "record", :format => "json", :type => "flat", "records[0]" => record_id, :returnFormat => "json"}
+      data = { :token => '69712346139C3ED3BE4795341852A598', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
       red_cap_url = 'https://redcap.mcri.edu.au/api/'
 
-      parsed_response_mock = double('parsed response', first: {'ethic_cons_sign_date' => '2017-06-28', 'cmdt_resul_dte' => '2018-01-10'})
+      parsed_response_mock = double('parsed response', first: { 'ethic_cons_sign_date' => '2017-06-28', 'cmdt_resul_dte' => '2018-01-10' })
       response_mock = double('redcap response', parsed_response: parsed_response_mock)
 
-      expect(HTTParty).to receive(:post).with(red_cap_url, :body => data).and_return(response_mock)
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(true)
 
       dates_hash = RedCapManager.get_consent_and_result_dates(record_id)
@@ -20,11 +20,11 @@ describe RedCapManager do
 
     it 'should get a nil result if response is not successful' do
       record_id = 'A0120001'
-      data = {:token => "69712346139C3ED3BE4795341852A598", :content => "record", :format => "json", :type => "flat", "records[0]" => record_id, :returnFormat => "json"}
+      data = { :token => '69712346139C3ED3BE4795341852A598', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
       red_cap_url = 'https://redcap.mcri.edu.au/api/'
 
       response_mock = double('redcap response')
-      expect(HTTParty).to receive(:post).with(red_cap_url, :body => data).and_return(response_mock)
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(false)
       expect(response_mock).to_not receive(:parsed_response)
 
@@ -34,13 +34,13 @@ describe RedCapManager do
 
     it 'should get a nil result if response is successful but response its nil' do
       record_id = 'A0120001'
-      data = {:token => "69712346139C3ED3BE4795341852A598", :content => "record", :format => "json", :type => "flat", "records[0]" => record_id, :returnFormat => "json"}
+      data = { :token => '69712346139C3ED3BE4795341852A598', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
       red_cap_url = 'https://redcap.mcri.edu.au/api/'
 
       parsed_response_mock = double('parsed response', first: nil)
       response_mock = double('redcap response', parsed_response: parsed_response_mock)
 
-      expect(HTTParty).to receive(:post).with(red_cap_url, :body => data).and_return(response_mock)
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(true)
 
       dates_hash = RedCapManager.get_consent_and_result_dates(record_id)
@@ -49,13 +49,13 @@ describe RedCapManager do
 
     it 'should get a nil result if response is successful but response its empty array' do
       record_id = 'A0120001'
-      data = {:token => "69712346139C3ED3BE4795341852A598", :content => "record", :format => "json", :type => "flat", "records[0]" => record_id, :returnFormat => "json"}
+      data = { :token => '69712346139C3ED3BE4795341852A598', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
       red_cap_url = 'https://redcap.mcri.edu.au/api/'
 
       parsed_response_mock = double('parsed response', first: [])
       response_mock = double('redcap response', parsed_response: parsed_response_mock)
 
-      expect(HTTParty).to receive(:post).with(red_cap_url, :body => data).and_return(response_mock)
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(true)
 
       dates_hash = RedCapManager.get_consent_and_result_dates(record_id)
@@ -64,10 +64,10 @@ describe RedCapManager do
 
     it 'should get the record date consent signed (ethic_cons_sign_date)' do
       record_id = 'A0120001'
-      data = {:token => "69712346139C3ED3BE4795341852A598", :content => "record", :format => "json", :type => "flat", "records[0]" => record_id, :returnFormat => "json"}
+      data = { :token => '69712346139C3ED3BE4795341852A598', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
       red_cap_url = 'https://redcap.mcri.edu.au/api/'
 
-      expect(HTTParty).to receive(:post).with(red_cap_url, :body => data).and_raise(HTTParty::Error)
+      expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_raise(HTTParty::Error)
       expect(Rollbar).to receive(:error).with('Error connecting to RedCap - HTTParty::Error')
 
       dates_hash = RedCapManager.get_consent_and_result_dates(record_id)
