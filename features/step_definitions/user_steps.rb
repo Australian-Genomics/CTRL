@@ -126,7 +126,6 @@ Then('I should not be signed in') do
 end
 
 Then('I should see the welcome message') do
-  visit '/step_one'
   expect(page).to have_content 'Introduction to this platform'
 end
 

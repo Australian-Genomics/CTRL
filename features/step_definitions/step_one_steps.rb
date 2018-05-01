@@ -1,15 +1,15 @@
 When('I click on Next') do
-  click_link('Next')
+  click_button('Next')
 end
 
 When('I click on link Save and Exit') do
-  click_link('Save and Exit')
+  click_button('Save and Exit')
 end
 
 Then('I should be on the step one of consent') do
   expect(page).to have_content('Introduction to this platform')
-  expect(page).to have_link('Next')
-  expect(page).to have_link('Save and Exit')
+  expect(page).to have_button('Next')
+  expect(page).to have_button('Save and Exit')
 end
 
 Then('I should be on the step two of the consent') do

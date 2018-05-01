@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :family_name, :flagship, :study_id
+  has_many :steps, dependent: :destroy, class_name: 'Step'
+  accepts_nested_attributes_for :steps
+  after_create :create_consent_step
 
   enum flagship: ['Acute Care Genomic Testing',
                   'Acute Lymphoblastic Leukaemia',
@@ -23,9 +26,27 @@ class User < ApplicationRecord
                   'Renal Genetic Disorders',
                   'Solid Tumours']
 
-  enum current_consent_step: %w[step_1
-                                step_2
-                                step_3
-                                step_4
-                                step_5]
+  def step_one
+    steps.find_by(number: 1)
+  end
+
+  def step_two
+    steps.find_by(number: 2)
+  end
+
+  def step_three
+    steps.find_by(number: 3)
+  end
+
+  def step_four
+    steps.find_by(number: 4)
+  end
+
+  def step_five
+    steps.find_by(number: 5)
+  end
+
+  def create_consent_step
+    (1..5).each { |step_number| steps.create(number: step_number, accepted: false) }
+  end
 end

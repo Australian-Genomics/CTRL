@@ -9,7 +9,6 @@ FactoryBot.define do
     password 'password'
     password_confirmation 'password'
     flagship 'Acute Care Genomic Testing'
-    current_consent_step 'step_1'
     study_id 'Curve18'
   end
 end

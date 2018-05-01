@@ -40,7 +40,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Unselect All
-    And I click on Next button
+    And I click on Next
     Then I should be on the review answers page
 
   Scenario: User can come back to the step two of the consent
@@ -50,7 +50,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Unselect All
-    And I click on Next button
+    And I click on Next
     Then I should be on the review answers page
     When I click on Review Answers
     Then I should see the step two of the consent
@@ -62,7 +62,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Unselect All
-    And I click on Next button
+    And I click on Next
     Then I should be on the review answers page
     When I click on I don't want the test
     Then I should see the dashboard page

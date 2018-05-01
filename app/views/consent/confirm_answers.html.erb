@@ -22,8 +22,8 @@
           </div>
 
           <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
-            <%= link_to('Confirm', step_three_path, class: "btn btn-success d-block d-sm-inline-block mb-15") %>
-            <%= link_to('Review Answers', step_two_path, class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
+            <%= link_to('Confirm', step_three_path(registration_step_three: true), class: "btn btn-success d-block d-sm-inline-block mb-15") %>
+            <%= link_to('Review Answers', step_two_path(registration_step_two: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
           </div>
 
           <p class="subtext mb-20 mb-sm-30">

@@ -17,7 +17,7 @@ Feature: Consent Page
     When I click on Register
     And I fill in the user details
     Then I should be on the step one of consent
-    When I click on link Next
+    When I click on Next
     Then I should be on the step two of the consent
     And I should come back to the step one page
     When I click on link Save and Exit

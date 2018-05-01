@@ -15,7 +15,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Select All
-    And I click on Next button
+    And I click on Next
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
@@ -27,7 +27,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Select All
-    And I click on Next button
+    And I click on Next
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
@@ -41,7 +41,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Select All
-    And I click on Next button
+    And I click on Next
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
@@ -55,7 +55,7 @@ Feature: Consent Page
     When I click on Next
     Then I should see the step two of the consent
     When I click on Select All
-    And I click on Next button
+    And I click on Next
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent

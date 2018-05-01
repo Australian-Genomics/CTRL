@@ -1,9 +1,5 @@
-When('I click on link Next') do
-  click_link('Next')
-end
-
 When('I click on Save and Exit') do
-  click_link('Save and Exit')
+  click_button('Save and Exit')
 end
 
 When('I click on Back') do
@@ -11,21 +7,17 @@ When('I click on Back') do
 end
 
 When('I click on Select All') do
-  find('#step_two_form > div.d-flex.text-right.mt-3.mb-2.pr-3 > label > span').click
+  find('#controlsSelectAll + span').click
 end
 
 When('I click on Unselect All') do
-  find(:xpath, "//*[@id='step_two_form']/div[4]/label/span").click
-end
-
-When('I click on Next button') do
-  find('#step_two_form > div.row.flex-md-row > div.col-6.col-md-3.order-1.order-md-2.d-flex.my-15.my-md-30 > input').click
+  find('#controlsUnselectAll + span').click
 end
 
 Then('I should see the step one of consent') do
   expect(page).to have_content('Introduction to this platform')
-  expect(page).to have_link('Next')
-  expect(page).to have_link('Save and Exit')
+  expect(page).to have_button('Next')
+  expect(page).to have_button('Save and Exit')
 end
 
 Then('I should see the step two of the consent') do

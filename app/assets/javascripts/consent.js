@@ -7,7 +7,6 @@ function selectAllOptions() {
     $(".options .controls__checkbox input").each(function () {
         this.checked = true
     });
-    changeFormRoute();
 }
 
 function unselectAllOptions() {
@@ -17,7 +16,6 @@ function unselectAllOptions() {
     $(".options .controls__checkbox input").each(function () {
         this.checked = false
     });
-    changeFormRoute();
 }
 
 function Options() {
@@ -27,12 +25,4 @@ function Options() {
     $("#controlsUnselectAll").each(function () {
         this.checked = false
     });
-    changeFormRoute();
-}
-function changeFormRoute() {
-    if ($('.options input[type="checkbox"]').length == $('.options input[type="checkbox"]:checked').length) {
-        $("#step_two_form")[0].action = 'confirm_answers'
-    } else {
-        $("#step_two_form")[0].action = 'review_answers'
-    }
 }
