@@ -1,6 +1,6 @@
 Dear <%= @user.first_name %>
 
-At (“your” or [child’s name]) clinic appointment, we discussed the Australian Genomics study, and you consented to (“your” or [child’s name]) participation in one of our clinical Flagship projects.
+At <%= @user.is_parent ? "#{@user.child_first_name}'s" : 'your' %> clinic appointment, we discussed the Australian Genomics study, and you consented to <%= @user.is_parent ? "#{@user.child_first_name}'s" : 'your' %> participation in one of our clinical Flagship projects.
 At this time, you agreed to complete two surveys as part of this study. These surveys provide us with important information about the impact of genomics on families affected by rare diseases, and we are grateful for your participation.
 
 This survey will take about 15 minutes to complete, and you can save your responses and return to the survey later.
