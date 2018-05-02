@@ -72,7 +72,7 @@ class User < ApplicationRecord
 
     users_with_missing_survey_one_status.each do |user|
       status = RedCapManager.get_survey_one_status(user.study_id)
-      user.update(:red_cap_survey_one_status, status) if status.present?
+      user.update(red_cap_survey_one_status: status) if status.present?
     end
   end
 
@@ -81,7 +81,7 @@ class User < ApplicationRecord
 
     users_with_missing_survey_one_code.each do |user|
       survey_code = RedCapManager.get_survey_one_return_code(user.study_id)
-      user.update(:red_cap_survey_one_return_code, survey_code) if survey_code.present?
+      user.update(red_cap_survey_one_return_code: survey_code) if survey_code.present?
     end
   end
 
@@ -90,25 +90,24 @@ class User < ApplicationRecord
 
     users_with_missing_survey_one_link.each do |user|
       survey_link = RedCapManager.get_survey_one_link(user.study_id)
-      user.update(:red_cap_survey_one_link, survey_link) if survey_link.present?
+      user.update(red_cap_survey_one_link: survey_link) if survey_link.present?
     end
   end
 
   def self.update_dates_from_redcap
-    users_with_missing_dates = User.where(red_cap_date_consent_signed: nil).or(User.where(red_cap_date_of_result_disclosure: nil))
+    users_with_missing_dates = User.where(red_cap_date_consent_signed: nil)
 
     users_with_missing_dates.each do |user|
       dates = RedCapManager.get_consent_and_result_dates(user.study_id)
       update_consent_signed_date(dates, user)
-      update_result_disclosure_date(dates, user)
     end
   end
 
   def self.update_result_disclosure_date(dates, user)
-    user.update(:red_cap_date_of_result_disclosure, dates['red_cap_date_of_result_disclosure']) if dates.present? && dates['red_cap_date_of_result_disclosure'].present?
+    user.update(red_cap_date_of_result_disclosure: dates['red_cap_date_of_result_disclosure']) if dates.present? && dates['red_cap_date_of_result_disclosure'].present?
   end
 
   def self.update_consent_signed_date(dates, user)
-    user.update(red_cap_date_consent_signed, dates['ethic_cons_sign_date']) if dates.present? && dates['ethic_cons_sign_date'].present?
+    user.update(red_cap_date_consent_signed: dates['ethic_cons_sign_date']) if dates.present? && dates['ethic_cons_sign_date'].present?
   end
 end
