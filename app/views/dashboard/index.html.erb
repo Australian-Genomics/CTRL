@@ -60,15 +60,14 @@
         }
     -->
 
-    <% if current_user.steps.first.accepted ==   true %>
-
+    <% if current_user.steps.first.accepted == true %>
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
 
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">1</i>
             <div class="mr-auto">
-              Platform introduction
+              Introduction to this platform
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -102,7 +101,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              -
+              <%= current_user.steps.first.updated_at.strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -176,7 +175,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">2</i>
             <div class="mr-auto">
-              Platform introduction
+              Consent for genomics test
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -210,7 +209,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              -
+              <%= current_user.steps.second.updated_at.strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -229,7 +228,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">2</i>
             <div class="mr-auto">
-              Platform introduction
+              Consent for genomics test
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -284,7 +283,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">3</i>
             <div class="mr-auto">
-              Platform introduction
+              Australian Genomics Research Participation
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -318,7 +317,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              -
+              <%= current_user.steps.third.updated_at.strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -337,7 +336,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">3</i>
             <div class="mr-auto">
-              Platform introduction
+              Australian Genomics Research Participation
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -392,7 +391,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">4</i>
             <div class="mr-auto">
-              Platform introduction
+              Preferences for knowing my genomic test results
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -426,7 +425,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              -
+              <%= current_user.steps.fourth.updated_at.strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -445,7 +444,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">4</i>
             <div class="mr-auto">
-              Platform introduction
+              Preferences for knowing my genomic test results
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -500,7 +499,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">5</i>
             <div class="mr-auto">
-              Platform introduction
+              Preferences for sharing of my genetic sample
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
@@ -534,7 +533,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              -
+              <%= current_user.steps.fifth.updated_at.strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -553,7 +552,7 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">5</i>
             <div class="mr-auto">
-              Platform introduction
+              Preferences for sharing of my genetic sample
             </div>
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
