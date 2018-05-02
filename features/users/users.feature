@@ -67,3 +67,32 @@ Feature: Welcome Page
     When I sign in with a wrong password
     Then I see an invalid login message
     And I should not be signed in
+
+  Scenario: User can update the details
+    Given I exist as a user
+    And I am not logged in
+    When I sign in with valid credentials
+    Then I should be signed in
+    And I should see the dashboard page
+    When I click on My Personal Details
+    Then I should see Personal Details page
+    When I click on Update
+    Then I should see the user edit page
+    And I edit the user details
+    When I submit the user details
+    Then I should see the new name on the user edit page
+
+  Scenario: User can click on cancel on edit user page
+    Given I exist as a user
+    And I am not logged in
+    When I sign in with valid credentials
+    Then I should be signed in
+    And I should see the dashboard page
+    When I click on My Personal Details
+    Then I should see Personal Details page
+    When I click on Update
+    Then I should see the user edit page
+    And I edit the user details
+    When I click on Cancel
+    Then I should not see the new name on the user edit page
+
