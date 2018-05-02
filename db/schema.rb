@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_26_112340) do
+ActiveRecord::Schema.define(version: 2018_05_01_144210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
 
   create_table "questions", force: :cascade do |t|
     t.integer "number"
@@ -71,6 +86,18 @@ ActiveRecord::Schema.define(version: 2018_04_26_112340) do
     t.string "child_middle_name"
     t.string "child_family_name"
     t.date "child_dob"
+    t.string "red_cap_survey_one_link"
+    t.string "red_cap_survey_one_return_code"
+    t.integer "red_cap_survey_one_status"
+    t.boolean "survey_one_email_sent", default: false
+    t.boolean "survey_one_email_reminder_sent", default: false
+    t.string "red_cap_survey_two_link"
+    t.string "red_cap_survey_two_return_code"
+    t.integer "red_cap_survey_two_status"
+    t.boolean "survey_two_email_sent", default: false
+    t.boolean "survey_two_email_reminder_sent", default: false
+    t.date "red_cap_date_consent_signed"
+    t.date "red_cap_date_of_result_disclosure"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
