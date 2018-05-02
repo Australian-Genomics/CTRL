@@ -180,6 +180,93 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context 'genetic counsellor' do
+    it 'should return Ella Wilkins for A0134XXX' do
+      user.update(study_id: 'A0134564')
+      gc = user.genetic_counsellor
+      expect(gc[:name]).to eql('Ella Wilkins')
+      expect(gc[:site]).to eql('RCH')
+      expect(gc[:phone]).to eql('03 9936 6333')
+      expect(gc[:email]).to eql('ella.wilkins@vcgs.org.au')
+    end
+
+    it 'should return Lindsay Fowles for A1534XXX' do
+      user.update(study_id: 'A1534564')
+      gc = user.genetic_counsellor
+      expect(gc[:name]).to eql('Lindsay Fowles')
+      expect(gc[:site]).to eql('RBWH')
+      expect(gc[:phone]).to eql('07 3646 1686 (M,T,W,F) 07 3646 0254 (Th)')
+      expect(gc[:email]).to eql('Lindsay.Fowles@health.qld.gov.au')
+    end
+
+    context 'for Gayathri Parasivam' do
+      it 'should return A0434XXX' do
+        user.update(study_id: 'A0434564')
+        gc = user.genetic_counsellor
+        expect(gc[:name]).to eql('Gayathri Parasivam')
+        expect(gc[:site]).to eql('SCHN')
+        expect(gc[:phone]).to eql('02 9845 1225')
+        expect(gc[:email]).to eql('gayathri.parasivam@health.nsw.gov.au')
+      end
+
+      it 'should return A1434XXX' do
+        user.update(study_id: 'A1434564')
+        gc = user.genetic_counsellor
+        expect(gc[:name]).to eql('Gayathri Parasivam')
+        expect(gc[:site]).to eql('SCHN')
+        expect(gc[:phone]).to eql('02 9845 1225')
+        expect(gc[:email]).to eql('gayathri.parasivam@health.nsw.gov.au')
+      end
+    end
+
+    it 'should return Michelle de Silva for A0132XXX' do
+      user.update(study_id: 'A0132564')
+      gc = user.genetic_counsellor
+      expect(gc[:name]).to eql('Michelle de Silva')
+      expect(gc[:site]).to eql('RCH')
+      expect(gc[:phone]).to eql('03 9936 6109')
+      expect(gc[:email]).to eql('michelle.desilva@mcri.edu.au')
+    end
+
+    context 'Kirsten Boggs' do
+      it 'should return for A0432XXX' do
+        user.update(study_id: 'A0432564')
+        gc = user.genetic_counsellor
+        expect(gc[:name]).to eql('Kirsten Boggs')
+        expect(gc[:site]).to eql('SCHN')
+        expect(gc[:phone]).to eql('02 9382 5616 (Randwick)')
+        expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
+      end
+
+      it 'should return A1432XXX' do
+        user.update(study_id: 'A1432564')
+        gc = user.genetic_counsellor
+        expect(gc[:name]).to eql('Kirsten Boggs')
+        expect(gc[:site]).to eql('')
+        expect(gc[:phone]).to eql('02 9845 3273 (Westmead)')
+        expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
+      end
+    end
+
+    it 'should return Melanie Tom for A1532XXX' do
+      user.update(study_id: 'A1532564')
+      gc = user.genetic_counsellor
+      expect(gc[:name]).to eql('Melanie Tom')
+      expect(gc[:site]).to eql('RBWH')
+      expect(gc[:phone]).to eql('07 3636 0254')
+      expect(gc[:email]).to eql('melanie.tom@health.qld.gov.au')
+    end
+
+    it 'should return Matilda if not matched' do
+      user.update(study_id: 'A999')
+      gc = user.genetic_counsellor
+      expect(gc[:name]).to eql('Matilda Hass')
+      expect(gc[:site]).to eql('RCH')
+      expect(gc[:phone]).to eql('03 9936 6453')
+      expect(gc[:email]).to eql('matilda.haas@mcri.edu.au')
+    end
+  end
+
   context 'validations' do
     it 'should have a flagship' do
       expect(user.valid?).to be true
