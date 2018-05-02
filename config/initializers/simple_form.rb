@@ -1,4 +1,11 @@
 # frozen_string_literal: true
+
+module SimpleForm::Components::Errors
+  def errors_on_attribute
+    object.errors[attribute_name].map!(&:humanize)
+  end
+end
+
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
