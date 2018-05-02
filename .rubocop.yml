@@ -33,6 +33,7 @@ Metrics/MethodLength:
   CountComments: false
   Exclude:
       - "db/migrate/*.rb"
+      - "features/step_definitions/*.rb"
 
 Metrics/BlockLength:
   Exclude:
