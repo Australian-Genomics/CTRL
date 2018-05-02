@@ -2,12 +2,11 @@ $component: 'controls'
 
 %checkbox
     left: 7px
-    top: 3px
+    top: -1px
     width: 8px
     height: 13px
-    border: solid $gray-500
     border-width: 0 2px 2px 0
-    transform: rotate(40deg)
+    transform: rotate(0deg)
 
 %radiobutton
     top: 3px
@@ -66,6 +65,10 @@ $component: 'controls'
             input:checked ~ .checkmark
                 background-color: $light-blue
                 border-color: $light-blue
+            input:checked ~ .checkmark:after
+                border-style: solid
+                top: 2px
+                left: 7px
     +element('radio')
         +modifier('blue')
             input:checked ~ .checkmark
@@ -84,15 +87,17 @@ $component: 'controls'
         display: none
     +element('checkbox')
         .checkmark:after
-            content: ""
+            content: "x"
             position: absolute
             @extend %checkbox
             display: block
 
     // Show the checkmark when checked
     input:checked ~ .checkmark:after
+        content: ""
         display: block
         border-color: $white
+        transform: rotate(40deg)
 
     // Style the checkmark/indicator
     +element('checkbox')
