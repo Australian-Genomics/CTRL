@@ -8,6 +8,178 @@ RSpec.describe User, type: :model do
   it { expect(user.first_name).to eq('sushant') }
   it { expect(user.family_name).to eq('ahuja') }
 
+  context 'update_consent_signed_date' do
+    it 'should update the consign signd date' do
+      expect(user.red_cap_date_consent_signed).to be_blank
+      User.update_consent_signed_date({ 'ethic_cons_sign_date' => '01/01/2010', 'red_cap_date_of_result_disclosure' => '02/02/2012' }, user)
+      expect(user.red_cap_date_consent_signed).to eql(Date.parse('01/01/2010'))
+    end
+
+    it 'should not update the consign signd date is not there' do
+      expect(user.red_cap_date_consent_signed).to be_blank
+      User.update_consent_signed_date({ 'red_cap_date_of_result_disclosure' => '01/01/2010' }, user)
+      expect(user.red_cap_date_consent_signed).to be_blank
+    end
+
+    it 'should not update the consign signd date if data is not there' do
+      expect(user.red_cap_date_consent_signed).to be_blank
+      User.update_consent_signed_date(nil, user)
+      expect(user.red_cap_date_consent_signed).to be_blank
+    end
+  end
+
+  context 'red_cap_date_of_result_disclosure' do
+    it 'should update the reuslt date' do
+      expect(user.red_cap_date_of_result_disclosure).to be_blank
+      User.update_result_disclosure_date({ 'ethic_cons_sign_date' => '01/01/2010', 'red_cap_date_of_result_disclosure' => '02/02/2012' }, user)
+      expect(user.red_cap_date_of_result_disclosure).to eql(Date.parse('02/02/2012'))
+    end
+
+    it 'should not update the result date is not there' do
+      expect(user.red_cap_date_of_result_disclosure).to be_blank
+      User.update_result_disclosure_date({ 'ethic_cons_sign_date' => '01/01/2010' }, user)
+      expect(user.red_cap_date_of_result_disclosure).to be_blank
+    end
+
+    it 'should not update the result date if data is not there' do
+      expect(user.red_cap_date_consent_signed).to be_blank
+      User.update_result_disclosure_date(nil, user)
+      expect(user.red_cap_date_consent_signed).to be_blank
+    end
+  end
+
+  context 'update_dates_from_redcap' do
+    it 'should get the data from redcap and update the dates if user is missing both dates' do
+      dates_mock = double('dates')
+      expect(RedCapManager).to receive(:get_consent_and_result_dates).with(user.study_id).and_return(dates_mock)
+      expect(User).to receive(:update_consent_signed_date).with(dates_mock, user)
+      User.update_dates_from_redcap
+    end
+
+    it 'should not get the data from redcap if the consent date is not nil' do
+      user.update(red_cap_date_consent_signed: Date.today)
+      expect(RedCapManager).to_not receive(:get_consent_and_result_dates)
+      expect(User).to_not receive(:update_consent_signed_date)
+      User.update_dates_from_redcap
+    end
+  end
+
+  context 'update_survey_one_link_from_redcap' do
+    it 'should update the link from redcap' do
+      survey_link = 'http://randomlink.com/23423'
+      expect(user.red_cap_survey_one_link).to be_blank
+      expect(RedCapManager).to receive(:get_survey_one_link).with(user.study_id).and_return(survey_link)
+      User.update_survey_one_link_from_redcap
+      expect(User.find(user.id).red_cap_survey_one_link).to eql(survey_link)
+    end
+
+    it 'should not update the link from redcap if it was already present' do
+      user.update(red_cap_survey_one_link: 'http://randomlink.com/23423')
+      expect(RedCapManager).to_not receive(:get_survey_one_link)
+      User.update_survey_one_link_from_redcap
+      expect(user.red_cap_survey_one_link).to_not be_blank
+    end
+  end
+
+  context 'update_survey_one_link_from_redcap' do
+    it 'should update the link from redcap' do
+      survey_code = 'SDFATE'
+      expect(user.red_cap_survey_one_link).to be_blank
+      expect(RedCapManager).to receive(:get_survey_one_return_code).with(user.study_id).and_return(survey_code)
+      User.update_survey_one_code_from_redcap
+      expect(User.find(user.id).red_cap_survey_one_return_code).to eql(survey_code)
+    end
+
+    it 'should not update the link from redcap if it was already present' do
+      user.update(red_cap_survey_one_return_code: 'SFGE')
+      expect(RedCapManager).to_not receive(:get_survey_one_return_code)
+      User.update_survey_one_code_from_redcap
+      expect(user.red_cap_survey_one_return_code).to_not be_blank
+    end
+  end
+
+  context 'update_survey_one_code_from_redcap' do
+    it 'should update the link from redcap' do
+      survey_code = 'SDFATE'
+      expect(user.red_cap_survey_one_return_code).to be_blank
+      expect(RedCapManager).to receive(:get_survey_one_return_code).with(user.study_id).and_return(survey_code)
+      User.update_survey_one_code_from_redcap
+      expect(User.find(user.id).red_cap_survey_one_return_code).to eql(survey_code)
+    end
+
+    it 'should not update the link from redcap if it was already present' do
+      user.update(red_cap_survey_one_return_code: 'SFGE')
+      expect(RedCapManager).to_not receive(:get_survey_one_return_code)
+      User.update_survey_one_code_from_redcap
+      expect(user.red_cap_survey_one_return_code).to_not be_blank
+    end
+  end
+
+  context 'update_survey_one_code_from_redcap' do
+    it 'should update the link from redcap' do
+      survey_status = '1'
+      expect(user.red_cap_survey_one_status).to be_blank
+      expect(RedCapManager).to receive(:get_survey_one_status).with(user.study_id).and_return(survey_status)
+      User.update_survey_one_status_from_redcap
+      expect(User.find(user.id).red_cap_survey_one_status).to eql(survey_status.to_i)
+    end
+
+    it 'should not update the link from redcap if it was already present' do
+      user.update(red_cap_survey_one_status: 'SFGE')
+      expect(RedCapManager).to_not receive(:get_survey_one_status)
+      User.update_survey_one_status_from_redcap
+      expect(user.red_cap_survey_one_status).to_not be_blank
+    end
+  end
+
+  context 'send_survey_one_emails' do
+    it 'should send an email if the date of consent is greater than 1 week and the email hasn\'t been set yet' do
+      user.update(red_cap_date_consent_signed: 1.week.ago)
+      user.update(survey_one_email_sent: false)
+      user.update(red_cap_survey_one_link: 'http://somelink.com/234234')
+
+      delay_mail_mock = double('mail mock')
+      expect(UserMailer).to receive(:delay).and_return(delay_mail_mock)
+      expect(delay_mail_mock).to receive(:send_first_survey_email).with(user)
+      User.send_survey_one_emails
+    end
+
+    it 'should not send an email if the date of consent is less than 1 week and the email hasn\'t been set yet' do
+      user.update(red_cap_date_consent_signed: 6.days.ago)
+      user.update(survey_one_email_sent: false)
+      user.update(red_cap_survey_one_link: 'http://somelink.com/234234')
+      expect(UserMailer).to_not receive(:delay)
+      User.send_survey_one_emails
+    end
+
+    it 'should not send an email if the email has already been sent' do
+      user.update(red_cap_date_consent_signed: 1.week.ago)
+      user.update(survey_one_email_sent: true)
+      user.update(red_cap_survey_one_link: 'http://somelink.com/234234')
+      expect(UserMailer).to_not receive(:delay)
+      User.send_survey_one_emails
+    end
+
+    it 'should not send an email if the survey link is missing' do
+      user.update(red_cap_date_consent_signed: 1.week.ago)
+      user.update(survey_one_email_sent: false)
+      user.update(red_cap_survey_one_link: nil)
+      expect(UserMailer).to_not receive(:delay)
+      User.send_survey_one_emails
+    end
+  end
+
+  context 'send_survey_emails' do
+    it 'should update redcap and send emails' do
+      expect(User).to receive(:update_dates_from_redcap)
+      expect(User).to receive(:update_survey_one_link_from_redcap)
+      expect(User).to receive(:update_survey_one_code_from_redcap)
+      expect(User).to receive(:update_survey_one_status_from_redcap)
+      expect(User).to receive(:send_survey_one_emails)
+      User.send_survey_emails
+    end
+  end
+
   context 'validations' do
     it 'should have a flagship' do
       expect(user.valid?).to be true
