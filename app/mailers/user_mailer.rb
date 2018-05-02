@@ -1,6 +1,7 @@
 class UserMailer < ApplicationMailer
   def send_first_survey_email(user)
     @user = user
+    @genetic_counsellor = @user.genetic_counsellor
 
     sender = 'ctrl@australiangenomics.org.au'
 
