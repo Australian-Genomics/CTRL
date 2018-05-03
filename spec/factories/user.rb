@@ -8,7 +8,6 @@ FactoryBot.define do
     family_name 'ahuja'
     password 'password'
     password_confirmation 'password'
-    flagship 'Acute Care Genomic Testing'
     study_id 'Curve18'
   end
 end
