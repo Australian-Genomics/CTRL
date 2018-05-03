@@ -146,7 +146,7 @@ Then('I should see an error under the password field') do
 end
 
 Then('I should see an error under the confirm password field') do
-  expect(page).to have_content "Doesn't match Password"
+  expect(page).to have_content "Doesn't match password"
 end
 
 Then('I should see the error cannot be blank') do
