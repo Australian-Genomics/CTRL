@@ -25,7 +25,6 @@ def sign_up
   fill_in 'user_first_name', with: @visitor[:first_name]
   fill_in 'user_family_name', with: @visitor[:family_name]
   fill_in 'user_email', with: @visitor[:email]
-  select 'Acute Care Genomic Testing', from: 'user_flagship'
   fill_in 'user_study_id', with: @visitor[:study_id]
   fill_in 'user_password', with: @visitor[:password]
   fill_in 'user_password_confirmation', with: @visitor[:password_confirmation]
