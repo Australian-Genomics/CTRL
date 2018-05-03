@@ -165,23 +165,23 @@ Then('I should be signed in') do
 end
 
 Then('I should not see the welcome message') do
-  expect(page).to have_content "can't be blank"
+  expect(page).to have_content "Can't be blank"
 end
 
 Then('I should see an error {string} on the page') do |_string|
-  expect(page).to have_content 'is invalid'
+  expect(page).to have_content 'Is invalid'
 end
 
 Then('I should see an error under the password field') do
-  expect(page).to have_content 'is too short (minimum is 6 characters)'
+  expect(page).to have_content 'Is too short (minimum is 6 characters)'
 end
 
 Then('I should see an error under the confirm password field') do
-  expect(page).to have_content "doesn't match Password"
+  expect(page).to have_content "Doesn't match password"
 end
 
 Then('I should see the error cannot be blank') do
-  expect(page).to have_content "can't be blank"
+  expect(page).to have_content "Can't be blank"
 end
 
 Then('I should see Personal Details page') do
