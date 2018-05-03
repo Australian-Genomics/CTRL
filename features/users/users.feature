@@ -36,7 +36,7 @@ Feature: Welcome Page
   Scenario: User enters the invalid email while signing up
     When I click on Register
     And I fill in the user details with invalid email
-    Then I should see an error 'is invalid' on the page
+    Then I should see an error 'Is invalid' on the page
 
   Scenario: User enters the short password
     When I click on Register
