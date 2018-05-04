@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'errors/not_found'
-  get 'errors/internal_server_error'
   devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations' }
   resources :users, :dashboard, :steps
 
