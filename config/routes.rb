@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+  get 'errors/internal_server_error'
   devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations' }
   resources :users, :dashboard, :steps
 
@@ -19,4 +21,7 @@ Rails.application.routes.draw do
   end
   get 'welcome/index'
   root 'welcome#index'
+
+  get '404', to: 'errors#not_found'
+  get '500', to: 'errors#internal_server_error'
 end  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htmlend
