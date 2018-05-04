@@ -21,6 +21,7 @@ Feature: Consent Page
     Then I should be on the step three page of consent
     When I click the Next button
     Then I should see the step four of the consent
+    And I should see default answer to be Not Sure
 
   Scenario: User can go back to the step three page of the consent
     When I click on Register
@@ -35,6 +36,7 @@ Feature: Consent Page
     Then I should be on the step three page of consent
     When I click the Next button
     Then I should see the step four of the consent
+    And I should see default answer to be Not Sure
     When I click on Back
     Then I should be on the step three page of consent
 
@@ -51,6 +53,7 @@ Feature: Consent Page
     Then I should be on the step three page of consent
     When I click the Next button
     Then I should see the step four of the consent
+    And I should see default answer to be Not Sure
     When I click on Save and Exit
     Then I should see the dashboard page
 
@@ -67,5 +70,6 @@ Feature: Consent Page
     Then I should be on the step three page of consent
     When I click the Next button
     Then I should see the step four of the consent
+    And I should see default answer to be Not Sure
     When I click the Next button
     Then I should see the step five of the consent
