@@ -55,7 +55,7 @@
           <div class="options">
             <div class="steps__row">
               <div class="steps__row-main">
-                <div class="mr-auto">
+                <div class="mr-auto text-justify">
                   <%= current_question[:qus] %>
                 </div>
                 <% if current_question[:description] != '' %>
@@ -74,7 +74,7 @@
                 </label>
               </div>
               <div class="steps__row-collapse collapse" id="stepsRow<%= qf.object.question_id %>">
-                <div>
+                <div class="text-justify">
                   <%= current_question[:description] %>
                 </div>
               </div>
