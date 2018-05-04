@@ -181,12 +181,6 @@ RSpec.describe User, type: :model do
   end
 
   context 'validations' do
-    it 'should have a flagship' do
-      expect(user.valid?).to be true
-      user.flagship = nil
-      expect(user.valid?).to be false
-    end
-
     it 'should have a study id' do
       expect(user.valid?).to be true
       user.study_id = nil
