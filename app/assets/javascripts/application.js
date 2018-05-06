@@ -18,3 +18,7 @@
 //= require bootstrap
 //= require jquery-ui
 //= require_tree .
+
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
