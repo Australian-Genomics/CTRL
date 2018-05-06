@@ -2,24 +2,25 @@
 // All this logic will automatically be available in application.js.
 
 function ready() {
-  $('.datepicker').datepicker();
-  userIsParentChangeHandler();
+    $('.datepicker').datepicker();
+    $('[data-toggle="popover"]').popover();
+    userIsParentChangeHandler();
 }
 
 function userIsParentChangeHandler() {
-  $('#user_is_parent').change(function () {
-    $(':input', '#kin').val('');
-    $(':input','#child').val('');
-    if ($(this).is(":checked")) {
-      $('#kin').hide();
-      $('#child').show();
-    } else {
-      $('#kin').show();
-      $('#child').hide();
-    }
-  });
+    $('#user_is_parent').change(function () {
+        $(':input', '#kin').val('');
+        $(':input', '#child').val('');
+        if ($(this).is(":checked")) {
+            $('#kin').hide();
+            $('#child').show();
+        } else {
+            $('#kin').show();
+            $('#child').hide();
+        }
+    });
 }
 
 (function () {
-  $(document).on('ready turbolinks:load', ready);
+    $(document).on('ready turbolinks:load', ready);
 }).call(this);
