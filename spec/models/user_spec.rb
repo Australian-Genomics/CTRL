@@ -145,7 +145,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'should not send an email if the date of consent is less than 1 week and the email hasn\'t been set yet' do
-      user.update(red_cap_date_consent_signed: 5.days.ago)
+      user.update(red_cap_date_consent_signed: 6.days.ago)
       user.update(survey_one_email_sent: false)
       user.update(red_cap_survey_one_link: 'http://somelink.com/234234')
       expect(UserMailer).to_not receive(:delay)
