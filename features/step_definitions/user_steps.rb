@@ -156,7 +156,7 @@ Then('I should not be signed in') do
 end
 
 Then('I should see the welcome message') do
-  expect(page).to have_content 'Introduction to this platform'
+  expect(page).to have_content 'Step 1 of 5'
 end
 
 Then('I should be signed in') do
