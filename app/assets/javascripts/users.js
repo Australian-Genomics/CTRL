@@ -2,7 +2,6 @@
 // All this logic will automatically be available in application.js.
 
 function ready() {
-  $('.datepicker').datepicker();
   userIsParentChangeHandler();
 }
 
