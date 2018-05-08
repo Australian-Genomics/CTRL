@@ -1,4 +1,4 @@
-Dear <%= @user.first_name %>
+Dear <%= @user.first_name %>,
 
 At <%= @user.is_parent ? "#{@user.child_first_name}'s" : 'your' %> clinic appointment, we discussed the Australian Genomics study, and you consented to <%= @user.is_parent ? "#{@user.child_first_name}'s" : 'your' %> participation in one of our clinical Flagship projects.
 At this time, you agreed to complete two surveys as part of this study. These surveys provide us with important information about the impact of genomics on families affected by rare diseases, and we are grateful for your participation.
@@ -7,7 +7,7 @@ This survey will take about 15 minutes to complete, and you can save your respon
 
 Your survey responses will not be read individually, but will be grouped together and analysed by our Health Economics team.
 
-If you have any questions about the survey please contact your genetic counsellor (see below). It is possible that some of the questions we ask may be stressful or upsetting for you. If you do not wish to answer a question you may skip it, or you may wish to stop immediately. If you do become upset or distressed as a result of your participation you can contact your genetic counsellor (NAME, email, phone) to discuss. They will also be able to arrange for any additional emotional support should you request this.
+If you have any questions about the survey please contact your genetic counsellor (see below). It is possible that some of the questions we ask may be stressful or upsetting for you. If you do not wish to answer a question you may skip it, or you may wish to stop immediately. If you do become upset or distressed as a result of your participation you can contact your genetic counsellor <%= @genetic_counsellor[:name] %>, <%= @genetic_counsellor[:email] %>, <%= @genetic_counsellor[:phone] %> to discuss. They will also be able to arrange for any additional emotional support should you request this.
 
 The link to the first survey is below:
 <%= @user.red_cap_survey_one_link %>

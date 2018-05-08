@@ -76,6 +76,8 @@ GEM
       nokogiri (~> 1.8)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
+    css_parser (1.6.0)
+      addressable
     cucumber (3.1.0)
       builder (>= 2.1.2)
       cucumber-core (~> 3.1.0)
@@ -126,6 +128,7 @@ GEM
     gherkin (5.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    htmlentities (4.3.4)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
     i18n (0.9.5)
@@ -179,6 +182,13 @@ GEM
     pg (0.19.0)
     popper_js (1.12.9)
     powerpack (0.1.1)
+    premailer (1.11.1)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.10.2)
+      actionmailer (>= 3, < 6)
+      premailer (~> 1.7, >= 1.7.9)
     public_suffix (3.0.2)
     puma (3.11.2)
     rack (2.0.4)
@@ -337,6 +347,7 @@ DEPENDENCIES
   libv8 (~> 3.16.14.0)
   listen (>= 3.0.5, < 3.2)
   pg (= 0.19.0)
+  premailer-rails
   puma (~> 3.11)
   rails (~> 5.2.0.rc1)
   rails-controller-testing
