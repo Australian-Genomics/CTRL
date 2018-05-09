@@ -147,7 +147,7 @@ When('I click on Cancel') do
 end
 
 Then('I see an invalid login message') do
-  expect(page).to have_content('If you don’t have an account, please Register')
+  expect(page).to have_content('Invalid Email or password.')
 end
 
 Then('I should not be signed in') do
