@@ -28,27 +28,27 @@ end
 
 Then('I should see the step one of consent section') do
   expect(page).to have_button('Save and Exit')
-  expect(page).to have_content('Introduction to this platform')
+  expect(page).to have_content('Welcome to CTRL')
 end
 
 Then('I should see the step two of consent section') do
   expect(page).to have_button('Save and Exit')
-  expect(page).to have_content('Consent for genomics test')
+  expect(page).to have_content('Consent for the genomic test')
 end
 
 Then('I should see the step three of consent section') do
   expect(page).to have_button('Save and Exit')
-  expect(page).to have_content('Australian Genomics Research Participation')
+  expect(page).to have_content('Consent to Australian Genomics research participation')
 end
 
 Then('I should see the step four of consent section') do
   expect(page).to have_button('Save and Exit')
-  expect(page).to have_content('Preferences for knowing my genomic test results')
+  expect(page).to have_content('Preferences about your results')
 end
 
 Then('I should see the step five of consent section') do
   expect(page).to have_button('Save and Exit')
-  expect(page).to have_content('Preferences for sharing of my genetic sample')
+  expect(page).to have_content('Consent to research outside this study')
 end
 
 Then('I should see the dashboard page as step one reviewed') do

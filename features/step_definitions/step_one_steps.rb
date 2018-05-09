@@ -7,7 +7,7 @@ When('I click on link Save and Exit') do
 end
 
 Then('I should be on the step one of consent') do
-  expect(page).to have_content('Introduction to this platform')
+  expect(page).to have_content('Step 1 of 5')
   expect(page).to have_button('Next')
   expect(page).to have_button('Save and Exit')
 end
