@@ -6,7 +6,7 @@
           <a
             href="/"
             class="header__logo d-block mt-45 mx-auto ml-xl-0"
-            >
+          >
             <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
           </a>
         </div>
@@ -26,7 +26,7 @@
         <a
           href="/"
           class="header__logo d-block mt-45 mx-auto"
-          >
+        >
           <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
         </a>
       </div>
@@ -38,36 +38,29 @@
     <div class="steps__box col mx-auto">
       <%= simple_form_for @step, html: {class: "bg-ice-one border pt-30 px-30"}, method: :put do |f| %>
         <h3 class="text-center mt-2 mb-15">
-          Preferences for sharing of my genetic sample
+          Consent to research outside this study
         </h3>
         <div class="d-flex mb-30">
           <p class="steps__description mx-auto mb-0 text-justify">
-          Genomic testing is not yet routinely done and we still don’t know a lot about genetic changes that cause
-          health conditions. Sometimes we would like to share some of your sample or the genomic information and your
-          other health related information with other researchers in Australia and internationally. We will only share
-          this information with researchers whose projects meet our criteria and have been approved by a <b>Human
-            Research Ethics Committee (HREC).</b><br>
-          <br>
+            Genomic testing is not yet routinely done and we still don’t know a lot about genetic changes that cause
+            health conditions. Sometimes we would like to share your DNA sample, your genomic information or your
+            general health information with other researchers in Australia and internationally. We will only share this
+            information with researchers whose projects meet our criteria and have been approved by a Human Research
+            Ethics Committee (HREC). A HREC is a group of medical, scientific and ethics experts, as well as members of
+            the public, who look closely at planned research to make sure it is going to be beneficial and not harmful
+            to participants.
 
-          A HREC is a group of medical, scientific and ethics experts, as well as members of the public, who look
-          closely at planned research to make sure it is going to be beneficial and not harmful to humans. This role
-          is taken very seriously, and any study that you are involved in should be able to give you the details of
-          their HREC approval.<br>
-          <br>
+            We will remove your personal details from your DNA sample, genomic and health information (de-identify
+            them), but there always remains a small chance someone could work out who you are from your genomic
+            information.
 
-          Whether we share this information outside the current study is your choice, and you can use this section to
-          change your mind any time you want to. Your answers to these questions will not stop you having the genomic
-          test.<br>
-          <br>
+            De-identified samples are coded and so it remains possible to re-identify you. We will keep the
+            re-identification code with us, it will not be shared. By keeping the code, it means that in some cases we
+            may be able to contact you if the research finds something that will benefit you personally.
 
-          We will remove your personal details from your samples, genomic and health information (de-identify them),
-          but there always remains a very small chance someone could work out who you are from your genomic
-          information.<br>
-          <br>
-
-          De-identified samples are coded and so it remains possible to re-identify you. We will keep the
-          re-identification code with us, it will not be shared. By keeping the code, it means that in some cases we
-          may be able to contact you if the research finds something that will benefit you personally.
+            Whether we share this information outside the current study is your choice, and you can use this section to
+            change your mind any time you want to. Your answers to these questions will not stop you having the genomic
+            test.
 
           </p>
         </div>
@@ -92,7 +85,7 @@
                       data-target="#stepsRow<%= qf.object.question_id %>"
                       aria-expanded="false"
                       aria-controls="stepsRow1"
-                      >
+                    >
                     </i>
                   <% end %>
                 </div>
@@ -104,13 +97,13 @@
                 <% else %>
                   <div class="d-flex mt-3 mt-sm-0">
                     <%= qf.collection_radio_buttons :answer,
-                      [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
-                      :first,
-                      :second do |b|
-                        b.label(class: collection_option_class(b.text)) {
-                          b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
-                        }
-                      end %>
+                                                    [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
+                                                    :first,
+                                                    :second do |b|
+                      b.label(class: collection_option_class(b.text)) {
+                        b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
+                      }
+                    end %>
                   </div>
                 <% end %>
               </div>
@@ -145,11 +138,11 @@
                       data-target="#stepsRow<%= qf.object.question_id %>"
                       aria-expanded="false"
                       aria-controls="stepsRow1"
-                      >
+                    >
                     </i>
                   <% end %>
                 </div>
-                <% if current_question[:question_id] == 31 %>
+                <% if current_question[:question_id] == 32 %>
                   <label class="controls controls__checkbox controls__checkbox_blue">
                     <%= qf.check_box :answer, {}, 'true', 'false' %>
                     <span class="checkmark"></span>
@@ -157,13 +150,13 @@
                 <% else %>
                   <div class="d-flex mt-3 mt-sm-0">
                     <%= qf.collection_radio_buttons :answer,
-                      [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
-                      :first,
-                      :second do |b|
-                        b.label(class: collection_option_class(b.text)) {
-                          b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
-                        }
-                      end %>
+                                                    [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
+                                                    :first,
+                                                    :second do |b|
+                      b.label(class: collection_option_class(b.text)) {
+                        b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
+                      }
+                    end %>
                   </div>
                 <% end %>
               </div>
