@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   end
   get 'welcome/index'
   root 'welcome#index'
+
+  get '404', to: 'errors#not_found'
+  get '500', to: 'errors#internal_server_error'
 end  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htmlend
