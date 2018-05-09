@@ -15,13 +15,13 @@ When('I click on Unselect All') do
 end
 
 Then('I should see the step one of consent') do
-  expect(page).to have_content('Introduction to this platform')
+  expect(page).to have_content('Step 1 of 5')
   expect(page).to have_button('Next')
   expect(page).to have_button('Save and Exit')
 end
 
 Then('I should see the step two of the consent') do
-  expect(page).to have_content('Consent for genomics test')
+  expect(page).to have_content('Step 2 of 5')
   expect(page).to have_link('Back')
 end
 

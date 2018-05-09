@@ -37,25 +37,24 @@
 <section class="steps steps_pushed-up container">
   <div class="row">
     <div class="steps__box col mx-auto">
-      <%= simple_form_for @step,html: {class: "bg-ice-one border pt-30 px-30"}, method: :put do |f| %>
+      <%= simple_form_for @step, html: {class: "bg-ice-one border pt-30 px-30"}, method: :put do |f| %>
         <h3 class="text-center mt-2 mb-15">
-          Preferences for knowing my genomic test results
+          Preferences about your results
         </h3>
         <div class="d-flex mb-30">
           <p class="steps__description mx-auto mb-0 text-justify">
             <b>Incidental findings:</b>
-            Because a genomic test means looking at many genes at once, a genetic change that is not related to the
-            specific health condition you are being tested for could be found. These <b>incidental findings </b>may be
-            important to know about for your health and for your family as well.<br>
+            Because a genomic test looks at many genes at once, a genetic change that is not related to the specific
+            health condition you are being tested for could be found. These incidental findings may be important to know
+            about for your health and for your family as well.<br>
             <br>
-
-            An incidental finding is a genetic change that we know or think is linked with certain health condition that
-            the testing laboratory comes across accidentally, despite efforts not to look closely at certain genes. It
-            is very uncommon, but you should be aware that it can happen.<br>
-            <br>
-
-            However you choose to answer these questions will not prevent you having the test, but we would like to ask
-            for your <u>preference</u> when receiving results.
+            An incidental finding is a genetic change that we know or think is linked with certain health conditions
+            that the testing laboratory comes across accidentally, despite efforts not to look closely at certain genes.
+            It is very uncommon, but you should be aware that it can happen.<br>
+            </br>
+            Genomic testing services have their own policies about whether they will tell you about incidental findings.
+            If your testing is transferred to a research setting they may identify incidental findings. For those that
+            do return incidental findings, we would like to know your preferences.
           </p>
         </div>
 
@@ -74,7 +73,7 @@
                     data-target="#stepsRow<%= qf.object.question_id %>"
                     aria-expanded="false"
                     aria-controls="stepsRow1"
-                    >
+                  >
                   </i>
                 <% end %>
               </div>
@@ -86,13 +85,13 @@
               <% else %>
                 <div class="d-flex mt-3 mt-sm-0">
                   <%= qf.collection_radio_buttons :answer,
-                    [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
-                    :first,
-                    :second do |b|
-                      b.label(class: collection_option_class(b.text)) {
-                        b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
-                      }
-                    end %>
+                                                  [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
+                                                  :first,
+                                                  :second do |b|
+                    b.label(class: collection_option_class(b.text)) {
+                      b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
+                    }
+                  end %>
                 </div>
               <% end %>
             </div>
