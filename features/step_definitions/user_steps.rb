@@ -40,6 +40,7 @@ def edit_user_details
   fill_in 'user_first_name', with: 'kaku'
   fill_in 'user_middle_name', with: 'something'
   fill_in 'user_family_name', with: 'last'
+  fill_in 'user_dob', with: '30-05-1995'
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: 'Zetland'
@@ -191,6 +192,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('kaku')
   expect(page).to have_content('something')
   expect(page).to have_content('last')
+  expect(page).to have_content('30-05-1995')
   expect(page).to have_content('sushant@sushant.com')
   expect(page).to have_content('413')
   expect(page).to have_content('Zetland')
