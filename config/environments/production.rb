@@ -72,8 +72,8 @@ Rails.application.configure do
   mcri_email = {
       address: "smtp.mcri.edu.au",
       port: 25,
-      authentication: "plain",
-      enable_starttls_auto: true
+      authentication: "none",
+      enable_starttls_auto: false
   }
 
   gmail_email = {
