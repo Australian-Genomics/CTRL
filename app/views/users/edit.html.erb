@@ -113,7 +113,7 @@
 
     <div class="d-flex align-items-center mb-30">
       <p class="mb-0">
-        Register as a parent/guardian or carer
+        <b>Register as a parent/guardian or carer</b>
       </p>
       <div class="d-flex ml-auto pl-15">
         <div class="text-dark mr-2">No</div>
@@ -126,7 +126,7 @@
     </div>
 
     <div id="kin" style="<%= 'display: none' if current_user.is_parent == true %>">
-      Next of kin:<br>
+      <b>Next of kin:</b><br>
       </br>
       <div class="form-row">
         <div class="col-12 mb-30">
@@ -170,6 +170,8 @@
     </div>
 
     <div id="child" style="<%= 'display: none' if current_user.is_parent == false %>">
+      <b>Registering on behalf of:</b><br>
+      </br>
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
