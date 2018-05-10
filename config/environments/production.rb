@@ -68,7 +68,15 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
-  config.action_mailer.smtp_settings = {
+
+  mcri_email = {
+      address: "smtp.mcri.edu.au",
+      port: 25,
+      authentication: "plain",
+      enable_starttls_auto: true
+  }
+
+  gmail_email = {
       address: "smtp.gmail.com",
       port: 587,
       authentication: "plain",
@@ -76,6 +84,8 @@ Rails.application.configure do
       user_name: 'aghatesting@gmail.com',
       password: 'aghatest123'
   }
+
+  config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : gmail_email
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
