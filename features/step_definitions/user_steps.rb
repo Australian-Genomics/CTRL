@@ -202,6 +202,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('chILDRANZ')
   expect(page).to have_content('Research')
   expect(page).to have_content('Yes')
+  expect(page).to have_content('Registering on behalf of')
 end
 
 Then('I should not see the new name on the user edit page') do
@@ -217,6 +218,7 @@ Then('I should not see the new name on the user edit page') do
   expect(page).to_not have_content('chILDRANZ')
   expect(page).to_not have_content('Research')
   expect(page).to_not have_content('Yes')
+  expect(page).to have_content('Next of Kin:')
 end
 
 Then('I should see the user edit page') do
