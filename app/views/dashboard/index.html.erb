@@ -447,55 +447,108 @@
 
     <% end %>
 
-    <div class="steps__row dashboard__row dashboard__row_active">
-      <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+    <% if current_user.red_cap_survey_one_link? %>
+      <div class="steps__row dashboard__row dashboard__row_active">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
 
-        <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-          <i class="icon__num mr-12">6</i>
-          <div class="mr-auto">
-            Participant Survey 1
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">6</i>
+            <div class="mr-auto">
+              Participant Survey 1
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="bottom"
+              data-html="true"
+              data-content="Survey 1 will be ready to complete within a few weeks of enrolling in the program."
+            >
+            </i>
           </div>
-          <i
-            class="icon__i icon__i_popover mr-md-60 ml-auto"
-            tabindex="0"
-            role="button"
-            data-toggle="popover"
-            data-trigger="focus"
-            data-placement="bottom"
-            data-html="true"
-            data-content="Survey 1 will be ready to complete within a few weeks of enrolling in the program."
-          >
-          </i>
-        </div>
 
-        <div class="d-flex w-100 mb-15 mb-md-0">
-          <i class="icon_placeholder mr-2"></i>
-          <div class="mr-auto">
-            <% unless current_user.red_cap_survey_one_link? %>
-              Not Yet Available
-            <% else %>
-              <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
-                Incomplete
-              <% elsif current_user.red_cap_survey_one_status == 1 %>
-                Partially Complete
-              <% elsif current_user.red_cap_survey_one_status == 2 %>
-                Available for completion
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              <% unless current_user.red_cap_survey_one_link? %>
+                Not Yet Available
+              <% else %>
+                <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
+                  Incomplete
+                <% elsif current_user.red_cap_survey_one_status == 1 %>
+                  Partially Complete
+                <% elsif current_user.red_cap_survey_one_status == 2 %>
+                  Available for completion
+                <% end %>
               <% end %>
+
+            </div>
+            <div class="mr-md-3">
+              ‒
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+            <% if current_user.red_cap_survey_one_link? %>
+              <%= link_to('Do Survey', current_user.red_cap_survey_one_link, class: 'btn btn-primary') %>
             <% end %>
-
           </div>
-          <div class="mr-md-3">
-            ‒
-          </div>
-        </div>
 
-        <div class="d-flex justify-content-end mnw-120">
-          <% if current_user.red_cap_survey_one_link? %>
-            <%= link_to('Do Survey', current_user.red_cap_survey_one_link, class: 'btn btn-primary')%>
-          <% end %>
         </div>
-
       </div>
+
+    <% else %>
+
+
+      <div class="steps__row dashboard__row dashboard__row_disabled">
+        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
+
+          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
+            <i class="icon__num mr-12">6</i>
+            <div class="mr-auto">
+              Participant Survey 1
+            </div>
+            <i
+              class="icon__i icon__i_popover mr-md-60 ml-auto"
+              tabindex="0"
+              role="button"
+              data-toggle="popover"
+              data-trigger="focus"
+              data-placement="bottom"
+              data-html="true"
+              data-content="Survey 1 will be ready to complete within a few weeks of enrolling in the program."
+            >
+            </i>
+          </div>
+
+          <div class="d-flex w-100 mb-15 mb-md-0">
+            <i class="icon_placeholder mr-2"></i>
+            <div class="mr-auto">
+              <% unless current_user.red_cap_survey_one_link? %>
+                Not Yet Available
+              <% else %>
+                <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
+                  Incomplete
+                <% elsif current_user.red_cap_survey_one_status == 1 %>
+                  Partially Complete
+                <% elsif current_user.red_cap_survey_one_status == 2 %>
+                  Available for completion
+                <% end %>
+              <% end %>
+
+            </div>
+            <div class="mr-md-3">
+              ‒
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end mnw-120">
+          </div>
+    <% end %>
+
+    </div>
     </div>
 
   </section>
