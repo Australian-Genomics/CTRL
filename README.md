@@ -67,12 +67,12 @@ Getting into the rails server
 
 Your server should be running at localhost:3000
 
-##For running the tests 
+## For running the tests 
 `bundle exec rspec spec/**/*.rb`
 
 `bundle exec cucumber feature/**/*.feature`
 
-##HEROKU
+## HEROKU
 Login with your heroku credentials using
 
 `heroku login`
@@ -89,7 +89,7 @@ You can rename the project using
 
 But don't do it unless you want to get fired.
 
-###Deploying your code to heroku from your terminal
+### Deploying your code to heroku from your terminal
 ```shell
 git add .
 git commit -m [Your message](https://github.com/erlang/otp/wiki/writing-good-commit-messages)
@@ -118,6 +118,6 @@ For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add r
  
 ### Email and delayed jobs
  1. Set the ENV variable EMAIL_SERVER to MCRI `export EMAIL_SERVER=MCRI`
- 1. Add the recurring delayed job for RedCap and Emailing `bundle exec rake recurring:send_surve_emails`
+ 1. Add the recurring delayed job for RedCap and Emailing `bundle exec rake recurring:check_redcap_and_send_emails`
  1. Edit the config/environments/production.rb file for MCRI email settings
  1. Run the worker as a background process `bundle exec rake jobs:work`
