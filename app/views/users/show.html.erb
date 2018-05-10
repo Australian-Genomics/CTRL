@@ -4,12 +4,12 @@
       <%= image_tag "icon-256x256.png", class: "fit-contain", width: "50", height: "50", alt: "logo icon" %>
     </a>
     <div
-    class="nav-toggler py-3 pl-3"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
+      class="nav-toggler py-3 pl-3"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
       <span class="nav-to-open">Menu</span>
       <span class="nav-to-close">Close</span>
@@ -90,14 +90,14 @@
             <div class="col-6">
               <b>Email</b>
               <i
-              class="icon__i icon__i_popover ml-2"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-content="Careful! Changing this email address will change your login email, and where notifications are sent."
-              data-html="true"
+                class="icon__i icon__i_popover ml-2"
+                tabindex="0"
+                role="button"
+                data-toggle="popover"
+                data-trigger="focus"
+                data-placement="bottom"
+                data-content="Careful! Changing this email address will change your login email, and where notifications are sent."
+                data-html="true"
               >
               </i>
               <div class="popover-content d-none">
@@ -178,7 +178,11 @@
             </div>
           </div>
           <div>
-            <b>Registering on behalf of</b>
+            <% if current_user.is_parent == true %>
+              <b>Registering on behalf of</b>
+            <% else %>
+              <b>Next of Kin:</b>
+            <% end %>
           </div>
           <% if current_user.is_parent == true %>
             <%= render partial: 'users/child_details' %>
