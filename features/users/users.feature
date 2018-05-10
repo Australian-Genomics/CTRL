@@ -8,6 +8,10 @@ Feature: Welcome Page
     Then I see an invalid login message
     And I should not be signed in
 
+  Scenario: User should see the privacy link in registration page
+    When I click on Register
+    Then I should see the MCRI Privacy Policy link
+
   Scenario: User signs up successfully
     When I click on Register
     And I fill in the user details
