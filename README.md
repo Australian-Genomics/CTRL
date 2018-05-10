@@ -101,3 +101,23 @@ But you don't need it, We already did that for you on CircleCI, you might want t
 You can also make changes to this README.md file
 
 For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add reviewers and if they're good, we are happy to merge it to master.
+
+
+## Setup for MCRI
+
+### Setup
+ 1. Unzip app
+ 1. Create DB 'agha_production' with username/password 'agha_api/agha_api' 
+ 1. Edit the config/database.yml file to match the settings for the DB including the hostname for production
+ 1. Install ruby (ruby 2.4.1p111)
+ 1. Install bundler `gem install bundler`
+ 1. Install gems `bundle install`
+ 1. Run db schema update `bundle exec rake db:migrate RAILS_ENV=production`
+ 1. Run rails `bundle exec rails s -p PORT`
+ 1. Let's run the test of the UI
+ 
+### Email and delayed jobs
+ 1. Set the ENV variable EMAIL_SERVER to MCRI `export EMAIL_SERVER=MCRI`
+ 1. Add the recurring delayed job for RedCap and Emailing `bundle exec rake recurring:send_surve_emails`
+ 1. Edit the config/environments/production.rb file for MCRI email settings
+ 1. Run the worker as a background process `bundle exec rake jobs:work`
