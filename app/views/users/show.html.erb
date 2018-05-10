@@ -180,15 +180,12 @@
           <div>
             <% if current_user.is_parent == true %>
               <b>Registering on behalf of</b>
+              <%= render partial: 'users/child_details' %>
             <% else %>
               <b>Next of Kin:</b>
+              <%= render partial: 'users/kin_details' %>
             <% end %>
           </div>
-          <% if current_user.is_parent == true %>
-            <%= render partial: 'users/child_details' %>
-          <% else %>
-            <%= render partial: 'users/kin_details' %>
-          <% end %>
         </div>
       </div>
     </div>
