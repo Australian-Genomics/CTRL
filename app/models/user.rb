@@ -26,6 +26,9 @@ class User < ApplicationRecord
                   'Renal Genetic Disorders',
                   'Solid Tumours']
 
+  enum state: ['ACT','NSW','NT','QLD','SA','TAS','VIC','WA']
+  enum preferred_contact_method: ['Email', 'Phone', 'Mail']
+
   def step_one
     steps.find_by(number: 1)
   end
