@@ -65,7 +65,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :state, label: 'State/Territory', required: false, placeholder: "State/Territory", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :state, collection: User.states.keys,prompt: "Select one",label: 'State/Territory', required: false, placeholder: "State/Territory", input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :preferred_contact_method, placeholder: "Preferred contact method", required: false, input_html: {class: "form-control mb-0"} %>
+          <%= f.input :preferred_contact_method,collection: User.preferred_contact_methods.keys,prompt: "Select one",label: 'Preferred contact method', placeholder: "Preferred contact method", required: false, input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
