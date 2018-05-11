@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_09_090847) do
+ActiveRecord::Schema.define(version: 2018_05_11_074058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,10 +69,9 @@ ActiveRecord::Schema.define(version: 2018_05_09_090847) do
     t.string "family_name"
     t.string "phone_no"
     t.date "dob"
-    t.string "preferred_contact_method", default: "Email"
+    t.integer "preferred_contact_method"
     t.string "address"
     t.string "suburb"
-    t.string "state"
     t.string "post_code"
     t.integer "flagship"
     t.boolean "is_parent", default: false
@@ -98,6 +97,7 @@ ActiveRecord::Schema.define(version: 2018_05_09_090847) do
     t.boolean "survey_two_email_reminder_sent", default: false
     t.date "red_cap_date_consent_signed"
     t.date "red_cap_date_of_result_disclosure"
+    t.integer "state"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
