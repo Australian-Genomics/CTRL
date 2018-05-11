@@ -71,7 +71,7 @@
                 </i>
               <% end %>
               <label class="controls controls__checkbox controls__checkbox_blue">
-                    <%= qf.check_box :answer, {checked: qf.object.is_checked?(current_question[:default_value])}, 'true', 'false'  %>
+                    <%= qf.check_box :answer, {checked: qf.object.checked?(current_question[:default_value])}, 'true', 'false'  %>
                 <span class="checkmark"></span>
               </label>
             </div>

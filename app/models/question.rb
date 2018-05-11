@@ -1,7 +1,7 @@
 class Question < ApplicationRecord
   enum answer: %w[false true not_sure]
 
-  def is_checked?(default_value)
+  def checked?(default_value)
     if [11, 14].include? question_id
       'false'
     elsif answer == 'not_sure'
