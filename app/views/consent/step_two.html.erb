@@ -58,7 +58,7 @@
             <div class="steps__row">
               <div class="steps__row-main">
                 <div class="mr-auto text-justify">
-                  <%= current_question[:qus] %>
+                  <%= current_question[:qus].html_safe %>
                 </div>
                 <% if current_question[:description] != '' %>
                   <i
@@ -77,13 +77,7 @@
               </div>
               <div class="steps__row-collapse collapse" id="stepsRow<%= qf.object.question_id %>">
                 <div class="text-justify">
-                  <% if current_question[:question_id] == 8 %>
-                    How insurance companies use personal genetic information is currently being investigated by
-                    government. If you would like more information about the impact of genetic testing on certain
-                    insurance products, visit the Centre for Genetics Education <%= link_to 'insurance fact sheet.', 'http://www.genetics.edu.au/publications-and-resources/facts-sheets/fact-sheet-20-life-insurance-products-and-genetic-testing-in-australia', target: '_blank'%>
-                  <% else %>
-                    <%= current_question[:description] %>
-                  <% end %>
+                    <%= current_question[:description].html_safe %>
                 </div>
               </div>
             </div>
