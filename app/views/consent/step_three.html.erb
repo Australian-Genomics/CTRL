@@ -58,7 +58,7 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto text-justify">
-                <%= current_question[:qus] %>
+                <%= current_question[:qus].html_safe %>
               </div>
               <% if current_question[:description] != '' %>
                 <i
