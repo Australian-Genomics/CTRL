@@ -268,6 +268,31 @@ RSpec.describe User, type: :model do
   end
 
   context 'validations' do
+    it 'should have a mandatory is parent details' do
+      expect(user.valid?).to be true
+      user.is_parent = nil
+      expect(user.valid?).to be false
+    end
+    it 'should have a mandatory preferred contact method' do
+      expect(user.valid?).to be true
+      user.preferred_contact_method = nil
+      expect(user.valid?).to be false
+    end
+    it 'should have a mandatory flasghip' do
+      expect(user.valid?).to be true
+      user.flagship = nil
+      expect(user.valid?).to be false
+    end
+    it 'should have a mandatory dob' do
+      expect(user.valid?).to be true
+      user.dob = nil
+      expect(user.valid?).to be false
+    end
+    it 'should have a mandatory suburb' do
+      expect(user.valid?).to be true
+      user.suburb = nil
+      expect(user.valid?).to be false
+    end
     it 'should have a study id' do
       expect(user.valid?).to be true
       user.study_id = nil
