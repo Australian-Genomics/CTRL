@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :family_name, :study_id
+  validates :suburb, :dob, :flagship, :preferred_contact_method, :is_parent, presence: true, on: :update
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
   after_create :create_consent_step
@@ -26,7 +27,7 @@ class User < ApplicationRecord
                   'Renal Genetic Disorders',
                   'Solid Tumours']
 
-  enum state: ['ACT','NSW','NT','QLD','SA','TAS','VIC','WA']
+  enum state: ['ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA']
   enum preferred_contact_method: ['Email', 'Phone', 'Mail']
 
   def step_one
@@ -50,7 +51,7 @@ class User < ApplicationRecord
   end
 
   def create_consent_step
-    (1..5).each { |step_number| steps.create(number: step_number, accepted: false) }
+    (1..5).each {|step_number| steps.create(number: step_number, accepted: false)}
   end
 
   def genetic_counsellor
@@ -62,26 +63,26 @@ class User < ApplicationRecord
   def find_in_first_group_of_genetic_counsellors
     case study_id
     when /^A0134(.)+/
-      { name: 'Ella Wilkins', site: 'RCH', phone: '03 9936 6333', email: 'ella.wilkins@vcgs.org.au' }
+      {name: 'Ella Wilkins', site: 'RCH', phone: '03 9936 6333', email: 'ella.wilkins@vcgs.org.au'}
     when /^A1534(.)+/
-      { name: 'Lindsay Fowles', site: 'RBWH', phone: '07 3646 1686 (M,T,W,F) 07 3646 0254 (Th)', email: 'Lindsay.Fowles@health.qld.gov.au' }
+      {name: 'Lindsay Fowles', site: 'RBWH', phone: '07 3646 1686 (M,T,W,F) 07 3646 0254 (Th)', email: 'Lindsay.Fowles@health.qld.gov.au'}
     when /^(A0434|A1434)(.)+/
-      { name: 'Gayathri Parasivam', site: 'SCHN', phone: '02 9845 1225', email: 'gayathri.parasivam@health.nsw.gov.au' }
+      {name: 'Gayathri Parasivam', site: 'SCHN', phone: '02 9845 1225', email: 'gayathri.parasivam@health.nsw.gov.au'}
     when /^A0132(.)+/
-      { name: 'Michelle de Silva', site: 'RCH', phone: '03 9936 6109', email: 'michelle.desilva@mcri.edu.au' }
+      {name: 'Michelle de Silva', site: 'RCH', phone: '03 9936 6109', email: 'michelle.desilva@mcri.edu.au'}
     end
   end
 
   def find_in_second_group_of_genetic_counsellors
     case study_id
     when /^A0432(.)+/
-      { name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick)', email: 'kirsten.boggs@health.nsw.gov.au' }
+      {name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick)', email: 'kirsten.boggs@health.nsw.gov.au'}
     when /^A1432(.)+/
-      { name: 'Kirsten Boggs', site: '', phone: '02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au' }
+      {name: 'Kirsten Boggs', site: '', phone: '02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au'}
     when /^A1532(.)+/
-      { name: 'Melanie Tom', site: 'RBWH', phone: '07 3636 0254', email: 'melanie.tom@health.qld.gov.au' }
+      {name: 'Melanie Tom', site: 'RBWH', phone: '07 3636 0254', email: 'melanie.tom@health.qld.gov.au'}
     else
-      { name: 'Matilda Hass', site: 'RCH', phone: '03 9936 6453', email: 'matilda.haas@mcri.edu.au' }
+      {name: 'Matilda Hass', site: 'RCH', phone: '03 9936 6453', email: 'matilda.haas@mcri.edu.au'}
     end
   end
 
