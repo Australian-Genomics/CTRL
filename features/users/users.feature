@@ -100,3 +100,18 @@ Feature: Welcome Page
     When I click on Cancel
     Then I should not see the new name on the user edit page
 
+  Scenario: User cannot update the details by not filling the mandatory fields
+    Given I exist as a user
+    And I am not logged in
+    When I sign in with valid credentials
+    Then I should be signed in
+    And I should see the dashboard page
+    When I click on My Personal Details
+    Then I should see Personal Details page
+    When I click on Update
+    Then I should see the user edit page
+    And I did not fill the mandatory fields
+    When I submit the user details
+    Then I should see error on edit page
+
+

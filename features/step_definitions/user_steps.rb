@@ -139,6 +139,19 @@ When('I edit the user details') do
   edit_user_details
 end
 
+When('I did not fill the mandatory fields') do
+  fill_in 'user_first_name', with: 'kaku'
+  fill_in 'user_middle_name', with: 'something'
+  fill_in 'user_family_name', with: 'last'
+  fill_in 'user_dob', with: ''
+  fill_in 'user_email', with: 'sushant@sushant.com'
+  fill_in 'user_address', with: '413'
+  fill_in 'user_suburb', with: ''
+  fill_in 'user_post_code', with: '3000'
+  select 'chILDRANZ', from: 'user_flagship'
+  fill_in 'user_study_id', with: 'Research'
+end
+
 When('I submit the user details') do
   click_button 'Update'
 end
@@ -223,4 +236,8 @@ end
 
 Then('I should see the user edit page') do
   expect(page).to have_content('Edit personal details')
+end
+
+Then('I should see error on edit page') do
+  expect(page).to have_content("Can't be blank", count: 3)
 end
