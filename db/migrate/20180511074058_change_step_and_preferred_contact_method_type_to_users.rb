@@ -7,5 +7,4 @@ class ChangeStepAndPreferredContactMethodTypeToUsers < ActiveRecord::Migration[5
 
     change_column :users, :preferred_contact_method, :integer, using: 'preferred_contact_method::integer'
   end
-
 end
