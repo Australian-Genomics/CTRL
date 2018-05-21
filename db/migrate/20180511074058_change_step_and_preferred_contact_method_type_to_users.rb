@@ -5,6 +5,6 @@ class ChangeStepAndPreferredContactMethodTypeToUsers < ActiveRecord::Migration[5
 
     User.where(preferred_contact_method: 'Email').update_all(preferred_contact_method: 0)
 
-    change_column :users, :preferred_contact_method, :integer, using: 'preferred_contact_method::integer'
+    change_column :users, :preferred_contact_method, :integer, using: 'preferred_contact_method::integer', default: 0
   end
 end
