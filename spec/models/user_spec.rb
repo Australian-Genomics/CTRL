@@ -260,10 +260,10 @@ RSpec.describe User, type: :model do
     it 'should return Matilda if not matched' do
       user.update(study_id: 'A999')
       gc = user.genetic_counsellor
-      expect(gc[:name]).to eql('Matilda Hass')
-      expect(gc[:site]).to eql('RCH')
-      expect(gc[:phone]).to eql('03 9936 6453')
-      expect(gc[:email]).to eql('matilda.haas@mcri.edu.au')
+      expect(gc[:name]).to eql('')
+      expect(gc[:site]).to eql('')
+      expect(gc[:phone]).to eql('')
+      expect(gc[:email]).to eql('australian.genomics@mcri.edu.au')
     end
   end
 
