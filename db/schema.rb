@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2018_05_11_074058) do
     t.string "family_name"
     t.string "phone_no"
     t.date "dob"
-    t.integer "preferred_contact_method"
+    t.integer "preferred_contact_method", default: 0
     t.string "address"
     t.string "suburb"
     t.string "post_code"
