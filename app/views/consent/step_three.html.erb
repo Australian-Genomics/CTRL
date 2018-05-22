@@ -46,7 +46,7 @@
             having the genomic test. Thank you. The research we are doing will help to decide whether genomic testing
             should be standard care for your health condition. To do this, we would like to collect information about
             you from your health records as well as information directly from you. The answers are all pre-selected,
-            because have already agreed to participate in the research.<br>
+            because you have already agreed to participate in the research.<br>
             </br>
             If you choose to unselect any statements below we will contact you to talk about whether you still agree to
             being in the research project.
@@ -58,7 +58,7 @@
           <div class="steps__row">
             <div class="steps__row-main">
               <div class="mr-auto text-justify">
-                <%= current_question[:qus] %>
+                <%= current_question[:qus].html_safe %>
               </div>
               <% if current_question[:description] != '' %>
                 <i
@@ -71,7 +71,7 @@
                 </i>
               <% end %>
               <label class="controls controls__checkbox controls__checkbox_blue">
-                    <%= qf.check_box :answer, {}, 'true', 'false'  %>
+                    <%= qf.check_box :answer, {checked: qf.object.checked?(current_question[:default_value])}, 'true', 'false'  %>
                 <span class="checkmark"></span>
               </label>
             </div>

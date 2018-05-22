@@ -91,7 +91,7 @@ class User < ApplicationRecord
     when /^A1532(.)+/
       { name: 'Melanie Tom', site: 'RBWH', phone: '07 3636 0254', email: 'melanie.tom@health.qld.gov.au' }
     else
-      { name: 'Matilda Hass', site: 'RCH', phone: '03 9936 6453', email: 'matilda.haas@mcri.edu.au' }
+      { name: '', site: '', phone: '', email: 'australian.genomics@mcri.edu.au' }
     end
   end
 
