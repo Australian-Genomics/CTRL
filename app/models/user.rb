@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :family_name, :study_id
+  validates :suburb, :dob, :flagship, :preferred_contact_method, presence: true, on: :update
+  validate :kin_details_and_child_details, on: :update
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
   after_create :create_consent_step
@@ -25,6 +27,17 @@ class User < ApplicationRecord
                   'Neuromuscular Disorders',
                   'Renal Genetic Disorders',
                   'Solid Tumours']
+
+  enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
+  enum preferred_contact_method: %w[Email Phone Mail]
+
+  def kin_details_and_child_details
+    if is_parent == false
+      validates_presence_of :kin_first_name, :kin_family_name, :kin_contact_no
+    elsif is_parent == true
+      validates_presence_of :child_first_name, :child_family_name, :child_dob
+    end
+  end
 
   def step_one
     steps.find_by(number: 1)

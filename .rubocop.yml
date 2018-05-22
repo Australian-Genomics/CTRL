@@ -7,6 +7,7 @@ Metrics/ClassLength:
 Metrics/AbcSize:
   Exclude:
     - "db/migrate/*.rb"
+    - 'features/step_definitions/*.rb'
 
 AllCops:
   Exclude:
