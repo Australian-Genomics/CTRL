@@ -3,23 +3,23 @@ When('I click on the agha logo') do
 end
 
 When("I click on 'Review' for step one") do
-  find('body > section > div:nth-child(2) > div > div.d-flex.justify-content-end.mnw-120 > a').click
+  find('body > div > section > div:nth-child(2) > div > div.d-flex.justify-content-end.mnw-120 > a').click
 end
 
 When("I click on 'Review' for step two") do
-  find('body > section > div:nth-child(3) > div > div.d-flex.justify-content-end.mnw-120 > a').click
+  find('body > div > section > div:nth-child(3) > div > div.d-flex.justify-content-end.mnw-120 > a').click
 end
 
 When("I click on 'Review' for step three") do
-  find('body > section > div:nth-child(4) > div > div.d-flex.justify-content-end.mnw-120 > a').click
+  find('body > div > section > div:nth-child(4) > div > div.d-flex.justify-content-end.mnw-120 > a').click
 end
 
 When("I click on 'Review' for step four") do
-  find('body > section > div:nth-child(5) > div > div.d-flex.justify-content-end.mnw-120 > a').click
+  find('body > div > section > div:nth-child(5) > div > div.d-flex.justify-content-end.mnw-120 > a').click
 end
 
 When("I click on 'Review' for step five") do
-  find('body > section > div:nth-child(6) > div > div.d-flex.justify-content-end.mnw-120 > a').click
+  find('body > div > section > div:nth-child(6) > div > div.d-flex.justify-content-end.mnw-120 > a').click
 end
 
 Then('I should see the progress of my current consent step') do
