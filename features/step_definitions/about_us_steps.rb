@@ -11,7 +11,7 @@ Then('I click on About') do
 end
 
 Then('I should see an introduction about the platform') do
-  expect(page).to have_content('Introduction to this platform')
+  expect(page).to have_content('The Australian Genomics program')
 end
 
 Then('I should see the personal details page') do

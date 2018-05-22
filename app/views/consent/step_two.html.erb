@@ -45,7 +45,7 @@
             This section follows on from your consent to have a genomic test as part of the Australian Genomics study.
             Your doctor or genetic counsellor will have already discussed the genomic test with you. The answers are all
             pre-selected, because you have already agreed to have the test.<br>
-          </br>
+            </br>
 
             If you choose to unselect any statements we will contact you to talk about whether you still consent to
             having the test.
@@ -58,7 +58,7 @@
             <div class="steps__row">
               <div class="steps__row-main">
                 <div class="mr-auto text-justify">
-                  <%= current_question[:qus] %>
+                  <%= current_question[:qus].html_safe %>
                 </div>
                 <% if current_question[:description] != '' %>
                   <i
@@ -71,13 +71,13 @@
                   </i>
                 <% end %>
                 <label class="controls controls__checkbox controls__checkbox_blue">
-                  <%= qf.check_box :answer, {onclick: 'Options()'}, 'true', 'false'%>
+                  <%= qf.check_box :answer, {onclick: 'Options()', checked: qf.object.checked?(current_question[:default_value])}, 'true', 'false' %>
                   <span class="checkmark"></span>
                 </label>
               </div>
               <div class="steps__row-collapse collapse" id="stepsRow<%= qf.object.question_id %>">
                 <div class="text-justify">
-                  <%= current_question[:description] %>
+                    <%= current_question[:description].html_safe %>
                 </div>
               </div>
             </div>
