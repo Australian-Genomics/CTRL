@@ -44,12 +44,15 @@ def edit_user_details
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: 'Zetland'
-  fill_in 'user_state', with: 'VIC'
+  select 'VIC', from: 'user_state'
   fill_in 'user_post_code', with: '3000'
-  fill_in 'user_preferred_contact_method', with: 'Phone Number'
+  select 'Phone', from: 'user_preferred_contact_method'
   select 'chILDRANZ', from: 'user_flagship'
   fill_in 'user_study_id', with: 'Research'
   find('#user_is_parent + span').click
+  fill_in 'user_child_first_name', with: 'Luca'
+  fill_in 'user_child_family_name', with: 'DSouza'
+  fill_in 'user_child_dob', with: '30-05-1995'
 end
 
 Given('I am not logged in') do
@@ -139,6 +142,19 @@ When('I edit the user details') do
   edit_user_details
 end
 
+When('I did not fill the mandatory fields') do
+  fill_in 'user_first_name', with: 'kaku'
+  fill_in 'user_middle_name', with: 'something'
+  fill_in 'user_family_name', with: 'last'
+  fill_in 'user_dob', with: ''
+  fill_in 'user_email', with: 'sushant@sushant.com'
+  fill_in 'user_address', with: '413'
+  fill_in 'user_suburb', with: ''
+  fill_in 'user_post_code', with: '3000'
+  select 'chILDRANZ', from: 'user_flagship'
+  fill_in 'user_study_id', with: 'Research'
+end
+
 When('I submit the user details') do
   click_button 'Update'
 end
@@ -198,7 +214,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('Zetland')
   expect(page).to have_content('VIC')
   expect(page).to have_content('3000')
-  expect(page).to have_content('Phone Number')
+  expect(page).to have_content('Phone')
   expect(page).to have_content('chILDRANZ')
   expect(page).to have_content('Research')
   expect(page).to have_content('Yes')
@@ -214,7 +230,7 @@ Then('I should not see the new name on the user edit page') do
   expect(page).to_not have_content('Zetland')
   expect(page).to_not have_content('VIC')
   expect(page).to_not have_content('3000')
-  expect(page).to_not have_content('Phone Number')
+  expect(page).to_not have_content('Phone')
   expect(page).to_not have_content('chILDRANZ')
   expect(page).to_not have_content('Research')
   expect(page).to_not have_content('Yes')
@@ -223,4 +239,8 @@ end
 
 Then('I should see the user edit page') do
   expect(page).to have_content('Edit personal details')
+end
+
+Then('I should see error on edit page') do
+  expect(page).to have_content("Can't be blank", count: 5)
 end

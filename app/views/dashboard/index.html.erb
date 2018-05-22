@@ -35,15 +35,16 @@
 </nav>
 
 <div class="dashboard">
-
-  <div class="dashboard__topper bg-ice-one">
-    <div class="container d-flex flex-column flex-sm-row align-items-center px-30 px-md-15">
-      <div class="text-bigger text-dark-blue text-center text-md-left mt-30 mt-sm-0">
-        Your personal details need to be completed
+  <% if current_user.updated_at.strftime('%T %h %M') == current_user.created_at.strftime('%T %h %M') %>
+    <div class="dashboard__topper bg-ice-one">
+      <div class="container d-flex flex-column flex-sm-row align-items-center px-30 px-md-15">
+        <div class=" text-bigger text-dark-blue text-center text-md-left mt-30 mt-sm-0">
+          Your personal details need to be completed
+        </div>
+        <%= link_to('Complete', user_path(current_user), class: "btn btn-primary ml-sm-30 my-15 my-sm-20") %>
       </div>
-      <%= link_to('Complete', user_path(current_user), class: "btn btn-primary ml-sm-30 my-15 my-sm-20") %>
     </div>
-  </div>
+  <% end %>
 
   <section class="steps container px-sm-0 mb-15 mb-sm-120">
 

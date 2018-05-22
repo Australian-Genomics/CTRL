@@ -4,6 +4,7 @@
 function ready() {
     $('[data-toggle="popover"]').popover();
     userIsParentChangeHandler();
+    showDetails();
 }
 
 function userIsParentChangeHandler() {
@@ -18,6 +19,16 @@ function userIsParentChangeHandler() {
             $('#child').hide();
         }
     });
+}
+
+function showDetails() {
+    if ($('#user_is_parent').is(":checked")) {
+        $('#kin').hide();
+        $('#child').show();
+    } else {
+        $('#kin').show();
+        $('#child').hide();
+    }
 }
 
 (function () {
