@@ -116,19 +116,20 @@ RSpec.describe User, type: :model do
   end
 
   context 'update_survey_one_code_from_redcap' do
-    it 'should update the link from redcap' do
+    it 'should update the status from redcap if survey link is present' do
       survey_status = '1'
+      user.update(red_cap_survey_one_link: 'http://randomlink.com/23423')
       expect(user.red_cap_survey_one_status).to be_blank
       expect(RedCapManager).to receive(:get_survey_one_status).with(user.study_id).and_return(survey_status)
       User.update_survey_one_status_from_redcap
       expect(User.find(user.id).red_cap_survey_one_status).to eql(survey_status.to_i)
     end
 
-    it 'should not update the link from redcap if it was already present' do
-      user.update(red_cap_survey_one_status: 'SFGE')
+    it 'should not update the status from redcap if the survey link is not present' do
+      user.update(red_cap_survey_one_link: nil)
       expect(RedCapManager).to_not receive(:get_survey_one_status)
       User.update_survey_one_status_from_redcap
-      expect(user.red_cap_survey_one_status).to_not be_blank
+      expect(user.red_cap_survey_one_status).to be_blank
     end
   end
 
