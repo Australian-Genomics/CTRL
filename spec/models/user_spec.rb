@@ -225,7 +225,7 @@ RSpec.describe User, type: :model do
         gc = user.genetic_counsellor
         expect(gc[:name]).to eql('Kirsten Boggs')
         expect(gc[:site]).to eql('SCHN')
-        expect(gc[:phone]).to eql('02 9382 5616 (Randwick)')
+        expect(gc[:phone]).to eql('02 9382 5616 (Randwick) 02 9845 3273 (Westmead)')
         expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
       end
 
@@ -234,7 +234,7 @@ RSpec.describe User, type: :model do
         gc = user.genetic_counsellor
         expect(gc[:name]).to eql('Kirsten Boggs')
         expect(gc[:site]).to eql('SCHN')
-        expect(gc[:phone]).to eql('02 9382 5616 (Randwick)')
+        expect(gc[:phone]).to eql('02 9382 5616 (Randwick) 02 9845 3273 (Westmead)')
         expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
       end
 
@@ -242,8 +242,8 @@ RSpec.describe User, type: :model do
         user.update(study_id: 'A1432564')
         gc = user.genetic_counsellor
         expect(gc[:name]).to eql('Kirsten Boggs')
-        expect(gc[:site]).to eql('')
-        expect(gc[:phone]).to eql('02 9845 3273 (Westmead)')
+        expect(gc[:site]).to eql('SCHN')
+        expect(gc[:phone]).to eql('02 9382 5616 (Randwick) 02 9845 3273 (Westmead)')
         expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
       end
 
@@ -251,8 +251,8 @@ RSpec.describe User, type: :model do
         user.update(study_id: 'A1532564')
         gc = user.genetic_counsellor
         expect(gc[:name]).to eql('Kirsten Boggs')
-        expect(gc[:site]).to eql('')
-        expect(gc[:phone]).to eql('02 9845 3273 (Westmead)')
+        expect(gc[:site]).to eql('SCHN')
+        expect(gc[:phone]).to eql('02 9382 5616 (Randwick) 02 9845 3273 (Westmead)')
         expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
       end
     end

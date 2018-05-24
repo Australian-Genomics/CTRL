@@ -77,19 +77,13 @@ class User < ApplicationRecord
       { name: 'Lindsay Fowles', site: 'RBWH', phone: '07 3646 1686 (M,T,W,F) 07 3646 0254 (Th)', email: 'Lindsay.Fowles@health.qld.gov.au' }
     when /^(A0434|A1434)(.)+/
       { name: 'Gayathri Parasivam', site: 'SCHN', phone: '02 9845 1225', email: 'gayathri.parasivam@health.nsw.gov.au' }
-    when /^A0132(.)+/
-      { name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick)', email: 'kirsten.boggs@health.nsw.gov.au' }
     end
   end
 
   def find_in_second_group_of_genetic_counsellors
     case study_id
-    when /^A0432(.)+/
-      { name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick)', email: 'kirsten.boggs@health.nsw.gov.au' }
-    when /^A1432(.)+/
-      { name: 'Kirsten Boggs', site: '', phone: '02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au' }
-    when /^A1532(.)+/
-      { name: 'Kirsten Boggs', site: '', phone: '02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au' }
+    when /^(A0132|A0432|A1432|A1532)(.)+/
+      { name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick) 02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au' }
     else
       { name: '', site: '', phone: '', email: 'australian.genomics@mcri.edu.au' }
     end
