@@ -219,16 +219,16 @@ RSpec.describe User, type: :model do
       end
     end
 
-    it 'should return Michelle de Silva for A0132XXX' do
-      user.update(study_id: 'A0132564')
-      gc = user.genetic_counsellor
-      expect(gc[:name]).to eql('Michelle de Silva')
-      expect(gc[:site]).to eql('RCH')
-      expect(gc[:phone]).to eql('03 9936 6109')
-      expect(gc[:email]).to eql('michelle.desilva@mcri.edu.au')
-    end
-
     context 'Kirsten Boggs' do
+      it 'should return for A0132XXX' do
+        user.update(study_id: 'A0132564')
+        gc = user.genetic_counsellor
+        expect(gc[:name]).to eql('Kirsten Boggs')
+        expect(gc[:site]).to eql('SCHN')
+        expect(gc[:phone]).to eql('02 9382 5616 (Randwick)')
+        expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
+      end
+
       it 'should return for A0432XXX' do
         user.update(study_id: 'A0432564')
         gc = user.genetic_counsellor
@@ -238,8 +238,17 @@ RSpec.describe User, type: :model do
         expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
       end
 
-      it 'should return A1432XXX' do
+      it 'should return for A1432XXX' do
         user.update(study_id: 'A1432564')
+        gc = user.genetic_counsellor
+        expect(gc[:name]).to eql('Kirsten Boggs')
+        expect(gc[:site]).to eql('')
+        expect(gc[:phone]).to eql('02 9845 3273 (Westmead)')
+        expect(gc[:email]).to eql('kirsten.boggs@health.nsw.gov.au')
+      end
+
+      it 'should return for A1532XXX' do
+        user.update(study_id: 'A1532564')
         gc = user.genetic_counsellor
         expect(gc[:name]).to eql('Kirsten Boggs')
         expect(gc[:site]).to eql('')
@@ -248,16 +257,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    it 'should return Melanie Tom for A1532XXX' do
-      user.update(study_id: 'A1532564')
-      gc = user.genetic_counsellor
-      expect(gc[:name]).to eql('Melanie Tom')
-      expect(gc[:site]).to eql('RBWH')
-      expect(gc[:phone]).to eql('07 3636 0254')
-      expect(gc[:email]).to eql('melanie.tom@health.qld.gov.au')
-    end
-
-    it 'should return Matilda if not matched' do
+    it 'should return blank if not matched' do
       user.update(study_id: 'A999')
       gc = user.genetic_counsellor
       expect(gc[:name]).to eql('')

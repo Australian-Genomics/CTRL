@@ -78,7 +78,7 @@ class User < ApplicationRecord
     when /^(A0434|A1434)(.)+/
       { name: 'Gayathri Parasivam', site: 'SCHN', phone: '02 9845 1225', email: 'gayathri.parasivam@health.nsw.gov.au' }
     when /^A0132(.)+/
-      { name: 'Michelle de Silva', site: 'RCH', phone: '03 9936 6109', email: 'michelle.desilva@mcri.edu.au' }
+      { name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick)', email: 'kirsten.boggs@health.nsw.gov.au' }
     end
   end
 
@@ -89,7 +89,7 @@ class User < ApplicationRecord
     when /^A1432(.)+/
       { name: 'Kirsten Boggs', site: '', phone: '02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au' }
     when /^A1532(.)+/
-      { name: 'Melanie Tom', site: 'RBWH', phone: '07 3636 0254', email: 'melanie.tom@health.qld.gov.au' }
+      { name: 'Kirsten Boggs', site: '', phone: '02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au' }
     else
       { name: '', site: '', phone: '', email: 'australian.genomics@mcri.edu.au' }
     end
