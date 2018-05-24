@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  let(:question) {FactoryBot.create :question}
+  let(:question) { FactoryBot.create :question }
 
   describe '#default_answer_to_be_not_sure' do
     it 'should have default answer to be not sure' do
@@ -10,7 +10,6 @@ RSpec.describe Question, type: :model do
   end
 
   describe 'get_question_changes_for_last_day' do
-
     it 'should send back correct changes to questions' do
       question.update(answer: 'false')
       question.update(answer: 'true')
@@ -20,10 +19,10 @@ RSpec.describe Question, type: :model do
       another_question.update(answer: 'true')
 
       changes = Question.get_question_changes_for_last_day
-      expect(changes.select {|s| s.item_id == question.id}.count).to eql 1
-      expect(changes.select {|s| s.item_id == question.id}.first.changeset['answer']).to eql(['not_sure', 'false'])
-      expect(changes.select {|s| s.item_id == another_question.id}.count).to eql 1
-      expect(changes.select {|s| s.item_id == another_question.id}.first.changeset['answer']).to eql(['not_sure', 'true'])
+      expect(changes.select { |s| s.item_id == question.id }.count).to eql 1
+      expect(changes.select { |s| s.item_id == question.id }.first.changeset['answer']).to eql(%w[not_sure false])
+      expect(changes.select { |s| s.item_id == another_question.id }.count).to eql 1
+      expect(changes.select { |s| s.item_id == another_question.id }.first.changeset['answer']).to eql(%w[not_sure true])
     end
   end
 end
