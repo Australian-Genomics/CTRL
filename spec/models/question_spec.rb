@@ -18,7 +18,7 @@ RSpec.describe Question, type: :model do
       another_question = FactoryBot.create :question
       another_question.update(answer: 'true')
 
-      changes = Question.get_question_changes_for_last_day
+      changes = Question.question_changes_for_last_day
       expect(changes.select { |s| s.item_id == question.id }.count).to eql 1
       expect(changes.select { |s| s.item_id == question.id }.first.changeset['answer']).to eql(%w[not_sure false])
       expect(changes.select { |s| s.item_id == another_question.id }.count).to eql 1
