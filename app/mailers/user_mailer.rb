@@ -16,3 +16,4 @@ class UserMailer < ApplicationMailer
     attachments.inline[image_name] = File.read(File.join(Rails.root, 'app', 'assets', 'images', image_name))
   end
 end
+
