@@ -24,9 +24,10 @@ class ReportManager
     date_time_now_in_zone = Timezone["Australia/Melbourne"].time_with_offset(DateTime.now)
     today_date = date_time_now_in_zone.try(:strftime, '%d_%m_%Y')
 
-    file_name_billing = "#{Rails.root}/tmp/AGHA_Participant_Consent_Preference_Changes_#{today_date}.xlsx"
+    file_name_report = "#{Rails.root}/tmp/AGHA_Participant_Consent_Preference_Changes_#{today_date}.xlsx"
     p.use_shared_strings = true
-    p.serialize(file_name_billing)
+    p.serialize(file_name_report)
+    File.new(file_name_report)
   end
 
   def self.add_changes_data_rows(align_hash, sheet, styles)
