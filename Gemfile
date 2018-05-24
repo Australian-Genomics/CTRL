@@ -43,6 +43,10 @@ gem 'httparty'
 gem 'delayed_job'
 gem 'delayed_job_recurring', '0.3.7'
 gem 'premailer-rails'
+gem 'paper_trail'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails'
+gem 'timezone', '1.2.8'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
