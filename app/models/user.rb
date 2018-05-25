@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :family_name, :study_id
-  validates :suburb, :dob, :flagship, :preferred_contact_method, presence: true, on: :update
+  validates :dob, :flagship, :preferred_contact_method, presence: true, on: :update
   validate :kin_details_and_child_details, on: :update
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
