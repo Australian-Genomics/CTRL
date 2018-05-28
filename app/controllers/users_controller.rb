@@ -33,6 +33,10 @@ class UsersController < ApplicationController
 
   def add_error_for_dob_fomat(dob)
     @user.errors.delete(:dob)
-    Date.parse(dob) rescue @user.errors.add(:dob, 'Invalid format')
+    begin
+      Date.parse(dob)
+    rescue StandardError
+      @user.errors.add(:dob, 'Invalid format')
+    end
   end
 end
