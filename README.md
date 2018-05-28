@@ -120,6 +120,7 @@ For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add r
 ### Email and delayed jobs
  1. Set the ENV variable EMAIL_SERVER to MCRI in .env file
  1. Set the ENV variable for ROLLBAR in .env file
+ 1. Set the ENV variable for DAILY_CHANGES_EMAIL in .env file. For production use `australian.genomics@mcri.edu.au`
  1. Add the recurring delayed job for RedCap and Emailing `bundle exec rake recurring:check_redcap_and_send_emails`
  1. Edit the config/environments/production.rb file for MCRI email settings
  1. Run the worker as a background process `bundle exec rake jobs:work`
