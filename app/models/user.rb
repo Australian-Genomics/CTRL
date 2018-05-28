@@ -113,7 +113,7 @@ class User < ApplicationRecord
   end
 
   def self.update_survey_one_status_from_redcap
-    users_with_missing_survey_one_status = User.where(red_cap_survey_one_status: nil)
+    users_with_missing_survey_one_status = User.where.not(red_cap_survey_one_link: nil)
 
     users_with_missing_survey_one_status.each do |user|
       status = RedCapManager.get_survey_one_status(user.study_id)
