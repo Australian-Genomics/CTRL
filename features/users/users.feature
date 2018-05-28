@@ -127,3 +127,6 @@ Feature: Welcome Page
     When I fill the user_dob field with value '9999999'
     And I submit the user details
     Then I should see 'Invalid format' error on edit page
+    When I fill the user_dob field with value '34-43-8349'
+    And I submit the user details
+    Then I should see 'Invalid format' error on edit page
