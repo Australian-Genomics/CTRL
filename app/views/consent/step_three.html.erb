@@ -57,7 +57,7 @@
           <% current_question = QUS[:step_three_questions].find {|x| x[:question_id] == qf.object.question_id} %>
           <div class="steps__row">
             <div class="steps__row-main">
-              <div class="mr-auto text-justify">
+              <div class="mr-auto steps__text-question">
                 <%= current_question[:qus].html_safe %>
               </div>
               <% if current_question[:description] != '' %>
@@ -76,7 +76,7 @@
               </label>
             </div>
             <div class="steps__row-collapse collapse" id="stepsRow<%= qf.object.question_id %>">
-              <div class="text-justify">
+              <div class="steps__text-question">
                 <%= current_question[:description] %>
               </div>
             </div>
