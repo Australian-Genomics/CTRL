@@ -246,5 +246,5 @@ Then('I should see error on edit page') do
 end
 
 Then('I should see \'Invalid format\' error on edit page') do
-  expect(page).to have_content("Invalid format", count: 1)
+  expect(page).to have_content('Invalid format', count: 1)
 end
