@@ -26,6 +26,7 @@ class UserMailer < ApplicationMailer
     attachments[filename] = { mime_type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', content: excel_file.read }
 
     sender = 'ctrl@australiangenomics.org.au'
-    mail(to: 'AGHA CTRL <australian.genomics@mcri.edu.au>', subject: "AGHA Participant Consent Preference Changes for #{@today_date.tr('_', '/')}", sender: sender, from: sender)
+    to_email = ENV['DAILY_CHANGES_EMAIL'] || 'aghatesting@gmail.com'
+    mail(to: "AGHA CTRL <#{to_email}>", subject: "AGHA Participant Consent Preference Changes for #{@today_date.tr('_', '/')}", sender: sender, from: sender)
   end
 end
