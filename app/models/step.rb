@@ -2,6 +2,8 @@ class Step < ApplicationRecord
   has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions
 
+  belongs_to :user
+
   def build_question_for_step(user_id)
     range_of_values_for(number).each do |time|
       questions.build(question_id: time, user_id: user_id)

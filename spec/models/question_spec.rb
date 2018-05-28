@@ -8,4 +8,24 @@ RSpec.describe Question, type: :model do
       expect(question.answer).to eq('not_sure')
     end
   end
+
+  describe 'get_question_changes_for_last_day' do
+    it 'should send back correct changes to questions' do
+      question.update(answer: 'false')
+      question.versions.last.update(created_at: 1.day.ago)
+      question.update(answer: 'true')
+      question.versions.last.update(created_at: 2.days.ago)
+      question.update(answer: 'false')
+
+      another_question = FactoryBot.create :question
+      another_question.update(answer: 'true')
+      another_question.versions.last.update(created_at: 1.day.ago)
+
+      changes = Question.question_changes_for_last_day
+      expect(changes.select { |s| s.item_id == question.id }.count).to eql 1
+      expect(changes.select { |s| s.item_id == question.id }.first.changeset['answer']).to eql(%w[not_sure false])
+      expect(changes.select { |s| s.item_id == another_question.id }.count).to eql 1
+      expect(changes.select { |s| s.item_id == another_question.id }.first.changeset['answer']).to eql(%w[not_sure true])
+    end
+  end
 end

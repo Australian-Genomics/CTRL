@@ -118,6 +118,14 @@ For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add r
  
 ### Email and delayed jobs
  1. Set the ENV variable EMAIL_SERVER to MCRI `export EMAIL_SERVER=MCRI`
+ 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=***REMOVED***`
  1. Add the recurring delayed job for RedCap and Emailing `bundle exec rake recurring:check_redcap_and_send_emails`
  1. Edit the config/environments/production.rb file for MCRI email settings
  1. Run the worker as a background process `bundle exec rake jobs:work`
+ 
+### Add Rollbar
+ 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=***REMOVED***`
+ 1. Test Rollbar with Curve `bundle exec rake rollbar:test`
+
+### Add daily email to Matilda with consent changes
+ 1. Add the recurring delayed job for daily consent changes email `bundle exec rake recurring:send_consent_changes_email_to_matilda`
