@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  DOB_REGEX = /\A\d{2}-\d{2}-\d{4}\z/
-
   def show
     @user = User.find(params[:id])
   end
@@ -35,6 +33,6 @@ class UsersController < ApplicationController
 
   def add_error_for_dob_fomat(dob)
     @user.errors.delete(:dob)
-    @user.errors.add(:dob, 'Invalid format') unless dob =~ DOB_REGEX
+    Date.parse(dob) rescue @user.errors.add(:dob, 'Invalid format')
   end
 end
