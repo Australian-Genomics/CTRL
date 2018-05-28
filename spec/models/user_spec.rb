@@ -284,11 +284,6 @@ RSpec.describe User, type: :model do
       user.dob = nil
       expect(user.valid?).to be false
     end
-    it 'should have a mandatory suburb' do
-      expect(user.valid?).to be true
-      user.suburb = nil
-      expect(user.valid?).to be false
-    end
     it 'should have a study id' do
       expect(user.valid?).to be true
       user.study_id = nil
