@@ -30,10 +30,11 @@ class UsersController < ApplicationController
 
   def check_dob_format
     dob = user_params[:dob]
+    add_error_for_dob_fomat(dob) if !dob.blank? && @user.errors.added?(:dob, :blank)
+  end
 
-    if !dob.blank? && @user.errors.added?(:dob, :blank)
-      @user.errors.delete(:dob)
-      @user.errors.add(:dob, 'Invalid format') unless dob =~ DOB_REGEX
-    end
+  def add_error_for_dob_fomat(dob)
+    @user.errors.delete(:dob)
+    @user.errors.add(:dob, 'Invalid format') unless dob =~ DOB_REGEX
   end
 end
