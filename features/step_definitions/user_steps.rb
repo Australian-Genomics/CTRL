@@ -244,3 +244,7 @@ end
 Then('I should see error on edit page') do
   expect(page).to have_content("Can't be blank", count: 4)
 end
+
+Then('I should see \'Invalid format\' error on edit page') do
+  expect(page).to have_content("Invalid format", count: 1)
+end
