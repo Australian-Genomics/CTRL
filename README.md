@@ -115,16 +115,17 @@ For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add r
  1. Run db schema update `bundle exec rake db:migrate RAILS_ENV=production`
  1. Run rails `bundle exec rails s -p PORT`
  1. Let's run the test of the UI
+ 1. Copy .env-example to .env and ask for relevant tokens
  
 ### Email and delayed jobs
- 1. Set the ENV variable EMAIL_SERVER to MCRI `export EMAIL_SERVER=MCRI`
- 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=72ee7ef7a5884cfd8ecf7f6b60934c12`
+ 1. Set the ENV variable EMAIL_SERVER to MCRI in .env file
+ 1. Set the ENV variable for ROLLBAR in .env file
  1. Add the recurring delayed job for RedCap and Emailing `bundle exec rake recurring:check_redcap_and_send_emails`
  1. Edit the config/environments/production.rb file for MCRI email settings
  1. Run the worker as a background process `bundle exec rake jobs:work`
  
 ### Add Rollbar
- 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=72ee7ef7a5884cfd8ecf7f6b60934c12`
+ 1. Set the ENV variable for ROLLBAR in .env file
  1. Test Rollbar with Curve `bundle exec rake rollbar:test`
 
 ### Add daily email to Matilda with consent changes
