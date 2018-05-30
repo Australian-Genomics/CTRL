@@ -7,8 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :family_name, :study_id
-  validates :dob, :flagship, :preferred_contact_method, presence: true, on: :update
-  validate :kin_details_and_child_details, on: :update
+  validates :dob, :flagship, :preferred_contact_method, presence: true, on: :update, unless: :skip_validation
+  validate :kin_details_and_child_details, on: :update, unless: :skip_validation
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
   after_create :create_consent_step
@@ -32,6 +32,8 @@ class User < ApplicationRecord
 
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
   enum preferred_contact_method: %w[Email Phone Mail]
+
+  attr_accessor :skip_validation
 
   def kin_details_and_child_details
     if is_parent == false
@@ -150,5 +152,17 @@ class User < ApplicationRecord
 
   def self.update_consent_signed_date(dates, user)
     user.update(red_cap_date_consent_signed: dates['ethic_cons_sign_date']) if dates.present? && dates['ethic_cons_sign_date'].present?
+  end
+
+  def reset_password(new_password, new_password_confirmation)
+    self.skip_validation = true
+    if new_password.present?
+      self.password = new_password
+      self.password_confirmation = new_password_confirmation
+      save
+    else
+      errors.add(:password, :blank)
+      false
+    end
   end
 end
