@@ -306,6 +306,15 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#reset_password' do
+    it 'should skip validations on update of some fields' do
+      expect(user.valid?).to be true
+      user.dob = nil
+      expect(user.valid?).to be false
+      expect(user.reset_password('Abcd#1234', 'Abcd#1234')).to be true
+    end
+  end
+
   context '#create_consent_step' do
     it 'should have five steps' do
       expect(user.steps.count).to eq(5)
