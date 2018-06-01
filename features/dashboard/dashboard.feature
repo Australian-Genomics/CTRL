@@ -40,8 +40,9 @@ Feature: Dashboard Page
     And I should see the progress of my current consent step
     When I click on 'Review' for step two
     Then I should see the step two of consent section
-    When I click on Save and Exit
-    Then I should see the dashboard page as step two reviewed
+    When I click on Unselect All
+    And I click on Save and Exit
+    Then I should see the review answers page
 
   Scenario: User can see the progess of step three consent
     When I click on Register
