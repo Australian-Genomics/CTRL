@@ -20,10 +20,14 @@
               answers.
             </p>
           </div>
-
           <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
-            <%= link_to('Confirm', step_three_path(registration_step_three: true), class: "btn btn-success d-block d-sm-inline-block mb-15") %>
-            <%= link_to('Review Answers', step_two_path(registration_step_two: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
+            <% if params[:to_dashboard] %>
+              <%= link_to('Confirm', dashboard_index_path, class: "btn btn-success d-block d-sm-inline-block mb-15") %>
+              <%= link_to('Review Answers', step_two_path(from_dashboard: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
+            <% else %>
+              <%= link_to('Confirm', step_three_path(registration_step_three: true), class: "btn btn-success d-block d-sm-inline-block mb-15") %>
+              <%= link_to('Review Answers', step_two_path(registration_step_two: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
+            <% end %>
           </div>
 
           <p class="subtext mb-20 mb-sm-30">
