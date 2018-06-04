@@ -16,6 +16,8 @@ class StepsController < ApplicationController
   def path_to_redirect
     step_to_redirect = step_number_requested
 
+    return redirect_path_for_step_three if params[:to_dashboard]
+
     return dashboard_index_path unless step_to_redirect
 
     if step_to_redirect == 'three'
@@ -43,7 +45,23 @@ class StepsController < ApplicationController
 
   def redirect_path_for_step_three
     if step_params[:questions_attributes].select { |x| step_params[:questions_attributes][x][:answer] == 'false' }.empty?
+      check_params_for_confirm_answers
+    else
+      check_params_for_review_answers
+    end
+  end
+
+  def check_params_for_confirm_answers
+    if params[:to_dashboard]
+      confirm_answers_path(to_dashboard: true)
+    else
       confirm_answers_path
+    end
+  end
+
+  def check_params_for_review_answers
+    if params[:to_dashboard]
+      review_answers_path(to_dashboard: true)
     else
       review_answers_path
     end
