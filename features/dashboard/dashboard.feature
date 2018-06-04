@@ -43,6 +43,13 @@ Feature: Dashboard Page
     When I click on Unselect All
     And I click on Save and Exit
     Then I should see the review answers page
+    When I click on Review Answers
+    Then I should see the step two of consent section
+    When I click on Select All
+    And I click on Save and Exit
+    Then I should see the confirm answers page
+    When I click on Confirm
+    Then I should see the dashboard page as step two reviewed
 
   Scenario: User can see the progess of step three consent
     When I click on Register
