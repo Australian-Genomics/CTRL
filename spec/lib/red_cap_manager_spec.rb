@@ -164,7 +164,7 @@ describe RedCapManager do
 
   context 'get survey 1 status for rare_disease_patient_survey_complete' do
     it 'should get the survey 1 status for the patient' do
-      record_id = 'A0120001'
+      survey_access_code = 'GBDKSP'
       data = { token: '69712346139C3ED3BE4795341852A598', content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
       red_cap_url = 'https://redcap.mcri.edu.au/api/'
       survey_one_return_code = '1'
@@ -185,11 +185,11 @@ describe RedCapManager do
           'email' => '',
           'email_occurrence' => 1,
           'identifier' => '',
-          'record' => record_id,
+          'record' => '',
           'invitation_sent_status' => 0,
           'invitation_send_time' => '',
           'response_status' => survey_one_return_code,
-          'survey_access_code' => 'asdfasdf',
+          'survey_access_code' => survey_access_code,
           'survey_link' => 'https=>//redcap.mcri.edu.au/surveys/?s=hgsgff'
         }
       ]
@@ -199,12 +199,12 @@ describe RedCapManager do
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(true)
 
-      survey_link = RedCapManager.get_survey_one_status(record_id)
-      expect(survey_link).to eql(survey_one_return_code)
+      survey_one_status = RedCapManager.get_survey_one_status(survey_access_code)
+      expect(survey_one_status).to eql(survey_one_return_code)
     end
 
     it 'should return nil if it has no info' do
-      record_id = 'A0120001'
+      survey_access_code = 'GBDKSP'
       data = { token: '69712346139C3ED3BE4795341852A598', content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
       red_cap_url = 'https://redcap.mcri.edu.au/api/'
       survey_one_return_code = '1'
@@ -218,18 +218,18 @@ describe RedCapManager do
           'invitation_sent_status' => 0,
           'invitation_send_time' => '',
           'response_status' => 0,
-          'survey_access_code' => 'EJNX9asdfAYT9',
+          'survey_access_code' => survey_access_code,
           'survey_link' => 'https=>//redcap.mcri.edu.au/surveys/?s=asdf'
         },
         {
           'email' => '',
           'email_occurrence' => 1,
           'identifier' => '',
-          'record' => record_id,
+          'record' => '',
           'invitation_sent_status' => 0,
           'invitation_send_time' => '',
           'response_status' => survey_one_return_code,
-          'survey_access_code' => 'asdfasdf',
+          'survey_access_code' => survey_access_code,
           'survey_link' => 'https=>//redcap.mcri.edu.au/surveys/?s=hgsgff'
         }
       ]
@@ -239,7 +239,7 @@ describe RedCapManager do
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(true)
 
-      survey_link = RedCapManager.get_survey_one_status('asdfasdf')
+      survey_link = RedCapManager.get_survey_one_status('')
       expect(survey_link).to be_blank
     end
 
