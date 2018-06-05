@@ -239,8 +239,8 @@ describe RedCapManager do
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(true)
 
-      survey_link = RedCapManager.get_survey_one_status('')
-      expect(survey_link).to be_blank
+      survey_one_status = RedCapManager.get_survey_one_status('')
+      expect(survey_one_status).to be_blank
     end
 
     it 'should get a nil result if response is not successful' do
