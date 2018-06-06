@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 describe RedCapManager do
+  RED_CAP_URL = 'https://redcap.mcri.edu.au/api/'.freeze
+  RED_CAP_TOKEN = '***REMOVED***'.freeze
+
   context 'get dates' do
     it 'should get the record date consent signed "ethic_cons_sign_date" and "cmdt_resul_dte"' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'record', format: 'json', type: 'flat', 'records[0]' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       parsed_response_mock = double('parsed response', first: { 'ethic_cons_sign_date' => '2017-06-28', 'cmdt_resul_dte' => '2018-01-10' })
       response_mock = double('redcap response', parsed_response: parsed_response_mock)
@@ -20,8 +23,8 @@ describe RedCapManager do
 
     it 'should get a nil result if response is not successful' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'record', format: 'json', type: 'flat', 'records[0]' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       response_mock = double('redcap response')
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
@@ -34,8 +37,8 @@ describe RedCapManager do
 
     it 'should get a nil result if response is successful but response its nil' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'record', format: 'json', type: 'flat', 'records[0]' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       parsed_response_mock = double('parsed response', first: nil)
       response_mock = double('redcap response', parsed_response: parsed_response_mock)
@@ -49,8 +52,8 @@ describe RedCapManager do
 
     it 'should get a nil result if response is successful but response its empty array' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'record', format: 'json', type: 'flat', 'records[0]' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       parsed_response_mock = double('parsed response', first: [])
       response_mock = double('redcap response', parsed_response: parsed_response_mock)
@@ -64,8 +67,8 @@ describe RedCapManager do
 
     it 'should return nil if there is an error with the post' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'record', format: 'json', type: 'flat', 'records[0]' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_raise(HTTParty::Error)
       expect(Rollbar).to receive(:error).with('Error connecting to RedCap - HTTParty::Error')
@@ -78,8 +81,8 @@ describe RedCapManager do
   context 'get survey 1 link from rare_disease_patient_survey_complete' do
     it 'should get the survey 1 link for the patient' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'surveyLink', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'surveyLink', format: 'json', instrument: 'rare_disease_patient_survey', 'record' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
       survey_one_link = 'https://redcap.mcri.edu.au/surveys/?s=ChFWKExkpU'
 
       response_mock = double('redcap response', parsed_response: survey_one_link)
@@ -93,8 +96,8 @@ describe RedCapManager do
 
     it 'should get a nil result if response is not successful' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'surveyLink', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'surveyLink', format: 'json', instrument: 'rare_disease_patient_survey', 'record' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       response_mock = double('redcap response')
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
@@ -106,8 +109,8 @@ describe RedCapManager do
 
     it 'should return nil if there is an error with the post' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'surveyLink', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id, :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'surveyLink', format: 'json', instrument: 'rare_disease_patient_survey', 'record' => record_id, returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_raise(HTTParty::Error)
       expect(Rollbar).to receive(:error).with('Error connecting to RedCap - HTTParty::Error')
@@ -120,9 +123,9 @@ describe RedCapManager do
   context 'get survey 1 return code from rare_disease_patient_survey_complete' do
     it 'should get the survey 1 return code for the patient' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id,
-               :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'surveyReturnCode', format: 'json', instrument: 'rare_disease_patient_survey', 'record' => record_id,
+               returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
       survey_one_return_code = 'SDFSA34'
 
       response_mock = double('redcap response', parsed_response: survey_one_return_code)
@@ -136,9 +139,9 @@ describe RedCapManager do
 
     it 'should get a nil result if response is not successful' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id,
-               :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'surveyReturnCode', format: 'json', instrument: 'rare_disease_patient_survey', 'record' => record_id,
+               returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       response_mock = double('redcap response')
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
@@ -150,9 +153,9 @@ describe RedCapManager do
 
     it 'should return nil if there is an error with the post' do
       record_id = 'A0120001'
-      data = { :token => '***REMOVED***', :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => record_id,
-               :returnFormat => 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'surveyReturnCode', format: 'json', instrument: 'rare_disease_patient_survey', 'record' => record_id,
+               returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_raise(HTTParty::Error)
       expect(Rollbar).to receive(:error).with('Error connecting to RedCap - HTTParty::Error')
@@ -165,8 +168,8 @@ describe RedCapManager do
   context 'get survey 1 status for rare_disease_patient_survey_complete' do
     it 'should get the survey 1 status for the patient' do
       survey_access_code = 'GBDKSP'
-      data = { token: '***REMOVED***', content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
       survey_one_return_code = '1'
 
       parsed_response = [
@@ -205,8 +208,8 @@ describe RedCapManager do
 
     it 'should return nil if it has no info' do
       survey_access_code = 'GBDKSP'
-      data = { token: '***REMOVED***', content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
       survey_one_return_code = '1'
 
       parsed_response = [
@@ -245,8 +248,8 @@ describe RedCapManager do
 
     it 'should get a nil result if response is not successful' do
       record_id = 'A0120001'
-      data = { token: '***REMOVED***', content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       response_mock = double('redcap response')
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
@@ -258,8 +261,8 @@ describe RedCapManager do
 
     it 'should return nil if there is an error with the post' do
       record_id = 'A0120001'
-      data = { token: '***REMOVED***', content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
-      red_cap_url = 'https://redcap.mcri.edu.au/api/'
+      data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
+      red_cap_url = RED_CAP_URL
 
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_raise(HTTParty::Error)
       expect(Rollbar).to receive(:error).with('Error connecting to RedCap - HTTParty::Error')
