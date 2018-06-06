@@ -115,7 +115,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context 'update_survey_one_code_from_redcap' do
+  context 'update_survey_one_status_from_redcap' do
     it 'should update the status from redcap if survey link is present' do
       survey_status = '1'
       user.update(red_cap_survey_one_link: 'http://randomlink.com/23423')
