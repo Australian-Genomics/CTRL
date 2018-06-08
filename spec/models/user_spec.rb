@@ -120,7 +120,7 @@ RSpec.describe User, type: :model do
       survey_status = '1'
       user.update(red_cap_survey_one_link: 'http://randomlink.com/23423')
       expect(user.red_cap_survey_one_status).to be_blank
-      expect(RedCapManager).to receive(:get_survey_one_status).with(user.study_id).and_return(survey_status)
+      expect(RedCapManager).to receive(:get_survey_one_status).with(user.red_cap_survey_one_return_code).and_return(survey_status)
       User.update_survey_one_status_from_redcap
       expect(User.find(user.id).red_cap_survey_one_status).to eql(survey_status.to_i)
     end
