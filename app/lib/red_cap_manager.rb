@@ -40,13 +40,13 @@ class RedCapManager
     end
   end
 
-  def self.get_survey_one_status(survey_access_code)
+  def self.get_survey_one_status(survey_link)
     data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
 
     begin
       response = HTTParty.post(RED_CAP_URL, body: data)
       if response.success? && response.parsed_response.present?
-        participant_hash = response.parsed_response.select { |participant_data| participant_data['survey_access_code'] == survey_access_code }
+        participant_hash = response.parsed_response.select { |participant_data| participant_data['survey_link'] == survey_link }
         return participant_hash.first['response_status'] if participant_hash.present?
       end
     rescue HTTParty::Error, SocketError => e
