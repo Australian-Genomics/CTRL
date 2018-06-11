@@ -167,7 +167,7 @@ describe RedCapManager do
 
   context 'get survey 1 status for rare_disease_patient_survey_complete' do
     it 'should get the survey 1 status for the patient' do
-      survey_access_code = 'GBDKSP'
+      survey_link = 'https=>//redcap.mcri.edu.au/surveys/?s=hgsgff'
       data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
       red_cap_url = RED_CAP_URL
       survey_one_return_code = '1'
@@ -192,8 +192,8 @@ describe RedCapManager do
           'invitation_sent_status' => 0,
           'invitation_send_time' => '',
           'response_status' => survey_one_return_code,
-          'survey_access_code' => survey_access_code,
-          'survey_link' => 'https=>//redcap.mcri.edu.au/surveys/?s=hgsgff'
+          'survey_access_code' => 'GBDKSP',
+          'survey_link' => survey_link
         }
       ]
 
@@ -202,12 +202,12 @@ describe RedCapManager do
       expect(HTTParty).to receive(:post).with(red_cap_url, body: data).and_return(response_mock)
       expect(response_mock).to receive(:success?).and_return(true)
 
-      survey_one_status = RedCapManager.get_survey_one_status(survey_access_code)
+      survey_one_status = RedCapManager.get_survey_one_status(survey_link)
       expect(survey_one_status).to eql(survey_one_return_code)
     end
 
     it 'should return nil if it has no info' do
-      survey_access_code = 'GBDKSP'
+      survey_link = 'https=>//redcap.mcri.edu.au/surveys/?s=hgsgff'
       data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
       red_cap_url = RED_CAP_URL
       survey_one_return_code = '1'
@@ -221,7 +221,7 @@ describe RedCapManager do
           'invitation_sent_status' => 0,
           'invitation_send_time' => '',
           'response_status' => 0,
-          'survey_access_code' => survey_access_code,
+          'survey_access_code' => 'GBDKSP',
           'survey_link' => 'https=>//redcap.mcri.edu.au/surveys/?s=asdf'
         },
         {
@@ -232,8 +232,8 @@ describe RedCapManager do
           'invitation_sent_status' => 0,
           'invitation_send_time' => '',
           'response_status' => survey_one_return_code,
-          'survey_access_code' => survey_access_code,
-          'survey_link' => 'https=>//redcap.mcri.edu.au/surveys/?s=hgsgff'
+          'survey_access_code' => 'GBDKSP',
+          'survey_link' => survey_link
         }
       ]
 
