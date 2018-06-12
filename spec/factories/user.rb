@@ -10,7 +10,7 @@ FactoryBot.define do
     flagship 'Genetic Immunology'
     password 'password'
     password_confirmation 'password'
-    study_id 'Curve18'
+    study_id 'A0134001'
     suburb 'Bankstown.'
     preferred_contact_method 'Email'
     is_parent 'true'
