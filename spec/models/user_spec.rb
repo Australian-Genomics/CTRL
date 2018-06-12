@@ -304,6 +304,17 @@ RSpec.describe User, type: :model do
       expect(user.save).to be false
       expect(user.errors[:password]).to include('is too short (minimum is 6 characters)')
     end
+    it 'should have kin details when is parent is set to false' do
+      user.is_parent = false
+      expect(user.valid?).to be true
+      user.kin_first_name = nil
+      expect(user.valid?).to be false
+    end
+    it 'should have child details when is parent is set to true' do
+      expect(user.valid?).to be true
+      user.child_first_name = nil
+      expect(user.valid?).to be false
+    end
   end
 
   describe '#reset_password' do
