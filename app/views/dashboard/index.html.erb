@@ -78,7 +78,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              <%= current_user.steps.first.updated_at.strftime("%d %B %Y") %>
+              <%= current_user.steps.first.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -149,7 +149,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              <%= current_user.steps.second.updated_at.strftime("%d %B %Y") %>
+              <%= current_user.steps.second.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -231,7 +231,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              <%= current_user.steps.third.updated_at.strftime("%d %B %Y") %>
+              <%= current_user.steps.third.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -313,7 +313,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              <%= current_user.steps.fourth.updated_at.strftime("%d %B %Y") %>
+              <%= current_user.steps.fourth.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
             </div>
           </div>
 
@@ -395,7 +395,7 @@
               Reviewed
             </div>
             <div class="mr-md-3">
-              <%= current_user.steps.fifth.updated_at.strftime("%d %B %Y") %>
+              <%= current_user.steps.fifth.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
             </div>
           </div>
 
