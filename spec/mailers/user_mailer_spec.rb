@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :mailer do
-  let(:user) {FactoryBot.create(:user)}
+  let(:user) { FactoryBot.create(:user) }
 
   context '#send_first_survey_email' do
     it 'it should send an email with survey link in it' do
@@ -24,6 +24,5 @@ RSpec.describe User, type: :mailer do
         expect(email.from.first).to eq('ctrl@australiangenomics.org.au')
       end
     end
-
   end
 end
