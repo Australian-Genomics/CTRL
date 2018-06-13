@@ -479,9 +479,9 @@
                 <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
                   Incomplete
                 <% elsif current_user.red_cap_survey_one_status == 1 %>
-                  Partially Complete
-                <% elsif current_user.red_cap_survey_one_status == 2 %>
                   Available for completion
+                <% elsif current_user.red_cap_survey_one_status == 2 %>
+                  Complete
                 <% end %>
               <% end %>
 
@@ -533,9 +533,9 @@
                 <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
                   Incomplete
                 <% elsif current_user.red_cap_survey_one_status == 1 %>
-                  Partially Complete
-                <% elsif current_user.red_cap_survey_one_status == 2 %>
                   Available for completion
+                <% elsif current_user.red_cap_survey_one_status == 2 %>
+                  Complete
                 <% end %>
               <% end %>
 
