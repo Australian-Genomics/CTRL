@@ -35,7 +35,8 @@
 </nav>
 
 <div class="dashboard">
-  <% if current_user.updated_at.strftime('%T %h %M') == current_user.created_at.strftime('%T %h %M') %>
+  <%debugger%>
+  <% unless current_user.valid? %>
     <div class="dashboard__topper bg-ice-one">
       <div class="container d-flex flex-column flex-sm-row align-items-center px-30 px-md-15">
         <div class=" text-bigger text-dark-blue text-center text-md-left mt-30 mt-sm-0">
