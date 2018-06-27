@@ -8,12 +8,12 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :first_name, label: false, placeholder: 'First Name', required: false%>
+                <%= f.input :first_name, label: false, placeholder: 'First Name', required: false %>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :family_name, label: false, placeholder: 'Family Name', required: false%>
+                <%= f.input :family_name, label: false, placeholder: 'Family Name', required: false %>
               </div>
             </div>
           </div>
@@ -21,7 +21,7 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :email, label: false, placeholder: 'Email'%>
+                <%= f.input :email, label: false, placeholder: 'Email' %>
               </div>
             </div>
           </div>
@@ -29,12 +29,12 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :password, label: false, placeholder: 'Password'%>
+                <%= f.input :password, label: false, placeholder: 'Password' %>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :password_confirmation, label: false, placeholder: 'Re-enter Password'%>
+                <%= f.input :password_confirmation, label: false, placeholder: 'Re-enter Password' %>
               </div>
             </div>
           </div>
@@ -46,10 +46,24 @@
               </div>
             </div>
           </div>
+          <div class="col mb-30" align="center">
+            <label class="controls controls__checkbox controls__checkbox_blue">
+
+              <%= f.check_box :terms_and_conditions, hidden: :hidden, errors: true %> I agree
+              to <%= link_to 'Terms and Conditions', '#' %>
+              <span class="checkmark terms-and-conditions"></span>
+            </label>
+
+            <div class="error">
+              <% if @user.errors.messages[:terms_and_conditions].present? %>
+                <%= @user.errors.messages[:terms_and_conditions][0] = 'You must agree to register' %>
+              <% end %>
+            </div>
+          </div>
           <div class="d-flex">
             <button
-            type="submit"
-            class="btn btn-primary mb-30 mx-auto"
+              type="submit"
+              class="btn btn-primary mb-30 mx-auto"
             >
               Register Now
             </button>

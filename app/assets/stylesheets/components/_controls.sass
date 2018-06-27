@@ -47,6 +47,10 @@ $component: 'controls'
         border-radius: 99px
         border: solid 1px $gray-200
         text-align: center
+        &.terms-and-conditions
+            @include media-breakpoint-up(lg)
+                left: 100px
+
     +element('radio')
         .checkmark
             height: 18px
