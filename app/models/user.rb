@@ -65,7 +65,7 @@ class User < ApplicationRecord
   end
 
   def create_consent_step
-    (1..5).each {|step_number| steps.create(number: step_number, accepted: false)}
+    (1..5).each { |step_number| steps.create(number: step_number, accepted: false) }
   end
 
   def genetic_counsellor
@@ -77,20 +77,20 @@ class User < ApplicationRecord
   def find_in_first_group_of_genetic_counsellors
     case study_id
     when /^A0134(.)+/
-      {name: 'Ella Wilkins', site: 'RCH', phone: '03 9936 6333', email: 'ella.wilkins@vcgs.org.au'}
+      { name: 'Ella Wilkins', site: 'RCH', phone: '03 9936 6333', email: 'ella.wilkins@vcgs.org.au' }
     when /^A1534(.)+/
-      {name: 'Lindsay Fowles', site: 'RBWH', phone: '07 3646 1686 (M,T,W,F) 07 3646 0254 (Th)', email: 'Lindsay.Fowles@health.qld.gov.au'}
+      { name: 'Lindsay Fowles', site: 'RBWH', phone: '07 3646 1686 (M,T,W,F) 07 3646 0254 (Th)', email: 'Lindsay.Fowles@health.qld.gov.au' }
     when /^(A0434|A1434)(.)+/
-      {name: 'Gayathri Parasivam', site: 'SCHN', phone: '02 9845 1225', email: 'gayathri.parasivam@health.nsw.gov.au'}
+      { name: 'Gayathri Parasivam', site: 'SCHN', phone: '02 9845 1225', email: 'gayathri.parasivam@health.nsw.gov.au' }
     end
   end
 
   def find_in_second_group_of_genetic_counsellors
     case study_id
     when /^(A0132|A0432|A1432|A1532)(.)+/
-      {name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick) 02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au'}
+      { name: 'Kirsten Boggs', site: 'SCHN', phone: '02 9382 5616 (Randwick) 02 9845 3273 (Westmead)', email: 'kirsten.boggs@health.nsw.gov.au' }
     else
-      {name: '', site: '', phone: '', email: 'australian.genomics@mcri.edu.au'}
+      { name: '', site: '', phone: '', email: 'australian.genomics@mcri.edu.au' }
     end
   end
 

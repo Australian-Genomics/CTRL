@@ -28,6 +28,7 @@ def sign_up
   fill_in 'user_study_id', with: @visitor[:study_id]
   fill_in 'user_password', with: @visitor[:password]
   fill_in 'user_password_confirmation', with: @visitor[:password_confirmation]
+  find('#new_user > div.col.mb-30 > label > span').click
   click_button 'Register Now'
 end
 
