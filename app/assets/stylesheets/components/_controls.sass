@@ -48,8 +48,10 @@ $component: 'controls'
         border: solid 1px $gray-200
         text-align: center
         &.terms-and-conditions
-            @include media-breakpoint-up(lg)
+            @include media-breakpoint-up(xl)
                 left: 100px
+            @include media-breakpoint-between(md,lg)
+                left: 50px
 
     +element('radio')
         .checkmark
