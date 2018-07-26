@@ -40,64 +40,22 @@
         <%= simple_form_for @step, method: :put do |f| %>
           <%= f.hidden_field :accepted, value: "1" %>
           <h3 class="text-center mt-2 mb-15">Welcome to CTRL</h3>
-          <p class="steps__description mx-auto mb-0 text-justify">
-            Our research would not be possible without you.<br>
-          </br>
-            Our research into how genetics underlies health conditions would not be possible without you, and others
-            like you, volunteering to take part. Health and medical research is vital in helping us learn more about
-            health conditions and how to manage and treat them.<br>
-            </br>
-
-            When you were approached to take part in the Australian Genomics study, you first had a conversation about
-            the study with your doctor or genetic counsellor. They talked you through the research study to explain what
-            will be asked of you, and any potential risks, benefits and outcomes of taking part. This is called the
-            <b>consent process</b>, and after this conversation you agreed to take part and signed a <b>consent form</b>.<br>
-            </br>
-
-            The consent form is an important <b>record of your agreement </b>to be in the study. But the paper form doesn’t
-            make it very easy to have <b>ongoing control</b> over your choices about being in the study, or to stay informed
-            about your progress through the study or the results of the study. Sometimes you might wonder whether your
-            participation has made a difference. We hope that if you become involved in a research study you may be
-            interested in the findings, for <b>yourself</b> and for the <b>community.</b> You are valued as a <b>partner</b> in our research
-            program and we are committed to making your <b>experience</b> in the research better. This is why Australian
-            Genomics has created this website to support you. The website, which you can also use like an app on your
-            phone, is called CTRL.<br>
-            </br>
-
-            Now that you have signed up for the study you can manage many parts of your involvement in the study using
-            CTRL.<br>
-            </br>
-
-            You can use CTRL to update your personal <b>details,</b> to make sure you can stay in contact with us. You can
-            review your <b>consent</b> to have genomic testing done and to be a part of the <b>research</b>. You can manage your
-            preferences about how we might <b>return your results</b> to you. You can manage your preferences about how we
-            <b>share</b> your samples and genomic and other health information with other researchers outside this study. We
-            can remind you when you need to do <b>any required questionnaires</b> and, by signing up to CTRL, you will be on
-            our mailing list to send you study <b>updates,</b> research <b>findings</b> and interesting <b>stories,</b> and invite you to
-            participate in <b>new research</b> that might be relevant to you.<br>
-            </br>
-
-            Using CTRL gives you control over your involvement in research and allows you to make changes to your
-            choices at any time.<br>
-            </br>
-
-            With your input, we are going to keep making this website better and build new features into it.<br>
-            </br>
-
-            This website is for you! It will help you to interact easily with our health and medical <b>research.</b> And it
-            meets strict <b>security and privacy</b> standards, to keep your personal information safe. You can view our
-            privacy policy on our website.<br>
-            </br>
-
-            So take YOUR TIME and explore. You CAN REVISIT this site whenever you want to, and you can always ask to
-            TALK TO SOMEONE about your choices.<br>
-            </br>
-
-            Welcome to CTRL – your own personal website keeping you in control, informed and involved in Australian
-            Genomics research!
-
-
-          </p>
+          <div class="d-flex mb-30">
+            <p class="text-center mx-auto mb-0">
+              Watch our short video explaining why we are asking you to provide your consent and are giving you the
+              opportunity to update your consent choices online.
+            </p>
+          </div>
+          <div class="steps__iframe">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/V4Amcrr3I_M?rel=0&amp;controls=0&amp;showinfo=0"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+            ></iframe>
+          </div>
           <div class="row flex-md-row-reverse">
             <div class="col-12 col-md-3 d-flex my-15 my-md-30">
               <% if params[:registration] %>
