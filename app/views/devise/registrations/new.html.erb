@@ -50,7 +50,7 @@
             <label class="controls controls__checkbox controls__checkbox_blue">
 
               <%= f.check_box :terms_and_conditions, hidden: :hidden, errors: true %> I agree
-              to the <%= link_to 'Terms and Conditions', 'https://australiangenomics.org.au/' %>
+              to the <%= link_to 'Terms and Conditions', 'https://www.australiangenomics.org.au/terms-and-conditions/ctrl-platform-terms-and-conditions/' %>
               <span class="checkmark terms-and-conditions"></span>
             </label>
 
@@ -78,7 +78,7 @@
         <%= link_to "Log in", new_session_path(@user), class: "d-block ml-2 mt-2 mt-sm-0" %>
       </div>
       <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
-        <%= link_to 'MCRI Privacy Policy', 'https://www.mcri.edu.au/privacy-policy', target: '_blank' %>
+        <%= link_to 'CTRL Platform Privacy Policy', 'https://www.australiangenomics.org.au/website-privacy-policies/ctrl-platform-privacy-policy/', target: '_blank' %>
       </div>
     </div>
   </div>
