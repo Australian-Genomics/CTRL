@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :family_name, :study_id
   validates :dob, :flagship, :preferred_contact_method, presence: true, on: :update, unless: :skip_validation
   validate :kin_details_and_child_details, on: :update, unless: :skip_validation
+  validates :terms_and_conditions, acceptance: true
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
   after_create :create_consent_step
