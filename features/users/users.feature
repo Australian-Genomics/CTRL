@@ -10,7 +10,7 @@ Feature: Welcome Page
 
   Scenario: User should see the privacy link in registration page
     When I click on Register
-    Then I should see the MCRI Privacy Policy link
+    Then I should see the CTRL Platform Privacy Policy link
 
   Scenario: User signs up successfully
     When I click on Register
