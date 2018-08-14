@@ -28,7 +28,7 @@ class User < ApplicationRecord
                   'Leukodystrophies',
                   'Mitochondrial Disorders',
                   'Neuromuscular Disorders',
-                  'Renal Genetic Disorders',
+                  'KidGen',
                   'Solid Tumours']
 
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
