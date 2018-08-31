@@ -472,7 +472,7 @@
 
     <% end %>
 
-    <% if current_user.red_cap_survey_one_link? && current_user.red_cap_survey_one_status == 2 %>
+    <% if current_user.red_cap_survey_one_status == 2 && current_user.red_cap_survey_one_link?%>
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
 
@@ -497,17 +497,8 @@
           <div class="d-flex w-100 mb-15 mb-md-0">
             <i class="icon_placeholder mr-2"></i>
             <div class="mr-auto">
-              <% unless current_user.red_cap_survey_one_link? %>
-                Not yet available
-              <% else %>
-                <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
-                  Incomplete
-                <% elsif current_user.red_cap_survey_one_status == 1 %>
-                  Available for completion
-                <% elsif current_user.red_cap_survey_one_status == 2 %>
-                  Complete
-                <% end %>
-              <% end %>
+              Complete
+
 
             </div>
             <div class="mr-md-3">
@@ -516,9 +507,6 @@
           </div>
 
           <div class="d-flex justify-content-end mnw-120">
-            <% if current_user.red_cap_survey_one_link? %>
-              <%= link_to('Do Survey', current_user.red_cap_survey_one_link, class: 'btn btn-primary') %>
-            <% end %>
           </div>
 
         </div>
@@ -551,16 +539,10 @@
           <div class="d-flex w-100 mb-15 mb-md-0">
             <i class="icon_placeholder mr-2"></i>
             <div class="mr-auto">
-              <% unless current_user.red_cap_survey_one_link? %>
-                Not yet available
-              <% else %>
-                <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
-                  Incomplete
-                <% elsif current_user.red_cap_survey_one_status == 1 %>
-                  Available for completion
-                <% elsif current_user.red_cap_survey_one_status == 2 %>
-                  Complete
-                <% end %>
+              <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
+                Incomplete
+              <% elsif current_user.red_cap_survey_one_status == 1 %>
+                Available for completion
               <% end %>
 
             </div>
@@ -570,6 +552,10 @@
           </div>
 
           <div class="d-flex justify-content-end mnw-120">
+            <% if current_user.red_cap_survey_one_link? %>
+              <%= link_to('Do Survey', current_user.red_cap_survey_one_link, class: 'btn btn-primary') %>
+            <% end %>
+
           </div>
         </div>
       </div>
@@ -601,17 +587,7 @@
           <div class="d-flex w-100 mb-15 mb-md-0">
             <i class="icon_placeholder mr-2"></i>
             <div class="mr-auto">
-              <% unless current_user.red_cap_survey_one_link? %>
-                Not yet available
-              <% else %>
-                <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
-                  Incomplete
-                <% elsif current_user.red_cap_survey_one_status == 1 %>
-                  Available for completion
-                <% elsif current_user.red_cap_survey_one_status == 2 %>
-                  Complete
-                <% end %>
-              <% end %>
+              Not yet available
 
             </div>
             <div class="mr-md-3">
