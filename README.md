@@ -53,7 +53,7 @@ If you type in your terminal now with
  
 You'll get,
 
-`Rails 5.2.0.rc1` => rails version, our AGHA project is based on.
+`Rails 5.2.3` => rails version, our AGHA project is based on.
  
 "If you get any errors while installing, solve it yourself."
 This is funny and quirky, but may offend some people. I believe the usual standard is to write:
