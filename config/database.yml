@@ -7,8 +7,8 @@
 default: &default
   adapter: postgresql
   host: localhost
-  username: 'auslan_api'
-  password: 'auslan_api'
+  username: <%= ENV['RDS_USERNAME'] || 'agha' %>
+  password: <%= ENV['RDS_PASSWORD'] || 'agha' %>
 
 development:
   <<: *default
