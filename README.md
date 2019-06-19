@@ -109,7 +109,7 @@ For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add r
  1. Unzip app
  1. Create DB 'agha_production' with username/password 'agha_api/agha_api' 
  1. Edit the config/database.yml file to match the settings for the DB including the hostname for production
- 1. Install ruby (ruby 2.4.1p111)
+ 1. Install ruby (ruby 2.3.1)
  1. Install bundler `gem install bundler`
  1. Install gems `bundle install`
  1. Run db schema update `bundle exec rake db:migrate RAILS_ENV=production`
