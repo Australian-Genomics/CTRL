@@ -7,8 +7,8 @@
 default: &default
   adapter: postgresql
   host: localhost
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
+  username: <%= ENV['RDS_USERNAME'] || 'agha' %>
+  password: <%= ENV['RDS_PASSWORD'] || 'agha' %>
 
 development:
   <<: *default
