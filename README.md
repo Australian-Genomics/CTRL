@@ -12,7 +12,7 @@ You can check out, on how to install [rbenv](https://github.com/rbenv/rbenv)
 rbenv is our preferred ruby version management software.
 For installing the ruby version, just type in your terminal:
  
-`rbenv install 2.3.1`
+`rbenv install 2.5.3`
 
 You can check your ruby version by hitting your terminal with 
 
@@ -20,7 +20,7 @@ You can check your ruby version by hitting your terminal with
  
 It should say something like this
 
-`ruby 2.3.1p112`
+`ruby 2.5.3p105`
 
 Installing rails, just type in your terminal:
 `gem install rails`:
@@ -31,7 +31,7 @@ You can check in your rails version by using this command:
 
 It should say something like this:
 
-`Rails >= 5.2.0.rc1`
+`Rails 5.2.3`
 
 
 ### Getting the project in your hands
