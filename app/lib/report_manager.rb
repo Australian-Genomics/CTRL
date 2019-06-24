@@ -58,23 +58,33 @@ class ReportManager
       event = version.event
       changes = version.changeset['answer']
 
-      event_time_in_zone = Timezone['Australia/Melbourne'].time_with_offset(version.created_at)
-      version = event_time_in_zone.try(:strftime, '%d/%m/%Y %H:%M')
-
-      data_row = create_data_row(changes, question, step, user, version, event)
+      data_row = create_data_row(changes, question, step: step, user: user, version: event_time_in_zone(version), event: event)
       sheet.add_row(data_row, style: fields_styles, height: 30)
     end
   end
 
-  def self.create_data_row(changes, question, step, user, version, event)
-    default_question_hash = QUS.values.flatten.select { |x| x[:question_id] == question.question_id }
-    current_question = default_question_hash.first[:qus]
-    if event.eql?('create')
-      previous_answer = default_question_hash.first[:default_value]
-    else
-      previous_answer = changes.first
-    end
-    [user.study_id, user.email, step.number, current_question, previous_answer.to_s.downcase, changes.last, version]
+  def self.event_time_in_zone(version)
+    event_time_in_zone = Timezone['Australia/Melbourne'].time_with_offset(version.created_at)
+    version = event_time_in_zone.try(:strftime, '%d/%m/%Y %H:%M')
+    version
+  end
+
+  def self.create_data_row(changes, question, question_params = {})
+    user = question_params[:user]
+    step = question_params[:step]
+    version = question_params[:version]
+    event = question_params[:event]
+    current_question = default_question_hash(question).first[:qus]
+    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(event, question).to_s.downcase, changes.last, version]
+  end
+
+  def self.default_question_hash(question)
+    QUS.values.flatten.select { |x| x[:question_id] == question.question_id }
+  end
+
+  def self.previous_answer_for_version(event, question)
+    return default_question_hash(question).first[:default_value] if event.eql?('create')
+    changes.first
   end
 
   def self.add_table_headers(align_hash, sheet, styles)
