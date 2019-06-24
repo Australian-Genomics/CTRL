@@ -55,19 +55,26 @@ class ReportManager
       question = Question.find(version.item_id)
       step = question.step
       user = step.user
+      event = version.event
       changes = version.changeset['answer']
 
       event_time_in_zone = Timezone['Australia/Melbourne'].time_with_offset(version.created_at)
       version = event_time_in_zone.try(:strftime, '%d/%m/%Y %H:%M')
 
-      data_row = create_data_row(changes, question, step, user, version)
+      data_row = create_data_row(changes, question, step, user, version, event)
       sheet.add_row(data_row, style: fields_styles, height: 30)
     end
   end
 
-  def self.create_data_row(changes, question, step, user, version)
-    current_question = QUS.values.flatten.select { |x| x[:question_id] == question.question_id }.first[:qus]
-    [user.study_id, user.email, step.number, current_question, changes.first, changes.last, version]
+  def self.create_data_row(changes, question, step, user, version, event)
+    default_question_hash = QUS.values.flatten.select { |x| x[:question_id] == question.question_id }
+    current_question = default_question_hash.first[:qus]
+    if event.eql?('create')
+      previous_answer = default_question_hash.first[:default_value]
+    else
+      previous_answer = changes.first
+    end
+    [user.study_id, user.email, step.number, current_question, previous_answer.to_s.downcase, changes.last, version]
   end
 
   def self.add_table_headers(align_hash, sheet, styles)
