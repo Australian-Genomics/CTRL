@@ -79,7 +79,7 @@
               </div>
               <% if current_question[:question_id] == 20 %>
                 <label class="controls controls__checkbox controls__checkbox_blue">
-                  <%= qf.check_box :answer, {}, 'true', 'false' %>
+                  <%= qf.check_box :answer, { checked: qf.object.radio_button_checked?(current_question[:default_value]) }, 'true', 'false' %>
                   <span class="checkmark"></span>
                 </label>
               <% else %>
@@ -87,7 +87,7 @@
                   <%= qf.collection_radio_buttons :answer,
                                                   [[true, 'Yes'], [false, 'No'], ['not_sure', 'Not Sure']],
                                                   :first,
-                                                  :second do |b|
+                                                  :second, checked: qf.object.radio_button_checked?(current_question[:default_value])  do |b|
                     b.label(class: collection_option_class(b.text)) {
                       b.radio_button + "<span class='checkmark'></span><span class='label-text ml-1 mr-1'>".html_safe + b.text + "</span>".html_safe
                     }
