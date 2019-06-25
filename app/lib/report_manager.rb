@@ -75,14 +75,14 @@ class ReportManager
     version = question_params[:version]
     event = question_params[:event]
     current_question = default_question_hash(question).first[:qus]
-    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(event, question).to_s.downcase, changes.last, version]
+    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(changes, event, question).to_s.downcase, changes.last, version]
   end
 
   def self.default_question_hash(question)
     QUS.values.flatten.select { |x| x[:question_id] == question.question_id }
   end
 
-  def self.previous_answer_for_version(event, question)
+  def self.previous_answer_for_version(changes, event, question)
     return default_question_hash(question).first[:default_value] if event.eql?('create')
     changes.first
   end
