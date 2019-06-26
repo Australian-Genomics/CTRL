@@ -50,7 +50,7 @@ Rails.application.configure do
       authentication: "plain",
       enable_starttls_auto: true,
       user_name: 'aghatesting@gmail.com',
-      password: 'aghatest123'
+      password: 'aghatest123$'
   }
 
   config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : gmail_email
