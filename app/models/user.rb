@@ -115,7 +115,8 @@ class User < ApplicationRecord
     users_with_missing_survey_one_status = User.where.not(red_cap_survey_one_link: nil)
 
     users_with_missing_survey_one_status.each do |user|
-      status = RedCapManager.get_survey_one_status(user.red_cap_survey_one_link)
+      instrument = user.instrument_based_on_study_id
+      status = RedCapManager.get_survey_one_status(user.red_cap_survey_one_link, instrument)
       user.update_attribute(:red_cap_survey_one_status, status) if status.present?
     end
   end
@@ -124,7 +125,8 @@ class User < ApplicationRecord
     users_with_missing_survey_one_code = User.where(red_cap_survey_one_return_code: nil)
 
     users_with_missing_survey_one_code.each do |user|
-      survey_code = RedCapManager.get_survey_one_return_code(user.study_id)
+      instrument = user.instrument_based_on_study_id
+      survey_code = RedCapManager.get_survey_one_return_code(user.study_id, instrument)
       user.update_attribute(:red_cap_survey_one_return_code, survey_code) if survey_code.present?
     end
   end
@@ -133,8 +135,18 @@ class User < ApplicationRecord
     users_with_missing_survey_one_link = User.where(red_cap_survey_one_link: nil)
 
     users_with_missing_survey_one_link.each do |user|
-      survey_link = RedCapManager.get_survey_one_link(user.study_id)
+      instrument = user.instrument_based_on_study_id
+      survey_link = RedCapManager.get_survey_one_link(user.study_id, instrument)
       user.update_attribute(:red_cap_survey_one_link, survey_link) if survey_link.present?
+    end
+  end
+
+  def instrument_based_on_study_id
+    case study_id
+    when /^(A0132|A0432|A1432|A1532)(.)+/
+      'childranz_questionnaire_for_parents'
+    else
+      'hidden_baseline_survey'
     end
   end
 
