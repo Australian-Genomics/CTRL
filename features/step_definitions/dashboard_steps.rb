@@ -28,7 +28,8 @@ end
 
 Then('I should see the step one of consent section') do
   expect(page).to have_button('Save and Exit')
-  expect(page).to have_content('Welcome to CTRL')
+  expect(page).to have_content('Watch our short video explaining why we are asking you to provide your consent and are giving you the
+              opportunity to update your consent choices online.')
 end
 
 Then('I should see the step two of consent section') do
