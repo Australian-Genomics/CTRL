@@ -1,6 +1,6 @@
 class RedCapManager
-  RED_CAP_URL = 'https://redcap.mcri.edu.au/api/'.freeze
-  RED_CAP_TOKEN = '***REMOVED***'.freeze
+  RED_CAP_URL = ENV['RED_CAP_URL']
+  RED_CAP_TOKEN = ENV['RED_CAP_TOKEN']
 
   def self.get_consent_and_result_dates(participant_id)
     data = { :token => RED_CAP_TOKEN, :content => 'record', :format => 'json', :type => 'flat', 'records[0]' => participant_id, :returnFormat => 'json' }
