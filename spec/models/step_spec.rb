@@ -24,8 +24,8 @@ RSpec.describe Step, type: :model do
     end
 
     it 'should build 11 questions for step_five' do
-      expect(step_five.questions).to receive(:build).exactly(12).times
-      expect(step_five.build_question_for_step(user.id)).to eq 21..32
+      expect(step_five.questions).to receive(:build).exactly(13).times
+      expect(step_five.build_question_for_step(user.id)).to eq 21..33
     end
   end
 end
