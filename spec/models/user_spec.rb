@@ -68,7 +68,7 @@ RSpec.describe User, type: :model do
     it 'should update the link from redcap' do
       survey_link = 'http://randomlink.com/23423'
       expect(user.red_cap_survey_one_link).to be_blank
-      expect(RedCapManager).to receive(:get_survey_one_link).with(user.study_id).and_return(survey_link)
+      expect(RedCapManager).to receive(:get_survey_one_link).with(user.study_id, user.instrument_based_on_study_id).and_return(survey_link)
       User.update_survey_one_link_from_redcap
       expect(User.find(user.id).red_cap_survey_one_link).to eql(survey_link)
     end
@@ -85,7 +85,7 @@ RSpec.describe User, type: :model do
     it 'should update the link from redcap' do
       survey_code = 'SDFATE'
       expect(user.red_cap_survey_one_link).to be_blank
-      expect(RedCapManager).to receive(:get_survey_one_return_code).with(user.study_id).and_return(survey_code)
+      expect(RedCapManager).to receive(:get_survey_one_return_code).with(user.study_id, user.instrument_based_on_study_id).and_return(survey_code)
       User.update_survey_one_code_from_redcap
       expect(User.find(user.id).red_cap_survey_one_return_code).to eql(survey_code)
     end
@@ -102,7 +102,7 @@ RSpec.describe User, type: :model do
     it 'should update the link from redcap' do
       survey_code = 'SDFATE'
       expect(user.red_cap_survey_one_return_code).to be_blank
-      expect(RedCapManager).to receive(:get_survey_one_return_code).with(user.study_id).and_return(survey_code)
+      expect(RedCapManager).to receive(:get_survey_one_return_code).with(user.study_id, user.instrument_based_on_study_id).and_return(survey_code)
       User.update_survey_one_code_from_redcap
       expect(User.find(user.id).red_cap_survey_one_return_code).to eql(survey_code)
     end
@@ -120,7 +120,7 @@ RSpec.describe User, type: :model do
       survey_status = '1'
       user.update(red_cap_survey_one_link: 'http://randomlink.com/23423')
       expect(user.red_cap_survey_one_status).to be_blank
-      expect(RedCapManager).to receive(:get_survey_one_status).with(user.red_cap_survey_one_link).and_return(survey_status)
+      expect(RedCapManager).to receive(:get_survey_one_status).with(user.red_cap_survey_one_link, user.instrument_based_on_study_id).and_return(survey_status)
       User.update_survey_one_status_from_redcap
       expect(User.find(user.id).red_cap_survey_one_status).to eql(survey_status.to_i)
     end
