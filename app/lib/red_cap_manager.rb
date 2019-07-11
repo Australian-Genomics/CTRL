@@ -16,8 +16,8 @@ class RedCapManager
     end
   end
 
-  def self.get_survey_one_link(participant_id)
-    data = { :token => RED_CAP_TOKEN, :content => 'surveyLink', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => participant_id,
+  def self.get_survey_one_link(participant_id, survey_instrument)
+    data = { :token => RED_CAP_TOKEN, :content => 'surveyLink', :format => 'json', :instrument => survey_instrument, 'record' => participant_id,
              :returnFormat => 'json' }
 
     begin
@@ -28,8 +28,8 @@ class RedCapManager
     end
   end
 
-  def self.get_survey_one_return_code(participant_id)
-    data = { :token => RED_CAP_TOKEN, :content => 'surveyReturnCode', :format => 'json', :instrument => 'rare_disease_patient_survey', 'record' => participant_id,
+  def self.get_survey_one_return_code(participant_id, survey_instrument)
+    data = { :token => RED_CAP_TOKEN, :content => 'surveyReturnCode', :format => 'json', :instrument => survey_instrument, 'record' => participant_id,
              :returnFormat => 'json' }
 
     begin
@@ -40,8 +40,8 @@ class RedCapManager
     end
   end
 
-  def self.get_survey_one_status(survey_link)
-    data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: 'rare_disease_patient_survey', returnFormat: 'json' }
+  def self.get_survey_one_status(survey_link, survey_instrument)
+    data = { token: RED_CAP_TOKEN, content: 'participantList', format: 'json', instrument: survey_instrument, returnFormat: 'json' }
 
     begin
       response = HTTParty.post(RED_CAP_URL, body: data)
