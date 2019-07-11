@@ -40,8 +40,8 @@ QUS = {
          {question_id: 29, qus: 'I agree to my general health information (eg just my MRIs, blood test or other results) being shared with other research studies that don’t need my genomic information.', description: '',default_value: 'not_sure'},
          {question_id: 30, qus: 'I agree to my self-reported information (eg questionnaire responses) being shared with other research studies that don’t need my genomic information.', description: '',default_value: 'not_sure'},
          {question_id: 31, qus: 'I want to be contacted every time my de-identified DNA sample, genomic, health or self-reported information is shared.', description: '',default_value: 'not_sure'},
-         {question_id: 32, qus: 'I understand all of the information above and the choices I have made.</br>(leaving this box unchecked this box means you will be contacted by a Genetic Counsellor who will give you more information)', description: '',default_value: false},
-         {question_id: 33, qus: 'I agree to Australian Genomics sharing my contact details with other research projects and clinical trials doing studies I am eligible for', description: '',default_value: false},
+         {question_id: 32, qus: 'I agree to Australian Genomics sharing my contact details with other research projects and clinical trials doing studies I am eligible for.', description: '',default_value: false},
+         {question_id: 33, qus: 'I understand all of the information above and the choices I have made.</br>(leaving this box unchecked means you will be contacted by a Genetic Counsellor who will give you more information)', description: '',default_value: false},
         ]
 
 }
