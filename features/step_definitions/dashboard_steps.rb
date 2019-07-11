@@ -28,7 +28,6 @@ end
 
 Then('I should see the step one of consent section') do
   expect(page).to have_button('Save and Exit')
-  expect(page).to have_content('Welcome to CTRL')
 end
 
 Then('I should see the step two of consent section') do

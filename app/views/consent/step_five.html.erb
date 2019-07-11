@@ -142,7 +142,7 @@
                     </i>
                   <% end %>
                 </div>
-                <% if current_question[:question_id] == 32 %>
+                <% if current_question[:question_id] == 32 || current_question[:question_id] == 33 %>
                   <label class="controls controls__checkbox controls__checkbox_blue">
                     <%= qf.check_box :answer, {checked: qf.object.radio_button_checked?(current_question[:default_value])}, 'true', 'false' %>
                     <span class="checkmark"></span>

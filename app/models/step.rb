@@ -19,7 +19,7 @@ class Step < ApplicationRecord
     when 4
       (15..20)
     when 5
-      (21..32)
+      (21..33)
     end
   end
 end
