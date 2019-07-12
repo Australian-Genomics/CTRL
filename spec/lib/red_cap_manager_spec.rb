@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe RedCapManager do
-  RED_CAP_URL = 'https://redcap.mcri.edu.au/api/'.freeze
-  RED_CAP_TOKEN = '***REMOVED***'.freeze
+  RED_CAP_URL = ENV['RED_CAP_URL']
+  RED_CAP_TOKEN = ENV['RED_CAP_TOKEN']
 
   context 'get dates' do
     it 'should get the record date consent signed "ethic_cons_sign_date" and "cmdt_resul_dte"' do
