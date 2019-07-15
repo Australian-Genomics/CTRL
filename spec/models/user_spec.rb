@@ -391,4 +391,20 @@ RSpec.describe User, type: :model do
       expect(user.step_five.number).to eq 5
     end
   end
+
+  describe '.instrument_based_on_study_id' do
+    context 'when study id is A013263' do
+      it 'returns childranz questionnaire for parents instrument' do
+        user.update(study_id: 'A013263')
+        expect(user.instrument_based_on_study_id).to eq('childranz_questionnaire_for_parents')
+      end
+    end
+
+    context 'when study id is A023463' do
+      it 'returns childranz questionnaire for parents instrument' do
+        user.update(study_id: 'A023463')
+        expect(user.instrument_based_on_study_id).to eq('hidden_baseline_survey')
+      end
+    end
+  end
 end
