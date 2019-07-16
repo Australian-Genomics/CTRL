@@ -1,0 +1,27 @@
+<body class="bg-dark">
+
+
+<div class="container my-15 my-sm-45">
+  <div class="row flex-column">
+    <div class="steps__submitting col-12 mx-auto">
+      <div class="bg-ice-one border px-20">
+        <div class="mt-20">
+
+          <div class="d-flex">
+            <%= image_tag "generic_person.png", class: "generic-person-image" %>
+          </div>
+
+          <p class="step2__text text-center mx-auto mb-0">
+            You have chosen <b>not</b> to have the genomic test.</br>
+            An Australian Genomics Genetic Counsellor will contact you soon to talk about your options.
+          </p></br>
+
+          <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
+              <%= link_to("Return to Dashboard", dashboard_index_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
