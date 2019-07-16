@@ -27,10 +27,10 @@
           <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
             <% if params[:to_dashboard] %>
               <%= link_to("Review Answers", step_two_path(from_dashboard: true), class: "btn d-block d-sm-inline-block mb-15 blue-btn-active") %>
-              <%= link_to("I don't want the test", dashboard_index_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+              <%= link_to("I don't want the test", notification_consent_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
             <% else %>
               <%= link_to("Review Answers", step_two_path(registration_step_two: true), class: "btn d-block d-sm-inline-block mb-15 blue-btn-active") %>
-              <%= link_to("I don't want the test", dashboard_index_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+              <%= link_to("I don't want the test", notification_consent_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
             <% end %>
           </div>
 
