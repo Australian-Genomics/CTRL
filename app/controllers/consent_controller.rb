@@ -34,4 +34,6 @@ class ConsentController < ApplicationController
   def confirm_answers; end
 
   def review_answers; end
+
+  def notification_consent; end
 end

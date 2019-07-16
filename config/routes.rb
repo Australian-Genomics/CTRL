@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get "confirm_answers", to: "consent#confirm_answers", as: "confirm_answers"
   get "review_answers", to: "consent#review_answers", as: "review_answers"
+  get "notification_consent", to: "consent#notification_consent", as: "notification_consent"
 
   devise_scope :user do
     get '/passwords/sent'

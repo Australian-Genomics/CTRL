@@ -65,4 +65,6 @@ Feature: Consent Page
     And I click on Next
     Then I should be on the review answers page
     When I click on I don't want the test
+    Then I should be on the notification consent page
+    When I click on Return to Dashboard
     Then I should see the dashboard page
