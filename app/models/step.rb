@@ -15,11 +15,11 @@ class Step < ApplicationRecord
     when 2
       (1..11)
     when 3
-      (12..14)
+      (12..15)
     when 4
-      (15..20)
+      (16..21)
     when 5
-      (21..33)
+      (22..34)
     end
   end
 end
