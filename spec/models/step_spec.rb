@@ -14,18 +14,18 @@ RSpec.describe Step, type: :model do
     end
 
     it 'should build 3 questions for step_three' do
-      expect(step_three.questions).to receive(:build).exactly(3).times
-      expect(step_three.build_question_for_step(user.id)).to eq 12..14
+      expect(step_three.questions).to receive(:build).exactly(4).times
+      expect(step_three.build_question_for_step(user.id)).to eq 12..15
     end
 
     it 'should build 6 questions for step_four' do
       expect(step_four.questions).to receive(:build).exactly(6).times
-      expect(step_four.build_question_for_step(user.id)).to eq 15..20
+      expect(step_four.build_question_for_step(user.id)).to eq 16..21
     end
 
     it 'should build 11 questions for step_five' do
       expect(step_five.questions).to receive(:build).exactly(13).times
-      expect(step_five.build_question_for_step(user.id)).to eq 21..33
+      expect(step_five.build_question_for_step(user.id)).to eq 22..34
     end
   end
 end
