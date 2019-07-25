@@ -7,8 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :first_name, :family_name, :study_id
-  validates :dob, :flagship, :preferred_contact_method, presence: true, on: :update, unless: :skip_validation
-  validate :kin_details_and_child_details, on: :update, unless: :skip_validation
+  validates :flagship, :preferred_contact_method, presence: true, on: :update, unless: :skip_validation
+  validate :kin_details_and_child_details, :date_of_birth_in_future,  on: :update, unless: :skip_validation
   validates :terms_and_conditions, acceptance: true
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
@@ -167,6 +167,11 @@ class User < ApplicationRecord
     user.update_attribute(:red_cap_date_consent_signed, dates['ethic_cons_sign_date']) if dates.present? && dates['ethic_cons_sign_date'].present?
   end
 
+  def date_of_birth_in_future
+    return false unless date_valid?
+    !dob.future? ? true : errors.add(:dob, I18n.t('user.errors.dob.future')) && false
+  end
+
   def reset_password(new_password, new_password_confirmation)
     self.skip_validation = true
     if new_password.present?
@@ -177,5 +182,12 @@ class User < ApplicationRecord
       errors.add(:password, :blank)
       false
     end
+  end
+
+  private
+
+  def date_valid?
+    date_format = /\d{2}-\d{2}-(\d{4})$/
+    dob.to_s.match?(date_format) ? true : errors.add(:dob, I18n.t('user.errors.dob.invalid_format')) && false
   end
 end
