@@ -130,3 +130,17 @@ Feature: Welcome Page
     When I fill the user_dob field with value '34-43-8349'
     And I submit the user details
     Then I should see 'Invalid format' error on edit page
+
+  Scenario: User should see errors for dob in future
+    Given I exist as a user
+    And I am not logged in
+    When I sign in with valid credentials
+    Then I should be signed in
+    And I should see the dashboard page
+    When I click on My Personal Details
+    Then I should see Personal Details page
+    When I click on Update
+    Then I should see the user edit page
+    When I fill the user date of birth field with future date
+    And I submit the user details
+    Then I should see date from the future error on edit page
