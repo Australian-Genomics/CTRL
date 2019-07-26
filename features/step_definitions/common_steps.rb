@@ -2,7 +2,7 @@ Then(/^I should see the (.*) link$/) do |link_text|
   expect(page).to have_link(link_text)
 end
 
-Then("I should see date from the future error on edit page") do
+Then('I should see date from the future error on edit page') do
   expect(page).to have_content("Can't enter the date from the future")
 end
 
