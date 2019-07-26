@@ -317,21 +317,43 @@ RSpec.describe User, type: :model do
     end
 
     describe 'Date of birth validations' do
-      context 'when user enters date of birth in future' do
-        it 'returns error cannot enter the date from the future' do
-          expect(user.valid?).to be true
-          user.dob = Date.tomorrow.to_s
-          expect(user.valid?).to be false
-          expect(user.errors.full_messages).to match_array("Dob Can't enter the date from the future")
+      context 'when it is user dob' do
+        context 'when user enters date of birth in future' do
+          it 'returns error cannot enter the date from the future' do
+            expect(user.valid?).to be true
+            user.dob = Date.tomorrow.to_s
+            expect(user.valid?).to be false
+            expect(user.errors.full_messages).to match_array("Dob Can't enter the date from the future")
+          end
+        end
+
+        context 'when user enters date of birth in a wrong format' do
+          it 'returns error invalid format' do
+            expect(user.valid?).to be true
+            user.dob = '12-13-2019'
+            expect(user.valid?).to be false
+            expect(user.errors.full_messages).to match_array('Dob Invalid format')
+          end
         end
       end
 
-      context 'when user enters date of birth in a wrong format' do
-        it 'returns error invalid format' do
-          expect(user.valid?).to be true
-          user.dob = '12-13-2019'
-          expect(user.valid?).to be false
-          expect(user.errors.full_messages).to match_array('Dob Invalid format')
+      context 'when it is user child_dob' do
+        context 'when user enters date of birth in future' do
+          it 'returns error cannot enter the date from the future' do
+            expect(user.valid?).to be true
+            user.child_dob = Date.tomorrow.to_s
+            expect(user.valid?).to be false
+            expect(user.errors.full_messages).to match_array("Child dob Can't enter the date from the future")
+          end
+        end
+
+        context 'when user enters date of birth in a wrong format' do
+          it 'returns error invalid format' do
+            expect(user.valid?).to be true
+            user.child_dob = '12-13-2019'
+            expect(user.valid?).to be false
+            expect(user.errors.full_messages).to match_array('Child dob Invalid format')
+          end
         end
       end
     end
