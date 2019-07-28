@@ -22,10 +22,10 @@ describe StepsController do
       end
 
       context 'when any one of the answers is false' do
-        subject { put :update, params: { id: step.id, to_dashboard: true, step: { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'false' } } } } }
+        subject { put :update, params: { id: step.id, from_step_two: true, to_dashboard: true, step: { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'false' } } } } }
 
         it 'should redirect to consent#review_answer' do
-          expect(subject).to redirect_to(review_answers_path(to_dashboard: true))
+          expect(subject).to redirect_to(review_answers_path(from_step_two: true, to_dashboard: true))
         end
       end
     end
@@ -51,13 +51,13 @@ describe StepsController do
         subject { put :update, params: { id: step.id, registration_step_three: true, step: { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'false' } } } } }
 
         it 'should redirect to consent#review_answer' do
-          expect(subject).to redirect_to(review_answers_path)
+          expect(subject).to redirect_to(review_answers_path(from_step_two: true))
         end
       end
     end
 
     context 'when registration_step_four=true is passed' do
-      subject { put :update, params: { id: step.id, registration_step_four: true, step: { accepted: true } } }
+      subject { put :update, params: { id: step.id, registration_step_four: true, step: { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'true' } } } } }
 
       it 'should redirect to consent#four' do
         expect(subject).to redirect_to(step_four_url(registration_step_four: true))
