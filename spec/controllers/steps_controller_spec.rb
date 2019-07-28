@@ -22,7 +22,10 @@ describe StepsController do
       end
 
       context 'when any one of the answers is false' do
-        subject { put :update, params: { id: step.id, from_step_two: true, to_dashboard: true, step: { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'false' } } } } }
+        subject do
+          put :update, params: { id: step.id, from_step_two: true, to_dashboard: true,
+                                 step: { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'false' } } } }
+        end
 
         it 'should redirect to consent#review_answer' do
           expect(subject).to redirect_to(review_answers_path(from_step_two: true, to_dashboard: true))
