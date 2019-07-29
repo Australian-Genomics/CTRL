@@ -59,5 +59,20 @@ Feature: Consent Page
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
+    When I click on Select All on step three
     When I click Next
     Then I should see the step four of the consent
+
+  Scenario: User can go to the review answers page from the step three
+    When I click on Register
+    And I fill in the user details
+    Then I should see the step one of consent
+    When I click on Next
+    Then I should see the step two of the consent
+    When I click on Select All
+    And I click on Next
+    Then I should see the confirm answers page
+    And I click on Confirm
+    Then I should be on the step three page of consent
+    When I click Next
+    Then I should be on the review answers page from step three
