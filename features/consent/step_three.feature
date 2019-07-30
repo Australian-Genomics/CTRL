@@ -59,7 +59,7 @@ Feature: Consent Page
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
-    When I click on Select All on step three
+    When I select all questions on step three
     When I click Next
     Then I should see the step four of the consent
 
