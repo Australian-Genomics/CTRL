@@ -2,11 +2,19 @@ When('I click Next') do
   click_button('Next')
 end
 
+When("I click on I don't want to take part") do
+  click_link("I don't want to take part")
+end
+
 Then('I should be on the step three page of consent') do
   expect(page).to have_content('Step 3 of 5')
 end
 
-Then('I click on Select All on step three') do
+Then('I should see the notification consent page') do
+  expect(page).to have_link('Return to Dashboard')
+end
+
+Then('I select all questions on step three') do
   find('#selectCheckBox15 + span').click
 end
 
