@@ -45,7 +45,7 @@ class StepsController < ApplicationController
   end
 
   def redirect_path_for_step_three
-    if step_params[:questions_attributes].select { |x| step_params[:questions_attributes][x][:answer] == 'false' }.empty?
+    if all_questions_selected?
       check_params_for_confirm_answers
     else
       check_params_for_review_answers('from_step_two')
@@ -53,7 +53,7 @@ class StepsController < ApplicationController
   end
 
   def redirect_path_for_step_four
-    if step_params[:questions_attributes].select { |x| step_params[:questions_attributes][x][:answer] == 'false' }.empty?
+    if all_questions_selected?
       if params[:to_dashboard_from_three]
         dashboard_index_path
       else
@@ -80,5 +80,9 @@ class StepsController < ApplicationController
     else
       review_answers_path("#{step_number}": true)
     end
+  end
+
+  def all_questions_selected?
+    step_params[:questions_attributes].select { |x| step_params[:questions_attributes][x][:answer] == 'false' }.empty?
   end
 end
