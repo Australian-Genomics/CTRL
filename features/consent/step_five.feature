@@ -19,6 +19,7 @@ Feature: Consent Page
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
+    When I select all questions on step three
     When I click the Next button
     Then I should see the step four of the consent
     And I should see default answer to be Not Sure
@@ -37,6 +38,7 @@ Feature: Consent Page
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
+    When I select all questions on step three
     When I click the Next button
     Then I should see the step four of the consent
     When I click the Next button
@@ -55,6 +57,7 @@ Feature: Consent Page
     Then I should see the confirm answers page
     And I click on Confirm
     Then I should be on the step three page of consent
+    When I select all questions on step three
     When I click the Next button
     Then I should see the step four of the consent
     And I should see default answer to be Not Sure
