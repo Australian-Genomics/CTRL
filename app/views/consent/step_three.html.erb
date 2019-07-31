@@ -71,7 +71,7 @@
                 </i>
               <% end %>
               <label class="controls controls__checkbox controls__checkbox_blue">
-                    <%= qf.check_box :answer, {checked: qf.object.check_box_checked?(current_question[:default_value])}, 'true', 'false'  %>
+                    <%= qf.check_box :answer, {checked: qf.object.check_box_checked?(current_question[:default_value]), id: "selectCheckBox#{qf.object.question_id}"}, 'true', 'false' %>
                 <span class="checkmark"></span>
               </label>
             </div>
@@ -93,11 +93,15 @@
           <%= f.hidden_field :accepted, value: "1" %>
           <% if params[:registration_step_three] %>
             <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-              <%= f.button :submit, 'Next', name: 'registration_step_four', class: "btn btn-success ml-auto" %>
+              <%= f.button :submit, 'Next', name: 'registration_step_four' , class: "btn btn-success ml-auto" %>
             </div>
           <% end %>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
+          <% if params[:from_dashboard] %>
+            <%= f.button :submit, 'Save and Exit', name: 'to_dashboard_from_three', class: "steps__btn-save btn btn-primary mx-auto" %>
+          <% else %>
             <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
+          <% end %>
           </div>
         </div>
       <% end %>

@@ -12,25 +12,47 @@
           </div>
 
           <h3 class="text-center mt-20 mb-15">
-            Are you sure you don’t want the test?
+            <% if params[:from_step_three] %>
+              Are you sure you don’t want to be part of the<br> research project?
+            <% else %>
+              Are you sure you don’t want the test?
+            <% end %>
           </h3>
           <div class="d-flex mb-20">
             <p class="step2__text text-center mx-auto mb-0">
-              You have not selected all statements, which means you have not agreed to have genomic testing.
+              <% if params[:from_step_three] %>
+                You have not selected all statements, which means you have not agreed to be part of the research
+                project.
+              <% else %>
+                You have not selected all statements, which means you have not agreed to have genomic testing.
+              <% end %>
             </p>
           </div>
           <p class="step2__text text-center mx-auto">
-            If you choose “I don't want the test” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
+            If you choose
+            <% if params[:from_step_three] %> “I don't want to take part”
+            <% else %>
+              “I don't want the test”
+            <% end %>an Australian Genomics Genetic Counsellor will contact you to talk
+            about your options.
             It may take 7 days for the study genetic counsellor to contact you.
           </p>
 
           <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
-            <% if params[:to_dashboard] %>
+            <% if params[:to_dashboard] && params[:from_step_two] %>
               <%= link_to("Review Answers", step_two_path(from_dashboard: true), class: "btn d-block d-sm-inline-block mb-15 blue-btn-active") %>
               <%= link_to("I don't want the test", notification_consent_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
-            <% else %>
+            <% end %>
+            <% if params[:to_dashboard_from_three] %>
+              <%= link_to("Review Answers", step_three_path(from_dashboard: true), class: "btn d-block d-sm-inline-block mb-15 blue-btn-active") %>
+              <%= link_to("I don't want to take part", notification_consent_path(from_step_three: true), class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+            <% elsif params[:from_step_two] && !params[:to_dashboard] %>
               <%= link_to("Review Answers", step_two_path(registration_step_two: true), class: "btn d-block d-sm-inline-block mb-15 blue-btn-active") %>
               <%= link_to("I don't want the test", notification_consent_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+            <% elsif params[:from_step_three] %>
+              <%= link_to("Review Answers", step_three_path(registration_step_three: true), class: "btn d-block d-sm-inline-block mb-15 blue-btn-active") %>
+              <%= link_to("I don't want to take part", notification_consent_path(from_step_three: true), class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+              <%# end %>
             <% end %>
           </div>
 
@@ -42,7 +64,8 @@
                         </span>
             <br>
             <span>
-                            Click “I don’t want the test” if
+                            Click <% if params[:from_step_three] %> “I don't want to take part”
+                <% else %>“I don’t want the test” <% end %> if
                             you are sure you do not want the
                             genomic test.
                         </span>
