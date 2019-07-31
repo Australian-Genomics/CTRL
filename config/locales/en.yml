@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  user:
+    errors:
+      dob:
+        future: "Can't enter the date from the future"
+        invalid_format: 'Invalid format'
