@@ -34,5 +34,5 @@ en:
   user:
     errors:
       dob:
-        future: "Can't enter the date from the future"
+        future: "Can't be a date in the future"
         invalid_format: 'Invalid format'
