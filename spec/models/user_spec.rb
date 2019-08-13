@@ -323,7 +323,7 @@ RSpec.describe User, type: :model do
             expect(user.valid?).to be true
             user.dob = Date.tomorrow.to_s
             expect(user.valid?).to be false
-            expect(user.errors.full_messages).to match_array("Dob Can't enter the date from the future")
+            expect(user.errors.full_messages).to match_array("Dob Can't be a date in the future")
           end
         end
 
@@ -343,7 +343,7 @@ RSpec.describe User, type: :model do
             expect(user.valid?).to be true
             user.child_dob = Date.tomorrow.to_s
             expect(user.valid?).to be false
-            expect(user.errors.full_messages).to match_array("Child dob Can't enter the date from the future")
+            expect(user.errors.full_messages).to match_array("Child dob Can't be a date in the future")
           end
         end
 
