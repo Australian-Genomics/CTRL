@@ -1,7 +1,7 @@
 class SendSurveyEmails
   include Delayed::RecurringJob
   run_every 1.day
-  run_at '9:00am'
+  run_at '5:30pm'
   timezone 'Australia/Melbourne'
   queue 'send_survey_emails'
   def perform
