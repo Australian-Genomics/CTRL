@@ -7,10 +7,7 @@ class UserMailer < ApplicationMailer
     attach_image 'Group.png'
 
     sender = 'ctrl@australiangenomics.org.au'
-
-    puts '==========' + user.email + '=================' + user.survey_one_email_sent.to_s
-    user.update(survey_one_email_sent: true)
-    puts '==========' + user.email + '=================' + user.survey_one_email_sent.to_s
+    user.update_attribute(:survey_one_email_sent, true)
 
     mail(to: "#{user.first_name} #{user.family_name} <#{user.email}>", subject: 'Australian Genomics Rare Disease Patient Survey – PART 1', sender: sender, from: sender)
   end
