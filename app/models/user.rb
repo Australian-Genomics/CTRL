@@ -96,12 +96,12 @@ class User < ApplicationRecord
   end
 
   def self.send_survey_emails
-    update_dates_from_redcap
-    update_survey_one_link_from_redcap
-    update_survey_one_code_from_redcap
-    update_survey_one_status_from_redcap
+    delay(priority: 1).update_dates_from_redcap
+    delay(priority: 2).update_survey_one_link_from_redcap
+    delay(priority: 3).update_survey_one_code_from_redcap
+    delay(priority: 4).update_survey_one_status_from_redcap
 
-    send_survey_one_emails
+    delay(priority: 5).send_survey_one_emails
   end
 
   def self.send_survey_one_emails
