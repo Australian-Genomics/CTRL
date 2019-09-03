@@ -96,11 +96,10 @@ class User < ApplicationRecord
   end
 
   def self.send_survey_emails
-    delay(priority: 1, run_at: Time.now + 1.minute).update_dates_from_redcap
-    delay(priority: 2, run_at: Time.now + 1.minute).update_survey_one_link_from_redcap
-    delay(priority: 3, run_at: Time.now + 1.minute).update_survey_one_code_from_redcap
-    delay(priority: 4, run_at: Time.now + 1.minute).update_survey_one_status_from_redcap
-
+    %w[update_dates_from_redcap update_survey_one_link_from_redcap update_survey_one_code_from_redcap
+       update_survey_one_status_from_redcap].each_with_index do |method_name, index|
+      delay(priority: (index + 1), run_at: Time.now + 1.minute).send(method_name)
+    end
     delay(priority: 5, run_at: Time.now + 1.minute).send_survey_one_emails
   end
 
