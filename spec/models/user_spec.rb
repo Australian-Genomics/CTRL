@@ -171,13 +171,11 @@ RSpec.describe User, type: :model do
   end
 
   context 'send_survey_emails' do
-    it 'should update redcap and send emails' do
-      expect(User).to receive(:update_dates_from_redcap)
-      expect(User).to receive(:update_survey_one_link_from_redcap)
-      expect(User).to receive(:update_survey_one_code_from_redcap)
-      expect(User).to receive(:update_survey_one_status_from_redcap)
-      expect(User).to receive(:send_survey_one_emails)
-      User.send_survey_emails
+    before { User.send_survey_emails }
+
+    it 'should create 5 background jobs to update redcap and send emails' do
+      expect(Delayed::Job.count).to eq(5)
+      expect(Delayed::Job.pluck(:priority)).to eq([*1..5])
     end
   end
 
