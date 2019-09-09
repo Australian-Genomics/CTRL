@@ -19,8 +19,8 @@ gem 'devise'
 gem 'simple_form'
 gem 'jquery-ui-rails'
 gem 'httparty'
-gem 'delayed_job'
-gem 'delayed_job_recurring', '0.3.7'
+gem 'delayed_job', '4.1.8'
+gem 'delayed_job_recurring', '0.3.8'
 gem 'premailer-rails'
 gem 'paper_trail'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
@@ -42,6 +42,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rails-erd'
 end
 
 group :test do
