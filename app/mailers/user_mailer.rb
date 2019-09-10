@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
     sender = 'ctrl@australiangenomics.org.au'
     user.update_attribute(:survey_one_email_sent, true)
 
-    mail(to: "#{user.first_name} #{user.family_name} <#{user.email}>", subject: 'Australian Genomics Patient Survey', sender: sender, from: sender)
+    mail(to: "#{user.first_name} #{user.family_name} <#{user.email}>", subject: 'Australian Genomics Rare Disease Patient Survey – PART 1', sender: sender, from: sender)
   end
 
   def attach_image(image_name)

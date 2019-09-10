@@ -8,7 +8,7 @@ RSpec.describe User, type: :mailer do
       email = UserMailer.send_first_survey_email(user)
 
       expect(email.to.first).to eq(user.email)
-      expect(email.subject).to eq('Australian Genomics Patient Survey')
+      expect(email.subject).to eq('Australian Genomics Rare Disease Patient Survey – PART 1')
       expect(email.from.first).to eq('ctrl@australiangenomics.org.au')
       expect(user.survey_one_email_sent).to eq true
     end
