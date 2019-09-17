@@ -71,7 +71,7 @@
 
         <%= f.simple_fields_for :questions, (@step.questions.count == 0 ? @step.questions : @step.questions.order(question_id: :asc)) do |qf| %>
           <% current_question = QUS[:step_five_questions].find {|x| x[:question_id] == qf.object.question_id} %>
-          <% if current_question[:question_id] <= 24 %>
+          <% if current_question[:question_id] <= 25 %>
             <div class="steps__row">
               <div class="steps__row-main d-block d-sm-flex">
                 <div class='d-flex w-100'>
@@ -124,7 +124,7 @@
 
         <%= f.simple_fields_for :questions, (@step.questions.count == 0 ? @step.questions : @step.questions.order(question_id: :asc)) do |qf| %>
           <% current_question = QUS[:step_five_questions].find {|x| x[:question_id] == qf.object.question_id} %>
-          <% if current_question[:question_id] >= 25 %>
+          <% if current_question[:question_id] >= 26 %>
             <div class="steps__row">
               <div class="steps__row-main d-block d-sm-flex">
                 <div class='d-flex w-100'>
