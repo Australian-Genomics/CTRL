@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations' }
   resources :users, :dashboard, :steps
 
+  get "users/profile", to: "users#show", as: "profile"
+  get "users/profile/edit", to: "users#edit", as: "edit_profile"
+  patch "users/profile/update", to: "users#update", as: "update_profile"
+
   get "step_one", to: "consent#step_one", as: "step_one"
   get "step_two", to: "consent#step_two", as: "step_two"
   get "step_three", to: "consent#step_three", as: "step_three"

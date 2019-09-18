@@ -21,7 +21,7 @@
           <span class="sr-only">(current)</span>
         </li>
         <li class="nav-item active">
-          <%= link_to('My Personal Details', user_path(current_user), class: "nav-link") %>
+          <%= link_to('My Personal Details', profile_path, class: "nav-link") %>
         </li>
         <li class="nav-item">
           <%= link_to('About', about_us_path, class: "nav-link") %>
@@ -191,7 +191,7 @@
     </div>
   </div>
   <div class="container px-md-4">
-    <%= link_to 'Update', edit_user_path(current_user), class: "btn btn-primary update" %>
+    <%= link_to 'Update', edit_profile_path, class: "btn btn-primary update" %>
   </div>
 
 </section>
