@@ -3,6 +3,13 @@
 
 function ready() {
     $('[data-toggle="popover"]').popover();
+    toggleNavBarLink();
+}
+
+function toggleNavBarLink() {
+    $active_link = "#" + $('#active_tab').val();
+    $('.navbar-nav').find('.active').removeClass('active');
+    $('.navbar-nav').find($active_link).addClass('active');
 }
 
 (function () {

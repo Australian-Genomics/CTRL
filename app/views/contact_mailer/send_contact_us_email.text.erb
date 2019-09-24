@@ -1,0 +1,10 @@
+<% if @to_admin %>
+The message is submitted from
+
+User: <%= @user.first_name %>  <%= @user.family_name %>
+Email: <%= @user.email %>
+Phone: <%= @user.phone_no %>
+Study ID: <%= @user.study_id %>
+
+<% end %>
+<%= @content %>

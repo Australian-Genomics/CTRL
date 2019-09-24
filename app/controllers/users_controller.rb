@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :find_user, only: %i[show edit update]
 
-  def show; end
+  def show
+    @active_tab = 'profile'
+  end
 
   def edit; end
 
