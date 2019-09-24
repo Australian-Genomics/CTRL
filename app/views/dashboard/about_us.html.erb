@@ -1,40 +1,6 @@
 <body>
-<nav class="navbar navbar-expand-md navbar-light bg-white p-0">
-  <div class="container align-items-stretch px-30 px-md-15">
-    <a class="navbar-brand" href="/">
-      <%= image_tag "icon-256x256.png", class: "fit-contain", width: "50", height: "50", alt: "logo icon" %>
-    </a>
-    <div
-      class="nav-toggler py-3 pl-3"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="nav-to-open">Menu</span>
-      <span class="nav-to-close">Close</span>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav w-100 h-100">
-        <li class="nav-item">
-          <%= link_to('My Activities', dashboard_index_path, class: "nav-link") %>
-          <span class="sr-only">(current)</span>
-        </li>
-        <li class="nav-item">
-          <%= link_to('My Personal Details', profile_path, class: "nav-link") %>
-        </li>
-        <li class="nav-item active">
-          <%= link_to('About', about_us_path, class: "nav-link") %>
-        </li>
-        <li class="nav-item ml-md-auto py-30 py-md-0">
-          <%= link_to('Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") %>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
+<%= render 'shared/nav_bar' %>
 
 <div class="dashboard">
 

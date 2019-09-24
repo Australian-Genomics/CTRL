@@ -20,3 +20,24 @@ When(/^I fill the user (.*?) date of birth field with future date$/) do |child|
     fill_in 'user_dob', with: Date.tomorrow.to_s
   end
 end
+
+When(/^I (?:click|press) on the( first)? "(.*?)" (?:link|button)$/) do |first, link_text|
+  if first
+    page.click_on(link_text.to_s, match: :prefer_exact)
+  else
+    page.click_on(link_text.to_s)
+  end
+end
+
+Then(/^I should( not)? see "([^"]*)"$/) do |negate, text|
+  # negate ? page.should_not(have_content(text)) : page.should(have_content(text))
+  if negate
+    expect(page).to_not have_content(text)
+  else
+    expect(page).to have_content(text)
+  end
+end
+
+When(/^I fill in "(.*?)" with "(.*?)"$/) do |field, value|
+  fill_in(field, with: value.to_s)
+end
