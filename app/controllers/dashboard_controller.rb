@@ -20,10 +20,14 @@ class DashboardController < ApplicationController
     if content.present?
       contact_us = ContactUs.new(current_user, content)
       contact_us.send_message
-      render 'dashboard/message_sent'
+      redirect_to message_sent_path
     else
       flash[:alert] = "Message content can't be blank."
       render 'dashboard/contact_us'
     end
+  end
+
+  def message_sent
+    @active_tab = 'contact_us'
   end
 end

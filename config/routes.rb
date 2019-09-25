@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get "about_us", to: "dashboard#about_us", as: "about_us"
   get "contact_us", to: "dashboard#contact_us", as: "contact_us"
+  get 'message_sent', to: 'dashboard#message_sent', as: 'message_sent'
   post 'send_message', to: "dashboard#send_message", as: "send_message"
 
   get "confirm_answers", to: "consent#confirm_answers", as: "confirm_answers"
