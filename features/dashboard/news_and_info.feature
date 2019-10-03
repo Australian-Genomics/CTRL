@@ -9,7 +9,7 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on About
+    Then I click on the "News and Information" link
     And I should see an introduction about the platform
 
   Scenario: User can go to the dashboard page
@@ -18,7 +18,7 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on About
+    Then I click on the "News and Information" link
     And I should see an introduction about the platform
     When I click on My Activities
     Then I should see the dashboard page
@@ -29,7 +29,7 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on About
+    Then I click on the "News and Information" link
     And I should see an introduction about the platform
     When I click on My Personal Details
     Then I should see the personal details page
@@ -40,7 +40,7 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on About
+    Then I click on the "News and Information" link
     And I should see an introduction about the platform
     When I click on Log Out
     Then I should be signed out
