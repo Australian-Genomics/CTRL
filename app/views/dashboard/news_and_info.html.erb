@@ -1,0 +1,27 @@
+<body>
+
+<%= render 'shared/nav_bar' %>
+
+<div class="dashboard">
+
+  <section class="steps container px-sm-0 mb-15 mb-sm-120">
+
+    <div class="h2 mt-30 mb-15 px-15">
+      The Australian Genomics program
+    </div>
+
+    <div class="steps__iframe-news steps__iframe_shadow mx-15">
+      <iframe
+        width="100%"
+        height="100%"
+        src=<%= @info_link %>
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+  </section>
+
+</div>
+</body>

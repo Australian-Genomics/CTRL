@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get "step_five", to: "consent#step_five", as: "step_five"
 
 
-  get "about_us", to: "dashboard#about_us", as: "about_us"
+  get "news_and_info", to: "dashboard#news_and_info", as: "news_and_info"
   get "contact_us", to: "dashboard#contact_us", as: "contact_us"
   get 'message_sent', to: 'dashboard#message_sent', as: 'message_sent'
   post 'send_message', to: "dashboard#send_message", as: "send_message"

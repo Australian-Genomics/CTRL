@@ -5,8 +5,9 @@ class DashboardController < ApplicationController
     @active_tab = 'dashboard'
   end
 
-  def about_us
-    @active_tab = 'about_us'
+  def news_and_info
+    @active_tab = 'news_and_info'
+    @info_link = ENV['MCRI_INFO_LINK'].present? ? ENV['MCRI_INFO_LINK'] : 'https://ctrldynamicconsent.wordpress.com'
   end
 
   def contact_us
