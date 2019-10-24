@@ -4,6 +4,11 @@
 <section class="dashboard dashboard__edit">
   <%= simple_form_for :contact_us, url: {action: :send_message}, html: {class: "dashboard__modal position-relative form-control mb-0"}, method: :post do |f| %>
 
+    <div class="d-flex">
+      <div class="header__logo d-block mt-0 mb-45 mx-auto">
+        <%= image_tag "message-closed-envelope.png", alt: "message-closed-envelope", class: "h-100" %>
+      </div>
+    </div>
 
     <h3 class="h3 text-center">
       Please enter your message
