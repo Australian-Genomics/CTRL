@@ -2,10 +2,10 @@
 <%= render 'shared/nav_bar' %>
 
 <section class="dashboard dashboard__edit">
-  <%= simple_form_for :contact_us, url: {action: :send_message}, html: {class: "dashboard__modal position-relative form-control mb-0"}, method: :post do |f| %>
+  <%= simple_form_for :contact_us, url: {action: :send_message}, html: {class: "dashboard__modal position-relative form-control mb-0 pt-30"}, method: :post do |f| %>
 
     <div class="d-flex">
-      <div class="header__logo d-block mt-0 mb-45 mx-auto">
+      <div class="d-block mt-0 mb-30 mx-auto">
         <%= image_tag "message-closed-envelope.png", alt: "message-closed-envelope", class: "h-100" %>
       </div>
     </div>
