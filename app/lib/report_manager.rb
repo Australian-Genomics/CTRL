@@ -74,8 +74,7 @@ class ReportManager
     version = question_params[:version]
     event = question_params[:event]
     current_question = default_question_hash(question).first[:qus]
-    last_change = changes.nil? ? '' : changes.last
-    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(changes, event, question).to_s.downcase, last_change, version]
+    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(changes, event, question).to_s.downcase, changes.try(:last), version]
   end
 
   def self.default_question_hash(question)
