@@ -100,7 +100,7 @@ class User < ApplicationRecord
        update_survey_one_status_from_redcap].each_with_index do |method_name, index|
       delay(priority: (index + 1), run_at: Time.now + 1.minute).send(method_name)
     end
-    delay(priority: 5, run_at: Time.now + 1.minute).send_survey_one_emails
+    # delay(priority: 5, run_at: Time.now + 1.minute).send_survey_one_emails
   end
 
   def self.send_survey_one_emails
