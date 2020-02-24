@@ -174,8 +174,8 @@ RSpec.describe User, type: :model do
     before { User.send_survey_emails }
 
     it 'should create 5 background jobs to update redcap and send emails' do
-      expect(Delayed::Job.count).to eq(5)
-      expect(Delayed::Job.pluck(:priority)).to eq([*1..5])
+      expect(Delayed::Job.count).to eq(4)
+      expect(Delayed::Job.pluck(:priority)).to eq([*1..4])
     end
   end
 
