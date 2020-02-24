@@ -57,7 +57,6 @@ class ReportManager
       user = step.user
       event = version.event
       changes = version.changeset['answer']
-
       data_row = create_data_row(changes, question, step: step, user: user, version: event_time_in_zone(version), event: event)
       sheet.add_row(data_row, style: fields_styles, height: 30)
     end
@@ -75,7 +74,7 @@ class ReportManager
     version = question_params[:version]
     event = question_params[:event]
     current_question = default_question_hash(question).first[:qus]
-    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(changes, event, question).to_s.downcase, changes.last, version]
+    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(changes, event, question).to_s.downcase, changes.try(:last), version]
   end
 
   def self.default_question_hash(question)
