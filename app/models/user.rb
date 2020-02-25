@@ -7,9 +7,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates_presence_of :first_name, :family_name, :study_id
+  validates :first_name, :family_name, :study_id, presence: true
   validates :flagship, :preferred_contact_method, presence: true, on: :update, unless: :skip_validation
-  validate :kin_details_and_child_details, :date_of_birth_in_future, :child_date_of_birth_in_future, on: :update, unless: :skip_validation
+  validate :date_of_birth_in_future
+  validate :kin_details_and_child_details, :child_date_of_birth_in_future, on: :update, unless: :skip_validation
   validates :terms_and_conditions, acceptance: true
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
