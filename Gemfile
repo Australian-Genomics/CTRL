@@ -26,6 +26,7 @@ gem 'paper_trail'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
 gem 'timezone', '1.2.8'
+gem 'bootstrap4-datetime-picker-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
