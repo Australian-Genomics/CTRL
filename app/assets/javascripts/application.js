@@ -17,4 +17,6 @@
 //= require popper
 //= require bootstrap
 //= require jquery-ui
+//= require moment
+//= require tempusdominus-bootstrap-4.js
 //= require_tree .
