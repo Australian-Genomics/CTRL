@@ -46,3 +46,14 @@ QUS = {
         ]
 
 }
+
+# This Hash contains question_id and their correspond Redcap codebook field name
+# Like 16 => 'ctrl_pref_result1'
+
+QUESTIONS_REDCAP_FIELDS_HASH = {
+    16 => 'ctrl_pref_result1',
+    17 => 'ctrl_pref_result2',
+    18 => 'ctrl_pref_result3',
+    19 => 'ctrl_pref_result4',
+    20 => 'ctrl_pref_result5'
+}
