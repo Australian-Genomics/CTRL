@@ -9,9 +9,10 @@ class RedcapClientService
   def call(data)
     begin
       response = HTTParty.post(api_url, body: body_attributes(data))
-      response.success? && response['count'] > 0
+      response.success? && response.parsed_response['count'] == 1
     rescue HTTParty::Error, SocketError => e
       Rollbar.error("Error connecting to RedCap - #{e.message}")
+      false
     end
   end
 
