@@ -7,13 +7,11 @@ class RedcapClientService
   end
 
   def call(data)
-    begin
-      response = HTTParty.post(api_url, body: body_attributes(data))
-      response.success? && response.parsed_response['count'] == 1
-    rescue HTTParty::Error, SocketError => e
-      Rollbar.error("Error connecting to RedCap - #{e.message}")
-      false
-    end
+    response = HTTParty.post(api_url, body: body_attributes(data))
+    response.success? && response.parsed_response['count'] == 1
+  rescue HTTParty::Error, SocketError => e
+    Rollbar.error("Error connecting to RedCap - #{e.message}")
+    false
   end
 
   private
@@ -21,7 +19,6 @@ class RedcapClientService
   def body_attributes(data)
     { token: token, content: 'record',
       format: 'json', type: 'flat',
-      data: data
-    }
+      data: data }
   end
 end

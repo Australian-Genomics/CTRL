@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe RedcapClientService do
-
   describe '#new' do
     let(:redcap_client) { RedcapClientService.new }
 
@@ -15,7 +14,7 @@ RSpec.describe RedcapClientService do
   end
 
   describe '#call' do
-    let(:httparty) { double('HTTParty', parsed_response: parsed_response ) }
+    let(:httparty) { double('HTTParty', parsed_response: parsed_response) }
     let(:redcap_client) { RedcapClientService.new }
     let(:data) do
       [{ 'record_id' => '123ABC', 'ctrl_pers_name' => 'Test' }].to_json
@@ -58,7 +57,6 @@ RSpec.describe RedcapClientService do
       end
 
       context 'failed' do
-
         it { expect(redcap_client.token).to eq('ABCD1234EFB') }
         it { expect(redcap_client.api_url).to eq('https://mytestapi.com/api') }
         it { expect(redcap_client.call(data)).to eq(false) }
