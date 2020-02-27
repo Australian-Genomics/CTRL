@@ -5,6 +5,11 @@
     border-left: 2px solid $silver
     border-top: 2px solid $silver
     cursor: pointer
+%arrow
+    border: solid black
+    border-width: 0 3px 3px 0
+    display: inline-block
+    padding: 3px
 
 $component: 'icon'
 
@@ -178,3 +183,10 @@ $component: 'icon'
     +element('angle-right')
         @extend %angle
         transform: rotate(135deg)
+    +element('prev')
+        @extend %arrow
+        transform: rotate(135deg)
+    +element('next')
+        @extend %arrow
+        transform: rotate(-45deg)
+        -webkit-transform: rotate(-45deg)

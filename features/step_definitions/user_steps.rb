@@ -5,6 +5,7 @@ def create_visitor
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
+                 dob: '10-10-2000',
                  study_id: 'Curve18' }
 end
 
@@ -25,6 +26,7 @@ def sign_up
   fill_in 'user_first_name', with: @visitor[:first_name]
   fill_in 'user_family_name', with: @visitor[:family_name]
   fill_in 'user_email', with: @visitor[:email]
+  fill_in 'user_dob', with: @visitor[:dob]
   fill_in 'user_study_id', with: @visitor[:study_id]
   fill_in 'user_password', with: @visitor[:password]
   fill_in 'user_password_confirmation', with: @visitor[:password_confirmation]
