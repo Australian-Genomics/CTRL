@@ -42,6 +42,14 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
+                <%= f.input :dob, as: :string, label: false, id: 'user_dob', placeholder: 'DD-MM-YYYY', required: false, input_html: { class: 'form-control', data: { toggle: 'datetimepicker', target: '#user_dob' } } %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col mb-30">
+              <div class="position-relative">
                 <%= f.input :study_id, label: false, placeholder: 'Study ID', required: false %>
               </div>
             </div>

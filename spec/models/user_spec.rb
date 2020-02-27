@@ -139,9 +139,7 @@ RSpec.describe User, type: :model do
       user.update(survey_one_email_sent: false)
       user.update(red_cap_survey_one_link: 'http://somelink.com/234234')
 
-      delay_mail_mock = double('mail mock')
-      expect(UserMailer).to receive(:delay).and_return(delay_mail_mock)
-      expect(delay_mail_mock).to receive(:send_first_survey_email).with(user)
+      expect(UserMailer).not_to receive(:delay)
       User.send_survey_one_emails
     end
 
