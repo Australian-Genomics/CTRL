@@ -87,4 +87,9 @@ RSpec.describe Question, type: :model do
       end
     end
   end
+
+  describe '#answer_value' do
+    before { question.update(answer: 'true') }
+    it { expect(question.answer_value).to eq(1) }
+  end
 end

@@ -28,4 +28,8 @@ class Question < ApplicationRecord
     end
     questions.flatten!
   end
+
+  def answer_value
+    Question.answers[answer]
+  end
 end

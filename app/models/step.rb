@@ -4,6 +4,8 @@ class Step < ApplicationRecord
 
   belongs_to :user
 
+  delegate :study_id, to: :user, prefix: true, allow_nil: true
+
   def build_question_for_step(user_id)
     range_of_values_for(number).each do |time|
       questions.build(question_id: time, user_id: user_id)
