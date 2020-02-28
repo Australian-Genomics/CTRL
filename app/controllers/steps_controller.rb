@@ -1,7 +1,7 @@
 class StepsController < ApplicationController
   def update
     @step = Step.find(params[:id])
-    @step.update(step_params)
+    @step.upload_with_redcap(step_params)
     @step.touch
 
     redirect_to(path_to_redirect)

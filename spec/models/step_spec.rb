@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Step, type: :model do
+  include ActiveJob::TestHelper
+
   let(:user) { FactoryBot.create :user }
   let(:step_two) { FactoryBot.create :step, number: 2 }
   let(:step_three) { FactoryBot.create :step, number: 3 }
@@ -33,5 +35,33 @@ RSpec.describe Step, type: :model do
     before { step_two.update(user_id: user.id) }
 
     it { expect(step_two.user_study_id).to eq('A0134001') }
+  end
+
+  describe '#upload_with_redcap' do
+    let(:step) { step_two }
+    before { step.upload_with_redcap(step_params) }
+
+    context 'when step number is other than four and five' do
+      let(:step_params) { { accepted: true } }
+      let(:step) { step_two }
+
+      it { expect(step.accepted).to eq(true) }
+    end
+
+    context 'when step number is four' do
+      let(:step_params) { { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'false' } } } }
+      let(:step) { step_four }
+
+      it { expect(step.accepted).to eq(true) }
+      it { expect(enqueued_jobs.size).to eq(1) }
+    end
+
+    context 'when step number is five' do
+      let(:step_params) { { accepted: true, questions_attributes: { '0' => { answer: 'true' }, '1' => { answer: 'false' } } } }
+      let(:step) { step_five }
+
+      it { expect(step.accepted).to eq(true) }
+      it { expect(enqueued_jobs.size).to eq(1) }
+    end
   end
 end

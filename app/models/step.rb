@@ -1,4 +1,6 @@
 class Step < ApplicationRecord
+  REDCAP_CONNECTED_STEPS = [4, 5].freeze
+
   has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions
 
@@ -23,5 +25,10 @@ class Step < ApplicationRecord
     when 5
       (22..34)
     end
+  end
+
+  def upload_with_redcap(step_params)
+    return unless update(step_params)
+    UploadRedcapDetailsJob.perform_later(id) if REDCAP_CONNECTED_STEPS.include?(number)
   end
 end
