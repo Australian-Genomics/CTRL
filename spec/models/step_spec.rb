@@ -28,4 +28,10 @@ RSpec.describe Step, type: :model do
       expect(step_five.build_question_for_step(user.id)).to eq 22..34
     end
   end
+
+  describe '#user_study_id delegate' do
+    before { step_two.update(user_id: user.id) }
+
+    it { expect(step_two.user_study_id).to eq('A0134001') }
+  end
 end
