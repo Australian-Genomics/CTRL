@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe RedCapManager do
   let(:red_cap_url) { ENV['RED_CAP_URL'] }
-  let(:red_cap_token) { '***REMOVED***' }
+  let(:red_cap_token) { ENV['RED_CAP_TOKEN'] || '***REMOVED***' }
   let(:instrument_survey) { 'hidden_baseline_survey' }
   let(:record_id) { 'A0120001' }
 
