@@ -9,8 +9,9 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on the "News and Information" link
-    And I should see an introduction about the platform
+    And I can see the News and Information link on nav is inactive
+    When I click on the "News and Information" link
+    Then I can see the News and Information link on nav is active
 
   Scenario: User can go to the dashboard page
     Given I exist as a user
@@ -18,8 +19,9 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on the "News and Information" link
-    And I should see an introduction about the platform
+    And I can see the News and Information link on nav is inactive
+    When I click on the "News and Information" link
+    Then I can see the News and Information link on nav is active
     When I click on My Activities
     Then I should see the dashboard page
 
@@ -29,8 +31,9 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on the "News and Information" link
-    And I should see an introduction about the platform
+    And I can see the News and Information link on nav is inactive
+    When I click on the "News and Information" link
+    Then I can see the News and Information link on nav is active
     When I click on My Personal Details
     Then I should see the personal details page
 
@@ -40,7 +43,8 @@ Feature: Dashboard Page
     When I sign in with valid credentials
     Then I should be signed in
     And I should see the dashboard page
-    Then I click on the "News and Information" link
-    And I should see an introduction about the platform
+    And I can see the News and Information link on nav is inactive
+    When I click on the "News and Information" link
+    Then I can see the News and Information link on nav is active
     When I click on Log Out
     Then I should be signed out
