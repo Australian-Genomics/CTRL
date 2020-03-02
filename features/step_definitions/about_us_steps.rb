@@ -17,3 +17,14 @@ end
 Then('I should see the personal details page') do
   expect(page).to have_content('My Personal Details')
 end
+
+Then(/^I can see the News and Information link on nav is (active|inactive)$/) do |arg|
+  sleep 1
+  within(page.all('li.active').first) do
+    if arg.eql?('active')
+      expect(find('a.nav-link')).to have_content('News and Information')
+    else
+      expect(find('a.nav-link')).not_to have_content('News and Information')
+    end
+  end
+end
