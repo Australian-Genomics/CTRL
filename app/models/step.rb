@@ -1,5 +1,6 @@
 class Step < ApplicationRecord
   REDCAP_CONNECTED_STEPS = [4, 5].freeze
+  QUESTIONABLE_STEPS = [2, 3, 4, 5].freeze
 
   has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions
@@ -22,13 +23,11 @@ class Step < ApplicationRecord
   end
 
   def create_step_default_questions
-    return if number.nil? ||
-    unless number == 1
-      questions_attrs = range_of_values_for(number).step(1).map do |time|
-        { question_id: time, user_id: user_id }
-      end
-      questions.create(questions_attrs)
+    return if QUESTIONABLE_STEPS.exclude?(number)
+    questions_attrs = range_of_values_for(number).step(1).map do |time|
+      { question_id: time, user_id: user_id }
     end
+    questions.create(questions_attrs)
   end
 
   private
