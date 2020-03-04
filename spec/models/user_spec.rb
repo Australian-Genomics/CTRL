@@ -140,8 +140,8 @@ RSpec.describe User, type: :model do
       user.update(red_cap_survey_one_link: 'http://somelink.com/234234')
 
       delay_mail_mock = double('mail mock')
-      expect(UserMailer).to receive(:delay).and_return(delay_mail_mock)
-      expect(delay_mail_mock).to receive(:send_first_survey_email).with(user)
+      expect(UserMailer).not_to receive(:delay)
+      expect(delay_mail_mock).not_to receive(:send_first_survey_email).with(user)
       User.send_survey_one_emails
     end
 
@@ -380,25 +380,25 @@ RSpec.describe User, type: :model do
     it 'should have step two' do
       expect(user.step_two.number).to eq(2)
       expect(user.step_two.accepted).to be false
-      expect(user.step_two.questions).to be_blank
+      expect(user.step_two.questions).not_to be_blank
     end
 
     it 'should have step three' do
       expect(user.step_three.number).to eq(3)
       expect(user.step_three.accepted).to be false
-      expect(user.step_three.questions).to be_blank
+      expect(user.step_three.questions).not_to be_blank
     end
 
     it 'should have step four' do
       expect(user.step_four.number).to eq(4)
       expect(user.step_four.accepted).to be false
-      expect(user.step_four.questions).to be_blank
+      expect(user.step_four.questions).not_to be_blank
     end
 
     it 'should have step five' do
       expect(user.step_five.number).to eq(5)
       expect(user.step_five.accepted).to be false
-      expect(user.step_five.questions).to be_blank
+      expect(user.step_five.questions).not_to be_blank
     end
   end
 
