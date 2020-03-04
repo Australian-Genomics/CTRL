@@ -380,25 +380,25 @@ RSpec.describe User, type: :model do
     it 'should have step two' do
       expect(user.step_two.number).to eq(2)
       expect(user.step_two.accepted).to be false
-      expect(user.step_two.questions).to be_blank
+      expect(user.step_two.questions).not_to be_blank
     end
 
     it 'should have step three' do
       expect(user.step_three.number).to eq(3)
       expect(user.step_three.accepted).to be false
-      expect(user.step_three.questions).to be_blank
+      expect(user.step_three.questions).not_to be_blank
     end
 
     it 'should have step four' do
       expect(user.step_four.number).to eq(4)
       expect(user.step_four.accepted).to be false
-      expect(user.step_four.questions).to be_blank
+      expect(user.step_four.questions).not_to be_blank
     end
 
     it 'should have step five' do
       expect(user.step_five.number).to eq(5)
       expect(user.step_five.accepted).to be false
-      expect(user.step_five.questions).to be_blank
+      expect(user.step_five.questions).not_to be_blank
     end
   end
 
