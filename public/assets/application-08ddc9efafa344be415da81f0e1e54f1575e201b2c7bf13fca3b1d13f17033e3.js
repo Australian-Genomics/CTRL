@@ -46391,7 +46391,7 @@ $(document).on('page:change turbolinks:load', function(){
     $('[data-toggle="popover"]').popover();
     toggleNavBarLink();
 });
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   $('#user_dob').datetimepicker({
     format: 'DD-MM-YYYY',
     defaultDate: "01/01/1995",
