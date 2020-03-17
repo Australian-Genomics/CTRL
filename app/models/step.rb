@@ -24,8 +24,9 @@ class Step < ApplicationRecord
 
   def create_step_default_questions
     return if QUESTIONABLE_STEPS.exclude?(number)
-    questions_attrs = range_of_values_for(number).step(1).map do |time|
-      { question_id: time, user_id: user_id }
+    qus_key = number_and_qus_key_hash(number)
+    questions_attrs = range_of_values_for(number).step(1).map do |num|
+      { question_id: num, user_id: user_id, answer: default_answer(qus_key.to_sym, num) }
     end
     questions.create(questions_attrs)
   end
@@ -43,5 +44,19 @@ class Step < ApplicationRecord
     when 5
       (22..34)
     end
+  end
+
+  def default_answer(key, question_id)
+    qus = QUS[key].select { |x| x[:question_id] == question_id }.first
+    begin
+      Question.answers[qus[:default_value].to_s]
+    rescue StandardError
+      nil
+    end
+  end
+
+  def number_and_qus_key_hash(step)
+    { 2 => 'step_two_questions', 3 => 'step_three_questions',
+      4 => 'step_four_questions', 5 => 'step_five_questions' }[step]
   end
 end
