@@ -46,18 +46,15 @@ class ReportManager
     field = styles.add_style align_hash.merge(border: { style: :thin, color: '000000' }, sz: 10)
     fields_styles = [field] * HEADERS.size
 
-    versions = Question.question_changes_for_last_day.sort_by(&:whodunnit)
-    add_versions_to_sheet(fields_styles, sheet, versions)
+    questions = Question.question_changes_for_last_day
+    add_versions_to_sheet(fields_styles, sheet, questions)
   end
 
-  def self.add_versions_to_sheet(fields_styles, sheet, versions)
-    versions.each do |version|
-      question = Question.find(version.item_id)
-      step = question.step
-      user = step.user
-      event = version.event
-      changes = version.changeset['answer']
-      data_row = create_data_row(changes, question, step: step, user: user, version: event_time_in_zone(version), event: event)
+  def self.add_versions_to_sheet(fields_styles, sheet, questions)
+    questions.each do |question|
+      version = question.versions.last
+      changes = version.changeset['answer'].to_a.compact
+      data_row = create_data_row(question, version, changes, default_question_hash(question).first)
       sheet.add_row(data_row, style: fields_styles, height: 30)
     end
   end
@@ -68,22 +65,16 @@ class ReportManager
     version
   end
 
-  def self.create_data_row(changes, question, question_params = {})
-    user = question_params[:user]
-    step = question_params[:step]
-    version = question_params[:version]
-    event = question_params[:event]
-    current_question = default_question_hash(question).first[:qus]
-    [user.study_id, user.email, step.number, current_question, previous_answer_for_version(changes, event, question).to_s.downcase, changes.try(:last), version]
+  def self.create_data_row(question, version, changes, current_question)
+    question_title = current_question[:qus]
+    default_value = current_question[:default_value]
+    change_from = version_answers(default_value, version.event, changes).to_s.downcase
+    change_to = version_answers(default_value, version.event, changes, 'current').to_s.downcase
+    [question.study_id, question.email, question.number, question_title, change_from, change_to, event_time_in_zone(version)]
   end
 
   def self.default_question_hash(question)
     QUS.values.flatten.select { |x| x[:question_id] == question.question_id }
-  end
-
-  def self.previous_answer_for_version(changes, event, question)
-    return default_question_hash(question).first[:default_value] if event.eql?('create')
-    changes.first
   end
 
   def self.add_table_headers(align_hash, sheet, styles)
@@ -101,6 +92,12 @@ class ReportManager
 
     headers_styles = [sub_header] * HEADERS.size
     sheet.add_row(HEADERS, style: headers_styles, height: 25)
+  end
+
+  def self.version_answers(default_value, event, changes, version = 'previous')
+    return default_value if event.eql?('create')
+    return changes.last if version.eql?('current')
+    changes.first
   end
 
   def self.add_end_borders(styles, sub_header_light)

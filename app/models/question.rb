@@ -23,9 +23,9 @@ class Question < ApplicationRecord
     start_of_day = (today_in_zone - 1.day).beginning_of_day
     end_of_day = (today_in_zone - 1.day).end_of_day
     Question.left_outer_joins(:versions, step: :user)
-        .select("users.study_id, users.email, (steps.number) AS step_number, questions.id, questions.question_id")
-        .group('users.study_id, users.email, step_number, questions.id, questions.question_id')
-        .where("versions.event IN (?) AND versions.created_at >= ? AND versions.created_at < ?", %w[create update], start_of_day, end_of_day)
+            .select('users.study_id, users.email, steps.number, questions.id, questions.question_id')
+            .group('users.study_id, users.email, steps.number, questions.id, questions.question_id')
+            .where('versions.event IN (?) AND versions.created_at >= ? AND versions.created_at < ?', %w[create update], start_of_day, end_of_day)
   end
 
   def answer_value
