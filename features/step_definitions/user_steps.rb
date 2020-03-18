@@ -6,7 +6,7 @@ def create_visitor
                  password: 'please2',
                  password_confirmation: 'please2',
                  dob: '10-10-2000',
-                 study_id: 'Curve18' }
+                 study_id: 'A1234567' }
 end
 
 def create_user
@@ -51,7 +51,7 @@ def edit_user_details
   fill_in 'user_post_code', with: '3000'
   select 'Phone', from: 'user_preferred_contact_method'
   select 'chILDRANZ', from: 'user_flagship'
-  fill_in 'user_study_id', with: 'Research'
+  fill_in 'user_study_id', with: 'A1234567'
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
@@ -131,9 +131,10 @@ When('I fill in the user details with wrong confirm password') do
   sign_up
 end
 
-When('I fill in the user details without filling the Study ID') do
+When(/^I fill in the user details (without|invalid) filling the Study ID$/) do |arg|
   create_visitor
-  @visitor = @visitor.merge(study_id: '')
+  study_id = arg.eql?('invalid') ? 'B1523456' : ''
+  @visitor = @visitor.merge(study_id: study_id)
   sign_up
 end
 
@@ -187,8 +188,8 @@ Then('I should not see the welcome message') do
   expect(page).to have_content "Can't be blank"
 end
 
-Then('I should see an error {string} on the page') do |_string|
-  expect(page).to have_content 'Is invalid'
+Then('I should see an error {string} on the page') do |message|
+  expect(page).to have_content(message)
 end
 
 Then('I should see an error under the password field') do
@@ -219,7 +220,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('3000')
   expect(page).to have_content('Phone')
   expect(page).to have_content('chILDRANZ')
-  expect(page).to have_content('Research')
+  expect(page).to have_content('A1234567')
   expect(page).to have_content('Yes')
   expect(page).to have_content('Registering on behalf of')
 end
