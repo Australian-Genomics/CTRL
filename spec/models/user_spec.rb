@@ -8,6 +8,59 @@ RSpec.describe User, type: :model do
   it { expect(user.first_name).to eq('sushant') }
   it { expect(user.family_name).to eq('ahuja') }
 
+  describe 'validate study_id' do
+    let(:new_user) { User.new(user.attributes.merge(id: nil, study_id: study_id)) }
+
+    before { new_user.valid? }
+
+    context 'when study id not started with capital A' do
+      let(:study_id) { 'B1523456' }
+
+      it { expect(new_user).to be_a(User) }
+      it { expect(new_user.errors).not_to be_empty }
+      it { expect(new_user.errors[:study_id]).to eq(['Please check Study ID']) }
+    end
+
+    context 'when first number is not between 0 to 4 after capital A' do
+      let(:study_id) { 'A5123456' }
+
+      it { expect(new_user).to be_a(User) }
+      it { expect(new_user.errors).not_to be_empty }
+      it { expect(new_user.errors[:study_id]).to eq(['Please check Study ID']) }
+    end
+
+    context 'when third number is not between 2 to 4 after capital A' do
+      let(:study_id) { 'A1563456' }
+
+      it { expect(new_user).to be_a(User) }
+      it { expect(new_user.errors).not_to be_empty }
+      it { expect(new_user.errors[:study_id]).to eq(['Please check Study ID']) }
+    end
+
+    context 'when length of numbers after capital A is less than 7' do
+      let(:study_id) { 'A154345' }
+
+      it { expect(new_user).to be_a(User) }
+      it { expect(new_user.errors).not_to be_empty }
+      it { expect(new_user.errors[:study_id]).to eq(['Please check Study ID']) }
+    end
+
+    context 'when length of numbers after capital A is greater than 7' do
+      let(:study_id) { 'A15434577' }
+
+      it { expect(new_user).to be_a(User) }
+      it { expect(new_user.errors).not_to be_empty }
+      it { expect(new_user.errors[:study_id]).to eq(['Please check Study ID']) }
+    end
+
+    context 'when user have a valid Study id' do
+      let(:study_id) { 'A1543457' }
+
+      it { expect(new_user).to be_a(User) }
+      it { expect(new_user.errors[:study_id]).to eq([]) }
+    end
+  end
+
   context 'update_consent_signed_date' do
     it 'should update the consign signd date' do
       expect(user.red_cap_date_consent_signed).to be_blank
