@@ -131,7 +131,7 @@ When('I fill in the user details with wrong confirm password') do
   sign_up
 end
 
-When('I fill in the user details (without|invalid) filling the Study ID') do |arg|
+When(/^I fill in the user details (without|invalid) filling the Study ID$/) do |arg|
   create_visitor
   study_id = arg.eql?('invalid') ? 'B1523456' : ''
   @visitor = @visitor.merge(study_id: study_id)
@@ -188,8 +188,8 @@ Then('I should not see the welcome message') do
   expect(page).to have_content "Can't be blank"
 end
 
-Then('I should see an error {string} on the page') do |_string|
-  expect(page).to have_content 'Is invalid'
+Then('I should see an error {string} on the page') do |message|
+  expect(page).to have_content(message)
 end
 
 Then('I should see an error under the password field') do
