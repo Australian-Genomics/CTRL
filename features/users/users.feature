@@ -37,6 +37,12 @@ Feature: Welcome Page
     And I fill in the user details without filling the Study ID
     Then I should not see the welcome message
 
+  Scenario: User fills the invalid study id while signing up
+    When I click on Register
+    And I fill in the user details invalid filling the Study ID
+    Then I should not see the welcome message
+    And I should see an error 'Please check Study ID' on the page
+
   Scenario: User enters the invalid email while signing up
     When I click on Register
     And I fill in the user details with invalid email
