@@ -19,7 +19,8 @@ class Step < ApplicationRecord
 
   def upload_with_redcap(step_params)
     return unless update(step_params)
-    UploadRedcapDetailsJob.perform_later(id) if REDCAP_CONNECTED_STEPS.include?(number)
+    return unless redcap_connection_enabled?
+    UploadRedcapDetailsJob.perform_later(id)
   end
 
   def create_step_default_questions
@@ -58,5 +59,9 @@ class Step < ApplicationRecord
   def number_and_qus_key_hash(step)
     { 2 => 'step_two_questions', 3 => 'step_three_questions',
       4 => 'step_four_questions', 5 => 'step_five_questions' }[step]
+  end
+
+  def redcap_connection_enabled?
+    REDCAP_CONNECTED_STEPS.include?(number) && ENV['REDCAP_CONNECTION_ENABLED'].eql?('true')
   end
 end
