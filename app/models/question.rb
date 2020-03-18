@@ -19,14 +19,13 @@ class Question < ApplicationRecord
   end
 
   def self.question_changes_for_last_day
-    questions = []
     today_in_zone = Timezone['Australia/Melbourne'].time_with_offset(Time.now)
     start_of_day = (today_in_zone - 1.day).beginning_of_day
     end_of_day = (today_in_zone - 1.day).end_of_day
-    %w[create update].each do |event|
-      questions << PaperTrail::Version.where('item_type = ? AND event = ? AND created_at >= ? AND created_at < ?', 'Question', event, start_of_day, end_of_day)
-    end
-    questions.flatten!
+    Question.left_outer_joins(:versions, step: :user)
+            .select('users.study_id, users.email, steps.number, questions.id, questions.question_id')
+            .group('users.study_id, users.email, steps.number, questions.id, questions.question_id')
+            .where('versions.event IN (?) AND versions.created_at >= ? AND versions.created_at < ?', %w[create update], start_of_day, end_of_day)
   end
 
   def answer_value
