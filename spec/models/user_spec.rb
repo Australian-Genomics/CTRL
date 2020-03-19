@@ -486,17 +486,25 @@ RSpec.describe User, type: :model do
   end
 
   describe '.instrument_based_on_study_id' do
+    before { user.update(study_id: study_id) }
     context 'when study id is A013263' do
+      let(:study_id) { 'A013263' }
       it 'returns childranz questionnaire for parents instrument' do
-        user.update(study_id: 'A013263')
         expect(user.instrument_based_on_study_id).to eq('childranz_questionnaire_for_parents')
       end
     end
 
-    context 'when study id is A023463' do
+    context 'when study id is A013463' do
+      let(:study_id) { 'A013463' }
       it 'returns childranz questionnaire for parents instrument' do
-        user.update(study_id: 'A023463')
         expect(user.instrument_based_on_study_id).to eq('hidden_baseline_survey')
+      end
+    end
+
+    context 'when study id is A023463' do
+      let(:study_id) { 'A023463' }
+      it 'returns childranz questionnaire for parents instrument' do
+        expect(user.instrument_based_on_study_id).to eq(nil)
       end
     end
   end

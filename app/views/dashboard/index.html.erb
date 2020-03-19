@@ -438,7 +438,7 @@
 
     <% end %>
 
-    <% if current_user.red_cap_survey_one_status == 2 && current_user.red_cap_survey_one_link?%>
+    <% if current_user.red_cap_survey_one_status == 2 && current_user.red_cap_survey_one_link? %>
       <div class="steps__row dashboard__row dashboard__row_done">
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
 
@@ -505,7 +505,7 @@
           <div class="d-flex w-100 mb-15 mb-md-0">
             <i class="icon_placeholder mr-2"></i>
             <div class="mr-auto">
-              <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status == nil %>
+              <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status.nil? %>
                 Incomplete
               <% elsif current_user.red_cap_survey_one_status == 1 %>
                 Available for completion
