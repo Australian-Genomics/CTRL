@@ -2,7 +2,9 @@
 
 module SimpleForm::Components::Errors
   def errors_on_attribute
-    object.errors[attribute_name].map!(&:humanize)
+    object.errors[attribute_name].map! do |error_msg|
+      error_msg.eql?('Please check Study ID') ? error_msg : error_msg.humanize
+    end
   end
 end
 
