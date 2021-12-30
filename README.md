@@ -8,7 +8,7 @@ Getting Started
 
 ##### Do a `bundle install`.
 
-##### Create and build the database,
+##### Create and build the database.
 
 ```shell
 rails db:create
@@ -23,7 +23,7 @@ rails db:migrate
 `bundle exec cucumber feature/**/*.feature`
 
 
-For MacOS Catalina and Big Sur:
+For MacOS Catalina and Big Sur
 ----------------------
 
 If you encounter this error while bundling:
