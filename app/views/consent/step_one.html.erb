@@ -7,12 +7,12 @@
             href="/"
             class="header__logo d-block mt-45 mx-auto ml-xl-0"
           >
-            <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+            <%= image_tag "logo@2x.png", alt: t(:logo), class: "h-100" %>
           </a>
         </div>
         <div class="col-12 col-lg-8 col-lg mx-auto mt-30 mt-xl-45">
           <div class="header__progress-wrapper mx-auto">
-            <div class="mb-2">Step 1 of 5</div>
+            <div class="mb-2"><%= t 'consent.step_one.step_one_of_five' %></div>
             <div class="header__progress header__progress_step1"></div>
           </div>
         </div>
@@ -27,7 +27,7 @@
           href="/"
           class="header__logo d-block mt-45 mx-auto"
         >
-          <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+          <%= image_tag "logo@2x.png", alt: t(:logo), class: "h-100" %>
         </a>
       </div>
     </div>
@@ -41,8 +41,7 @@
           <%= f.hidden_field :accepted, value: "1" %>
           <div class="d-flex mb-30">
             <p class="text-center mx-auto mb-0">
-              Watch our short video about the consent process for taking part in medical research,
-              and how you can use this website during the study.
+              <%= t 'consent.step_one.watch_our_video' %>
             </p>
           </div>
           <div class="steps__iframe">
@@ -58,11 +57,18 @@
           <div class="row flex-md-row-reverse">
             <div class="col-12 col-md-3 d-flex my-15 my-md-30">
               <% if params[:registration] %>
-                <%= f.button :submit, 'Next', name: 'registration_step_two', class: "btn btn-success mx-auto mr-md-0" %>
+                <%= f.button :submit,
+                  t(:next),
+                  name: 'registration_step_two',
+                  class: "btn btn-success mx-auto mr-md-0"
+                %>
               <% end %>
             </div>
             <div class="col-12 col-md-6 offset-md-3 d-flex mb-30 mt-md-30">
-              <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
+              <%= f.button :submit,
+                t(:save_and_exit),
+                class: "steps__btn-save btn btn-primary mx-auto"
+              %>
             </div>
           </div>
         <% end %>
