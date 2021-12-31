@@ -1,4 +1,6 @@
 class Step < ApplicationRecord
+  include QuestionsHelper
+
   REDCAP_CONNECTED_STEPS = [4, 5].freeze
   QUESTIONABLE_STEPS = [2, 3, 4, 5].freeze
 
@@ -48,7 +50,7 @@ class Step < ApplicationRecord
   end
 
   def default_answer(key, question_id)
-    qus = QUS[key].select { |x| x[:question_id] == question_id }.first
+    qus = all_questions[key].select { |x| x[:question_id] == question_id }.first
     begin
       Question.answers[qus[:default_value].to_s]
     rescue StandardError

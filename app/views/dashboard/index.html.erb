@@ -5,7 +5,7 @@
     <div class="dashboard__topper bg-ice-one">
       <div class="container d-flex flex-column flex-sm-row align-items-center px-30 px-md-15">
         <div class=" text-bigger text-dark-blue text-center text-md-left mt-30 mt-sm-0">
-          Your personal details need to be completed
+          <%= t 'dashboard.index.your_personal_details_completed' %>
         </div>
         <%= link_to('Complete', profile_path, class: "btn btn-primary ml-sm-30 my-15 my-sm-20") %>
       </div>
@@ -15,7 +15,7 @@
   <section class="steps container px-sm-0 mb-15 mb-sm-120">
 
     <div class="h2 mt-30 mb-15 px-15">
-      Welcome <%= current_user.first_name %>
+      <%= t 'welcome' %> <%= current_user.first_name %>
     </div>
 
     <!--
@@ -34,8 +34,9 @@
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
             <i class="icon__num mr-12">1</i>
             <div class="mr-auto">
-              CTRL introduction
+              <%= t 'dashboard.index.ctrl_introduction' %>
             </div>
+
             <i
               class="icon__i icon__i_popover mr-md-60 ml-auto"
               tabindex="0"

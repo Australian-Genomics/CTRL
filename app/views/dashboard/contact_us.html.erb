@@ -2,7 +2,11 @@
 <%= render 'shared/nav_bar' %>
 
 <section class="dashboard dashboard__edit">
-  <%= simple_form_for :contact_us, url: {action: :send_message}, html: {class: "dashboard__modal position-relative form-control mb-0 pt-30"}, method: :post do |f| %>
+  <%= simple_form_for :contact_us,
+    url: { action: :send_message },
+    html: { class: "dashboard__modal position-relative form-control mb-0 pt-30" },
+    method: :post do |f|
+  %>
 
     <div class="d-flex">
       <div class="d-block mt-0 mb-30 mx-auto">
@@ -11,7 +15,7 @@
     </div>
 
     <h3 class="h3 text-center">
-      Please enter your message
+      <%= t 'dashboard.contact_us.please_enter_your_message' %>
     </h3>
 
     <%= render 'shared/flash_alert' %>

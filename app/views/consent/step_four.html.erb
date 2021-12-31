@@ -59,7 +59,7 @@
         </div>
 
         <%= f.simple_fields_for :questions, (@step.questions.count == 0 ? @step.questions : @step.questions.order(question_id: :asc)) do |qf| %>
-          <% current_question = QUS[:step_four_questions].find {|x| x[:question_id] == qf.object.question_id} %>
+          <% current_question = step_four_questions.find {|x| x[:question_id] == qf.object.question_id} %>
           <div class="steps__row">
             <div class="steps__row-main d-block d-sm-flex">
               <div class='d-flex w-100'>
