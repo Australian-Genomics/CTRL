@@ -1,37 +1,37 @@
 en:
-  welcome: Welcome
-  next: Next
-  save_and_exit: Save and Exit
-  select_all: Select All
-  unselect_all: Unselect All
   back: Back
-  logo: logo
-  logo_icon: logo icon
-  confirm: Confirm
-  review_answers: Review Answers
-  click: Click
-  menu: Menu
-  close: Close
-  return_to_dashboard: Return to Dashboard
-  send: Send
   cancel: Cancel
-  email: Email
-  yes: Yes
-  no: No
-  update: Update
-  log_in: Log in
+  click: Click
+  close: Close
   complete: Complete
-  view: View
-  edit: Edit
-  review: Review
-  reviewed: Reviewed
+  confirm: Confirm
   consent_for_genomic_testing: Consent for the genomic test
   consent_to_australian_genomics: Consent to Australian Genomics research participation
-  preferences_about_your_results: Preferences about your results
   consent_to_research_outside: Consent to research outside this study
+  edit: Edit
+  email: Email
+  incomplete: Incomplete
+  log_in: Log in
+  logo: logo
+  logo_icon: logo icon
+  menu: Menu
+  no: No
+  next: Next
   participant_survey_1: Participant Survey 1
   participant_survey_2: Participant Survey 2
-  incomplete: Incomplete
+  preferences_about_your_results: Preferences about your results
+  return_to_dashboard: Return to Dashboard
+  review_answers: Review Answers
+  review: Review
+  reviewed: Reviewed
+  save_and_exit: Save and Exit
+  select_all: Select All
+  send: Send
+  unselect_all: Unselect All
+  update: Update
+  view: View
+  welcome: Welcome
+  yes: Yes
   user:
     errors:
       dob:
