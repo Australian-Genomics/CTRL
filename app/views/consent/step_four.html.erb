@@ -13,7 +13,9 @@
 
         <div class="col-12 col-lg-8 col-lg mx-auto mt-30 mt-xl-45">
           <div class="header__progress-wrapper mx-auto">
-            <div class="mb-2">Step 4 of 5</div>
+            <div class="mb-2">
+              <%= t 'consent.step_four.step_four_of_five' %>
+            </div>
             <div class="header__progress header__progress_step4"></div>
           </div>
         </div>
@@ -28,7 +30,7 @@
           href="/"
           class="header__logo d-block mt-45 mx-auto"
         >
-          <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+          <%= image_tag "logo@2x.png", alt: t(:logo), class: "h-100" %>
         </a>
       </div>
     </div>
@@ -39,22 +41,18 @@
     <div class="steps__box col mx-auto">
       <%= simple_form_for @step, html: {class: "bg-ice-one border pt-30 px-30"}, method: :put do |f| %>
         <h3 class="text-center mt-2 mb-15">
-          Preferences about your results
+          <%= t :preferences_about_your_results %>
         </h3>
         <div class="d-flex mb-30">
           <p class="steps__description mx-auto mb-0 text-justify">
-            <b>Incidental findings:</b>
-            Because a genomic test looks at many genes at once, a genetic change that is not related to the specific
-            health condition you are being tested for could be found. These incidental findings may be important to know
-            about for your health and for your family as well.<br>
+            <b><%= t 'consent.step_four.incidental_findings' %>:</b>
+            <%= t 'consent.step_four.because_a_genomic_test' %>
             <br>
-            An incidental finding is a genetic change that we know or think is linked with certain health conditions
-            that the testing laboratory comes across accidentally, despite efforts not to look closely at certain genes.
-            It is very uncommon, but you should be aware that it can happen.<br>
+            <br>
+            <%= t 'consent.step_four.an_incidental_finding' %>
+            <br>
             </br>
-            Genomic testing services have their own policies about whether they will tell you about incidental findings.
-            If your testing is transferred to a research setting they may identify incidental findings. For those that
-            do return incidental findings, we would like to know your preferences.
+            <%= t 'consent.step_four.genomic_testing_services' %>
           </p>
         </div>
 
@@ -107,7 +105,7 @@
         <div class="row flex-md-row">
           <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
             <% if params[:registration_step_four] %>
-              <%= link_to('Back', step_three_path(registration_step_three: true), class: "btn btn-outline-success mr-auto") %>
+              <%= link_to(t(:back), step_three_path(registration_step_three: true), class: "btn btn-outline-success mr-auto") %>
             <% end %>
           </div>
           <%= f.hidden_field :accepted, value: "1" %>
@@ -117,7 +115,7 @@
             </div>
           <% end %>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
-            <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
+            <%= f.button :submit, t(:save_and_exit), class: "steps__btn-save btn btn-primary mx-auto" %>
           </div>
         </div>
       <% end %>

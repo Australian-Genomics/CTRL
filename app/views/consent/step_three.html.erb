@@ -12,7 +12,9 @@
         </div>
         <div class="col-12 col-lg-8 col-lg mx-auto mt-30 mt-xl-45">
           <div class="header__progress-wrapper mx-auto">
-            <div class="mb-2">Step 3 of 5</div>
+            <div class="mb-2">
+              <%= t 'consent.step_three.step_three_of_five' %>
+            </div>
             <div class="header__progress header__progress_step3"></div>
           </div>
         </div>
@@ -27,7 +29,7 @@
           href="/"
           class="header__logo d-block mt-45 mx-auto"
         >
-          <%= image_tag "logo@2x.png", alt: "logo", class: "h-100" %>
+          <%= image_tag "logo@2x.png", alt: t(:logo), class: "h-100" %>
         </a>
       </div>
     </div>
@@ -38,18 +40,14 @@
     <div class="steps__box col mx-auto">
       <%= simple_form_for @step, html: {class: "bg-ice-one border pt-30 px-30"}, method: :put do |f| %>
         <h3 class="text-center mt-2 mb-15">
-          Consent to Australian Genomics research participation
+          <%= t :consent_to_australian_genomics %>
         </h3>
         <div class="d-flex mb-30">
           <p class="steps__description mx-auto mb-0 text-justify">
-            By signing the Australian Genomics consent form, you have agreed to participate in the research, along with
-            having the genomic test. Thank you. The research we are doing will help to decide whether genomic testing
-            should be standard care for your health condition. To do this, we would like to collect information about
-            you from your health records as well as information directly from you. The answers are all pre-selected,
-            because you have already agreed to participate in the research.<br>
+            <%= t 'consent.step_three.by_signing_the_australian_consent_form' %>
+            <br>
             </br>
-            If you choose to unselect any statements below we will contact you to talk about whether you still agree to
-            being in the research project.
+            <%= t 'consent.step_three.if_you_choose_to_unselect' %>
           </p>
         </div>
 
@@ -87,20 +85,20 @@
         <div class="row flex-md-row">
           <div class="col-6 col-md-3 order-0 d-flex my-15 my-md-30">
             <% if params[:registration_step_three] %>
-              <%= link_to('Back', step_two_path(registration_step_two: true), class: "btn btn-outline-success mr-auto") %>
+              <%= link_to(t(:back), step_two_path(registration_step_two: true), class: "btn btn-outline-success mr-auto") %>
             <% end %>
           </div>
           <%= f.hidden_field :accepted, value: "1" %>
           <% if params[:registration_step_three] %>
             <div class="col-6 col-md-3 order-1 order-md-2 d-flex my-15 my-md-30">
-              <%= f.button :submit, 'Next', name: 'registration_step_four' , class: "btn btn-success ml-auto" %>
+              <%= f.button :submit, t(:next), name: 'registration_step_four' , class: "btn btn-success ml-auto" %>
             </div>
           <% end %>
           <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
           <% if params[:from_dashboard] %>
-            <%= f.button :submit, 'Save and Exit', name: 'to_dashboard_from_three', class: "steps__btn-save btn btn-primary mx-auto" %>
+            <%= f.button :submit, t(:save_and_exit), name: 'to_dashboard_from_three', class: "steps__btn-save btn btn-primary mx-auto" %>
           <% else %>
-            <%= f.button :submit, 'Save and Exit', class: "steps__btn-save btn btn-primary mx-auto" %>
+            <%= f.button :submit, t(:save_and_exit), class: "steps__btn-save btn btn-primary mx-auto" %>
           <% end %>
           </div>
         </div>

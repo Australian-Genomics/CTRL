@@ -12,37 +12,32 @@
           </div>
 
           <h3 class="text-center mt-20 mb-15">
-            You have agreed to have the genomic test
+            <%= t 'consent.confirm_answers.you_have_agreed_to_take_test' %>
           </h3>
           <div class="d-flex mb-20">
             <p class="step2__text text-center mx-auto mb-0">
-              If you don’t want the test please review your
-              answers.
+              <%= t 'consent.confirm_answers.if_you_dont_want_the_test' %>
             </p>
           </div>
           <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
             <% if params[:to_dashboard] %>
-              <%= link_to('Confirm', dashboard_index_path, class: "btn btn-success d-block d-sm-inline-block mb-15") %>
-              <%= link_to('Review Answers', step_two_path(from_dashboard: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
+              <%= link_to(t(:confirm), dashboard_index_path, class: "btn btn-success d-block d-sm-inline-block mb-15") %>
+              <%= link_to(t(:review_answers), step_two_path(from_dashboard: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
             <% else %>
-              <%= link_to('Confirm', step_three_path(registration_step_three: true), class: "btn btn-success d-block d-sm-inline-block mb-15") %>
-              <%= link_to('Review Answers', step_two_path(registration_step_two: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
+              <%= link_to(t(:confirm), step_three_path(registration_step_three: true), class: "btn btn-success d-block d-sm-inline-block mb-15") %>
+              <%= link_to(t(:review_answers), step_two_path(registration_step_two: true), class: "btn btn-outline-success d-block d-sm-inline-block mb-15 mr-sm-15") %>
             <% end %>
           </div>
 
           <p class="subtext mb-20 mb-sm-30">
-                        <span>
-                            Please click “Confirm” if you are sure
-                            you would like the genomic test.
-                        </span>
+            <span>
+              <%= t 'consent.confirm_answers.please_click_confirm' %>
+            </span>
             <br>
             <span>
-                            Please click “Review Answers” if you
-                            would like to go back and change your
-                            responses.
-                        </span>
+              <%= t 'consent.confirm_answers.please_click_review_answers' %>
+            </span>
           </p>
-
         </div>
       </div>
     </div>
