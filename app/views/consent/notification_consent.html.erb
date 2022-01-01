@@ -1,33 +1,29 @@
 <body class="bg-dark">
 
 
-<div class="container my-15 my-sm-45">
-  <div class="row flex-column">
-    <div class="steps__submitting col-12 mx-auto">
-      <div class="bg-ice-one border px-20">
-        <div class="mt-20">
-
-          <div class="d-flex">
-            <%= image_tag "generic_person.png", class: "generic-person-image" %>
-          </div>
-
-          <p class="step2__text text-center mx-auto mb-0">
-            <% if params[:from_step_three] %>
-              You have chosen <b>not</b> to be involved in the Australian Genomics research project.</br> </br>
-              An Australian Genomics Genetic Counsellor will contact you soon to talk about your options.
-              It may take 7 days for the study genetic counsellor to contact you.
-            <% else %>
-              You have chosen <b>not</b> to have the genomic test.</br>
-              An Australian Genomics Genetic Counsellor will contact you soon to talk about your options.
-            <% end %>
-          </p></br>
-
-          <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
-            <%= link_to("Return to Dashboard", dashboard_index_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+  <div class="container my-15 my-sm-45">
+    <div class="row flex-column">
+      <div class="steps__submitting col-12 mx-auto">
+        <div class="bg-ice-one border px-20">
+          <div class="mt-20">
+            <div class="d-flex">
+              <%= image_tag "generic_person.png",
+                class: "generic-person-image" %>
+            </div>
+            <p class="step2__text text-center mx-auto mb-0">
+              <% if params[:from_step_three] %>
+                <%= t('consent.notification_consent.you_have_chosen_not_to_be_involved').html_safe %>
+              <% else %>
+                <%= t('consent.notification_consent.you_have_chosen_not_to_have_the_test').html_safe %>
+              <% end %>
+            </p>
+            <br>
+            <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
+              <%= link_to(t(:return_to_dashboard), dashboard_index_path, class: "btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn") %>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </body>

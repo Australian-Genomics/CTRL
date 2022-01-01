@@ -1,6 +1,6 @@
-# Australian Genomics Health Assurance
+# Australian Genomics Health Alliance
 
-The [AGHA(Australian Genomics Health Assurance)](https://circleci.com/gh/Curve-Tomorrow/agha/tree/master) Dynamic Consent project is building a web based platform that will manage consent for genomic testing, and allow participants to manage their preferences around how and where their test results are received and shared
+The [AGHA(Australian Genomics Health Alliance)](https://circleci.com/gh/Curve-Tomorrow/agha/tree/master) Dynamic Consent project is building a web based platform that will manage consent for genomic testing, and allow participants to manage their preferences around how and where their test results are received and shared
 
 Getting Started
 ----------------------
