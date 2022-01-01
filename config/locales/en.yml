@@ -81,6 +81,11 @@ en:
       survey_2_will_be_ready: |
         Survey 2 will be ready to complete after receiving your genomic test result.
       not_yet_available: Not yet available
+    message_sent:
+      thank_you_for_contacting: Thank you for contacting the Australian Genomics research program
+      your_message_sent_to_ctrl: |
+        Your message has been sent to the CTRL site administrator and we aim to get back to you within 2 business days.
+        A copy of your message has been sent to your email address.
   consent:
     confirm_answers:
       you_have_agreed_to_take_test: You have agreed to have the genomic test
