@@ -1,5 +1,6 @@
 en:
   back: Back
+  back_to_homepage: Back to homepage
   cancel: Cancel
   click: Click
   close: Close
@@ -19,8 +20,12 @@ en:
   next: Next
   participant_survey_1: Participant Survey 1
   participant_survey_2: Participant Survey 2
+  password: Password
   preferences_about_your_results: Preferences about your results
+  reenter_password: Re-enter Password
+  register: Register
   return_to_dashboard: Return to Dashboard
+  return_to_previous: Return to previous page
   review_answers: Review Answers
   review: Review
   reviewed: Reviewed
@@ -37,9 +42,42 @@ en:
       dob:
         future: Can't be a date in the future
         invalid_format: Invalid format
+  layout_errors:
+    oops: Oops!
+    problem_tech_team_notified: |
+      There was a problem, we're working on it and the tech team have been
+      notified.
+    error_code_500: Error code 500
+    error_code_400: Error code 400
+    we_cant_seem_to_find: We can't seem to find the page you're looking for.
   welcome_page:
     consent_to_participating: Consent to participating in the Australian Genomics program
     register_now: Register Now
+  user_registration:
+    i_agree_to_the: I agree to the %{terms_and_conditions_link}
+    terms_and_conditions: Terms and Conditions
+    you_must_agree_to_register: You must agree to register
+    register_now: Register Now
+    if_you_already_have_account: If you already have an account, please
+    ctrl_privacy_policy: CTRL Platform Privacy Policy
+  user_forgot_password:
+    please_enter_the_email: |
+      Please enter the email address you registered with to receive a link to reset your password.
+    send_request: Send Request
+    invalid_email: Invalid E-mail
+  user_change_password:
+    change_your_password: Change your password
+    enter_password_minimum: Enter password (6 characters minimum)
+    change_password_and_login: Change password and log in
+  user_login:
+    forgot: Forgot?
+    if_you_dont_have_an_account: |
+      <span class="d-block">
+        If you don’t have an account, please
+      </span>
+      %{register_link}
+  user_password_sent:
+    we_emailed_you_a_link: We have emailed you a link to reset your password.
   navbar:
     my_activities: My Activities
     my_personal_details: My Personal Details

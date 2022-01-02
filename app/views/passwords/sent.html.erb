@@ -5,7 +5,7 @@
         <header id="header" class="header">
           <div class="container d-flex">
             <a href="/" class="header__logo d-block mt-45 mx-auto">
-              <%= image_tag "agha-logo.png", alt: "logo", class: "h-100" %>
+              <%= image_tag "agha-logo.png", alt: t(:logo), class: "h-100" %>
             </a>
           </div>
         </header>
@@ -18,13 +18,13 @@
           >
 
           <p class="text-center mt-60 mb-30">
-            We have emailed you a link to reset your password.
+            <%= t 'user_password_sent.we_emailed_you_a_link' %>
           </p>
 
         </form>
       </div>
       <div class="mx-auto text-center py-3 bg-light">
-        <%= link_to "Log In", new_session_path(resource_name), class: "ml-2" %>
+        <%= link_to t(:log_in), new_session_path(resource_name), class: "ml-2" %>
       </div>
     </div>
   </div>
