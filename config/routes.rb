@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations' }
   resources :users, :dashboard, :steps
 
