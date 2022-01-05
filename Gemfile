@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+gem 'activeadmin'
 gem 'rails', '~> 5.2.3'
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 gem 'puma', '~> 3.11'
@@ -30,6 +31,7 @@ gem 'timezone', '1.2.8'
 gem 'bootstrap4-datetime-picker-rails'
 
 group :development, :test do
+  gem 'pry'
   gem 'rspec-rails', '~> 3.7'
   gem 'rails-controller-testing'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
