@@ -10,24 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_111009) do
+ActiveRecord::Schema.define(version: 2022_01_07_183936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.string "author_type"
-    t.bigint "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
-  end
 
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -39,6 +25,41 @@ ActiveRecord::Schema.define(version: 2022_01_05_111009) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "consent_groups", force: :cascade do |t|
+    t.integer "order"
+    t.bigint "consent_step_id"
+    t.string "header"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_step_id"], name: "index_consent_groups_on_consent_step_id"
+    t.index ["order"], name: "index_consent_groups_on_order"
+  end
+
+  create_table "consent_questions", force: :cascade do |t|
+    t.integer "order"
+    t.bigint "consent_group_id"
+    t.text "consent"
+    t.text "description"
+    t.string "redcap_field"
+    t.string "default_answer"
+    t.string "question_type"
+    t.string "answer_choices_position", default: "right"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_group_id"], name: "index_consent_questions_on_consent_group_id"
+    t.index ["order"], name: "index_consent_questions_on_order"
+  end
+
+  create_table "consent_steps", force: :cascade do |t|
+    t.integer "order"
+    t.string "title"
+    t.text "description"
+    t.text "popover"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order"], name: "index_consent_steps_on_order", unique: true
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -56,6 +77,20 @@ ActiveRecord::Schema.define(version: 2022_01_05_111009) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "question_answers", force: :cascade do |t|
+    t.integer "consent_question_id"
+    t.integer "user_id"
+    t.string "answer"
+    t.index ["consent_question_id"], name: "index_question_answers_on_consent_question_id"
+    t.index ["user_id"], name: "index_question_answers_on_user_id"
+  end
+
+  create_table "question_options", force: :cascade do |t|
+    t.string "value"
+    t.bigint "consent_question_id"
+    t.index ["consent_question_id"], name: "index_question_options_on_consent_question_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.integer "number"
     t.integer "answer"
@@ -68,6 +103,15 @@ ActiveRecord::Schema.define(version: 2022_01_05_111009) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
+  create_table "step_reviews", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "consent_step_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_step_id"], name: "index_step_reviews_on_consent_step_id"
+    t.index ["user_id"], name: "index_step_reviews_on_user_id"
+  end
+
   create_table "steps", force: :cascade do |t|
     t.integer "number"
     t.boolean "accepted"
@@ -75,20 +119,6 @@ ActiveRecord::Schema.define(version: 2022_01_05_111009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_steps_on_user_id"
-  end
-
-  create_table "survey_questions", force: :cascade do |t|
-    t.string "locale", default: "en"
-    t.integer "order"
-    t.integer "step"
-    t.integer "question_id"
-    t.text "question"
-    t.text "description"
-    t.string "default_value"
-    t.string "redcap_field"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["locale"], name: "index_survey_questions_on_locale"
   end
 
   create_table "users", force: :cascade do |t|
@@ -153,4 +183,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_111009) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "consent_groups", "consent_steps"
+  add_foreign_key "consent_questions", "consent_groups"
+  add_foreign_key "question_options", "consent_questions"
 end

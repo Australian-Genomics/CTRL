@@ -17,22 +17,24 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :steps
   after_create :create_consent_step
 
-  enum flagship: ['Acute Care Genomic Testing',
-                  'Acute Lymphoblastic Leukaemia',
-                  'Brain Malformations',
-                  'Cardiovascular Genetic Disorders',
-                  'chILDRANZ',
-                  'Epileptic Encephalopathy',
-                  'Genetic Immunology',
-                  'Genomic Autopsy',
-                  'Hereditary Cancer Syndromes (ICCon)',
-                  'HIDDEN Renal Genetics',
-                  'Intellectual Disability',
-                  'Leukodystrophies',
-                  'Mitochondrial Disorders',
-                  'Neuromuscular Disorders',
-                  'KidGen',
-                  'Solid Tumours']
+  enum flagship: [
+    'Acute Care Genomic Testing',
+    'Acute Lymphoblastic Leukaemia',
+    'Brain Malformations',
+    'Cardiovascular Genetic Disorders',
+    'chILDRANZ',
+    'Epileptic Encephalopathy',
+    'Genetic Immunology',
+    'Genomic Autopsy',
+    'Hereditary Cancer Syndromes (ICCon)',
+    'HIDDEN Renal Genetics',
+    'Intellectual Disability',
+    'Leukodystrophies',
+    'Mitochondrial Disorders',
+    'Neuromuscular Disorders',
+    'KidGen',
+    'Solid Tumours'
+  ]
 
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
   enum preferred_contact_method: %w[Email Phone Mail]
@@ -186,4 +188,14 @@ class User < ApplicationRecord
       false
     end
   end
+
+  #### Refactor Methods
+
+  has_many :reviewed_steps,
+    class_name:  'StepReview',
+    dependent:   :destroy
+
+  has_many :answers,
+    class_name:  'QuestionAnswer',
+    dependent:   :destroy
 end
