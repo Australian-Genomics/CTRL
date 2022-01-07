@@ -1,5 +1,5 @@
 class ReportManager
-  include QuestionsHelper
+  extend QuestionsHelper
 
   X_SMALL_WIDTH = 10
   SMALL_WIDTH = 15
@@ -76,7 +76,7 @@ class ReportManager
   end
 
   def self.default_question_hash(question)
-    all_questions.values.flatten.select { |x| x[:question_id] == question.question_id }
+    self.all_questions.values.flatten.select { |x| x[:question_id] == question.question_id }
   end
 
   def self.add_table_headers(align_hash, sheet, styles)
