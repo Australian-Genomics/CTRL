@@ -15,6 +15,12 @@ rails db:create
 rails db:migrate
 ```
 
+##### Install yarn dependencies
+
+```shell
+yarn install
+```
+
 ##### Start the server! `rails s`
 
 ## For running the tests

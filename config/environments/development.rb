@@ -75,4 +75,7 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :letter_opener
   # config.action_mailer.perform_deliveries = true
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Make javascript_pack_tag load assets from webpack-dev-server.
+  # config.x.webpacker[:dev_server_host] = 'http://localhost:8080'
 end

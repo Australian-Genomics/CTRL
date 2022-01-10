@@ -1,0 +1,81 @@
+- title: CTRL introduction
+  order: 1
+  description: |
+    Watch our short video about thes consent process for taking
+    part in medical research, and how you can use this website during the study.
+  popover:  |
+    Watch the video introduction to why we are asking you to provide your
+    consent to our program online.
+
+- title: Consent for the genomic test
+  order: 2
+  description: |
+    This section follows on from your consent to have a genomic test as
+    part of the Australian Genomics study.
+    Your doctor or genetic counsellor will have already discussed the
+    genomic test with you. The answers are all
+    pre-selected, because you have already agreed to have the test.
+  popover:  |
+    Review your consent to have a genomic test as part of the program.
+
+- title: Consent to Australian Genomics research participation
+  order: 3
+  description: |
+    By signing the Australian Genomics consent form, you have agreed to
+    participate in the research, along with
+    having the genomic test. Thank you. The research we are doing will
+    help to decide whether genomic testing
+    should be standard care for your health condition. To do this, we would
+    like to collect information about
+    you from your health records as well as information directly from you.
+    The answers are all pre-selected,
+    because you have already agreed to participate in the research.
+  popover:  |
+    Review your consent to be part of the research program.
+
+- title: Preferences about your results
+  order: 4
+  description: |
+    <b>Incidental findings:</b>
+    Because a genomic test looks at many genes at once, a
+    genetic change that is not related to the specific
+    health condition you are being tested for could be found.
+    These incidental findings may be important to know
+    about for your health and for your family as well.
+    <br>
+    <br>
+    An incidental finding is a genetic change that we know or think
+    is linked with certain health conditions that the testing
+    laboratory comes across accidentally, despite efforts not
+    to look closely at certain genes. It is very uncommon, but
+    you should be aware that it can happen.
+    <br>
+    <br>
+    Genomic testing services have their own policies about whether
+    they will tell you about incidental findings.
+    If your testing is transferred to a research setting they may
+    identify incidental findings. For those that
+    do return incidental findings, we would like to know your preferences.
+  popover:  |
+    Tell us your preferences for knowing results that fall outside the main
+    reason you are having a genomic test.
+
+- title: Consent to research outside this study
+  order: 5
+  description: |
+    Genomic testing is not yet routinely done and we still don’t know a
+    lot about genetic changes that cause
+    health conditions. Sometimes we would like to share your DNA sample,
+    your genomic information or your
+    general health information with other researchers in Australia and
+    internationally. We will only share this
+    information with researchers whose projects meet our criteria and
+    have been approved by a Human Research
+    Ethics Committee (HREC). A HREC is a group of medical, scientific
+    and ethics experts, as well as members of
+    the public, who look closely at planned research to make sure it
+    is going to be beneficial and not harmful
+    to participants.
+  popover:  |
+    Decide who we can share your samples and information with,
+    and for what kinds of research.
