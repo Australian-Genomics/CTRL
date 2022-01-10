@@ -22,14 +22,20 @@ class Step < ApplicationRecord
   def upload_with_redcap(step_params)
     return unless update(step_params)
     return unless redcap_connection_enabled?
+
     UploadRedcapDetailsJob.perform_later(id)
   end
 
   def create_step_default_questions
     return if QUESTIONABLE_STEPS.exclude?(number)
+
     qus_key = number_and_qus_key_hash(number)
     questions_attrs = range_of_values_for(number).step(1).map do |num|
-      { question_id: num, user_id: user_id, answer: default_answer(qus_key.to_sym, num) }
+      {
+        question_id: num,
+        user_id: user_id,
+        answer: default_answer(qus_key.to_sym, num)
+      }
     end
     questions.create(questions_attrs)
   end
