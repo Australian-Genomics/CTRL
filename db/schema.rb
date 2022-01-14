@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2022_01_07_183936) do
   create_table "consent_questions", force: :cascade do |t|
     t.integer "order"
     t.bigint "consent_group_id"
-    t.text "consent"
+    t.text "question"
     t.text "description"
     t.string "redcap_field"
     t.string "default_answer"

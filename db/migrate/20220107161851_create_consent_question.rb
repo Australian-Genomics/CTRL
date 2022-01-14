@@ -4,7 +4,7 @@ class CreateConsentQuestion < ActiveRecord::Migration[5.2]
       t.integer :order
       t.references :consent_group, foreign_key: true
 
-      t.text :consent
+      t.text :question
       t.text :description
 
       t.string :redcap_field

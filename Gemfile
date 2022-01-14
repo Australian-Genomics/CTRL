@@ -6,6 +6,7 @@ ruby '2.5.3'
 gem 'activeadmin'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
+gem 'benchmark'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap4-datetime-picker-rails'

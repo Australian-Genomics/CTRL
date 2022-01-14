@@ -2,7 +2,8 @@
   order: 1
   description: |
     Watch our short video about thes consent process for taking
-    part in medical research, and how you can use this website during the study.
+    part in medical research, and how you can use this website
+    during the study.
   popover:  |
     Watch the video introduction to why we are asking you to provide your
     consent to our program online.
@@ -15,6 +16,9 @@
     Your doctor or genetic counsellor will have already discussed the
     genomic test with you. The answers are all
     pre-selected, because you have already agreed to have the test.
+    <br></br>
+    If you choose to unselect any statements we will contact you to talk
+    about whether you still consent to having the test.
   popover:  |
     Review your consent to have a genomic test as part of the program.
 
@@ -30,6 +34,11 @@
     you from your health records as well as information directly from you.
     The answers are all pre-selected,
     because you have already agreed to participate in the research.
+    <br>
+    <br>
+    If you choose to unselect any statements below we will contact you to
+    talk about whether
+    you still agree to being in the research project.
   popover:  |
     Review your consent to be part of the research program.
 
@@ -76,6 +85,28 @@
     the public, who look closely at planned research to make sure it
     is going to be beneficial and not harmful
     to participants.
+    <br>
+    <br>
+    We will remove your personal details from your DNA sample, genomic and
+    health information (de-identify
+    them), but there always remains a small chance someone could work out
+    who you are from your genomic
+    information.
+    <br>
+    <br>
+    De-identified samples are coded and so it remains possible to re-identify you.
+    We will keep the
+    re-identification code with us, it will not be shared. By keeping the code,
+    it means that in some cases we
+    may be able to contact you if the research finds something that will
+    benefit you personally.
+    <br>
+    <br>
+    Whether we share this information outside the current study is your choice, and
+    you can use this section to
+    change your mind any time you want to. Your answers to these questions will
+    not stop you having the genomic
+    test.
   popover:  |
     Decide who we can share your samples and information with,
     and for what kinds of research.
