@@ -1,0 +1,164 @@
+- order: 1
+  question: |
+    I understand I am providing a sample so that my DNA can be extracted and all of my genes
+    could be looked at. This is called a genomic test.
+  description: |
+    The sample you have given may have been blood, saliva, skin or other sample already
+    collected as part of your medical care. These samples contain your cells, and your DNA
+    can be extracted from the cells. Your DNA is needed for the genomic test.
+    DNA makes up genes. Genes are inside almost every cell of your body.
+    There are over 20,000 genes in each of your cells, and together these genes
+    make up your “genome”.  Each gene has a specific function, however
+    the function of every gene is not yet known. Everyone has different
+    variations within their genes, which is why we are all unique. Most variations are harmless,
+    but other variations can change how a gene works, which might cause a health condition.
+    Identifying variations may help to find the cause of your health condition. Previously,
+    testing to look for variations in genes involved looking at only one gene at a time.
+    New technology means we can now look at many or all of our genes at once.
+    This is known as “genomic testing”.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 2
+  question: |
+    I understand having a genomic test may not find the genetic cause of my condition.
+  description: |
+    The likelihood of finding a genetic cause depends on a number of things, including your health condition
+    and how much is already known about it. We are still learning about what genes do and how they work.
+    Between 30 and 50% of patients with rare disease receive a diagnosis through genomic
+    testing. That is, 3 to 5 people in every 10 tested will receive a genetic explanation
+    for their condition. We expect more patients will receive a diagnosis in the future,
+    as the technology and our ability to interpret genomic information improve.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 3
+  question: |
+    I understand my sample and genomic information will be stored by the testing laboratory
+    so that it could be looked at again in the future, when we know more about genes that cause my
+    health condition.
+  description: |
+    Your sample will be stored in the laboratory for at least 3 months. Depending on the laboratory
+    and the law, it may be stored many years after this.
+    The laboratory will also keep the genomic information they obtain from your sample.
+    This allows for future re-analysis (looking at your genomic information again)
+    if there is a specific reason or request to do so. For example, this might be done
+    if new gene variants linked with your health condition are identified.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 4
+  question: |
+    I understand my genomic test results are confidential and will only be shared with the
+    medical team directly involved in my care.
+  description: |
+    This could include your Clinical Geneticist and other specialist doctors,
+    your Genetic Counsellor or your GP. Agreeing to participate in the
+    Australian Genomics research means your results will be shared with relevant investigators on the study.
+    Your result may be included in your My Health Record, if you have one.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 5
+  question: |
+    I understand that the testing laboratory could share my anonymous genomic
+    information with other laboratories, in order to understand more about the genetic changes
+    that can cause my health condition or other conditions.
+  description: |
+    Anonymous means that your personal details have been removed,
+    so it cannot be easily identified as yours. This kind of sharing is done to benefit research,
+    but means that you will probably not personally benefit
+    from anything that is discovered from sharing your information.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 6
+  question: |
+    I understand the laboratory performing my test will store and may sometimes use my
+    DNA sample for purposes like reference and control material.
+  description: |
+    Your DNA is stored in the testing laboratory for at least three months,
+    but it could be years. When doing any laboratory test, it is important to compare the
+    test sample with a control sample. Your DNA may be used as a control sample.
+    All of your personal, identifying information will be removed if your sample is used for this purpose.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 7
+  question: |
+    I understand there are certain risks involved in having a genomic test.
+    These could include finding out something that may be important for my family’s health,
+    incidental findings, or having to disclose the genomic information.
+  description: |
+    The main risks involved in having a genomic test are related to the information that
+    you may get, rather than any physical harm.
+    For example: <ul><li>Waiting for the test results, or the results you receive, may bring up
+    a number of different emotions.</li><li>We may be uncertain about what your result means.
+    </li><li>It may be uncomfortable or stressful to share a result with your family.</li><li>
+    The test may find something important to your health that you or the doctors were not expecting.
+    This is called an incidental finding. You will be given the opportunity to give your preferences about
+    incidental findings in step 4.</li><li>You may have to disclose the information to insurance companies
+    or employers. There is more information on this in the next question.</li></ul>
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 8
+  question: |
+    I understand that if I am taking out a new policy for life, critical illness or income protection insurance,
+    the insurer may ask me to disclose that I have had a genetic test and require me to provide my results.
+  description: |
+    How insurance companies use personal genetic information is currently
+    being investigated by government. If you would like more information about
+    the impact of genetic testing on certain insurance products,
+    visit the Centre for Genetics Education
+    <a href="http://www.genetics.edu.au/publications-and-resources/facts-sheets/fact-sheet-20-life-insurance-products-and-genetic-testing-in-australia" target="_blank">
+    insurance fact sheet.
+    </a>
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 9
+  question: |
+    I understand my employer, or future employers, may ask for my results to decide whether there
+    is a risk associated with a particular job role.
+  description: |
+    The law allows an employer to ask for your health details,
+    including genetic testing results, if they think it is relevant in
+    deciding whether you are able to fulfil a job role.
+    In reality, very few employers do ask for your genetic testing results,
+    but it's important that you know it may become more relevant in the future.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 10
+  question: |
+    I understand that it might be important to tell my family members
+    about genetic changes that could directly affect their health.
+    My medical team will support me in sharing such information with my family.
+  description: |
+    Family members who may have an interest in knowing about your result are your biological,
+    or blood relatives. These people include your parents, children, aunts, uncles and cousins.
+    If you are planning to have (more) children your partner may need to know.
+    Exactly who needs to know is different on a case by case basis. Your
+    medical team will support you in sharing information with family members.
+  default_answer: "yes"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 11
+  question: |
+    I understand all of the information above and the choices I have made.
+    </br>(leaving this box unchecked means you will be contacted by a Genetic
+    Counsellor who will give you more information)
+  default_answer: "no"
+  question_type: checkbox agreement
+  answer_choices_position: right

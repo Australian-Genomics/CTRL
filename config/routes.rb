@@ -36,6 +36,6 @@ Rails.application.routes.draw do
 
   # Refactored Routes
 
-  resources :consent_refactor, only: [:update]
+  resources :consent_refactor, only: [:index, :update]
   get 'consent-form', to: 'consent_refactor#edit'
 end

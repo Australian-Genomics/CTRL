@@ -2,7 +2,13 @@ class ConsentQuestion < ApplicationRecord
   QUESTION_TYPES = [
     'checkbox',
     'multiple choice',
-    'short answer'
+    'short answer',
+    'checkbox agreement'
+  ]
+
+  POSITIONS = [
+    'bottom',
+    'right'
   ]
 
   belongs_to :consent_group
@@ -11,5 +17,19 @@ class ConsentQuestion < ApplicationRecord
     class_name:  'QuestionAnswer',
     dependent:   :destroy
 
-  has_many :question_options
+  has_many :question_options, dependent: :destroy
+
+  validates :question, presence: true
+
+  validates :answer_choices_position,
+    presence: true,
+    inclusion: {
+      in: POSITIONS
+    }
+
+  validates :question_type,
+    presence: true,
+    inclusion: {
+      in: QUESTION_TYPES
+    }
 end
