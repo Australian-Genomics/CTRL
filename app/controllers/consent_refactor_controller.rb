@@ -8,9 +8,7 @@ class ConsentRefactorController < ApplicationController
     render 'index.json.jbuilder'
   end
 
-  def update
-    binding.pry
-  end
+  def update; end
 
   private
 

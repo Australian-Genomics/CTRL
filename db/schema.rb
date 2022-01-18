@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_07_183936) do
+ActiveRecord::Schema.define(version: 2022_01_17_192359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,10 +77,23 @@ ActiveRecord::Schema.define(version: 2022_01_07_183936) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "modal_fallbacks", force: :cascade do |t|
+    t.text "description"
+    t.string "cancel_btn"
+    t.string "review_answers_btn"
+    t.text "small_note"
+    t.bigint "consent_step_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consent_step_id"], name: "index_modal_fallbacks_on_consent_step_id"
+  end
+
   create_table "question_answers", force: :cascade do |t|
     t.integer "consent_question_id"
     t.integer "user_id"
     t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["consent_question_id"], name: "index_question_answers_on_consent_question_id"
     t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
@@ -185,5 +198,6 @@ ActiveRecord::Schema.define(version: 2022_01_07_183936) do
 
   add_foreign_key "consent_groups", "consent_steps"
   add_foreign_key "consent_questions", "consent_groups"
+  add_foreign_key "modal_fallbacks", "consent_steps"
   add_foreign_key "question_options", "consent_questions"
 end

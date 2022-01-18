@@ -4,6 +4,8 @@ class CreateQuestionAnswer < ActiveRecord::Migration[5.2]
       t.integer :consent_question_id
       t.integer :user_id
       t.string :answer
+
+      t.timestamps
     end
 
     add_index :question_answers, :user_id

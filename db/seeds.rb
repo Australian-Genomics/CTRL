@@ -5,6 +5,8 @@ return unless ConsentStep.count.zero?
 consent_steps = YAML::load_file(consent_steps)
 ConsentStep.create!(consent_steps)
 
+puts 'Steps 1 to 5 created'
+
 # Step two
 
 step_two_questions = Rails.root.join('db', 'seed_data', 'step_two_questions.yml')
@@ -15,6 +17,8 @@ ConsentStep.second.consent_groups.create(
   order: 1
 ).consent_questions.create!(step_two_questions)
 
+puts 'Step 2 questions created'
+
 # Step three
 
 step_three_questions = Rails.root.join('db', 'seed_data', 'step_three_questions.yml')
@@ -24,6 +28,8 @@ ConsentStep.third.consent_groups.create(
   header: '',
   order: 1
 ).consent_questions.create!(step_three_questions)
+
+puts 'Step 3 questions created'
 
 # Step four
 
@@ -46,6 +52,8 @@ ConsentStep.fourth.consent_groups.first.consent_questions.each do |consent_quest
     value: 'not sure'
   )
 end
+
+puts 'Step 4 questions created'
 
 # Step five
 
@@ -91,3 +99,5 @@ ConsentStep.fifth.consent_groups.second
     value: 'not sure'
   )
 end
+
+puts 'Step 5 questions created'
