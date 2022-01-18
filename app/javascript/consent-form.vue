@@ -5,30 +5,28 @@
       name="modal-fallback"
       width="700"
       height="auto"
+      v-if="modalFallback"
     >
       <div class="mt-20 p-4">
         <div class="d-flex">
-          <i class="icon__warn-big mx-auto"></i>
+          <i class="icon__warn-big mx-auto mb-4"></i>
         </div>
-        <h3 class="text-center mt-20 mb-15">
-          Are you sure you don’t want the test?
-        </h3>
-        <p class="step2__text text-center mx-auto">
-          You have not selected all statements, which means you have not agreed to have genomic testing.
-          <br>
-          <br>
-          If you choose “I don't want the test” an Australian Genomics Genetic Counsellor will contact you to talk about your options. It may take 7 days for the study genetic counsellor to contact you.
+
+        <p class="step2__text text-center mx-auto"
+          v-html="modalFallback.description">
         </p>
 
         <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
-          <a class="btn d-block d-sm-inline-block mb-15 blue-btn-active text-white" v-on:click="closeModalFallback">Review Answers</a>
-          <a class="btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn" href="/counselor-will-contact">I don't want the test</a>
+          <a class="btn d-block d-sm-inline-block mb-15 blue-btn-active text-white" v-on:click="closeModalFallback">
+            {{ modalFallback.review_answers_btn }}
+          </a>
+          <a class="btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn" href="/counselor-will-contact">
+           {{ modalFallback.cancel_btn }}
+          </a>
         </div>
 
-        <p class="subtext mb-20 mb-sm-30 small text-center">
-          Please click “Review Answers” if you would like to go back and change your responses.
-          <br>
-          Click “I don’t want the test” if you are sure you do not want the genomic test.
+        <p class="subtext mb-20 mb-sm-30 small text-center"
+          v-html="modalFallback.small_note">
         </p>
       </div>
     </modal>
@@ -185,7 +183,7 @@ export default {
   },
   methods: {
     nextStep() {
-      if ( this.currentSurveyStep.modal_fallback && this.checkboxAgreement.answer == 'no') {
+      if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
         this.$modal.show('modal-fallback')
       } else {
         this.consentStep += 1
@@ -230,6 +228,11 @@ export default {
     checkboxAgreement() {
       // TO DO: Change to include all question groups, not just the first
       return this.answers[0].find(a => a.question_type == 'checkbox agreement')
+    },
+    modalFallback() {
+      if(!this.currentSurveyStep) return;
+
+      return this.currentSurveyStep.modal_fallback
     }
   },
   created() {
