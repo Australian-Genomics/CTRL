@@ -1,6 +1,38 @@
 <template>
   <div id="consent-form">
 
+    <modal
+      name="modal-fallback"
+      width="700"
+      height="auto"
+    >
+      <div class="mt-20 p-4">
+        <div class="d-flex">
+          <i class="icon__warn-big mx-auto"></i>
+        </div>
+        <h3 class="text-center mt-20 mb-15">
+          Are you sure you don’t want the test?
+        </h3>
+        <p class="step2__text text-center mx-auto">
+          You have not selected all statements, which means you have not agreed to have genomic testing.
+          <br>
+          <br>
+          If you choose “I don't want the test” an Australian Genomics Genetic Counsellor will contact you to talk about your options. It may take 7 days for the study genetic counsellor to contact you.
+        </p>
+
+        <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
+          <a class="btn d-block d-sm-inline-block mb-15 blue-btn-active text-white" v-on:click="closeModalFallback">Review Answers</a>
+          <a class="btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn" href="/counselor-will-contact">I don't want the test</a>
+        </div>
+
+        <p class="subtext mb-20 mb-sm-30 small text-center">
+          Please click “Review Answers” if you would like to go back and change your responses.
+          <br>
+          Click “I don’t want the test” if you are sure you do not want the genomic test.
+        </p>
+      </div>
+    </modal>
+
     <StepDisplayer
       :consentStep="consentStep"
       :consentStepTotal="consentStepTotal"
@@ -69,7 +101,6 @@
                       <span class="checkmark">
                       </span>
                     </label>
-
 
                     <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-else-if="question.question_type === 'multiple choice'">
                       <span
@@ -154,7 +185,11 @@ export default {
   },
   methods: {
     nextStep() {
-      this.consentStep += 1
+      if ( this.currentSurveyStep.modal_fallback && this.checkboxAgreement.answer == 'no') {
+        this.$modal.show('modal-fallback')
+      } else {
+        this.consentStep += 1
+      }
     },
     previousStep() {
       this.consentStep -= 1
@@ -172,25 +207,33 @@ export default {
         group.questions.forEach(question => {
           this.answers[gIndex].push({
             consent_question_id: question.id,
-            answer: question.answer.answer || question.default_answer
+            answer: question.answer.answer || question.default_answer,
+            question_type: question.question_type
           })
         })
       })
+    },
+    closeModalFallback() {
+      this.$modal.hide('modal-fallback');
     }
   },
   computed: {
     currentSurveyStep() {
-      return this.steps[this.consentStep - 1];
+      return this.steps[this.consentStep - 1]
     },
     isFirstStep() {
-      return this.consentStep == 1;
+      return this.consentStep == 1
     },
     questionGroups() {
-      return this.currentSurveyStep.groups;
+      return this.currentSurveyStep.groups
+    },
+    checkboxAgreement() {
+      // TO DO: Change to include all question groups, not just the first
+      return this.answers[0].find(a => a.question_type == 'checkbox agreement')
     }
   },
   created() {
-    axios.get("http://localhost:3000/consent_refactor")
+    axios.get('http://localhost:3000/consent_refactor')
     .then(response => {
       this.steps = response.data.consent_steps
       this.fillAnswers()
