@@ -39,6 +39,9 @@ config/secrets.yml
 # Mac generated file
 .DS_Store
 
+# ERD generated file
+erd.pdf
+
 
 /public/packs
 /public/packs-test

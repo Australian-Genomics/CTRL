@@ -5,11 +5,13 @@ json.consent_steps do
     json.description step.description
     json.reviewed StepReview.find_by(user: current_user, consent_step: step).present?
 
-    json.modal_fallback step.modal_fallback do |modal|
-      json.description modal.description
-      json.cancel_btn modal.cancel_btn
-      json.review_answers_btn modal.review_answers_btn
-      json.small_note modal.small_note
+    if step.modal_fallback
+      json.modal_fallback do
+        json.description step.modal_fallback.description
+        json.cancel_btn step.modal_fallback.cancel_btn
+        json.review_answers_btn step.modal_fallback.review_answers_btn
+        json.small_note step.modal_fallback.small_note
+      end
     end
 
     json.groups step.consent_groups do |group|

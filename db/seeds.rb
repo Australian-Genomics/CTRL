@@ -17,6 +17,11 @@ ConsentStep.second.consent_groups.create(
   order: 1
 ).consent_questions.create!(step_two_questions)
 
+step_two_modal_fallback = Rails.root.join('db', 'seed_data', 'step_two_modal_fallback.yml')
+step_two_modal_fallback = YAML::load_file(step_two_modal_fallback)
+
+ConsentStep.second.create_modal_fallback!(step_two_modal_fallback)
+
 puts 'Step 2 questions created'
 
 # Step three
@@ -28,6 +33,11 @@ ConsentStep.third.consent_groups.create(
   header: '',
   order: 1
 ).consent_questions.create!(step_three_questions)
+
+step_three_modal_fallback = Rails.root.join('db', 'seed_data', 'step_three_modal_fallback.yml')
+step_three_modal_fallback = YAML::load_file(step_three_modal_fallback)
+
+ConsentStep.third.create_modal_fallback!(step_three_modal_fallback)
 
 puts 'Step 3 questions created'
 

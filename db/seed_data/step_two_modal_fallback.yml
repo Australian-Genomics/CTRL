@@ -1,0 +1,10 @@
+description: |
+  <h3>Are you sure you don’t want the test?</h3><br>
+  You have not selected all statements, which means you have not agreed to have genomic testing.<br><br>
+  If you choose “I don't want the test” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
+  It may take 7 days for the study genetic counsellor to contact you.
+cancel_btn: I don't want the test
+review_answers_btn: Review Answers
+small_note: |
+  Please click “Review Answers” if you would like to go back and change your responses. <br>
+  Click “I don’t want the test” if you are sure you do not want the genomic test.
