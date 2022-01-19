@@ -1,35 +1,10 @@
 <template>
   <div id="consent-form">
 
-    <modal
-      name="modal-fallback"
-      width="700"
-      height="auto"
+    <ModalFallback
+      :modal="modalFallback"
       v-if="modalFallback"
-    >
-      <div class="mt-20 p-4">
-        <div class="d-flex">
-          <i class="icon__warn-big mx-auto mb-4"></i>
-        </div>
-
-        <p class="step2__text text-center mx-auto"
-          v-html="modalFallback.description">
-        </p>
-
-        <div class="d-sm-flex flex-sm-row-reverse justify-content-center">
-          <a class="btn d-block d-sm-inline-block mb-15 blue-btn-active text-white" v-on:click="closeModalFallback">
-            {{ modalFallback.review_answers_btn }}
-          </a>
-          <a class="btn d-block d-sm-inline-block mb-15 mr-sm-15 blue-btn" href="/counselor-will-contact">
-           {{ modalFallback.cancel_btn }}
-          </a>
-        </div>
-
-        <p class="subtext mb-20 mb-sm-30 small text-center"
-          v-html="modalFallback.small_note">
-        </p>
-      </div>
-    </modal>
+    />
 
     <StepDisplayer
       :consentStep="consentStep"
@@ -46,10 +21,12 @@
               'pt-30 px-30': consentStep !== 1
             }"
           >
-            <StepInitial
-              :iframeSrc="'stubStepURL'"
-              v-if="isFirstStep"
-            />
+
+          <StepInitial
+            :iframeSrc="'stubStepURL'"
+            :surveyStep="currentSurveyStep"
+            v-if="isFirstStep && currentSurveyStep"
+          />
 
           <div v-if="consentStep !== 1">
             <h3 class="text-center mt-2 mb-15">
@@ -150,7 +127,9 @@
             </div>
 
             <div class="col-12 col-md-6 order-2 order-md-1 d-flex mb-30 mt-md-30">
-              <button class="steps__btn-save btn btn-primary mx-auto">
+              <button class="steps__btn-save btn btn-primary mx-auto"
+                v-on:click="saveAndExit"
+              >
                 Save and Exit
               </button>
             </div>
@@ -167,11 +146,13 @@
 import axios from 'axios';
 import StepDisplayer from './components/StepDisplayer'
 import StepInitial from './components/StepInitial'
+import ModalFallback from './components/ModalFallback'
 
 export default {
   components: {
     StepDisplayer,
-    StepInitial
+    StepInitial,
+    ModalFallback
   },
   data() {
     return {
@@ -188,11 +169,14 @@ export default {
       } else {
         this.consentStep += 1
       }
+      //this.saveAnswers()
     },
     previousStep() {
       this.consentStep -= 1
     },
     saveAndExit() {
+      this.saveAnswers()
+      window.location.href = '/'
     },
     toggleDescription(question) {
       question.show_description = !question.show_description
@@ -211,8 +195,26 @@ export default {
         })
       })
     },
-    closeModalFallback() {
-      this.$modal.hide('modal-fallback');
+    saveAnswers() {
+      const token = document.querySelector('[name=csrf-token]').content
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+
+      let answersParams = []
+
+      this.answers.forEach(answerArray => {
+        answersParams.push(...answerArray)
+      })
+
+      axios.put('/consent-form', {
+        consent_step_id: this.currentSurveyStep.id,
+        answers: answersParams
+      }).then(({ data }) => {
+        console.log('success in saving answers')
+      })
+      .catch(({ response }) => {
+        console.log('errors while saving answers')
+        console.log(response)
+      });
     }
   },
   computed: {
@@ -236,7 +238,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://localhost:3000/consent_refactor')
+    axios.get('/consent_refactor')
     .then(response => {
       this.steps = response.data.consent_steps
       this.fillAnswers()

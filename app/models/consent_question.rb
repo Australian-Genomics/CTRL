@@ -32,4 +32,10 @@ class ConsentQuestion < ApplicationRecord
     inclusion: {
       in: QUESTION_TYPES
     }
+
+  accepts_nested_attributes_for :question_options, allow_destroy: true
+
+  scope :ordered, -> {
+     order(order: :asc)
+  }
 end
