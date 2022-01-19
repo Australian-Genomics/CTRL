@@ -1,5 +1,6 @@
 json.consent_steps do
   json.array! @consent_steps do |step|
+    json.id step.id
     json.order step.order
     json.title step.title
     json.description step.description
@@ -14,11 +15,11 @@ json.consent_steps do
       end
     end
 
-    json.groups step.consent_groups do |group|
+    json.groups step.consent_groups.ordered do |group|
       json.order  group.order
       json.header group.header
 
-      json.questions group.consent_questions do |question|
+      json.questions group.consent_questions.ordered do |question|
         json.id question.id
         json.order question.order
         json.question question.question
@@ -32,9 +33,11 @@ json.consent_steps do
           json.value option.value
         end
 
-        json.answer QuestionAnswer.find_by(user: current_user, consent_question: question) do |answer|
-          json.question_id question.id
-          json.answer answer.answer
+        answer = QuestionAnswer.find_by(user: current_user, consent_question: question)
+
+        json.answer do
+          json.question_id answer&.consent_question&.id
+          json.answer answer&.answer
         end
       end
     end

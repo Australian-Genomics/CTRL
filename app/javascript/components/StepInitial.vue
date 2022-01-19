@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex mb-30">
       <p class="text-center mx-auto mb-0">
-        Watch our short video about thes consent process for taking part in medical research, and how you can use this website during the study.
+        {{ surveyStep.description }}
       </p>
     </div>
 
@@ -26,6 +26,10 @@ export default {
   props: {
     iframeSrc: {
       type: String,
+      required: true
+    },
+    surveyStep: {
+      type: Object,
       required: true
     }
   }
