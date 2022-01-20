@@ -164,12 +164,12 @@ export default {
   },
   methods: {
     nextStep() {
+      this.saveAnswers()
       if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
         this.$modal.show('modal-fallback')
       } else {
         this.consentStep += 1
       }
-      //this.saveAnswers()
     },
     previousStep() {
       this.consentStep -= 1

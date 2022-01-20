@@ -14,7 +14,7 @@ class ConsentStep < ApplicationRecord
   accepts_nested_attributes_for :modal_fallbacks, allow_destroy: true
 
   scope :ordered, -> {
-     order(order: :asc)
+    order(order: :asc)
   }
 
   def modal_fallback
