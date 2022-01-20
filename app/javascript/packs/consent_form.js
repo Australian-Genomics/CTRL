@@ -12,15 +12,10 @@ import App from '../consent-form.vue'
 
 Vue.use(VModal)
 
-document.addEventListener('DOMContentLoaded', () => {
-  const app = new Vue({
-    render: h => h(App)
-  }).$mount()
-  document.body.appendChild(app.$el)
-
-  console.log(app)
-})
-
+const app = new Vue({
+  render: h => h(App)
+}).$mount()
+document.body.appendChild(app.$el)
 
 // The above code uses Vue without the compiler, which means you cannot
 // use Vue to target elements in your existing html templates. You would

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "step_four", to: "consent#step_four", as: "step_four"
   get "step_five", to: "consent#step_five", as: "step_five"
 
+  get "refactored_index", to: "dashboard#refactored_index"
   get "news_and_info", to: "dashboard#news_and_info", as: "news_and_info"
   get "contact_us", to: "dashboard#contact_us", as: "contact_us"
   get 'message_sent', to: 'dashboard#message_sent', as: 'message_sent'
