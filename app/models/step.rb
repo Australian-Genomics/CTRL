@@ -13,12 +13,6 @@ class Step < ApplicationRecord
 
   delegate :study_id, to: :user, prefix: true, allow_nil: true
 
-  def build_question_for_step(user_id)
-    range_of_values_for(number).each do |time|
-      questions.build(question_id: time, user_id: user_id)
-    end
-  end
-
   def upload_with_redcap(step_params)
     return unless update(step_params)
     return unless redcap_connection_enabled?
