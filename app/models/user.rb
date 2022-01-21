@@ -49,26 +49,6 @@ class User < ApplicationRecord
     end
   end
 
-  def step_one
-    steps.find_by(number: 1)
-  end
-
-  def step_two
-    steps.find_by(number: 2)
-  end
-
-  def step_three
-    steps.find_by(number: 3)
-  end
-
-  def step_four
-    steps.find_by(number: 4)
-  end
-
-  def step_five
-    steps.find_by(number: 5)
-  end
-
   def create_consent_step
     (1..5).each { |step_number| steps.create(number: step_number, accepted: false) }
   end
