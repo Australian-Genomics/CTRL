@@ -15,7 +15,6 @@ class User < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
   has_many :steps, dependent: :destroy, class_name: 'Step'
   accepts_nested_attributes_for :steps
-  after_create :create_consent_step
 
   enum flagship: [
     'Acute Care Genomic Testing',
@@ -47,10 +46,6 @@ class User < ApplicationRecord
     elsif is_parent == true
       validates_presence_of :child_first_name, :child_family_name
     end
-  end
-
-  def create_consent_step
-    (1..5).each { |step_number| steps.create(number: step_number, accepted: false) }
   end
 
   def genetic_counsellor
