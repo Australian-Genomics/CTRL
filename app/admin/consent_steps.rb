@@ -1,5 +1,34 @@
 ActiveAdmin.register ConsentStep do
-  permit_params :order, :description, :popover, :title
+  permit_params :order, :title, :description, :popover,
+  consent_groups_attributes: [
+    :id,
+    :_destroy,
+    :header,
+    :order,
+    consent_questions_attributes: [
+      :id,
+      :_destroy,
+      :order,
+      :question,
+      :description,
+      :question_type,
+      :answer_choices_position,
+      :redcap_field,
+      question_options_attributes: [
+        :id,
+        :_destroy,
+        :value
+      ]
+    ]
+  ],
+  modal_fallbacks_attributes: [
+    :id,
+    :_destroy,
+    :description,
+    :small_note,
+    :review_answers_btn,
+    :cancel_btn
+  ]
 
   index do
     selectable_column
@@ -47,7 +76,8 @@ ActiveAdmin.register ConsentStep do
           c.input :order
           c.input :question
           c.input :description
-          c.input :question_type
+          c.input :question_type, as: :select, collection: ConsentQuestion::QUESTION_TYPES
+          c.input :answer_choices_position, as: :select, collection: ConsentQuestion::POSITIONS
           c.input :redcap_field
 
           c.has_many :question_options,
