@@ -2,7 +2,6 @@ class ConsentQuestion < ApplicationRecord
   QUESTION_TYPES = [
     'checkbox',
     'multiple choice',
-    'short answer',
     'checkbox agreement'
   ]
 

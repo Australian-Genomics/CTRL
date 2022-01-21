@@ -1,11 +1,11 @@
-description: |
-  <h3>Are you sure you don’t want to be part of the
-  research project?</h3><br>
-  You have not selected all statements, which means you have not agreed to be part of the research project.<br><br>
-  If you choose “I don't want to take part” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
-  It may take 7 days for the study genetic counsellor to contact you.
-cancel_btn: I don't want to take part
-review_answers_btn: Review Answers
-small_note: |
-  Please click “Review Answers” if you would like to go back and change your responses. <br>
-  Click “I don't want to take part” if you do not want to take part in the research project.
+- description: |
+    <h3>Are you sure you don’t want to be part of the
+    research project?</h3><br>
+    You have not selected all statements, which means you have not agreed to be part of the research project.<br><br>
+    If you choose “I don't want to take part” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
+    It may take 7 days for the study genetic counsellor to contact you.
+  cancel_btn: I don't want to take part
+  review_answers_btn: Review Answers
+  small_note: |
+    Please click “Review Answers” if you would like to go back and change your responses. <br>
+    Click “I don't want to take part” if you do not want to take part in the research project.
