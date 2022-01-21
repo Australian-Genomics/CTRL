@@ -1,4 +1,4 @@
-class ConsentRefactorController < ApplicationController
+class ConsentController < ApplicationController
   before_action :authenticate_user!
   before_action :find_steps, only: :index
 
