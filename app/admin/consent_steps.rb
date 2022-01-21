@@ -12,6 +12,7 @@ ActiveAdmin.register ConsentStep do
       :question,
       :description,
       :question_type,
+      :default_answer,
       :answer_choices_position,
       :redcap_field,
       question_options_attributes: [
@@ -77,6 +78,7 @@ ActiveAdmin.register ConsentStep do
           c.input :question
           c.input :description
           c.input :question_type, as: :select, collection: ConsentQuestion::QUESTION_TYPES
+          c.input :default_answer
           c.input :answer_choices_position, as: :select, collection: ConsentQuestion::POSITIONS
           c.input :redcap_field
 
