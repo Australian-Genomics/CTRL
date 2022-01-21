@@ -260,7 +260,7 @@ export default {
     }
   },
   created() {
-    axios.get('/consent_refactor')
+    axios.get('/consent')
     .then(response => {
       this.steps = response.data.consent_steps
       this.fillAnswers()
