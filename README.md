@@ -29,6 +29,23 @@ rails db:seed
 
 ##### Start the server! `rails s`
 
+
+## Creating an admin account.
+
+To access the Active Admin interface and the survey builder, create an admin account by opening up the server console:
+
+```shell
+rails c
+```
+
+and create an `AdminUser`
+
+```shell
+AdminUser.create(email: 'youremail@gmail.com', password: 'yourpassword')
+```
+
+then you can access the admin interface by going to `localhost:3000/admin` and typing in your credentials.
+
 ## For running the tests
 `bundle exec rspec spec/**/*.rb`
 
