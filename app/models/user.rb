@@ -2,6 +2,14 @@ class User < ApplicationRecord
   has_paper_trail
   include UserDateValidator
 
+  has_many :reviewed_steps,
+    class_name:  'StepReview',
+    dependent:   :destroy
+
+  has_many :answers,
+    class_name:  'QuestionAnswer',
+    dependent:   :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :timeoutable,
@@ -163,14 +171,4 @@ class User < ApplicationRecord
       false
     end
   end
-
-  #### Refactor Methods
-
-  has_many :reviewed_steps,
-    class_name:  'StepReview',
-    dependent:   :destroy
-
-  has_many :answers,
-    class_name:  'QuestionAnswer',
-    dependent:   :destroy
 end
