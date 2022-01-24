@@ -21,6 +21,13 @@ rails db:migrate
 yarn install
 ```
 
+
+##### Seed the database
+
+```shell
+rails db:seed
+```
+
 ##### Start the server! `rails s`
 
 ## For running the tests
