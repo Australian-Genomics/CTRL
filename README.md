@@ -4,7 +4,7 @@ The [AGHA(Australian Genomics Health Alliance)](https://circleci.com/gh/Curve-To
 
 Getting Started
 ----------------------
-##### Make sure you have the Ruby 2.5.3 by doing `ruby -v` from your console.
+##### Make sure you have Ruby 2.5.3 by doing `ruby -v` from your console. Node v14.16.1 is recommended with yarn installed.
 
 ##### Do a `bundle install`.
 
@@ -20,7 +20,6 @@ rails db:migrate
 ```shell
 yarn install
 ```
-
 
 ##### Seed the database
 
