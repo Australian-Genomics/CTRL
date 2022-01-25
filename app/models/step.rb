@@ -1,6 +1,4 @@
 class Step < ApplicationRecord
-  include QuestionsHelper
-
   REDCAP_CONNECTED_STEPS = [4, 5].freeze
 
   has_many :questions, dependent: :destroy
