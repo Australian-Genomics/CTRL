@@ -4,9 +4,15 @@ The [AGHA(Australian Genomics Health Alliance)](https://circleci.com/gh/Curve-To
 
 Getting Started
 ----------------------
-##### Make sure you have Ruby 2.5.3 by doing `ruby -v` from your console. Node v14.16.1 is recommended with yarn installed.
+##### Make sure you have Ruby 2.5.3 by doing `ruby -v` from your console.
 
-##### Do a `bundle install`.
+##### It is recommended to have Node v14.16.1 (you can check the node version by doing `node -v` from your console). Also do a `yarn -v`  to check if you have yarn installed. If it isn't installed then do `npm install --global yarn`.
+
+##### Install gems via bundler
+
+```shell
+bundle install
+```
 
 ##### Create and build the database.
 
@@ -44,7 +50,7 @@ and create an `AdminUser`
 AdminUser.create(email: 'youremail@gmail.com', password: 'yourpassword')
 ```
 
-then you can access the admin interface by going to `localhost:3000/admin` and typing in your credentials.
+then you can access the admin interface by going to `localhost:3000/admin` and typing in your credentials. Make sure to checkout the Documentation page from the navigation bar.
 
 ## For running the tests
 `bundle exec rspec spec/**/*.rb`
@@ -75,7 +81,7 @@ bundle
 
 And it should work. [Source](https://stackoverflow.com/questions/27875073/an-error-occurred-while-installing-libv8-3-16-14-7-and-bundler-cannot-continu)
 
-Heroku
+Heroku Installation
 ----------------------
 Login with your Heroku credentials using `heroku login`.
 
@@ -97,33 +103,3 @@ git push heroku master
 ```
 
 But you don't need it, We already did that for you on CircleCI, you might want to check `.circleci/config.yml`file.
-
-You can also make changes to this README.md file
-
-For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add reviewers and if they're good, we are happy to merge it to master.
-
-
-## Setup for MCRI
-
-### Setup
- 1. Unzip app
- 1. Create DB 'agha_production' with username/password 'agha_api/agha_api' 
- 1. Edit the config/database.yml file to match the settings for the DB including the hostname for production
- 1. Install ruby (ruby 2.3.1)
- 1. Install bundler `gem install bundler`
- 1. Install gems `bundle install`
- 1. Run db schema update `bundle exec rake db:migrate RAILS_ENV=production`
- 1. Run rails `bundle exec rails s -p PORT`
- 1. Let's run the test of the UI
- 1. Copy .env-example to .env and ask for relevant tokens
- 
-### Email and delayed jobs
- 1. Set the ENV variable EMAIL_SERVER to MCRI `export EMAIL_SERVER=<EMAIL_SERVER>`
- 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=<ROLLBAR_ACCESS_TOKEN>`
- 1. Set the ENV variable for DAILY_CHANGES_EMAIL `export DAILY_CHANGES_EMAIL=<DAILY_CHANGES_EMAIL>`
- 1. Edit the config/environments/production.rb file for MCRI email settings
- 1. Run the worker as a background process `bundle exec rake jobs:work`
- 
-### Add Rollbar
- 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=<ROLLBAR_ACCESS_TOKEN>`
- 1. Test Rollbar with Curve `bundle exec rake rollbar:test`
