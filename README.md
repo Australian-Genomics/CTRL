@@ -52,10 +52,9 @@ AdminUser.create(email: 'youremail@gmail.com', password: 'yourpassword')
 
 then you can access the admin interface by going to `localhost:3000/admin` and typing in your credentials. Make sure to checkout the Documentation page from the navigation bar.
 
-## For running the tests
-`bundle exec rspec spec/**/*.rb`
+## For running tests
 
-`bundle exec cucumber feature/**/*.feature`
+We use capybara and rspec for our unit tests. Type and enter `rspec` in your console to run the tests.
 
 
 For MacOS Catalina and Big Sur
