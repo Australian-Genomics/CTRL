@@ -51,7 +51,13 @@ ConsentStep.fourth.consent_groups.create(
   order: 1
 ).consent_questions.create!(step_four_questions)
 
-ConsentStep.fourth.consent_groups.first.consent_questions.each do |consent_question|
+ConsentStep
+  .fourth
+  .consent_groups
+  .first
+  .consent_questions
+  .where(question_type: 'multiple choice')
+  .each do |consent_question|
   consent_question.question_options.create!(
     value: 'yes'
   )
@@ -75,7 +81,11 @@ ConsentStep.fifth.consent_groups.create(
   order: 1,
 ).consent_questions.create!(step_five_part_one)
 
-ConsentStep.fifth.consent_groups.first.consent_questions.each do |consent_question|
+ConsentStep.fifth
+  .consent_groups
+  .first
+  .consent_questions
+  .where(question_type: 'multiple choice').each do |consent_question|
   consent_question.question_options.create!(
     value: 'yes'
   )
@@ -87,15 +97,19 @@ ConsentStep.fifth.consent_groups.first.consent_questions.each do |consent_questi
   )
 end
 
+puts 'Step 5 part 1 created'
+
 step_five_part_two = Rails.root.join('db', 'seed_data', 'step_five_part_two_questions.yml')
 step_five_part_two = YAML::load_file(step_five_part_two)
 
 ConsentStep.fifth.consent_groups.create(
   header: 'What kinds of research can they do with my de-identified samples and information?',
-  order: 1,
+  order: 2,
 ).consent_questions.create!(step_five_part_two)
 
-ConsentStep.fifth.consent_groups.second
+ConsentStep.fifth
+  .consent_groups
+  .second
   .consent_questions
   .where(question_type: 'multiple choice').each do |consent_question|
 
@@ -110,4 +124,4 @@ ConsentStep.fifth.consent_groups.second
   )
 end
 
-puts 'Step 5 questions created'
+puts 'Step 5 part 2 created'

@@ -19,6 +19,11 @@ class ConsentQuestion < ApplicationRecord
   has_many :question_options, dependent: :destroy
 
   validates :question, presence: true
+  validates :default_answer, presence: true
+
+  validates :order,
+    numericality: { greater_than: 0 },
+    uniqueness: { scope: :consent_group_id }
 
   validates :answer_choices_position,
     presence: true,
@@ -34,7 +39,9 @@ class ConsentQuestion < ApplicationRecord
 
   accepts_nested_attributes_for :question_options, allow_destroy: true
 
+  alias_attribute :options, :question_options
+
   scope :ordered, -> {
-     order(order: :asc)
+    order(order: :asc)
   }
 end
