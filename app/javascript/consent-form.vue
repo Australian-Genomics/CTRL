@@ -179,7 +179,6 @@ export default {
   data() {
     return {
       consentStep: 1,
-      consentStepTotal: 5,
       steps: [],
       answers: []
     }
@@ -257,6 +256,9 @@ export default {
       if(!this.currentSurveyStep) return;
 
       return this.currentSurveyStep.modal_fallback
+    },
+    consentStepTotal() {
+      return this.steps.length;
     }
   },
   created() {
