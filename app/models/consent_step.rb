@@ -13,7 +13,7 @@ class ConsentStep < ApplicationRecord
   accepts_nested_attributes_for :consent_groups, allow_destroy: true
   accepts_nested_attributes_for :modal_fallbacks, allow_destroy: true
 
-  validates :order, numericality: { greater_than: 0 }, uniqueness: true
+  validates :order, numericality: { greater_than: 0 }, uniqueness: true, on: :create
   validates :title, presence: true
   validates :popover, presence: true
 
