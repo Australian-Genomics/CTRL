@@ -23,7 +23,7 @@ class ConsentQuestion < ApplicationRecord
 
   validates :order,
     numericality: { greater_than: 0 },
-    uniqueness: { scope: :consent_group_id }
+    uniqueness: { scope: :consent_group_id }, on: :create
 
   validates :answer_choices_position,
     presence: true,
