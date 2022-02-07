@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :users, :dashboard
+  resources :consent, only: :index
+  resources :survey_responses, only: :index
 
   get 'users/profile', to: 'users#show', as: 'profile'
   get 'users/profile/edit', to: 'users#edit', as: 'edit_profile'
@@ -24,7 +26,6 @@ Rails.application.routes.draw do
   get '404', to: 'errors#not_found'
   get '500', to: 'errors#internal_server_error'
 
-  resources :consent, only: :index
   put 'consent-form', to: 'consent#update'
   get 'consent-form', to: 'consent#edit'
 

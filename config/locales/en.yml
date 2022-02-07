@@ -88,6 +88,7 @@ en:
     contact_us:
       please_enter_your_message: Please enter your message
     index:
+      view_responses: View Responses
       your_personal_details_completed: Your personal details need to be completed
       ctrl_introduction: CTRL introduction
       watch_the_video: |
@@ -153,3 +154,6 @@ en:
     select_one: Select one
     contact_phone: Contact phone
     registering_on_behalf_of: Registering on behalf of
+  survey_responses:
+    survey_responses_for: Survey responses for %{name}
+    no_response: User has not responded to any of the survey questions.
