@@ -4,7 +4,7 @@
       <div class="bg-ice-one border px-15">
         <%= render partial: 'layouts/header-modal' %>
         <div class="text-bigger text-center font-weight-bold mt-60 mb-45">
-          Change your password
+          <%= t 'user_change_password.change_your_password' %>
         </div>
 
         <%= simple_form_for(resource, as: resource_name, url: password_path(User), html: {method: :put}, defaults: {input_html: {class: 'form-control mb-0 mt-45'}}) do |f| %>
@@ -14,7 +14,7 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :password, label: "Enter password (6 characters minimum)", autofocus: true, placeholder: 'Enter password (6 characters minimum)' %>
+                <%= f.input :password, label: t('user_change_password.enter_password_minimum'), autofocus: true, placeholder: t('user_change_password.enter_password_minimum') %>
               </div>
             </div>
           </div>
@@ -22,14 +22,14 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :password_confirmation, label: "Re-enter password", placeholder: "Re-enter password" %>
+                <%= f.input :password_confirmation, label: t(:reenter_password), placeholder: t(:reenter_password) %>
               </div>
             </div>
           </div>
 
           <div class="d-flex flex-column flex-sm-row-reverse justify-content-between">
-            <%= f.button :submit, "Change password and log in", class: "btn btn-primary mb-30" %>
-            <%= link_to('Cancel', '/', class: 'btn btn-outline-primary mb-30') %>
+            <%= f.button :submit, t('user_change_password.change_password_and_login'), class: "btn btn-primary mb-30" %>
+            <%= link_to(t(:cancel), '/', class: 'btn btn-outline-primary mb-30') %>
           </div>
         <% end %>
       </div>

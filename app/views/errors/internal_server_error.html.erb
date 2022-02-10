@@ -1,31 +1,36 @@
 <header id="header" class="header">
   <div class="container d-flex">
     <a href="/" class="header__logo d-block mt-45 mx-auto ml-md-0">
-      <%= image_tag "logo@2x.png", alt: "logo", class: "h-100"%>
+      <%= image_tag "logo@2x.png", alt: t(:logo), class: "h-100"%>
     </a>
   </div>
 </header>
 <div class="container">
   <div class="row">
     <div class="col-sm mt-20">
-      <h1 class="err-txt-1 text-dark-purple">Oops!</h1>
+      <h1 class="err-txt-1 text-dark-purple">
+        <%= t 'layout_errors.oops' %>
+      </h1>
     </div>
   </div>
   <div class="row">
     <div class="col-10 col-sm-11 col-md-11 col-lg-9 col-xl-7">
-      <h3 class="err-txt-2 mt-15 text-dark-purple">There was a problem, we're working on it and the tech team have been
-        notified.</h3>
-      <p class="mt-15 text-dark-purple font-weight-bold">Error code: 500</p>
+      <h3 class="err-txt-2 mt-15 text-dark-purple">
+        <%= t 'layout_errors.problem_tech_team_notified' %>
+      </h3>
+      <p class="mt-15 text-dark-purple font-weight-bold">
+        <%= t 'layout_errors.error_code_500' %>
+      </p>
     </div>
   </div>
 </div>
 <div class="container">
   <div class="row mt-15">
     <div class="col-12 col-sm-5 col-md-5 col-lg-3 col-xl-3 mb-15">
-      <%= link_to('Back to homepage', '/', class: 'btn btn-primary btn-block')%>
+      <%= link_to(t(:back_to_homepage), '/', class: 'btn btn-primary btn-block')%>
     </div>
     <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3">
-      <%= link_to('Return to previous page', :back, class: 'btn btn-outline-primary btn-block')%>
+      <%= link_to(t(:return_to_previous), :back, class: 'btn btn-outline-primary btn-block')%>
     </div>
   </div>
 </div>

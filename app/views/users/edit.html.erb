@@ -3,13 +3,13 @@
 
 
     <h3 class="h3 text-center">
-      Edit personal details
+      <%= t 'user_profile.edit_personal_details' %>
     </h3>
 
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :first_name, label: 'First Name', required: false, placeholder: "First Name", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :first_name, label: t('user_profile.first_name'), required: false, placeholder: t('user_profile.first_name'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
     <div class="form-row">
       <div class="col mb-30">
         <div class="position-relative">
-          <%= f.input :middle_name, label: 'Middle Name', required: false, placeholder: "Middle Name", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :middle_name, label: t('user_profile.middle_name'), required: false, placeholder: t('user_profile.middle_name'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :family_name, label: 'Family Name', required: false, placeholder: "Family Name", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :family_name, label: t('user_profile.family_name'), required: false, placeholder: t('user_profile.family_name'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :dob, as: 'string', label: 'Date of Birth', required: false, placeholder: "DD-MM-YYYY", input_html: {class: "form-control mb-0", data: { toggle: 'datetimepicker', target: '#user_dob' }} %>
+          <%= f.input :dob, as: 'string', label: t('user_profile.date_of_birth'), required: false, placeholder: "DD-MM-YYYY", input_html: {class: "form-control mb-0", data: { toggle: 'datetimepicker', target: '#user_dob' }} %>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :email, label: 'Email', required: false, placeholder: "Email", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :email, label: t(:email), required: false, placeholder: t(:email), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :address, label: 'Address Line', required: false, placeholder: "Address Line", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :address, label: t('user_profile.address_line'), required: false, placeholder: t('user_profile.address_line'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :suburb, label: 'Suburb', required: false, placeholder: "Suburb", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :suburb, label: t('user_profile.suburb'), required: false, placeholder: t('user_profile.suburb'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :state, collection: User.states.keys, prompt: "Select one", label: 'State/Territory', required: false, placeholder: "State/Territory", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :state, collection: User.states.keys, prompt: "Select one", label: t('user_profile.state_territory'), required: false, placeholder: t('user_profile.state_territory'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :post_code, label: 'Postcode', required: false, placeholder: "Postcode", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :post_code, label: t('user_profile.post_code'), required: false, placeholder: t('user_profile.post_code'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :phone_no, label: 'Mobile phone', required: false, placeholder: "Mobile phone", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :phone_no, label: t('user_profile.mobile_phone'), required: false, placeholder: t('user_profile.mobile_phone'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :preferred_contact_method,collection: User.preferred_contact_methods.keys,label: 'Preferred contact method', placeholder: "Preferred contact method", required: false, include_blank: false, include_hidden: false, input_html: {class: "form-control mb-0"} %>
+          <%= f.input :preferred_contact_method,collection: User.preferred_contact_methods.keys,label: t('user_profile.preferred_contact_method'), placeholder: t('user_profile.preferred_contact_method'), required: false, include_blank: false, include_hidden: false, input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -97,7 +97,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :flagship, collection: User.flagships.keys, required: false, label: 'Flagship', prompt: 'Select one', include_hidden: false, input_html: {class: "form-control mb-0"} %>
+          <%= f.input :flagship, collection: User.flagships.keys, required: false, label: t('user_profile.flagship'), prompt: t('user_profile.select_one'), include_hidden: false, input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :study_id, label: 'Study ID', required: false, placeholder: "Study ID", input_html: {class: "form-control mb-0"} %>
+          <%= f.input :study_id, label: t('user_profile.study_id'), required: false, placeholder: t('user_profile.study_id'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>
     </div>
@@ -113,25 +113,25 @@
 
     <div class="d-flex align-items-center mb-30">
       <p class="mb-0">
-        <b>Register as a parent/guardian or carer</b>
+        <b><%= t('user_profile.register_as_a_guardian') %></b>
       </p>
       <div class="d-flex ml-auto pl-15">
-        <div class="text-dark mr-2">No</div>
+        <div class="text-dark mr-2"><%= t :no %></div>
         <label class="controls controls__switch">
           <%= f.check_box :is_parent, as: :boolean, input_html: {class: "form-control mb-0"} %>
           <span class="slider"></span>
         </label>
-        <div class="ml-2">Yes</div>
+        <div class="ml-2"><%= t :yes %></div>
       </div>
     </div>
 
     <div id="kin">
-      <b>Next of kin:</b><br>
+      <b><%= t('user_profile.next_of_kin') %>:</b><br>
       </br>
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :kin_first_name, label: 'First Name', required: false, placeholder: "First Name", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :kin_first_name, label: t('user_profile.first_name'), required: false, placeholder: t('user_profile.first_name'), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
@@ -139,7 +139,7 @@
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :kin_middle_name, label: 'Middle Name', required: false, placeholder: "Middle Name", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :kin_middle_name, label: t('user_profile.middle_name'), required: false, placeholder: t('user_profile.middle_name'), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
@@ -147,7 +147,7 @@
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :kin_family_name, label: 'Family Name', required: false, placeholder: "Family Name", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :kin_family_name, label:  t('user_profile.family_name'), required: false, placeholder: t('user_profile.family_name'), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :kin_contact_no, label: 'Contact phone', required: false, placeholder: "Contact phone", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :kin_contact_no, label: t('user_profile.contact_phone'), required: false, placeholder: t('user_profile.contact_phone'), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
@@ -163,19 +163,19 @@
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :kin_email, label: 'Email', required: false, placeholder: "Email", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :kin_email, label: t(:email), required: false, placeholder: t(:email), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
     </div>
 
     <div id="child">
-      <b>Registering on behalf of:</b><br>
+      <b><%= t('user_profile.registering_on_behalf_of')%>:</b><br>
       </br>
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :child_first_name, label: 'First Name', required: false, placeholder: "First Name", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :child_first_name, label: t('user_profile.first_name'), required: false, placeholder: t('user_profile.first_name'), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :child_middle_name, label: 'Middle Name', required: false, placeholder: "Middle Name", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :child_middle_name, label: t('user_profile.middle_name'), required: false, placeholder: t('user_profile.middle_name'), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
@@ -191,7 +191,7 @@
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :child_family_name, label: 'Family Name', required: false, placeholder: "Family Name", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :child_family_name, label: t('user_profile.family_name'), required: false, placeholder: t('user_profile.family_name'), input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
@@ -199,15 +199,15 @@
       <div class="form-row">
         <div class="col-12 mb-30">
           <div class="position-relative">
-            <%= f.input :child_dob, as: 'string', label: 'Date of Birth', required: false, placeholder: "DD-MM-YYYY", input_html: {class: "form-control mb-0"} %>
+            <%= f.input :child_dob, as: 'string', label: t('user_profile.date_of_birth'), required: false, placeholder: "DD-MM-YYYY", input_html: {class: "form-control mb-0"} %>
           </div>
         </div>
       </div>
     </div>
 
     <div class="d-flex flex-column align-items-center">
-      <%= submit_tag('Update', class: "btn btn-primary btn-block mb-18 mx-auto") %>
-      <%= link_to('Cancel', profile_path) %>
+      <%= submit_tag(t(:update), class: "btn btn-primary btn-block mb-18 mx-auto") %>
+      <%= link_to(t(:cancel), profile_path) %>
     </div>
 
   <% end %>

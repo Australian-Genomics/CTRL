@@ -1,20 +1,15 @@
 <body>
-<%= render 'shared/nav_bar' %>
+  <%= render 'shared/nav_bar' %>
 
-<div class="dashboard">
-
-  <section class="steps container px-sm-0 mb-15 mb-sm-120">
-
-    <div class="h2 mt-30 mb-15 px-15">
-      Thank you for contacting the Australian Genomics research program
-    </div>
+  <div class="dashboard">
+    <section class="steps container px-sm-0 mb-15 mb-sm-120">
+      <div class="h2 mt-30 mb-15 px-15">
+        <%= t 'consent.dashboard.message_sent.thank_you_for_contacting' %>
+      </div>
 
       <p class="mb-30 mx-15">
-        Your message has been sent to the CTRL site administrator and we aim to get back to you within 2 business days.
-        A copy of your message has been sent to your email address.
+        <%= t 'consent.dashboard.message_sent.your_message_sent_to_ctrl' %>
       </p>
-
-  </section>
-
-</div>
+    </section>
+  </div>
 </body>
