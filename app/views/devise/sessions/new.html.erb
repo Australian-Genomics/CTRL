@@ -7,18 +7,18 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.label :email, for: "email", class: "position-absolute" %><br/>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: "Email" %>
+                <%= f.label t(:email), for: "email", class: "position-absolute" %><br/>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: t(:email) %>
               </div>
             </div>
           </div>
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.label :password, for: "inputPassword", class: "position-absolute" %><br/>
-                <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: "Password" %>
+                <%= f.label t(:password), for: "inputPassword", class: "position-absolute" %><br/>
+                <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: t(:password) %>
                 <div class="position-absolute top-0 right-0 h-100 d-flex">
-                  <%= link_to "Forgot?", new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
+                  <%= link_to t('user_login.forgot'), new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
                 </div>
               </div>
             </div>
@@ -33,16 +33,22 @@
             <button
             type="submit"
             class="btn btn-primary mb-30 mx-auto">
-              Log In
+              <%= t(:log_in) %>
             </button>
           </div>
         <% end %>
       </div>
       <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
-                <span class="d-block">
-                    If you don’t have an account, please
-                </span>
-        <%= link_to "Register", new_registration_path(@user), class: "d-block ml-2 mt-2 mt-sm-0" %>
+        <%=
+          t(
+            'user_login.if_you_dont_have_an_account',
+            register_link: link_to(
+              t(:register),
+              new_registration_path(@user),
+              class: "d-block ml-2 mt-2 mt-sm-0"
+            )
+          ).html_safe
+        %>
       </div>
     </div>
   </div>

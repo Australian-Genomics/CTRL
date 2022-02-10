@@ -5,17 +5,6 @@ GIT
   specs:
     mimemagic (0.3.5)
 
-GIT
-  remote: https://github.com/randym/axlsx.git
-  revision: c8ac844572b25fda358cc01d2104720c4c42f450
-  ref: c8ac844
-  specs:
-    axlsx (2.1.0.pre)
-      htmlentities (~> 4.3.4)
-      mimemagic (~> 0.3)
-      nokogiri (>= 1.6.6)
-      rubyzip (>= 1.2.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -42,6 +31,15 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    activeadmin (2.9.0)
+      arbre (~> 1.2, >= 1.2.1)
+      formtastic (>= 3.1, < 5.0)
+      formtastic_i18n (~> 0.4)
+      inherited_resources (~> 1.7)
+      jquery-rails (~> 4.2)
+      kaminari (~> 1.0, >= 1.2.1)
+      railties (>= 5.2, < 6.2)
+      ransack (~> 2.1, >= 2.1.1)
     activejob (5.2.3)
       activesupport (= 5.2.3)
       globalid (>= 0.3.6)
@@ -62,16 +60,17 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    arbre (1.4.0)
+      activesupport (>= 3.0.0, < 6.2)
+      ruby2_keywords (>= 0.0.2, < 1.0)
     arel (9.0.0)
     ast (2.4.0)
     autoprefixer-rails (9.6.0)
       execjs
     awesome_print (1.8.0)
-    axlsx_rails (0.5.2)
-      actionpack (>= 3.1)
-      axlsx (>= 2.0.1)
     backports (3.15.0)
     bcrypt (3.1.13)
+    benchmark (0.2.0)
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -99,6 +98,7 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     choice (0.2.0)
+    coderay (1.1.3)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     css_parser (1.7.0)
@@ -153,16 +153,30 @@ GEM
     factory_bot_rails (4.10.0)
       factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
+    faker (2.19.0)
+      i18n (>= 1.6, < 2)
     ffi (1.11.1)
+    foreman (0.87.2)
+    formtastic (4.0.0)
+      actionpack (>= 5.2.0)
+    formtastic_i18n (0.7.0)
     gherkin (5.1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    has_scope (0.8.0)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
     htmlentities (4.3.4)
     httparty (0.17.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
+    inherited_resources (1.13.0)
+      actionpack (>= 5.2, < 6.2)
+      has_scope (~> 0.6)
+      railties (>= 5.2, < 6.2)
+      responders (>= 2, < 4)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jquery-rails (4.3.5)
@@ -172,6 +186,18 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.2.0)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.19)
@@ -212,6 +238,8 @@ GEM
     parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (0.19.0)
+    polyamorous (2.3.2)
+      activerecord (>= 5.2.1)
     popper_js (1.14.5)
     powerpack (0.1.2)
     premailer (1.11.1)
@@ -221,9 +249,14 @@ GEM
     premailer-rails (1.10.2)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     public_suffix (3.1.0)
     puma (3.12.1)
     rack (2.0.7)
+    rack-proxy (0.7.2)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.3)
@@ -261,6 +294,11 @@ GEM
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
     rake (12.3.2)
+    ransack (2.3.2)
+      activerecord (>= 5.2.1)
+      activesupport (>= 5.2.1)
+      i18n
+      polyamorous (= 2.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -298,6 +336,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-graphviz (1.2.4)
     ruby-progressbar (1.10.1)
+    ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
     rubyzip (1.2.3)
     sass (3.7.4)
@@ -314,6 +353,7 @@ GEM
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
+    semantic_range (3.0.0)
     shoulda-matchers (3.1.3)
       activesupport (>= 4.0.0)
     simple_form (4.1.0)
@@ -354,9 +394,17 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (5.4.3)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    wicked_pdf (2.1.0)
+      activesupport
+    wkhtmltopdf-binary (0.12.6.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -364,9 +412,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activeadmin
   awesome_print
-  axlsx!
-  axlsx_rails
+  benchmark
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.0.0)
   bootstrap4-datetime-picker-rails
@@ -380,6 +428,8 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_bot_rails (~> 4.10.0)
+  faker
+  foreman
   httparty
   jbuilder (~> 2.5)
   jquery-rails
@@ -390,6 +440,7 @@ DEPENDENCIES
   paper_trail
   pg (= 0.19.0)
   premailer-rails
+  pry
   puma (~> 3.11)
   rails (~> 5.2.3)
   rails-controller-testing
@@ -409,6 +460,9 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webpacker
+  wicked_pdf
+  wkhtmltopdf-binary
 
 RUBY VERSION
    ruby 2.5.3p105

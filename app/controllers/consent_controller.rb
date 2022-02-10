@@ -1,39 +1,32 @@
 class ConsentController < ApplicationController
   before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token
+  before_action :find_steps, only: :index
 
-  def step_one
-    @step = current_user.step_one
-    render 'step_one.html.erb'
+  def edit; end
+
+  def index
+    render 'index.json.jbuilder'
   end
 
-  def step_two
-    @step = current_user.step_two
-    @step.build_question_for_step(current_user.id) if @step.questions.empty?
-    render 'step_two.html.erb'
+  def update
+    mark_step_as_reviewed(params[:consent_step_id])
+    params[:answers].each { |answer| answer_question(answer) }
   end
 
-  def step_three
-    @step = current_user.step_three
-    @step.build_question_for_step(current_user.id) if @step.questions.empty?
-    render 'step_three.html.erb'
+  private
+
+  def find_steps
+    @consent_steps = ConsentStep.ordered
   end
 
-  def step_four
-    @step = current_user.step_four
-    @step.build_question_for_step(current_user.id) if @step.questions.empty?
-    render 'step_four.html.erb'
+  def mark_step_as_reviewed(step_id)
+    StepReview.find_or_create_by(
+      user: current_user,
+      consent_step_id: step_id
+    )
   end
 
-  def step_five
-    @step = current_user.step_five
-    @step.build_question_for_step(current_user.id) if @step.questions.empty?
-    render 'step_five.html.erb'
+  def answer_question(answer)
+    AnswerQuestion.call(answer, current_user)
   end
-
-  def confirm_answers; end
-
-  def review_answers; end
-
-  def notification_consent; end
 end

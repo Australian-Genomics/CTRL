@@ -1,0 +1,87 @@
+- order: 1
+  question: General research use and clinical care
+  description: |
+    General research use and clinical care refers to research where, for example,
+    your genomic information might be shared through clinical networks
+    internationally to see if there are any other cases in the world like yours.
+    This is for clinical benefit, but because of the close links between clinical
+    and research genomics, your genomic and other health information will
+    likely also be used in a research setting.
+  default_answer: "not sure"
+  question_type: multiple choice
+  answer_choices_position: right
+
+- order: 2
+  question: Health/medical/biomedical research
+  description: |
+    Health, medical and biomedical research could include research into
+    understanding how a genetic change affects the functioning of a tissue or organ
+    or whole-body system. It is often done in a research laboratory setting.
+  default_answer: "not sure"
+  question_type: multiple choice
+  answer_choices_position: right
+
+- order: 3
+  question: Research must be specifically related to my condition
+  description: |
+    Your genomic information may be helpful to study other health conditions,
+    but if you prefer, we can restrict sharing your information to research into
+    your condition only.
+  default_answer: "not sure"
+  question_type: multiple choice
+  answer_choices_position: right
+
+- order: 4
+  question: Population and ancestry research
+  description: |
+    Population and ancestry research may include working out how or when a certain
+    genetic change arose in a population, studying traits of certain populations.
+    Your information may be grouped with many other people’s information to be part
+    of a control or reference dataset. This helps us to understand normal genetic
+    variation in populations.
+  default_answer: "not sure"
+  question_type: multiple choice
+  answer_choices_position: right
+
+- order: 5
+  question: |
+    I agree to my general health information (eg just my MRIs, blood
+    test or other results) being shared with other research studies that don’t
+    need my genomic information.
+  default_answer: "not sure"
+  question_type: multiple choice
+  answer_choices_position: right
+
+- order: 6
+  question: |
+    I agree to my self-reported information (eg questionnaire responses)
+    being shared with other research studies that don’t need my genomic information.
+  default_answer: "not sure"
+  question_type: multiple choice
+  answer_choices_position: right
+
+- order: 7
+  question: |
+    I want to be contacted every time my de-identified DNA sample, genomic,
+    health or self-reported information is shared.
+  default_answer: "not sure"
+  question_type: multiple choice
+  answer_choices_position: right
+
+- order: 8
+  question: |
+    I agree to Australian Genomics sharing my contact details with
+    other research projects and clinical trials doing studies I am eligible for.
+  default_answer: "no"
+  question_type: checkbox
+  answer_choices_position: right
+
+- order: 9
+  question: |
+    I understand all of the information above and the choices I have
+    made.</br>(leaving this box unchecked means you will be contacted
+    by a Genetic Counsellor who will give you more information)
+  default_answer: "no"
+  question_type: checkbox
+  answer_choices_position: right
+

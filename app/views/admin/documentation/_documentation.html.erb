@@ -1,0 +1,104 @@
+<div id="main_content_wrapper">
+  <div id="main_content">
+      <h2>Creating a Survey Step</h2>
+      <p>To create a survey step, start by clicking the "Consent Steps" link from the navigation bar.</p>
+
+      <%= image_tag 'admin/documentation/1' %>
+
+      <p>From there, click the "New Consent Step" button located from the top right of the screen</p>
+
+      <%= image_tag 'admin/documentation/2' %>
+
+      <p> You can also edit an existing consent step by hitting the "edit" link </p>
+
+      <%= image_tag 'admin/documentation/7' %>
+
+      <p>Here are the following fields you will see on the form and their descriptions:</p>
+
+      <ul>
+        <li><b>order</b> - The position of the Step relative to the rest when displayed from the customer facing side. EG: if the order is set to "2" then it will be the second step after step "1". It is important to note that the order should be unique and non-negative.
+        </li>
+        <li><b>title</b> - name or title of the consent step.</li>
+        <li><b>description</b> - written representation of the consent step.</li>
+        <li><b>popover</b> - text displayed when the cursor hovers over the information icon in the customer dashboard.</li>
+      </ul>
+
+      <h2>What is a Consent Group?</h2>
+      <p>A consent group is responsible for holding or categorizing a set of questions in a Consent Step. To add a consent group click the "add group" button and a new form should appear with the following fields:</p>
+
+      <ul>
+        <li><b>header</b> - name or short description of the group (which will be shown to the customer). This field could also be left blank.</li>
+        <li><b>order</b> - The position of the consent group.</li>
+      </ul>
+
+      <p> Here's an example of what it would look like from the customer side if there are two consent groups. The first consent group's header is "Who can have access to my de-identified samples and information?" and the second group's heading is "What kinds of research can they do with my de-identified samples and information?"</p>
+
+      <%= image_tag 'admin/documentation/8' %>
+
+      <p>It is also fine to leave the header field blank</p>
+
+      <h2>Adding Questions to a Consent Group</h2>
+
+      <p>Click the "Add Question" button that appears after adding a consent group. A question form will have the following fields:</p>
+
+      <ul>
+        <li><b>order</b> - the position of the question relative to the rest of the questions when displayed to the customer. The number should be non negative and unique to all the questions currently in the consent group.</li>
+        <li><b>question</b> - survey question for the customer.</li>
+        <li><b>description</b> - written representation of the question shown to the customer when the user clicks the information icon. The input accepts html so you can bold letters, italicize, write a list etc.</li>
+        <li><b>question_type</b> -
+          There are currently three types available.
+          <ul>
+            <li>checkbox - a small box on the form into which a check or other mark is entered as the response to a question.</li>
+            <li>multiple choice - several possible answers from which the customer must try to choose one. If this is selected, then you can define the options by clicking the "add multiple choice option" button.</li>
+            <li>checkbox agreement - a checkbox type of question that urges for an agreement. EG: I understand all of the information above and the choices I have made.
+            </li>
+          </ul>
+        </li>
+        <li><b>default_answer</b> - the preselected answer for a question. If the question type is "checkbox" then "yes" stands for checked while "no" stands for unchecked (should not be capitalized). If the question type is "multiple choice" then the default value should be the same as the multiple choice value that is intended to be the default answer (case sensitive).
+        </li>
+        <li><b>answer_choices_position</b> - answer positioning only applies for the "multiple choice" question type. There are two choices: "right" and "bottom". The second choice "bottom" is useful if one of the question option values are long.
+        </li>
+        <li><b>redcap_field</b> - a remnant of the old codebase, this field doesn't do anything for now.</li>
+      </ul>
+
+      <h2>Adding a Modal fallback (optional)</h2>
+
+      <p>After clicking the "Next Step" button. A modal is shown to the customer if a customer doesn't check a question with the type "checkbox agreement". The front end is programmed to only detect the first instance of a question with type "checkbox agreement". Eg: If there are two question "checkbox agreement" types then only the first instance is observed. You can add a modal fallback by clicking the Add Modal Fallback button. Note that there should be atleast one question with type "checkbox agreement" for the modal to observe. The modal fallback is normally used after the user doesn't agree to the consent and that a genetic counselor will soon come in contact.
+      </p>
+
+      <ul>
+        <li><b>description</b> - main text inside the modal displayed to the costumer after clicking the next button. The input accepts html so you can bold letters, italicize, add h1/h2/h3 tags etc.
+        </li>
+        <li><b>review_answers_btn</b> - text for the review answers button.</li>
+        <li><b>cancel_btn</b>- text for the cancel button. By default this leads to the genetic coun,</li>
+        <li><b>small_note</b> - short block of text shown below the "review answers" and "cancel" buttons.</li>
+      </ul>
+
+      <%= image_tag 'admin/documentation/9' %>
+
+      <h2>Deleting a component</h2>
+
+      <p>You can delete an existing Consent Group or specific Consent Questions by checking the "delete" checkbox and hitting the "update consent step" button. Note that deleting a consent group will delete all attached questions. When a question is deleted, its customer responses/answers are also deleted so be careful.</p>
+
+      <hr>
+      <h2>How to view a customer's answers to the survey questions</h2>
+      <p>You can view customer responses by clicking the "Question Answers" button from the navigation bar</p>
+      <%= image_tag 'admin/documentation/3' %>
+
+      <p>You will be greeted by a list of all customer responses</p>
+      <%= image_tag 'admin/documentation/4' %>
+      <br>
+      <p>To filter by specific customer, first get the user id (which could be found by clicking the "Users" link from the navigation bar) and pasting that id to the Question Answers filter.</p>
+
+      <%= image_tag 'admin/documentation/5' %>
+
+      <p>Hit the "filter" button to see responses for that specific customer</p>
+
+      <%= image_tag 'admin/documentation/6' %>
+
+      <h2>Other notes</h2>
+
+      <p>Note to the client: The front-end has hard coded variables depending on Step 1 "CTRL introduction" so it's important not to change or edit its "order" field.</p>
+  </div>
+</div>
+

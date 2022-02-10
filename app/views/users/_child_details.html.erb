@@ -3,7 +3,7 @@
 </div>
 <div class="row no-gutters">
   <div class="col-6">
-    <b>First Name</b>
+    <b><%= t 'user_profile.first_name' %></b>
   </div>
   <div class="col-6">
     <%= current_user.child_first_name %>
@@ -11,7 +11,7 @@
 </div>
 <div class="row no-gutters">
   <div class="col-6">
-    <b>Middle Name</b>
+    <b><%= t 'user_profile.middle_name' %></b>
   </div>
   <div class="col-6">
     <%= current_user.child_middle_name %>
@@ -19,7 +19,7 @@
 </div>
 <div class="row no-gutters">
   <div class="col-6">
-    <b>Family Name</b>
+    <b><%= t 'user_profile.family_name' %></b>
   </div>
   <div class="col-6">
     <%= current_user.child_family_name %>
@@ -27,9 +27,9 @@
 </div>
 <div class="row no-gutters">
   <div class="col-6">
-    <b>Date of Birth</b>
+    <b><%= t 'user_profile.date_of_birth' %></b>
   </div>
   <div class="col-6">
-    <%= current_user.child_dob%>
+    <%= current_user.child_dob %>
   </div>
 </div>
