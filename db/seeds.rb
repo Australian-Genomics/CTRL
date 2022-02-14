@@ -1,3 +1,27 @@
+unless AdminUser.find_by(email: 'adminuser@email.com')
+  AdminUser.create(
+    email: 'adminuser@email.com',
+    password: 'tester123',
+    password_confirmation: 'tester123'
+  )
+
+  puts 'created admin user email: adminuser@email.com, password is tester123'
+end
+
+unless User.find_by(email: 'testuser@email.com')
+  User.create(
+    email: 'testuser@email.com',
+    password: 'tester123',
+    password_confirmation: 'tester123',
+    study_id: 'A1543457',
+    first_name: 'testser',
+    family_name: 'familyOfUser',
+    dob: 10.years.ago
+  )
+
+  puts 'created user created: testuser@email.com, password is tester123'
+end
+
 consent_steps = Rails.root.join('db', 'seed_data', 'consent_steps.yml')
 
 return unless ConsentStep.count.zero?

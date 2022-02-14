@@ -2,8 +2,65 @@
 
 The [AGHA(Australian Genomics Health Alliance)](https://circleci.com/gh/Curve-Tomorrow/agha/tree/master) Dynamic Consent project is building a web based platform that will manage consent for genomic testing, and allow participants to manage their preferences around how and where their test results are received and shared
 
-Getting Started
+Getting Started - via Docker
 ----------------------
+
+There are two ways to get started, via Docker or the standard way. If you want to get started with docker then follow these steps:
+
+##### From the project root, build the containers:
+
+```shell
+docker-compose up -d --build
+```
+
+#### Install yarn dependencies
+
+```
+docker-compose run web yarn install
+```
+
+#### Create the database
+
+```
+docker-compose run web bundle exec rails db:create
+```
+
+#### Migrate the database
+
+```
+docker-compose run web bundle exec rails db:migrate
+```
+
+#### Seed the database
+
+```
+docker-compose run web bundle exec rails db:seed
+```
+
+After seeding, an Admin user is created with the following credentials:
+
+email: adminuser@email.com
+password: tester123
+
+As well as a normal User with the following credentials:
+
+email: testuser@email.com
+password: tester123
+
+#### Start the server
+
+```
+docker-compose up
+```
+
+To access the homepage and login, go to `localhost:3000`.
+To access the Active Admin interface and the survey builder, go to `localhost:3000/admin`.
+
+If you want to try and register a new user, you can append with the following Study ID: A1543457
+
+Getting Started - Standard.
+----------------------
+
 ##### Make sure you have Ruby 2.5.3 by doing `ruby -v` from your console.
 
 ##### It is recommended to have Node v14.16.1 (you can check the node version by doing `node -v` from your console). Also do a `yarn -v`  to check if you have yarn installed. If it isn't installed then do `npm install --global yarn`.

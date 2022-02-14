@@ -1,0 +1,72 @@
+# Use the file format compatible with Docker Compose 3.8
+version: "3.8"
+
+# Each thing that Docker Compose runs is referred to as
+# a "service". In our case, our Rails application is one
+# service ("web") and our PostgreSQL database instance
+# is another service ("database").
+services:
+
+  database:
+    # Use the postgres 11.5 base image for this container.
+    image: postgres:11.5
+
+    volumes:
+      # We need to tell Docker where on the PostgreSQL
+      # container we want to keep the PostgreSQL data.
+      # In this case we're telling it to use a directory
+      # called /var/lib/postgresql/data, although it
+      # conceivably could have been something else.
+      #
+      # We're associating this directory with something
+      # called a volume. (You can see all your Docker
+      # volumes by running +docker volume ls+.) The name
+      # of our volume is db_data.
+      - db_data:/var/lib/postgresql/data
+
+      # This copies our init.sql into our container, to
+      # a special file called
+      # /docker-entrypoint-initdb.d/init.sql. Anything
+      # at this location will get executed one per
+      # container, i.e. it will get executed the first
+      # time the container is created but not again.
+      #
+      # The init.sql file is a one-line that creates a
+      # user called (arbitrarily) agha_development.
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  web:
+    # The root directory from which we're building.
+    build: .
+
+    # This makes it so any code changes inside the project
+    # directory get synced with Docker. Without this line,
+    # we'd have to restart the container every time we
+    # changed a file.
+    volumes:
+      - .:/code:cached
+
+    # The command to be run when we run "docker-compose up".
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+
+    # Expose port 3000.
+    ports:
+      - "3000:3000"
+
+    # Specify that this container depends on the other
+    # container which we've called "database".
+    depends_on:
+      - database
+
+    # Specify the values of the environment variables
+    # used in this container.
+    environment:
+      RAILS_ENV: development
+      DATABASE_NAME: agha_development
+      DATABASE_USER: agha_development
+      DATABASE_PASSWORD:
+      DATABASE_HOST: database
+
+# Declare the volumes that our application uses.
+volumes:
+  db_data:
