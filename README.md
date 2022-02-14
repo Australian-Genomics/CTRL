@@ -15,39 +15,43 @@ docker-compose up -d --build
 
 #### Install yarn dependencies
 
-```
+```shell
 docker-compose run web yarn install
 ```
 
 #### Create the database
 
-```
+```shell
 docker-compose run web bundle exec rails db:create
 ```
 
 #### Migrate the database
 
-```
+```shell
 docker-compose run web bundle exec rails db:migrate
 ```
 
 #### Seed the database
 
-```
+```shell
 docker-compose run web bundle exec rails db:seed
 ```
 
 After seeding, an Admin user is created with the following credentials:
 
+```
 email: adminuser@email.com
 password: tester123
+```
 
 As well as a normal User with the following credentials:
 
+```
 email: testuser@email.com
 password: tester123
+```
 
-#### Start the server
+#### Start the server!
 
 ```
 docker-compose up
