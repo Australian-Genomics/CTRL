@@ -1,4 +1,4 @@
-# Use the Ruby 2.7.1 image from Docker Hub
+# Use the Ruby 2.5.3 image from Docker Hub
 # as the base image (https://hub.docker.com/_/ruby)
 FROM ruby:2.5.3
 
