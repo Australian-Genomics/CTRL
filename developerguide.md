@@ -32,7 +32,7 @@ For example, if we want to support Chinese questions, then we can add a `questio
 Two Factor Authentication integration
 ----------------------
 
-Devise-Two-Factor is a minimalist extension to Devise which offers support for two-factor authentication, through the [TOTP](https://en.wikipedia.org/wiki/Time-based_One-Time_Password) scheme. It integrates easily with two-factor applications like [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en) and [Authy](https://authy.com/)
+I recommend using [Devise-Two-Factor](https://github.com/tinfoil/devise-two-factor). Devise-Two-Factor is a minimalist extension to Devise which offers support for two-factor authentication, through the [TOTP](https://en.wikipedia.org/wiki/Time-based_One-Time_Password) scheme. It integrates easily with two-factor applications like [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en) and [Authy](https://authy.com/)
 
 add Devise-Two-Factor to your Gemfile with:
 
