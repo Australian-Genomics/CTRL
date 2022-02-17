@@ -5,18 +5,20 @@ Possible strategies for Multi-Language Support.
 
 Multi language support aka [internationalization](https://guides.rubyonrails.org/i18n.html) has already been implemented.
 
-To see the English version, navigate to `config/locales/en.yml`
+To see the English locale, navigate to `config/locales/en.yml`
 
-To add Chinese for example, simply create another yml file `config/locales/ch.yml` and imitate the structure of `en.yml`.
+To add the Chinese locale for example, simply create another yml file `config/locales/ch.yml` and imitate the structure of `en.yml`.
 
-For example, in the english locale (en.yml):
+Eg:
+
+From the English locale (en.yml):
 
 ```yaml
 en:
   hello_world: Hello World!
 ```
 
-from the Chinese locale (ch.yml):
+From the Chinese locale (ch.yml):
 
 ```yaml
 ch:
@@ -90,7 +92,7 @@ Special characters shouldn't be a requirement if the user has 2fa setup during r
 Integration of a Content Management System
 ----------------------
 
-I recommend using. (Refinery)[https://github.com/refinery/refinerycms] Refinery CMS is one of the best Ruby on Rails content management systems for many years now. Released as open-source in 2009, Refinery uses the ‘Rails way’ wherever possible but also allows the flexibility to design your website in your own way.
+I recommend using. (Refinery)[https://github.com/refinery/refinerycms]. Refinery CMS is one of the best Ruby on Rails content management systems for many years now. Released as open-source in 2009, Refinery uses the ‘Rails way’ wherever possible but also allows the flexibility to design your website in your own way.
 
 To integrate Refinery.
 
