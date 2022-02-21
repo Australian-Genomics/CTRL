@@ -11,7 +11,7 @@
     information is tightly regulated to protect your privacy, and we only
     receive it after applying for it through the proper channels. We will also be required to destroy it
     after we finish using it.
-  default_answer: "yes"
+  default_answer: "no"
   question_type: checkbox
   answer_choices_position: right
 
@@ -24,7 +24,7 @@
     as well as your personal experiences of the test.
     We will sometimes ask you questions about the financial costs of clinic visits or
     having your specific health condition.
-  default_answer: "yes"
+  default_answer: "no"
   question_type: checkbox
   answer_choices_position: right
 
@@ -39,7 +39,7 @@
     your understanding of your health condition or change your clinical care. Not everyone who does not get a result from the initial testing will have
     their samples or information shared for further research. This will depend on whether there is a suitable research program available to look further
     into your initial testing results and/or health condition.
-  default_answer: "yes"
+  default_answer: "no"
   question_type: checkbox
   answer_choices_position: right
 
