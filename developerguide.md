@@ -1,6 +1,6 @@
-# Developer Guide.
+# Developer Guide
 
-Possible strategies for Multi-Language Support.
+Strategies for Multi-Language Support
 ----------------------
 
 Multi language support aka [internationalization](https://guides.rubyonrails.org/i18n.html) has already been implemented.
