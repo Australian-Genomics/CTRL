@@ -214,7 +214,7 @@ end
 
 ### <a id="integrationofcms"></a> Integration of a Content Management System
 
-We recommend using (Refinery)[https://github.com/refinery/refinerycms]. Refinery CMS is in our view one of the best Ruby on Rails content management systems for many years now. Released as open-source in 2009, Refinery uses the ‘Rails way’ wherever possible but also allows the flexibility to design your website in your own way.
+We recommend using [Refinery](https://github.com/refinery/refinerycms). Refinery CMS is in our view one of the best Ruby on Rails content management systems for many years now. Released as open-source in 2009, Refinery uses the ‘Rails way’ wherever possible but also allows the flexibility to design your website in your own way.
 
 To integrate Refinery.
 
