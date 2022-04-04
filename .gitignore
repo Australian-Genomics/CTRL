@@ -32,7 +32,7 @@
 #Ignore test coverage
 /coverage
 config/secrets.yml
-
+config/database.yml
 # Ignore .env file
 .env
 
