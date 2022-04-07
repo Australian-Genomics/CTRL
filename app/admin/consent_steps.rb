@@ -1,5 +1,5 @@
 ActiveAdmin.register ConsentStep do
-  permit_params :order, :title, :description, :popover,
+  permit_params :order, :title, :description, :popover, :tour_videos,
   consent_groups_attributes: [
     :id,
     :_destroy,
@@ -49,13 +49,23 @@ ActiveAdmin.register ConsentStep do
   filter :created_at
   filter :updated_at
 
+  after_update do |cs|
+      unless cs.valid?
+        cs.errors.full_messages.each do |error|
+            flash[:error] = error
+        end
+      end
+  end
+
   form do |f|
     f.inputs 'Consent Step' do
       f.input :order
       f.input :title
       f.input :description
       f.input :popover
+      f.input :tour_videos, label:"Tour Videos (Separated by Comma(,)"
     end
+
 
     f.inputs 'Consent Group' do
       f.has_many :consent_groups,

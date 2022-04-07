@@ -267,7 +267,6 @@ export default {
     .then(response => {
       this.steps = response.data.consent_steps
       this.fillAnswers()
-
       const currentUrl = window.location.search
       const urlParams = new URLSearchParams(currentUrl)
       const toSurveyStep = urlParams.get('surveystep')
