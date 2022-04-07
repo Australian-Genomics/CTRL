@@ -5,15 +5,15 @@ default: &default
 development:
   <<: *default
   database: <%= ENV['DATABASE_NAME'] || 'agha_development' %>
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'ZfQx3wek' %>
   host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
 
 test: &test
   <<: *default
   database: agha_test
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD']  %>
+  username: <%= ENV['DATABASE_USER'] || 'postgres'%>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'ZfQx3wek' %>
   host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
 
 production:
