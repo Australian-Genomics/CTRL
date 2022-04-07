@@ -4,6 +4,7 @@ json.consent_steps do
     json.order step.order
     json.title step.title
     json.description step.description
+    json.tour_videos step.parse_tour_videos if step.tour_videos.present?
     json.reviewed StepReview.find_by(user: current_user, consent_step: step).present?
 
     if step.modal_fallback
