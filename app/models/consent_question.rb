@@ -2,7 +2,8 @@ class ConsentQuestion < ApplicationRecord
   QUESTION_TYPES = [
     'checkbox',
     'multiple choice',
-    'checkbox agreement'
+    'checkbox agreement',
+    'multiple checkboxes'
   ]
 
   POSITIONS = [

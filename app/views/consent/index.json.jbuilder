@@ -35,10 +35,11 @@ json.consent_steps do
         end
 
         answer = QuestionAnswer.find_by(user: current_user, consent_question: question)
-
+        multiple_answers = QuestionAnswer.where(user: current_user, consent_question: question)
         json.answer do
           json.question_id answer&.consent_question&.id
           json.answer answer&.answer
+          json.multiple_answers multiple_answers.map{|a| a.answer} if question.question_type == "multiple checkboxes"
         end
       end
     end
