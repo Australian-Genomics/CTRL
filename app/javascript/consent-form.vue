@@ -67,8 +67,7 @@
 
                       <template v-if="question.answer_choices_position === 'right'">
                         <label class="controls controls__checkbox controls__checkbox_blue"
-                          v-if="question.question_type == 'checkbox' || question.question_type == 'checkbox agreement'">
-
+                          v-if="question.question_type == 'checkbox' || question.question_type == 'checkbox agreement' ">
                           <input
                             v-model="answers[qGindex][i].answer"
                             type="checkbox"
@@ -78,6 +77,26 @@
                           <span class="checkmark">
                           </span>
                         </label>
+
+                        <div
+                            class="d-flex mt-3 mt-sm-0 text-capitalize"
+                            v-else-if="question.question_type === 'multiple checkboxes'"
+                        >
+                          <span v-for="(option, oi) in question.options">
+                            <label>
+                              <label class="controls controls__checkbox controls__checkbox_blue">
+                                <input type="checkbox"
+                                       :value="option.value.toLowerCase()"
+                                       :checked="isChecked(answers[qGindex][i].multiple_answers,option.value)"
+                                       v-on:change="selectMultiOpt($event.target)"
+
+                                >
+                                <span class="checkmark"></span>
+                                <span class="label-text ml-1 mr-1">{{ option.value }}</span>
+                              </label>
+                            </label>
+                          </span>
+                        </div>
 
                         <div
                           class="d-flex mt-3 mt-sm-0 text-capitalize"
@@ -96,7 +115,7 @@
                             </label>
                           </span>
                         </div>
-                      </template">
+                      </template>
                     </div>
 
                     <div class="col-12"
@@ -171,6 +190,7 @@ import StepDisplayer from './components/StepDisplayer'
 import StepInitial from './components/StepInitial'
 import ModalFallback from './components/ModalFallback'
 
+
 export default {
   components: {
     StepDisplayer,
@@ -181,10 +201,24 @@ export default {
     return {
       consentStep: 1,
       steps: [],
-      answers: []
+      answers: [],
+      checkedAnswers:[]
     }
   },
   methods: {
+    isChecked(userAnswers, option) {
+      let isChecked = userAnswers.includes(option.toLowerCase())
+      return isChecked
+    },
+    selectMultiOpt(target){
+      if (target.checked)
+        this.checkedAnswers.push(target.value)
+      else{
+        this.checkedAnswers.pop(target.value)
+      }
+
+
+    },
     nextStep() {
       this.saveAnswers()
       if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
@@ -209,10 +243,12 @@ export default {
       this.currentSurveyStep.groups.forEach((group, gIndex)  => {
         this.answers.push([])
         group.questions.forEach(question => {
+          question.question_type == 'multiple checkboxes' && this.checkedAnswers.push(...(question.answer.multiple_answers || [question.default_answer]))
           this.answers[gIndex].push({
             consent_question_id: question.id,
             answer: question.answer.answer || question.default_answer,
-            question_type: question.question_type
+            multiple_answers: this.checkedAnswers,
+            question_type: question.question_type,
           })
         })
       })
@@ -222,7 +258,6 @@ export default {
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
       let answersParams = []
-
       this.answers.forEach(answerArray => {
         answersParams.push(...answerArray)
       })
