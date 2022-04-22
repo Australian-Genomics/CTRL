@@ -42,7 +42,7 @@ class ConsentQuestion < ApplicationRecord
 
   alias_attribute :options, :question_options
 
-  scope :ordered, -> {
-    order(order: :asc)
+  scope :published_ordered, -> {
+    where(is_published: true).order(order: :asc)
   }
 end

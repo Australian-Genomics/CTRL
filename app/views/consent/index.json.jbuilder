@@ -20,7 +20,7 @@ json.consent_steps do
       json.order  group.order
       json.header group.header
 
-      json.questions group.consent_questions.ordered do |question|
+      json.questions group.consent_questions.published_ordered do |question|
         json.id question.id
         json.order question.order
         json.question question.question

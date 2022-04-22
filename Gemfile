@@ -32,6 +32,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'activeadmin_addons'
 
 group :development, :test do
   gem 'awesome_print'
