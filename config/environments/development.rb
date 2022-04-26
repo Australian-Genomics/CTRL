@@ -43,8 +43,8 @@ Rails.application.configure do
       port: 587,
       authentication: "plain",
       enable_starttls_auto: true,
-      user_name: 'ausgenctrl@gmail.com',
-      password: '***REMOVED***'
+      user_name: Rails.application.credentials[Rails.env.to_sym][:mailer][:email],
+      password: Rails.application.credentials[Rails.env.to_sym][:mailer][:password]
   }
 
   config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : gmail_email
