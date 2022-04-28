@@ -35,7 +35,7 @@ json.consent_steps do
         end
 
         answer = QuestionAnswer.find_by(user: current_user, consent_question: question)
-        multiple_answers = QuestionAnswer.where(user: current_user, consent_question: question)
+        multiple_answers = current_user.answers.where(consent_question_id: question.id)
         json.answer do
           json.question_id answer&.consent_question&.id
           json.answer answer&.answer

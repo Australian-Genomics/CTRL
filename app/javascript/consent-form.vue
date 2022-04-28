@@ -211,13 +211,12 @@ export default {
       return isChecked
     },
     selectMultiOpt(target){
-      if (target.checked)
+      if (target.checked){
         this.checkedAnswers.push(target.value)
-      else{
-        this.checkedAnswers.pop(target.value)
       }
-
-
+      else{
+        this.checkedAnswers = this.checkedAnswers.filter(item => item !== target.value)
+      }
     },
     nextStep() {
       this.saveAnswers()
@@ -243,7 +242,7 @@ export default {
       this.currentSurveyStep.groups.forEach((group, gIndex)  => {
         this.answers.push([])
         group.questions.forEach(question => {
-          question.question_type == 'multiple checkboxes' && this.checkedAnswers.push(...(question.answer.multiple_answers || [question.default_answer]))
+          question.question_type == 'multiple checkboxes' && this.checkedAnswers.push(...(question.answer.multiple_answers ))
           this.answers[gIndex].push({
             consent_question_id: question.id,
             answer: question.answer.answer || question.default_answer,
@@ -259,6 +258,7 @@ export default {
 
       let answersParams = []
       this.answers.forEach(answerArray => {
+        answerArray.map( ans => ans.question_type==="multiple checkboxes" ? ans.multiple_answers = this.checkedAnswers : ans.multiple_answers )
         answersParams.push(...answerArray)
       })
 
