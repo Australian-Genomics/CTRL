@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_05_143557) do
+ActiveRecord::Schema.define(version: 2022_04_21_111114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2022_04_05_143557) do
     t.string "answer_choices_position", default: "right"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_published", default: true
     t.index ["consent_group_id"], name: "index_consent_questions_on_consent_group_id"
     t.index ["order"], name: "index_consent_questions_on_order"
   end
