@@ -1,5 +1,5 @@
 ActiveAdmin.register ConsentQuestion do
-  permit_params :question, :description, :redcap_field, :is_published
+  permit_params :question, :description, :redcap_field, :is_published, :answer_choices_position
 
   index do
     selectable_column
