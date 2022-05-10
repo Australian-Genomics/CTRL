@@ -1,6 +1,6 @@
 class ConsentController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_steps, only: :index
+  before_action :find_steps, only: [:index, :update]
 
   def edit; end
 
@@ -11,6 +11,7 @@ class ConsentController < ApplicationController
   def update
     mark_step_as_reviewed(params[:consent_step_id])
     params[:answers].each { |answer| answer_question(answer) }
+    render 'index.json.jbuilder'
   end
 
   private
