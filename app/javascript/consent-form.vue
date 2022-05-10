@@ -66,12 +66,17 @@
                       </i>
 
                       <template v-if="question.answer_choices_position === 'right'">
-
-                        <Checkbox
-                            :question = "question"
-                            :modalVal = "answers[qGindex][i].answer"
-                            v-if="question.question_type == 'checkbox' || question.question_type == 'checkbox agreement' "
-                        />
+                        <label class="controls controls__checkbox controls__checkbox_blue ml-sm-15"
+                          v-if="question.question_type == 'checkbox' || question.question_type == 'checkbox agreement' "
+                        >
+                          <input
+                              v-model="answers[qGindex][i].answer"
+                              type="checkbox"
+                              true-value="yes"
+                              false-value="no"
+                          >
+                          <span class="checkmark"></span>
+                        </label>
 
                         <div
                             class="d-flex mt-3 mt-sm-0 text-capitalize"
@@ -92,28 +97,53 @@
                             </label>
                           </span>
                         </div>
+                        <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-else-if="question.question_type === 'multiple choice'">
+                          <span v-for="(option, oi) in question.options">
+                            <label>
+                              <label class="controls controls__radio controls__radio_blue ml-sm-15">
+                                <input type="radio"
+                                       v-bind:value="option.value"
+                                       v-model="answers[qGindex][i].answer"
+                                >
+                                <span class="checkmark"></span>
+                                <span class="label-text ml-1 mr-1">{{ option.value }}</span>
+                              </label>
+                            </label>
+                          </span>
+                        </div>
 
-                        <RadioButton
-                            :modalVal="answers[qGindex][i].answer"
-                            :question="question"
-                            v-else-if="question.question_type === 'multiple choice'"
-                        />
 
                       </template>
                     </div>
 
                     <div class="col-12"
                       v-if="question.answer_choices_position === 'bottom'">
-                      <RadioButton
-                          :modalVal="answers[qGindex][i].answer"
-                          :question="question"
-                          v-if="question.question_type === 'multiple choice'"
-                      />
-                      <Checkbox
-                          :question = "question"
-                          :modalVal = "answers[qGindex][i].answer"
-                          v-else-if="question.question_type == 'checkbox' || question.question_type == 'checkbox agreement' "
-                      />
+                      <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-if="question.question_type === 'multiple choice'">
+                          <span v-for="(option, oi) in question.options">
+                            <label>
+                              <label class="controls controls__radio controls__radio_blue ml-sm-15">
+                                <input type="radio"
+                                       v-bind:value="option.value"
+                                       v-model="answers[qGindex][i].answer"
+                                >
+                                <span class="checkmark"></span>
+                                <span class="label-text ml-1 mr-1">{{ option.value }}</span>
+                              </label>
+                            </label>
+                          </span>
+                      </div>
+
+                      <label class="controls controls__checkbox controls__checkbox_blue ml-sm-15 checkbox-opts"
+                             v-if="question.question_type == 'checkbox' || question.question_type == 'checkbox agreement' "
+                      >
+                        <input
+                            v-model="answers[qGindex][i].answer"
+                            type="checkbox"
+                            true-value="yes"
+                            false-value="no"
+                        >
+                        <span class="checkmark"></span>
+                      </label>
                       <div
                           class="d-flex mt-3 mt-sm-0 text-capitalize"
                           v-else-if="question.question_type === 'multiple checkboxes'"
@@ -239,7 +269,6 @@ export default {
     },
     fillAnswers() {
       this.answers = [];
-
       this.currentSurveyStep.groups.forEach((group, gIndex)  => {
         this.answers.push([])
         group.questions.forEach(question => {
@@ -267,6 +296,7 @@ export default {
         consent_step_id: this.currentSurveyStep.id,
         answers: answersParams
       }).then(({ data }) => {
+        this.steps = data.consent_steps
         console.log('success in saving answers')
       })
       .catch(({ response }) => {
