@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="col-12"
-                      v-if="question.answer_choices_position === 'bottom'">
+                      v-if="question.answer_choices_position === 'bottom'" :style="cssVars">
                       <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-if="question.question_type === 'multiple choice'">
                           <span v-for="(option, oi) in question.options">
                             <label>
@@ -233,10 +233,17 @@ export default {
       consentStep: 1,
       steps: [],
       answers: [],
-      checkedAnswers:[]
+      checkedAnswers:[],
+      configs: []
     }
   },
   methods: {
+    setColor() {
+      this.root = document.documentElement;
+      const radioConfig = this.configs.find(conf => conf.key === "radio_button_color")
+      this.root.style.setProperty("--checkmark-color", radioConfig.value)
+      this.root.style.setProperty("--checkmark-border-color", radioConfig.value)
+    },
     isChecked(userAnswers, option) {
       let isChecked = userAnswers.includes(option.toLowerCase())
       return isChecked
@@ -333,10 +340,10 @@ export default {
     .then(response => {
       this.steps = response.data.consent_steps
       this.fillAnswers()
+      this.configs = [...response.data.survey_configs.configs]
       const currentUrl = window.location.search
       const urlParams = new URLSearchParams(currentUrl)
       const toSurveyStep = urlParams.get('surveystep')
-
       if (!toSurveyStep) return
 
       const step = parseInt(toSurveyStep)
@@ -349,10 +356,12 @@ export default {
       console.log('errors while parsing steps')
       console.log(e)
     });
+
   },
   watch: {
     consentStep(value) {
       this.fillAnswers()
+      this.setColor()
     }
   }
 }

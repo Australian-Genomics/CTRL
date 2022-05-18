@@ -1,3 +1,6 @@
+json.survey_configs do
+  json.configs SurveyConfig.get_config('radio_button_color')
+end
 json.consent_steps do
   json.array! @consent_steps do |step|
     json.id step.id
