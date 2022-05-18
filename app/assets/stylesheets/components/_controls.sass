@@ -78,7 +78,7 @@ $component: 'controls'
     +element('radio')
         +modifier('blue')
             input:checked ~ .checkmark
-                border: 2px solid $light-blue
+                border: 2px solid $checkmark-border-color
         +modifier('red')
             input:checked ~ .checkmark
                 border: 2px solid $red
@@ -113,7 +113,7 @@ $component: 'controls'
         +modifier('blue')
             .checkmark:after
                 @extend %radiobutton
-                background: $light-blue
+                background: $checkmark-color
         +modifier('red')
             .checkmark:after
                 @extend %radiobutton

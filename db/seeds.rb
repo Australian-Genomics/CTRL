@@ -22,6 +22,9 @@ unless User.find_by(email: 'testuser@email.com')
   puts 'created user created: testuser@email.com, password is tester123'
 end
 
+sc = SurveyConfig.find_by(key:"radio_button_color")
+SurveyConfig.create(name:"Radio Button Color",value:"#03fc03") unless sc.present?
+
 consent_steps = Rails.root.join('db', 'seed_data', 'consent_steps.yml')
 
 return unless ConsentStep.count.zero?

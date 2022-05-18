@@ -1,4 +1,8 @@
 // Color system
+:root {
+  --checkmark-color: #02b0db;
+  --checkmark-border-color: #02b0db;
+}
 
 $white:    #fff;
 $gray-100: #f5f7fa; //brand
@@ -43,6 +47,9 @@ $green:         #92cd8a; //brand
 $dark-blue:     #1e2e47; //brand
 $dark-purple:   #496088; //brand
 $silver:        #c4cad3; //brand
+
+$checkmark-color: var(--checkmark-color);
+$checkmark-border-color: var(--checkmark-border-color);
 
 $colors: ();
 $colors: map-merge((
