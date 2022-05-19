@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="col-12"
-                      v-if="question.answer_choices_position === 'bottom'" :style="cssVars">
+                      v-if="question.answer_choices_position === 'bottom'" >
                       <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-if="question.question_type === 'multiple choice'">
                           <span v-for="(option, oi) in question.options">
                             <label>
@@ -239,10 +239,16 @@ export default {
   },
   methods: {
     setColor() {
-      this.root = document.documentElement;
-      const radioConfig = this.configs.find(conf => conf.key === "radio_button_color")
-      this.root.style.setProperty("--checkmark-color", radioConfig.value)
-      this.root.style.setProperty("--checkmark-border-color", radioConfig.value)
+      if (this.configs.length > 0){
+        this.root = document.documentElement;
+        debugger
+        const radioConfig = this.configs.find(conf => conf.key === "radio_button_color")
+        this.root.style.setProperty("--radio-check-color", radioConfig.value)
+        this.root.style.setProperty("--radio-check-border-color", radioConfig.value)
+        const checkboxConfig = this.configs.find(conf => conf.key === "checkbox_color")
+        this.root.style.setProperty("--checkmark-color", checkboxConfig.value)
+        this.root.style.setProperty("--checkmark-border-color", checkboxConfig.value)
+      }
     },
     isChecked(userAnswers, option) {
       let isChecked = userAnswers.includes(option.toLowerCase())
@@ -340,7 +346,7 @@ export default {
     .then(response => {
       this.steps = response.data.consent_steps
       this.fillAnswers()
-      this.configs = [...response.data.survey_configs.configs]
+      this.configs = [...response.data.survey_configs]
       const currentUrl = window.location.search
       const urlParams = new URLSearchParams(currentUrl)
       const toSurveyStep = urlParams.get('surveystep')
