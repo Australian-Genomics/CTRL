@@ -1,5 +1,6 @@
 ActiveAdmin.register SurveyConfig do
     permit_params :value
+    actions :index, :show, :new, :create, :update, :edit
 
     index do
         selectable_column

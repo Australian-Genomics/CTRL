@@ -2,6 +2,8 @@
 :root {
   --checkmark-color: #02b0db;
   --checkmark-border-color: #02b0db;
+  --radio-check-color: #02b0db;
+  --radio-check-border-color: #02b0db;
 }
 
 $white:    #fff;
@@ -50,6 +52,8 @@ $silver:        #c4cad3; //brand
 
 $checkmark-color: var(--checkmark-color);
 $checkmark-border-color: var(--checkmark-border-color);
+$radio-check-color: var(--radio-check-color);
+$radio-check-border-color: var(--radio-check-border-color);
 
 $colors: ();
 $colors: map-merge((
