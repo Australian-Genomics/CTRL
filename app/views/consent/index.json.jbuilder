@@ -1,3 +1,7 @@
+json.survey_configs SurveyConfig.all do |survey|
+  json.value survey.value
+  json.key survey.key
+end
 json.consent_steps do
   json.array! @consent_steps do |step|
     json.id step.id
