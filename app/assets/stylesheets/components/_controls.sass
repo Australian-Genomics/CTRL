@@ -69,8 +69,8 @@ $component: 'controls'
     +element('checkbox')
         +modifier('blue')
             input:checked ~ .checkmark
-                background-color: $light-blue
-                border-color: $light-blue
+                background-color: $checkmark-border-color
+                border-color: $checkmark-color
             input:checked ~ .checkmark:after
                 border-style: solid
                 top: 2px
@@ -78,7 +78,7 @@ $component: 'controls'
     +element('radio')
         +modifier('blue')
             input:checked ~ .checkmark
-                border: 2px solid $light-blue
+                border: 2px solid $radio-check-border-color
         +modifier('red')
             input:checked ~ .checkmark
                 border: 2px solid $red
@@ -113,7 +113,7 @@ $component: 'controls'
         +modifier('blue')
             .checkmark:after
                 @extend %radiobutton
-                background: $light-blue
+                background: $radio-check-color
         +modifier('red')
             .checkmark:after
                 @extend %radiobutton
