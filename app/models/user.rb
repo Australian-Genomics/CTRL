@@ -39,6 +39,8 @@ class User < ApplicationRecord
 
   validates :terms_and_conditions, acceptance: true
 
+  validate :check_study_code, if: -> { study_id.present? }
+
   accepts_nested_attributes_for :steps
 
   enum flagship: [
