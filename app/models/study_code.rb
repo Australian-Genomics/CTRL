@@ -1,0 +1,2 @@
+class StudyCode < ApplicationRecord
+end

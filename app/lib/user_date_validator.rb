@@ -11,6 +11,11 @@ module UserDateValidator
     !child_dob.future? ? true : errors.add(:child_dob, I18n.t('user.errors.dob.future')) && false
   end
 
+  def check_study_code
+    codes = StudyCode.pluck(:title)
+    codes.include?(study_id)? true : errors.add(:study_id, "Study ID not present in our system. Please try with different one.") && false
+  end
+
   private
 
   def date_valid?(dob)
