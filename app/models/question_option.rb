@@ -16,6 +16,6 @@ class QuestionOption < ApplicationRecord
   end
 
   def multiple_choice_parent?
-    consent_question&.question_type == 'multiple choice'
+    consent_question&.question_type == 'multiple choice' || consent_question&.question_type == 'multiple checkboxes'
   end
 end
