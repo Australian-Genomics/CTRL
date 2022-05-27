@@ -25,7 +25,7 @@ class ConsentStep < ApplicationRecord
   end
 
   def parse_tour_videos
-    video_links = tour_videos.split(",")
+    video_links = tour_videos.split(",").map{|url| url.strip}
     video_links.map{|link| URI.parse(link)}
   end
 
