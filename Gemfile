@@ -33,6 +33,7 @@ gem 'webpacker'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'activeadmin_addons'
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   gem 'awesome_print'
