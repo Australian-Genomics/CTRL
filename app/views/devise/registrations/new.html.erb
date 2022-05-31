@@ -42,8 +42,9 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :dob, as: :string, label: false, id: 'user_dob', placeholder: 'DD-MM-YYYY', required: false, input_html: { class: 'form-control', data: { toggle: 'datetimepicker', target: '#user_dob' } } %>
+                <%= f.input :dob, as: :string, label: false, placeholder: 'DD-MM-YYYY', required: false, input_html: { class: 'form-control', autocomplete:"off", id:"date-of-birth" } %>
               </div>
+              <div id="custom-pos"></div>
             </div>
           </div>
 
