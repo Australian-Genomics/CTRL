@@ -7,4 +7,8 @@ $(document).on('ready turbolinks:load', function() {
       next: 'icon__next'
     }
   });
+  $('#date-of-birth').datepicker({
+    container: '#custom-pos'
+  });
+
 })
