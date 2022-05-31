@@ -8,7 +8,8 @@ $(document).on('ready turbolinks:load', function() {
     }
   });
   $('#date-of-birth').datepicker({
-    container: '#custom-pos'
+    container: '#custom-pos',
+    format: 'dd-mm-yyyy'
   });
 
 })
