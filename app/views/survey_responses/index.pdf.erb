@@ -19,7 +19,7 @@
 
       <% @responses.each do |response| %>
         <tr>
-          <td><%= response.consent_question.question %></td>
+          <td><%= response.consent_question.question.html_safe %></td>
           <td><%= response.answer %> </td>
         </tr>
       <% end %>
