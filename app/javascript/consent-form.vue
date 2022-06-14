@@ -84,14 +84,15 @@
                         >
                           <span v-for="(option, oi) in question.options">
                             <label>
-                              <label class="controls controls__checkbox controls__checkbox_blue">
+                              <label class="controls controls__checkbox" :class="['controls__checkbox_'+option.color.replace('#','')]">
                                 <input type="checkbox"
                                        :value="option.value.toLowerCase()"
                                        :checked="isChecked(answers[qGindex][i].multiple_answers,option.value)"
                                        v-on:change="selectMultiOpt($event.target)"
+                                       data-color="tab"
 
                                 >
-                                <span class="checkmark"></span>
+                                <span class="checkmark" ></span>
                                 <span class="label-text ml-1 mr-1">{{ option.value }}</span>
                               </label>
                             </label>
@@ -100,7 +101,7 @@
                         <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-else-if="question.question_type === 'multiple choice'">
                           <span v-for="(option, oi) in question.options">
                             <label>
-                              <label class="controls controls__radio controls__radio_blue ml-sm-15">
+                              <label class="controls controls__radio ml-sm-15" :class="['controls__radio_'+option.color.replace('#','')]">
                                 <input type="radio"
                                        v-bind:value="option.value"
                                        v-model="answers[qGindex][i].answer"
@@ -121,7 +122,7 @@
                       <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-if="question.question_type === 'multiple choice'">
                           <span v-for="(option, oi) in question.options">
                             <label>
-                              <label class="controls controls__radio controls__radio_blue ml-sm-15">
+                              <label class="controls controls__radio ml-sm-15" :class="['controls__radio_'+option.color.replace('#','')]">
                                 <input type="radio"
                                        v-bind:value="option.value"
                                        v-model="answers[qGindex][i].answer"
@@ -133,7 +134,7 @@
                           </span>
                       </div>
 
-                      <label class="controls controls__checkbox controls__checkbox_blue ml-sm-15 checkbox-opts"
+                      <label class="controls controls__checkbox ml-sm-15 controls__checkbox_blue"
                              v-if="question.question_type == 'checkbox' || question.question_type == 'checkbox agreement' "
                       >
                         <input
@@ -150,11 +151,12 @@
                       >
                           <span v-for="(option, oi) in question.options">
                             <label>
-                              <label class="controls controls__checkbox controls__checkbox_blue">
+                              <label class="controls controls__checkbox" :class="['controls__checkbox_'+option.color.replace('#','')]">
                                 <input type="checkbox"
                                        :value="option.value.toLowerCase()"
                                        :checked="isChecked(answers[qGindex][i].multiple_answers,option.value)"
                                        v-on:change="selectMultiOpt($event.target)"
+                                       :data-color="option.color"
 
                                 >
                                 <span class="checkmark"></span>
@@ -241,7 +243,6 @@ export default {
     setColor() {
       if (this.configs.length > 0){
         this.root = document.documentElement;
-        debugger
         const radioConfig = this.configs.find(conf => conf.key === "radio_button_color")
         this.root.style.setProperty("--radio-check-color", radioConfig.value)
         this.root.style.setProperty("--radio-check-border-color", radioConfig.value)
@@ -257,6 +258,7 @@ export default {
     selectMultiOpt(target){
       if (target.checked){
         this.checkedAnswers.push(target.value)
+
       }
       else{
         this.checkedAnswers = this.checkedAnswers.filter(item => item !== target.value)
@@ -339,7 +341,8 @@ export default {
     },
     consentStepTotal() {
       return this.steps.length;
-    }
+    },
+
   },
   created() {
     axios.get('/consent')
