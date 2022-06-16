@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <style>
+  table, th, td {
+    border:1px solid black;
+  }
+  </style>
+  <body>
+
+  <% if @responses.any? %>
+
+    <h4><%= t 'survey_responses.survey_responses_for', name: current_user.email %></h4>
+
+    <table style="width:100%">
+      <tr>
+        <th>Question</th>
+        <th>Response</th>
+      </tr>
+
+      <% @responses.each do |response| %>
+        <tr>
+          <td><%= response.consent_question.question.html_safe %></td>
+          <td><%= response.answer %> </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+
+    <h4><%= t 'survey_responses.no_response' %></h4>
+
+  <% end %>
+  </body>
+</html>
+

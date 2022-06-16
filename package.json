@@ -1,5 +1,19 @@
 {
   "name": "agha",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@activeadmin/activeadmin": "^2.11.1",
+    "@rails/webpacker": "5.4.3",
+    "axios": "^0.24.0",
+    "vue": "^2.6.14",
+    "vue-js-modal": "^2.0.1",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14",
+    "vuejs-progress-bar": "^1.2.7",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3"
+  }
 }

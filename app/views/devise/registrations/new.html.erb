@@ -8,12 +8,12 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :first_name, label: false, placeholder: 'First Name', required: false %>
+                <%= f.input :first_name, label: false, placeholder: t('user_profile.first_name'), required: false %>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :family_name, label: false, placeholder: 'Family Name', required: false %>
+                <%= f.input :family_name, label: false, placeholder: t('user_profile.family_name'), required: false %>
               </div>
             </div>
           </div>
@@ -21,7 +21,7 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :email, label: false, placeholder: 'Email' %>
+                <%= f.input :email, label: false, placeholder: t(:email) %>
               </div>
             </div>
           </div>
@@ -29,12 +29,12 @@
           <div class="form-row">
             <div class="col-12 col-sm-6 pr-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :password, label: false, placeholder: 'Password' %>
+                <%= f.input :password, label: false, placeholder: t(:password) %>
               </div>
             </div>
             <div class="col-12 col-sm-6 pl-sm-3 mb-30">
               <div class="position-relative">
-                <%= f.input :password_confirmation, label: false, placeholder: 'Re-enter Password' %>
+                <%= f.input :password_confirmation, label: false, placeholder: t(:reenter_password) %>
               </div>
             </div>
           </div>
@@ -42,29 +42,38 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :dob, as: :string, label: false, id: 'user_dob', placeholder: 'DD-MM-YYYY', required: false, input_html: { class: 'form-control', data: { toggle: 'datetimepicker', target: '#user_dob' } } %>
+                <%= f.input :dob, as: :string, label: false, placeholder: 'DD-MM-YYYY', required: false, input_html: { class: 'form-control', autocomplete:"off", id:"date-of-birth" } %>
               </div>
+              <div id="custom-pos"></div>
             </div>
           </div>
 
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :study_id, label: false, placeholder: 'Study ID', required: false %>
+                <%= f.input :study_id, label: false, placeholder: t('user_profile.study_id'), required: false %>
               </div>
             </div>
           </div>
           <div class="col mb-30" align="center">
             <label class="controls controls__checkbox controls__checkbox_blue">
+              <%= f.check_box :terms_and_conditions, hidden: :hidden, errors: true %>
 
-              <%= f.check_box :terms_and_conditions, hidden: :hidden, errors: true %> I agree
-              to the <%= link_to 'Terms and Conditions', 'https://www.australiangenomics.org.au/terms-and-conditions/ctrl-platform-terms-and-conditions/' %>
+              <%=
+                t(
+                  'user_registration.i_agree_to_the',
+                  terms_and_conditions_link: link_to(
+                    t('user_registration.terms_and_conditions'),
+                    'https://www.australiangenomics.org.au/terms-and-conditions/ctrl-platform-terms-and-conditions/'
+                  )
+                ).html_safe
+              %>
               <span class="checkmark terms-and-conditions"></span>
             </label>
 
             <div class="error">
               <% if @user.errors.messages[:terms_and_conditions].present? %>
-                <%= @user.errors.messages[:terms_and_conditions][0] = 'You must agree to register' %>
+                <%= @user.errors.messages[:terms_and_conditions][0] = t('user_registration.you_must_agree_to_register') %>
               <% end %>
             </div>
           </div>
@@ -73,20 +82,19 @@
               type="submit"
               class="btn btn-primary mb-30 mx-auto"
             >
-              Register Now
+              <%= t 'user_registration.register_now' %>
             </button>
           </div>
-
         <% end %>
       </div>
       <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
-                <span class="d-block">
-                    If you already have an account, please
-                </span>
-        <%= link_to "Log in", new_session_path(@user), class: "d-block ml-2 mt-2 mt-sm-0" %>
+        <span class="d-block">
+          <%= t 'user_registration.if_you_already_have_account' %>
+        </span>
+        <%= link_to t(:log_in), new_session_path(@user), class: "d-block ml-2 mt-2 mt-sm-0" %>
       </div>
       <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
-        <%= link_to 'CTRL Platform Privacy Policy', 'https://www.australiangenomics.org.au/website-privacy-policies/ctrl-platform-privacy-policy/', target: '_blank' %>
+        <%= link_to t('user_registration.ctrl_privacy_policy'), 'https://www.australiangenomics.org.au/website-privacy-policies/ctrl-platform-privacy-policy/', target: '_blank' %>
       </div>
     </div>
   </div>

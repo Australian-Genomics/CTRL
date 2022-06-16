@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe 'routes for dashboard', type: :routing do
   it 'routes /news_and_info to dashboard#news_and_info' do

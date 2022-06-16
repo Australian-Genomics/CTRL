@@ -8,5 +8,20 @@ function toggleNavBarLink() {
 
 $(document).on('page:change turbolinks:load', function(){
     $('[data-toggle="popover"]').popover();
+
+    $("div[data-time]").each(function() {
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }
+
+      const reviewedDate = new Date($(this).data('time'));
+      const currentDate = reviewedDate.toLocaleDateString("en-US", options);
+
+      $(this).html(currentDate);
+    });
+
     toggleNavBarLink();
 });

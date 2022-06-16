@@ -2,3 +2,16 @@
   .table thead th { border-bottom: none }
   .table th, .table td { border-top: none }
 }
+.carousel-item{
+  height: 480px !important
+}
+.checkbox-opts{
+  padding-bottom: 3rem;
+}
+#custom-pos {
+  position: relative;
+  right: 18em;
+}
+.dropdown-menu {
+  left: auto !important;
+}

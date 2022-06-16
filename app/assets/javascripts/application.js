@@ -19,4 +19,7 @@
 //= require jquery-ui
 //= require moment
 //= require tempusdominus-bootstrap-4.js
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
+
 //= require_tree .

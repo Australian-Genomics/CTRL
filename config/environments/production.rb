@@ -16,14 +16,14 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(:harmony => true)
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -68,7 +68,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
-
+  config.action_mailer.default_url_options = { host: 'http://infinite-journey-30175.herokuapp.com/'}
   mcri_email = {
       address: "smtp.mcri.edu.au",
       port: 25,
@@ -81,8 +81,8 @@ Rails.application.configure do
       port: 587,
       authentication: "plain",
       enable_starttls_auto: true,
-      user_name: 'aghatesting@gmail.com',
-      password: 'aghatest123$'
+      user_name: Rails.application.credentials[Rails.env.to_sym][:mailer][:email],
+      password: Rails.application.credentials[Rails.env.to_sym][:mailer][:password]
   }
 
   config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : gmail_email

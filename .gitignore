@@ -32,6 +32,18 @@
 #Ignore test coverage
 /coverage
 config/secrets.yml
-
+config/database.yml
 # Ignore .env file
 .env
+
+# Mac generated file
+.DS_Store
+
+spec/examples.txt
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

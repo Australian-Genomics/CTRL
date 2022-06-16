@@ -4,595 +4,124 @@
   <% unless current_user.valid? %>
     <div class="dashboard__topper bg-ice-one">
       <div class="container d-flex flex-column flex-sm-row align-items-center px-30 px-md-15">
-        <div class=" text-bigger text-dark-blue text-center text-md-left mt-30 mt-sm-0">
-          Your personal details need to be completed
+        <div class="text-bigger text-dark-blue text-center text-md-left mt-30 mt-sm-0">
+          <%= t 'dashboard.index.your_personal_details_completed' %>
         </div>
-        <%= link_to('Complete', profile_path, class: "btn btn-primary ml-sm-30 my-15 my-sm-20") %>
+        <%= link_to(
+          t(:complete),
+          profile_path,
+          class: "btn btn-primary ml-sm-30 my-15 my-sm-20")
+        %>
       </div>
     </div>
   <% end %>
 
   <section class="steps container px-sm-0 mb-15 mb-sm-120">
-
     <div class="h2 mt-30 mb-15 px-15">
-      Welcome <%= current_user.first_name %>
+      <%= t 'welcome' %> <%= current_user.first_name %>
     </div>
 
-    <!--
-        Three states/styles of rows:
-        {
-            done:       .dashboard__row_done,
-            active:     .dashboard__row_active,
-            disabled:   .dashboard__row_disabled,
-        }
-    -->
+    <% @steps.each_with_index do |step, index| %>
+      <% step_count = index + 1 %>
 
-    <% if current_user.steps.first.accepted == true %>
-      <div class="steps__row dashboard__row dashboard__row_done">
+      <%= content_tag :div,
+        class: "steps__row dashboard__row #{dashboard_row_helper(current_user, step)}" do
+      %>
         <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
           <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">1</i>
+            <i class="icon__num mr-12"> <%= index + 1 %> </i>
             <div class="mr-auto">
-              CTRL introduction
+              <%= step.title %>
             </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Watch the video introduction to why we are asking you to provide your consent to our program online."
-            >
-            </i>
-
+            <%=
+              content_tag :i,
+              nil,
+              class: "icon__i icon__i_popover mr-md-60 ml-auto",
+              tabindex: 0,
+              role: :button,
+              data: {
+                toggle: :popover,
+                trigger: :focus,
+                placement: :bottom,
+                html: :true,
+                content: step.popover
+              }
+            %>
           </div>
+
+          <% if step_reviewed?(current_user, step) %>
+            <div class="d-flex w-100 mb-15 mb-md-0">
+              <i class="icon_placeholder mr-2"></i>
+              <div class="mr-auto">
+                <%= t(:reviewed) %>
+              </div>
+              <%=
+                content_tag :div,
+                nil,
+                class: "mr-md-3",
+                data: {
+                  time: "#{step_review(current_user, step).created_at.strftime("%A, %^B %-d, %Y")}"
+                }
+              %>
+            </div>
+
+            <div class="d-flex justify-content-end mnw-120">
+              <%= link_to(
+                  step_one_button(step_count),
+                  consent_form_path(surveystep: step_count),
+                  class: "btn btn-primary"
+                )
+              %>
+            </div>
+          <% else %>
 
           <div class="d-flex w-100 mb-15 mb-md-0">
             <i class="icon_placeholder mr-2"></i>
             <div class="mr-auto">
-              Reviewed
+              <%= t 'dashboard.index.review_required' %>
             </div>
-            <div class="mr-md-3">
-              <%= current_user.steps.first.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
-            </div>
+            <div class="mr-md-3"> - </div>
           </div>
 
           <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('View', step_one_path, class: "btn btn-primary") %>
+            <%= link_to(
+              t(:review),
+              consent_form_path(surveystep: step_count),
+              class: "btn btn-primary"
+            )
+            %>
           </div>
-
+          <% end %>
         </div>
-      </div>
-
-    <% else %>
-
-      <div class="steps__row dashboard__row dashboard__row_active">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">1</i>
-            <div class="mr-auto">
-              CTRL introduction
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Watch the video introduction to why we are asking you to provide your consent to our program online."
-            >
-            </i>
-
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Review required
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Review', step_one_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% end %>
-
-    <% if current_user.steps.second.accepted == true %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">2</i>
-            <div class="mr-auto">
-              Consent for the genomic test
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Review your consent to have a genomic test as part of the program."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              <%= current_user.steps.second.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Edit', step_two_path(from_dashboard: true), class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% else %>
-
-      <div class="steps__row dashboard__row dashboard__row_active">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">2</i>
-            <div class="mr-auto">
-              Consent for the genomic test
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Review your consent to have a genomic test as part of the program."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Review required
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Review', step_two_path(from_dashboard: true), class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% end %>
-
-    <% if current_user.steps.third.accepted == true %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">3</i>
-            <div class="mr-auto">
-              Consent to Australian Genomics research participation
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Review your consent to be part of the research program."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              <%= current_user.steps.third.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Edit', step_three_path(from_dashboard: true), class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% else %>
-
-      <div class="steps__row dashboard__row dashboard__row_active">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">3</i>
-            <div class="mr-auto">
-              Consent to Australian Genomics research participation
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Review your consent to be part of the research program."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Review required
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Review', step_three_path(from_dashboard: true), class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% end %>
-
-    <% if current_user.steps.fourth.accepted == true %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">4</i>
-            <div class="mr-auto">
-              Preferences about your results
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Tell us your preferences for knowing results that fall outside the main reason you are having a genomic test."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              <%= current_user.steps.fourth.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Edit', step_four_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% else %>
-
-      <div class="steps__row dashboard__row dashboard__row_active">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">4</i>
-            <div class="mr-auto">
-              Preferences about your results
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Tell us your preferences for knowing results that fall outside the main reason you are having a genomic test."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Review required
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Review', step_four_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% end %>
-
-    <% if current_user.steps.fifth.accepted == true %>
-
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">5</i>
-            <div class="mr-auto">
-              Consent to research outside this study
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Decide who we can share your samples and information with, and for what kinds of research."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Reviewed
-            </div>
-            <div class="mr-md-3">
-              <%= current_user.steps.fifth.updated_at.in_time_zone('Australia/Melbourne').strftime("%d %B %Y") %>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Edit', step_five_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% else %>
-
-      <div class="steps__row dashboard__row dashboard__row_active">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">5</i>
-            <div class="mr-auto">
-              Consent to research outside this study
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Decide who we can share your samples and information with, and for what kinds of research."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Review required
-            </div>
-            <div class="mr-md-3">
-              -
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <%= link_to('Review', step_five_path, class: "btn btn-primary") %>
-          </div>
-
-        </div>
-      </div>
-
-    <% end %>
-
-    <% if current_user.red_cap_survey_one_status == 2 && current_user.red_cap_survey_one_link? %>
-      <div class="steps__row dashboard__row dashboard__row_done">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">6</i>
-            <div class="mr-auto">
-              Participant Survey 1
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Survey 1 will be ready to complete within a few weeks of enrolling in the program."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Complete
-
-
-            </div>
-            <div class="mr-md-3">
-              ‒
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-          </div>
-
-        </div>
-      </div>
-
-    <% elsif current_user.red_cap_survey_one_link? %>
-
-
-      <div class="steps__row dashboard__row dashboard__row_active">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">6</i>
-            <div class="mr-auto">
-              Participant Survey 1
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Survey 1 will be ready to complete within a few weeks of enrolling in the program."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              <% if current_user.red_cap_survey_one_status == 0 || current_user.red_cap_survey_one_status.nil? %>
-                Incomplete
-              <% elsif current_user.red_cap_survey_one_status == 1 %>
-                Available for completion
-              <% end %>
-
-            </div>
-            <div class="mr-md-3">
-              ‒
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-            <% if current_user.red_cap_survey_one_link? %>
-              <%= link_to('Do Survey', current_user.red_cap_survey_one_link, class: 'btn btn-primary') %>
-            <% end %>
-
-          </div>
-        </div>
-      </div>
-
-    <% else %>
-
-
-      <div class="steps__row dashboard__row dashboard__row_disabled">
-        <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-          <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-            <i class="icon__num mr-12">6</i>
-            <div class="mr-auto">
-              Participant Survey 1
-            </div>
-            <i
-              class="icon__i icon__i_popover mr-md-60 ml-auto"
-              tabindex="0"
-              role="button"
-              data-toggle="popover"
-              data-trigger="focus"
-              data-placement="bottom"
-              data-html="true"
-              data-content="Survey 1 will be ready to complete within a few weeks of enrolling in the program."
-            >
-            </i>
-          </div>
-
-          <div class="d-flex w-100 mb-15 mb-md-0">
-            <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
-              Not yet available
-
-            </div>
-            <div class="mr-md-3">
-              ‒
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end mnw-120">
-          </div>
-        </div>
-      </div>
-
+      <% end %>
     <% end %>
 
     <div class="steps__row dashboard__row dashboard__row_disabled">
       <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
         <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-          <i class="icon__num mr-12">7</i>
+          <i class="icon__num mr-12"><%= @steps.count + 1 %></i>
           <div class="mr-auto">
-            Genomic test results
+            <%= t 'dashboard.index.genomic_test_results' %>
           </div>
-          <i
-            class="icon__i icon__i_popover mr-md-60 ml-auto"
-            tabindex="0"
-            role="button"
-            data-toggle="popover"
-            data-trigger="focus"
-            data-placement="bottom"
-            data-html="true"
-            data-content="Your genomic test results will be given to you by your doctor or genetic counsellor. A summary of the results can be stored in CTRL in future, if you agree to it in the ‘preferences about your results’ section."
-          >
-          </i>
+          <%=
+            content_tag :i,
+            nil,
+            class: "icon__i icon__i_popover mr-md-60 ml-auto",
+            tabindex: 0,
+            role: :button,
+            data: {
+              toggle: :popover,
+              trigger: :focus,
+              placement: :bottom,
+              html: :true,
+              content: t('dashboard.index.your_genomic_test_results_will_be')
+            }
+          %>
         </div>
-
         <div class="d-flex w-100 mb-15 mb-md-0">
           <i class="icon_placeholder mr-2"></i>
           <div class="mr-auto">
-            Not yet available
+            <%= t('dashboard.index.not_yet_available') %>
           </div>
           <div class="mr-md-3">
             ‒
@@ -601,48 +130,15 @@
 
         <div class="d-flex justify-content-end mnw-120">
         </div>
-
       </div>
     </div>
 
-    <div class="steps__row dashboard__row dashboard__row_disabled">
-      <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-
-        <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-          <i class="icon__num mr-12">8</i>
-          <div class="mr-auto">
-            Participant Survey 2
-          </div>
-          <i
-            class="icon__i icon__i_popover mr-md-60 ml-auto"
-            tabindex="0"
-            role="button"
-            data-toggle="popover"
-            data-trigger="focus"
-            data-placement="bottom"
-            data-html="true"
-            data-content="Survey 2 will be ready to complete after receiving your genomic test result."
-          >
-          </i>
-        </div>
-
-        <div class="d-flex w-100 mb-15 mb-md-0">
-          <i class="icon_placeholder mr-2"></i>
-          <div class="mr-auto">
-            Not yet available
-          </div>
-          <div class="mr-md-3">
-            ‒
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-end mnw-120">
-        </div>
-
+    <div class="row">
+      <div class="col-12">
+        <%= link_to t('dashboard.index.view_responses'), survey_responses_path(format: :pdf),
+          class: 'btn btn-primary btn-sm float-right mt-3'
+        %>
       </div>
     </div>
-
-
   </section>
-
 </div>

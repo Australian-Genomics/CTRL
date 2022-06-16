@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe 'routes for users', type: :routing do
   it 'routes /users/profile to users#show' do
