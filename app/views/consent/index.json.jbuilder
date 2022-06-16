@@ -36,6 +36,7 @@ json.consent_steps do
 
         json.options question.question_options do |option|
           json.value option.value
+          json.color option.color
         end
 
         answer = QuestionAnswer.find_by(user: current_user, consent_question: question)

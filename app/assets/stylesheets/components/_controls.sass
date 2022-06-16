@@ -67,18 +67,220 @@ $component: 'controls'
     input:checked ~ .label-text
         color: $dark-purple
     +element('checkbox')
+        input:checked ~ .checkmark:after
+            border-style: solid
+            top: 2px
+            left: 7px
         +modifier('blue')
             input:checked ~ .checkmark
                 background-color: $checkmark-border-color
                 border-color: $checkmark-color
-            input:checked ~ .checkmark:after
-                border-style: solid
-                top: 2px
-                left: 7px
+        +modifier('02b0db')
+            input:checked ~ .checkmark
+                background-color: $checkmark-border-color
+                border-color: $checkmark-color
+        +modifier('000000')
+            input:checked ~ .checkmark
+                background-color: #000000
+                border-color: #000000
+        +modifier('333333')
+            input:checked ~ .checkmark
+                background-color: #333333
+                border-color: #333333
+        +modifier('663300')
+            input:checked ~ .checkmark
+                background-color: #663300
+                border-color: #663300
+        +modifier('CC0000')
+            input:checked ~ .checkmark
+                background-color: #CC0000
+                border-color: #CC0000
+        +modifier('CC3300')
+            input:checked ~ .checkmark
+                background-color: #CC3300
+                border-color: #CC3300
+        +modifier('FFCC00')
+            input:checked ~ .checkmark
+                background-color: #FFCC00
+                border-color: #FFCC00
+        +modifier('009900')
+            input:checked ~ .checkmark
+                background-color: #009900
+                border-color: #009900
+        +modifier('006666')
+            input:checked ~ .checkmark
+                background-color: #006666
+                border-color: #006666
+        +modifier('0066FF')
+            input:checked ~ .checkmark
+                background-color: #0066FF
+                border-color: #0066FF
+        +modifier('0000CC')
+            input:checked ~ .checkmark
+                background-color: #0000CC
+                border-color: #0000CC
+        +modifier('663399')
+            input:checked ~ .checkmark
+                background-color: #663399
+                border-color: #663399
+        +modifier('CC0099')
+            input:checked ~ .checkmark
+                background-color: #CC0099
+                border-color: #CC0099
+        +modifier('FF9999')
+            input:checked ~ .checkmark
+                background-color: #FF9999
+                border-color: #FF9999
+        +modifier('FF9966')
+            input:checked ~ .checkmark
+                background-color: #FF9966
+                border-color: #FF9966
+        +modifier('FFFF99')
+            input:checked ~ .checkmark
+                background-color: #FFFF99
+                border-color: #FFFF99
+        +modifier('99FF99')
+            input:checked ~ .checkmark
+                background-color: #99FF99
+                border-color: #99FF99
+        +modifier('66FFCC')
+            input:checked ~ .checkmark
+                background-color: #66FFCC
+                border-color: #66FFCC
+        +modifier('99FFFF')
+            input:checked ~ .checkmark
+                background-color: #99FFFF
+                border-color: #99FFFF
+        +modifier('66CCFF')
+            input:checked ~ .checkmark
+                background-color: #66CCFF
+                border-color: #66CCFF
+        +modifier('9999FF')
+            input:checked ~ .checkmark
+                background-color: #9999FF
+                border-color: #9999FF
+        +modifier('FF99FF')
+            input:checked ~ .checkmark
+                background-color: #FF99FF
+                border-color: #FF99FF
+        +modifier('FFCCCC')
+            input:checked ~ .checkmark
+                background-color: #FFCCCC
+                border-color: #FFCCCC
+        +modifier('FFCC99')
+            input:checked ~ .checkmark
+                background-color: #FFCC99
+                border-color: #FFCC99
+        +modifier('f77088')
+            input:checked ~ .checkmark
+                background-color: #f77088
+                border-color: #f77088
+    //radio button customized color palette
     +element('radio')
         +modifier('blue')
             input:checked ~ .checkmark
                 border: 2px solid $radio-check-border-color
+        +modifier('02b0db')
+            input:checked ~ .checkmark
+                background-color: $checkmark-border-color
+                border-color: $checkmark-color
+        +modifier('000000')
+            input:checked ~ .checkmark
+                background-color: #000000
+                border-color: #000000
+        +modifier('333333')
+            input:checked ~ .checkmark
+                background-color: #333333
+                border-color: #333333
+        +modifier('663300')
+            input:checked ~ .checkmark
+                background-color: #663300
+                border-color: #663300
+        +modifier('CC0000')
+            input:checked ~ .checkmark
+                background-color: #CC0000
+                border-color: #CC0000
+        +modifier('CC3300')
+            input:checked ~ .checkmark
+                background-color: #CC3300
+                border-color: #CC3300
+        +modifier('FFCC00')
+            input:checked ~ .checkmark
+                background-color: #FFCC00
+                border-color: #FFCC00
+        +modifier('009900')
+            input:checked ~ .checkmark
+                background-color: #009900
+                border-color: #009900
+        +modifier('006666')
+            input:checked ~ .checkmark
+                background-color: #006666
+                border-color: #006666
+        +modifier('0066FF')
+            input:checked ~ .checkmark
+                background-color: #0066FF
+                border-color: #0066FF
+        +modifier('0000CC')
+            input:checked ~ .checkmark
+                background-color: #0000CC
+                border-color: #0000CC
+        +modifier('663399')
+            input:checked ~ .checkmark
+                background-color: #663399
+                border-color: #663399
+        +modifier('CC0099')
+            input:checked ~ .checkmark
+                background-color: #CC0099
+                border-color: #CC0099
+        +modifier('FF9999')
+            input:checked ~ .checkmark
+                background-color: #FF9999
+                border-color: #FF9999
+        +modifier('FF9966')
+            input:checked ~ .checkmark
+                background-color: #FF9966
+                border-color: #FF9966
+        +modifier('FFFF99')
+            input:checked ~ .checkmark
+                background-color: #FFFF99
+                border-color: #FFFF99
+        +modifier('99FF99')
+            input:checked ~ .checkmark
+                background-color: #99FF99
+                border-color: #99FF99
+        +modifier('66FFCC')
+            input:checked ~ .checkmark
+                background-color: #66FFCC
+                border-color: #66FFCC
+        +modifier('99FFFF')
+            input:checked ~ .checkmark
+                background-color: #99FFFF
+                border-color: #99FFFF
+        +modifier('66CCFF')
+            input:checked ~ .checkmark
+                background-color: #66CCFF
+                border-color: #66CCFF
+        +modifier('9999FF')
+            input:checked ~ .checkmark
+                background-color: #9999FF
+                border-color: #9999FF
+        +modifier('FF99FF')
+            input:checked ~ .checkmark
+                background-color: #FF99FF
+                border-color: #FF99FF
+        +modifier('FFCCCC')
+            input:checked ~ .checkmark
+                background-color: #FFCCCC
+                border-color: #FFCCCC
+        +modifier('FFCC99')
+            input:checked ~ .checkmark
+                background-color: #FFCC99
+                border-color: #FFCC99
+        +modifier('f77088')
+            input:checked ~ .checkmark
+                background-color: #f77088
+                border-color: #f77088
+
         +modifier('red')
             input:checked ~ .checkmark
                 border: 2px solid $red

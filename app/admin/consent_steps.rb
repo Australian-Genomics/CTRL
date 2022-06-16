@@ -18,7 +18,8 @@ ActiveAdmin.register ConsentStep do
       question_options_attributes: [
         :id,
         :_destroy,
-        :value
+        :value,
+        :color
       ]
     ]
   ],
@@ -98,6 +99,7 @@ ActiveAdmin.register ConsentStep do
             allow_destroy: true do |d|
 
             d.input :value
+            d.input :color, as: :color_picker, palette: ["#000000","#333333","#663300","#CC0000","#CC3300","#FFCC00","#009900","#006666","#0066FF","#0000CC","#663399","#CC0099","#FF9999","#FF9966","#FFFF99","#99FF99","#66FFCC","#99FFFF","#66CCFF","#9999FF","#FF99FF","#FFCCCC","#FFCC99","#f77088"]
           end
         end
       end
