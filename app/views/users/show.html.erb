@@ -3,10 +3,9 @@
 
 <section class="dashboard pb-sm-60 pb-md-180">
 
-
   <div class="container px-md-4">
     <div class="h2 mt-20 mb-15 px-15 px-md-0">
-      My Personal Details
+      <%= t 'user_profile.my_personal_details' %>
     </div>
   </div>
 
@@ -17,7 +16,7 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>First Name</b>
+              <b><%= t 'user_profile.first_name' %></b>
             </div>
             <div class="col-6 text-ellipsis">
               <%= current_user.first_name %>
@@ -25,7 +24,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Middle Name</b>
+              <b><%= t 'user_profile.middle_name' %></b>
             </div>
             <div class="col-6 text-ellipsis">
               <%= current_user.middle_name %>
@@ -33,7 +32,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Family Name</b>
+              <b><%= t 'user_profile.family_name' %></b>
             </div>
             <div class="col-6 text-ellipsis">
               <%= current_user.family_name %>
@@ -41,7 +40,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Date of Birth</b>
+              <b><%= t 'user_profile.date_of_birth' %></b>
             </div>
             <div class="col-6">
               <%= current_user.dob %>
@@ -54,23 +53,26 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Email</b>
-              <i
-                class="icon__i icon__i_popover ml-2"
-                tabindex="0"
-                role="button"
-                data-toggle="popover"
-                data-trigger="focus"
-                data-placement="bottom"
-                data-content="Careful! Changing this email address will change your login email, and where notifications are sent."
-                data-html="true"
-              >
-              </i>
+              <b><%= t :email %></b>
+              <%=
+                content_tag :i,
+                nil,
+                class: 'icon__i icon__i_popover ml-2',
+                tabindex: 0,
+                role: :button,
+                data: {
+                  toggle: :popover,
+                  trigger: :focus,
+                  placement: :bottom,
+                  content: t('user_profile.careful_warning_change_email'),
+                  html: :true
+                }
+              %>
               <div class="popover-content d-none">
                 <div class="text-dark pb-12 pt-4">
-                  Registered email for the platform
-                  and also the email used for
-                  notifications.
+                  <%=
+                    t 'user_profile.registered_email_for_the_platform'
+                  %>
                 </div>
               </div>
             </div>
@@ -80,7 +82,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Mobile phone</b>
+              <b><%= t 'user_profile.mobile_phone' %></b>
             </div>
             <div class="col-6">
               <%= current_user.phone_no %>
@@ -88,7 +90,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Address</b>
+              <b><%= t 'user_profile.address' %></b>
             </div>
             <div class="col-6">
               <%= current_user.address %>
@@ -99,7 +101,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Preferred contact method</b>
+              <b><%= t 'user_profile.preferred_contact_method' %></b>
             </div>
             <div class="col-6">
               <%= current_user.preferred_contact_method %>
@@ -112,7 +114,7 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Flagship</b>
+              <b><%= t 'user_profile.flagship' %></b>
             </div>
             <div class="col-6">
               <%= current_user.flagship %>
@@ -120,7 +122,7 @@
           </div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Study ID</b>
+              <b><%= t 'user_profile.study_id' %></b>
             </div>
             <div class="col-6">
               <%= current_user.study_id %>
@@ -133,22 +135,24 @@
         <div>
           <div class="row no-gutters">
             <div class="col-6">
-              <b>Register as a parent/guardian or carer</b>
+              <b>
+                <%= t 'user_profile.register_as_a_guardian' %>
+              </b>
             </div>
             <div class="col-6">
               <% if current_user.is_parent == true %>
-                Yes
+                <%= t :yes %>
               <% elsif current_user.is_parent == false %>
-                No
+                <%= t :no %>
               <% end %>
             </div>
           </div>
           <div>
             <% if current_user.is_parent == true %>
-              <b>Registering on behalf of</b>
+              <b><%= t 'user_profile.registering_on_behalf' %></b>
               <%= render partial: 'users/child_details' %>
             <% else %>
-              <b>Next of Kin:</b>
+              <b><%= t 'user_profile.next_of_kin' %>:</b>
               <%= render partial: 'users/kin_details' %>
             <% end %>
           </div>
@@ -157,7 +161,7 @@
     </div>
   </div>
   <div class="container px-md-4">
-    <%= link_to 'Update', edit_profile_path, class: "btn btn-primary update" %>
+    <%= link_to t(:update), edit_profile_path, class: "btn btn-primary update" %>
   </div>
 
 </section>

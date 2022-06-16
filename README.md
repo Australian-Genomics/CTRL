@@ -1,133 +1,316 @@
-# [AGHA](https://circleci.com/gh/Curve-Tomorrow/agha/tree/master)
+# Australian Genomics Health Alliance CTRL Project
 
-`The AGHA(Australian Genomics Health Assurance) Dynamic Consent project is building a web based platform that will manage consent for genomic testing, and allow participants to manage their preferences around how and where their test results are received and shared`
+The [AGHA(Australian Genomics Health Alliance)](https://www.australiangenomics.org.au/introducing-ctrl-a-new-online-research-consent-and-engagement-platform/) Dynamic Consent project is building a web based platform that will manage consent for genomic testing, and allow participants to manage their preferences around how and where their test results are received and shared.
 
-## Getting Started
+## Table of Contents
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [Deployment](#deployment) on how to deploy the project on a live system.
+- [Installation](#installation)
+  - [Getting Started - via Docker (recommended)](#gettingstarteddocker)
+  - [Getting Started - Standard](#gettingstartedstandard)
+  - [Creating an Admin account](#creatingadminaccount)
+- [Guides](#guides)
+  - [Strategies for Multi-Language Support](#strategiesfori18n)
+  - [Two Factor Authentication integration](#2faintegration )
+  - [Password security and user validation](#passwordsecurityanduservalidation)
+  - [Integration of a Content Management System](#integrationofcms)
+- [Testing](#testing)
+  - [Known Issues](#testingknownissues)
+- [Deployment](#deployment)
+  - [Installing Heroku](#installingheroku)
+  - [Deploying to Heroku](#deployingtoheroku)
 
-### Prerequisites
-You can check out, on how to install [rbenv](https://github.com/rbenv/rbenv)
+## <a id="installation"></a> Installation
+### <a id="gettingstarteddocker"></a> Getting Started - via Docker (recommended)
 
-rbenv is our preferred ruby version management software.
-For installing the ruby version, just type in your terminal:
- 
-`rbenv install 2.5.3`
+There are two ways to get started, via Docker or the standard way. We recommend using Docker to minimise operating system installation issues. To install via Docker, first make sure that [Docker](https://www.docker.com/) is installed on your machine, then follow these steps.
 
-You can check your ruby version by hitting your terminal with 
+##### From the project root, build the containers:
 
-`ruby -v`
- 
-It should say something like this
+```shell
+docker-compose up -d --build
+```
 
-`ruby 2.5.3p105`
+#### Install yarn dependencies
 
-Installing rails, just type in your terminal:
-`gem install rails`:
+```shell
+docker-compose run web yarn install
+```
 
-This will install the latest rails version for you. 
-You can check in your rails version by using this command:
- `rails -v`:
+#### Create the database
 
-It should say something like this:
+```shell
+docker-compose run web bundle exec rails db:create
+```
 
-`Rails 5.2.3`
+#### Migrate the database
+
+```shell
+docker-compose run web bundle exec rails db:migrate
+```
+
+#### Seed the database
+
+```shell
+docker-compose run web bundle exec rails db:seed
+```
+
+After seeding, an Admin user is created with the following credentials:
+
+```
+email: adminuser@email.com
+password: tester123
+```
+
+As well as a normal User with the following credentials:
+
+```
+email: testuser@email.com
+password: tester123
+```
+
+#### Start the server!
+
+```
+docker-compose up
+```
+
+To access the homepage and login, go to `localhost:3000`.
+To access the Active Admin interface and the survey builder, go to `localhost:3000/admin`.
+
+If you want to try and register a new user, you can append with the following Study ID: A1543457
+
+### <a id="gettingstartedstandard"></a> Getting Started - Standard
+
+##### Make sure you have Ruby 2.5.3 by doing `ruby -v` from your console.
+
+##### It is recommended to have Node v14.16.1 (you can check the node version by doing `node -v` from your console). Also do a `yarn -v`  to check if you have yarn installed. If it isn't installed then do `npm install --global yarn`.
+
+##### Install gems via bundler
+
+```shell
+bundle install
+```
+
+##### Create and build the database.
+
+```shell
+rails db:create
+rails db:migrate
+```
+
+##### Install yarn dependencies
+
+```shell
+yarn install
+```
+
+##### Seed the database
+
+```shell
+rails db:seed
+```
+
+##### Start the server! `rails s`
 
 
-### Getting the project in your hands
+### <a id="creatingadminaccount"></a> Creating an Admin account
 
-Make sure you have git installed on your system, if you haven't, just refer this [How to install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+To access the Active Admin interface and the survey builder, create an admin account by opening up the server console:
 
-Make sure you have the project permissions to clone. To Clone the github repository for AGHA, type in your terminal with
+```shell
+rails c
+```
 
-`git clone https://github.com/Curve-Tomorrow/agha.git`
+and create an `AdminUser`
 
-Let's try getting the AGHA server running by doing a couple of things
+```shell
+AdminUser.create(email: 'youremail@gmail.com', password: 'yourpassword')
+```
 
-`cd agha`
+then you can access the admin interface by going to `localhost:3000/admin` and typing in your credentials. Make sure to checkout the Documentation page from the navigation bar.
 
-`bundle install --path vendor/bundle` => to install the project dependencies in the vendor/bundle folder in the project directory. Add this to your .gitignore file.
+## <a id="guides"></a> Guides
 
-If you type in your terminal now with
- `rails -v`
- 
-You'll get,
+### <a id="strategiesfori18n"></a> Strategies for Multi-Language Support
+Multi-language support (aka [internationalization](https://guides.rubyonrails.org/i18n.html)) has been implemented within the project.
 
-`Rails 5.2.3` => rails version, our AGHA project is based on.
- 
-"If you get any errors while installing, solve it yourself."
-This is funny and quirky, but may offend some people. I believe the usual standard is to write:
+To see the English locale, navigate to `config/locales/en.yml`
 
-"We believe the installation process to run smoothly. But if it doesn't, we encourage you to try out the usual help from google/stackoverflow. If you're so inclined, you may also create an issue here with the `need help` label. Please mention details of your environment along with the report."
+To add the Chinese locale for example, create another yml file `config/locales/ch.yml` and imitate the structure of `en.yml`.
+
+For example,
+
+For the `hello_world` line in the English locale (`en.yml`):
+
+```yaml
+en:
+  hello_world: Hello World!
+```
+
+Should correspond to an equivalent translated line in the the Chinese locale (`ch.yml`):
+
+```yaml
+ch:
+  hello_world: 你好世界
+```
+
+The Survey form builder does not currently support internationalization. However, this could be implmented by creating separate fields for each table that displays text.
+
+For example, if we want to support Chinese questions, then we can add `question_chinese` and `description_chinese` columns to the `Question` table and modify the Vue components to show the Chinese columns for the Chinese version and show the english columns for the English version.
+
+### <a id="2faintegration"></a> Two Factor Authentication integration
+
+We recommend using [Devise-Two-Factor](https://github.com/tinfoil/devise-two-factor). Devise-Two-Factor is a minimalist extension to Devise which offers support for two-factor authentication, through the [TOTP](https://en.wikipedia.org/wiki/Time-based_One-Time_Password) scheme. It integrates easily with two-factor applications like [Google Authenticator](https://support.google.com/accounts/answer/1066447?hl=en) and [Authy](https://authy.com/).
+
+Add Devise-Two-Factor to your Gemfile with:
+
+```ruby
+gem 'devise-two-factor'
+```
+
+Next, since Devise-Two-Factor encrypts its secrets before storing them in the database, you'll need to generate an encryption key, and store it in an environment variable of your choice. Set the encryption key in the model that uses Devise:
+
+```ruby
+  devise :two_factor_authenticatable,
+         :otp_secret_encryption_key => ENV['YOUR_ENCRYPTION_KEY_HERE']
+
+```
+
+Finally, you can automate all of the required setup by simply running:
+
+```ruby
+rails generate devise_two_factor user ENVIRONMENT_VARIABLE
+```
+
+`ENVIRONMENT_VARIABLE` is the name of the variable you're storing your encryption key in.
+
+Remember to apply the new migration.
+
+```ruby
+bundle exec rake db:migrate
+```
+
+It also adds the `:two_factor_authenticatable` directive to the user model, and sets up your encryption key. If present, it will remove `:database_authenticatable` from the model, as the two strategies are incompatible. Lastly, the generator will add a Warden config block to your Devise initializer, which enables the strategies required for two-factor authentication.
+
+From the Application Controller:
+
+```ruby
+before_action :configure_permitted_parameters, if: :devise_controller?
+
+...
+
+protected
+
+def configure_permitted_parameters
+  devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
+end
+```
+
+*After running the generator, verify that `:database_authenticatable` is not being loaded by your model. The generator will try to remove it, but if you have a non-standard Devise setup, this step may fail. Loading both `:database_authenticatable` and `:two_factor_authenticatable` in a model will allow users to bypass two-factor authenticatable due to the way Warden handles cascading strategies.*
+
+### <a id="passwordsecurityanduservalidation"></a> Password security and user validation
+
+2FA should be sufficient for securing user sessions, but passwords should at least be 8 characters long. Special characters should not be a requirement if the user has 2FA setup during registration.
+
+### <a id="integrationofcms"></a> Integration of a Content Management System
+
+We recommend using [Refinery](https://github.com/refinery/refinerycms). Refinery CMS is in our view one of the best Ruby on Rails content management systems for many years now. Released as open-source in 2009, Refinery uses the ‘Rails way’ wherever possible but also allows the flexibility to design your website in your own way.
+
+To integrate Refinery.
+
+Open up your Gemfile and add the latest version (a later version than the one shown below may exist):
+
+```ruby
+gem 'refinerycms', '~> 3.0.0'
+```
+
+Refinery doesn't ship with authentication by default, but you will need to add it unless you want every visitor to be automatically logged in.
+
+If you want to use the default authentication system:
+
+```ruby
+gem 'refinerycms-authentication-devise', '~> 1.0'
+```
+
+Now, to install the gems, run:
+
+```shell
+bundle install
+```
+
+#### Generating support files and migrations, and preparing the database.
+
+Generating Refinery on top of an existing application is marginally more complicated than it was before, but it's still relatively straightforward:
+
+```shell
+rails generate refinery:cms --fresh-installation
+```
+
+This command does a few things:
+
+* It creates `config/initializers/refinery/` and copies over all the required initializers from Refinery
+
+* It copies all Refinery migrations to your apps migration folder and runs these migrations, and adds the seed data to your database
+
+* It injects Refinery's mounting line into your `config/routes.rb` file
+
+* It inserts `require refinery/formatting` and `require refinery/theme` lines in your apps application.css file
+
+* After this, you should be all set. Don't forget to revisit the initializers in `config/initializers/refinery/` to customize your experience.
+
+#### Mounting to a directory other than root
+
+It is possible to mount Refinery to a subfolder. To do this, simply change the following setting in `config/initializers/refinery/core.rb`.
+
+```ruby
+config.mounted_path = "/subfolder"
+```
+
+After starting your rails server and navigating to `localhost:3000/subfolder`, you should see a dummy home page.
+
+You can create the initial admin user by visiting `localhost:3000/subfolder/refinery`.
+
+## <a id="testing"></a> Testing
+
+We use [Capybara](https://github.com/teamcapybara/capybara) and [Rspec](https://rspec.info/) for our unit tests. Type and enter `rspec` in your terminal console to run the tests.
 
 
-Getting into the rails server
+### <a id="testingknownissues"></a> Known Issues
+*For MacOS Catalina and Big Sur*
 
-`bundle exec rails s`
+If you encounter this error while bundling:
 
-Your server should be running at localhost:3000
+```
+An error occurred while installing libv8 (3.16.14.19), and Bundler
+cannot continue.
+Make sure that `gem install libv8 -v '3.16.14.19' --source
+'https://rubygems.org/'` succeeds before bundling.
+```
 
-## For running the tests 
-`bundle exec rspec spec/**/*.rb`
+Update your brew installation.
 
-`bundle exec cucumber feature/**/*.feature`
+```shell
+brew install v8@3.15
+bundle config build.libv8 --with-system-v8
+bundle config build.therubyracer --with-v8-dir=$(brew --prefix v8@3.15)
+bundle
+```
 
-## HEROKU
-Login with your heroku credentials using
+[Source](https://stackoverflow.com/questions/27875073/an-error-occurred-while-installing-libv8-3-16-14-7-and-bundler-cannot-continu)
 
-`heroku login`
 
-If you don't have access, ask your team mates to give you one.
+## <a id="deployment"></a> Deployment
 
-Add heroku git remote using
+### <a id="installingheroku"></a> Installing Heroku
+Make sure you have installed the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
-`heroku git:remote -a agha-canary`
+Login with your Heroku credentials using `heroku login`.
 
-You can rename the project using 
+Add the Heroku git remote using `heroku git:remote -a agha`.
 
-`git remote rename heroku heroku-staging`
-
-But don't do it unless you want to get fired.
-
-### Deploying your code to heroku from your terminal
+### <a id="deployingtoheroku"></a> Deploying to Heroku
 ```shell
 git add .
 git commit -m [Your message](https://github.com/erlang/otp/wiki/writing-good-commit-messages)
 git push heroku master
 ```
-
-But you don't need it, We already did that for you on CircleCI, you might want to check `.circleci/config.yml`file.
-
-You can also make changes to this README.md file
-
-For that, do `git checkout agha#-updating-the-readme`. Do it, Create a PR, add reviewers and if they're good, we are happy to merge it to master.
-
-
-## Setup for MCRI
-
-### Setup
- 1. Unzip app
- 1. Create DB 'agha_production' with username/password 'agha_api/agha_api' 
- 1. Edit the config/database.yml file to match the settings for the DB including the hostname for production
- 1. Install ruby (ruby 2.3.1)
- 1. Install bundler `gem install bundler`
- 1. Install gems `bundle install`
- 1. Run db schema update `bundle exec rake db:migrate RAILS_ENV=production`
- 1. Run rails `bundle exec rails s -p PORT`
- 1. Let's run the test of the UI
- 1. Copy .env-example to .env and ask for relevant tokens
- 
-### Email and delayed jobs
- 1. Set the ENV variable EMAIL_SERVER to MCRI `export EMAIL_SERVER=<EMAIL_SERVER>`
- 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=<ROLLBAR_ACCESS_TOKEN>`
- 1. Set the ENV variable for DAILY_CHANGES_EMAIL `export DAILY_CHANGES_EMAIL=<DAILY_CHANGES_EMAIL>`
- 1. Add the recurring delayed job for RedCap and Emailing `bundle exec rake recurring:check_redcap_and_send_emails`
- 1. Edit the config/environments/production.rb file for MCRI email settings
- 1. Run the worker as a background process `bundle exec rake jobs:work`
- 
-### Add Rollbar
- 1. Set the ENV variable for ROLLBAR `export ROLLBAR_ACCESS_TOKEN=<ROLLBAR_ACCESS_TOKEN>`
- 1. Test Rollbar with Curve `bundle exec rake rollbar:test`
-
-### Add daily email to Matilda with consent changes
- 1. Add the recurring delayed job for daily consent changes email `bundle exec rake recurring:send_consent_changes_email_to_matilda`

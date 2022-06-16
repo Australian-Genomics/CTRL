@@ -1,34 +1,32 @@
 <body>
-<%= render 'shared/nav_bar' %>
+  <%= render 'shared/nav_bar' %>
 
-<section class="dashboard dashboard__edit">
-  <%= simple_form_for :contact_us, url: {action: :send_message}, html: {class: "dashboard__modal position-relative form-control mb-0 pt-30"}, method: :post do |f| %>
-
-    <div class="d-flex">
-      <div class="d-block mt-0 mb-30 mx-auto">
-        <%= image_tag "message-closed-envelope.png", alt: "message-closed-envelope", class: "h-100" %>
-      </div>
-    </div>
-
-    <h3 class="h3 text-center">
-      Please enter your message
-    </h3>
-
-    <%= render 'shared/flash_alert' %>
-
-    <div class="form-row">
-      <div class="col-12 mb-30">
-        <div class="position-relative">
-          <%= f.input :message, label: false, required: false, as: :text %>
+  <section class="dashboard dashboard__edit">
+    <%= simple_form_for :contact_us,
+      url: { action: :send_message },
+      html: { class: "dashboard__modal position-relative form-control mb-0 pt-30" },
+      method: :post do |f|
+    %>
+      <div class="d-flex">
+        <div class="d-block mt-0 mb-30 mx-auto">
+          <%= image_tag "message-closed-envelope.png", alt: "message-closed-envelope", class: "h-100" %>
         </div>
       </div>
-    </div>
-
-    <div class="d-flex flex-column align-items-center">
-      <%= submit_tag('Send', class: "btn btn-primary btn-block mb-18 mx-auto") %>
-      <%= link_to('Cancel', root_path) %>
-    </div>
-
-  <% end %>
-
-</section></body>
+      <h3 class="h3 text-center">
+        <%= t 'dashboard.contact_us.please_enter_your_message' %>
+      </h3>
+      <%= render 'shared/flash_alert' %>
+      <div class="form-row">
+        <div class="col-12 mb-30">
+          <div class="position-relative">
+            <%= f.input :message, label: false, required: false, as: :text %>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column align-items-center">
+        <%= submit_tag(t(:send), class: "btn btn-primary btn-block mb-18 mx-auto") %>
+        <%= link_to(t(:cancel), root_path) %>
+      </div>
+    <% end %>
+  </section>
+</body>

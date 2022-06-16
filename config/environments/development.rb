@@ -1,10 +1,4 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
-
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -36,6 +30,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   mcri_email = {
       address: "smtp.mcri.edu.au",
@@ -49,8 +44,8 @@ Rails.application.configure do
       port: 587,
       authentication: "plain",
       enable_starttls_auto: true,
-      user_name: 'aghatesting@gmail.com',
-      password: 'aghatest123$'
+      user_name: Rails.application.credentials[Rails.env.to_sym][:mailer][:email],
+      password: Rails.application.credentials[Rails.env.to_sym][:mailer][:password]
   }
 
   config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : gmail_email
@@ -81,4 +76,7 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :letter_opener
   # config.action_mailer.perform_deliveries = true
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Make javascript_pack_tag load assets from webpack-dev-server.
+  # config.x.webpacker[:dev_server_host] = 'http://localhost:8080'
 end

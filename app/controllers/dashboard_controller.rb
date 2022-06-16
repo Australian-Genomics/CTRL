@@ -2,6 +2,7 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @steps = ConsentStep.ordered
     @active_tab = 'dashboard'
   end
 
