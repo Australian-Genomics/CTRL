@@ -10,6 +10,8 @@ services:
   database:
     # Use the postgres 11.5 base image for this container.
     image: postgres:11.5
+    
+    platform: "linux/amd64"
 
     volumes:
       # We need to tell Docker where on the PostgreSQL
@@ -38,6 +40,8 @@ services:
   web:
     # The root directory from which we're building.
     build: .
+    
+    platform: "linux/amd64"
 
     # This makes it so any code changes inside the project
     # directory get synced with Docker. Without this line,
