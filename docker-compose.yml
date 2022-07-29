@@ -74,3 +74,7 @@ services:
 # Declare the volumes that our application uses.
 volumes:
   db_data:
+
+networks:
+  default:
+    driver: bridge
