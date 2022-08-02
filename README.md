@@ -27,8 +27,35 @@ There are two ways to get started, via Docker or the standard way. We recommend 
 ##### From the project root, build the containers:
 
 ```shell
-docker-compose up -d --build
+docker-compose build
 ```
+
+#### Decode or create `config/credentials.yml`
+
+If you have been given the `master.key` file, move it to `config/master.key`.
+This decodes the `config/credentials.yml.enc` file which should already be
+present in this repo. Otherwise, you can create your own `config/master.key` and
+`config/credentials.yml.env` files by deleting `config/credentials.yml.enc` then
+running:
+
+```shell
+docker-compose run web bundle exec /bin/bash -c 'apt install nano -y && EDITOR=nano rails credentials:edit'
+```
+
+In the editor which appears, append the following:
+
+```yml
+development:
+  mailer:
+    email: "adminuser@email.com"
+    password: "tester123"
+```
+
+Then save the editor and exit.
+
+When deploying a production instance, you will also want to include a
+`production:` section in the above yaml file, following the same format as the
+`development:` section.
 
 #### Install yarn dependencies
 
