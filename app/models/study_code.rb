@@ -8,6 +8,6 @@ class StudyCode < ApplicationRecord
     validate :study_code_already_present
 
     def study_code_already_present
-        self.errors.add(:title,"only one study code can be added") if self.new_record? &&  StudyCode.count == 1
+        self.errors.add(:title, "only one study code can be added") if self.new_record? && StudyCode.count == 1
     end
 end

@@ -299,7 +299,11 @@ You can create the initial admin user by visiting `localhost:3000/subfolder/refi
 
 ## <a id="testing"></a> Testing
 
-We use [Capybara](https://github.com/teamcapybara/capybara) and [Rspec](https://rspec.info/) for our unit tests. Type and enter `rspec` in your terminal console to run the tests.
+We use [Capybara](https://github.com/teamcapybara/capybara) and [Rspec](https://rspec.info/) for our unit tests. Type and enter `rspec` in your terminal console to run the tests. Or, if using docker:
+
+```shell
+docker-compose run web bash -c 'RAILS_ENV=test bundle exec rspec'
+```
 
 
 ### <a id="testingknownissues"></a> Known Issues
