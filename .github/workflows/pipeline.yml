@@ -1,0 +1,16 @@
+name: Run rspec
+on: [push]
+jobs:
+  Run-Rspec:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: docker-compose build
+      - env:
+          MASTER_KEY: ${{ secrets.MASTER_KEY }}
+        run: printf "${MASTER_KEY}" > config/master.key
+      - run: docker-compose run web yarn install
+      - run: docker-compose run web bundle exec rails db:create
+      - run: docker-compose run web bundle exec rails db:migrate
+      - run: docker-compose run web bash -c 'RAILS_ENV=test bundle exec rspec'
