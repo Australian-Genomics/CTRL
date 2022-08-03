@@ -10,7 +10,10 @@ FactoryBot.define do
     flagship 'Genetic Immunology'
     password 'password'
     password_confirmation 'password'
-    study_id 'A0134001'
+    study_id {
+      StudyCode.create(title: 'A0134001')
+      'A0134001'
+    }
     suburb 'Bankstown.'
     preferred_contact_method 'Email'
     is_parent 'true'
