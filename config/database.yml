@@ -1,0 +1,22 @@
+default: &default
+   adapter: postgresql
+   encoding: unicode
+development:
+  <<: *default
+  database: agha_development
+  username: <%= ENV['DATABASE_USER'] || 'dev_username' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'dev_password' %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+test: &test
+  <<: *default
+  database: agha_test
+  username: <%= ENV['DATABASE_USER'] || 'test_user' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'test_password' %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+production:
+  <<: *default
+  database: agha_production
+  username: <%= ENV['RDS_USERNAME'] || 'prod_user' %>
+  password: <%= ENV['RDS_PASSWORD'] || 'prod_password' %>
+cucumber:
+  <<: *test
