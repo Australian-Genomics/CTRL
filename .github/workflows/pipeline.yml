@@ -13,4 +13,5 @@ jobs:
       - run: docker-compose run web yarn install
       - run: docker-compose run web bundle exec rails db:create
       - run: docker-compose run web bundle exec rails db:migrate
+      - run: docker-compose run web bundle exec rails db:seed
       - run: docker-compose run web bash -c 'RAILS_ENV=test bundle exec rspec'
