@@ -7,6 +7,8 @@
   popover:  |
     Watch the video introduction to why we are asking you to provide your
     consent to our program online.
+  tour_videos: |
+    https://www.youtube.com/embed/Du8kYb_9AKY
 
 - title: Consent for the genomic test
   order: 2
