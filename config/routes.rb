@@ -30,4 +30,6 @@ Rails.application.routes.draw do
   get 'consent-form', to: 'consent#edit'
 
   get 'counselor-will-contact', to: 'counselor_contact#show'
+
+  get 'application/logo.png', to: 'application#logo'
 end
