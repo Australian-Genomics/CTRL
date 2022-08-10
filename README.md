@@ -39,7 +39,7 @@ present in this repo. Otherwise, you can create your own `config/master.key` and
 running:
 
 ```shell
-docker-compose run web bundle exec /bin/bash -c 'apt install nano -y && EDITOR=nano rails credentials:edit'
+docker-compose --env-file=.env.dev run web bundle exec /bin/bash -c 'apt install nano -y && EDITOR=nano rails credentials:edit'
 ```
 
 In the editor which appears, append the following:
@@ -60,25 +60,25 @@ When deploying a production instance, you will also want to include a
 #### Install yarn dependencies
 
 ```shell
-docker-compose run web yarn install
+docker-compose --env-file=.env.dev run web yarn install
 ```
 
 #### Create the database
 
 ```shell
-docker-compose run web bundle exec rails db:create
+docker-compose --env-file=.env.dev run web bundle exec rails db:create
 ```
 
 #### Migrate the database
 
 ```shell
-docker-compose run web bundle exec rails db:migrate
+docker-compose --env-file=.env.dev run web bundle exec rails db:migrate
 ```
 
 #### Seed the database
 
 ```shell
-docker-compose run web bundle exec rails db:seed
+docker-compose --env-file=.env.dev run web bundle exec rails db:seed
 ```
 
 After seeding, an Admin user is created with the following credentials:
@@ -98,7 +98,7 @@ password: tester123
 #### Start the server!
 
 ```
-docker-compose up
+docker-compose --env-file=.env.dev up
 ```
 
 To access the homepage and login, go to `localhost:3000`.
@@ -299,12 +299,21 @@ You can create the initial admin user by visiting `localhost:3000/subfolder/refi
 
 ## <a id="testing"></a> Testing
 
-We use [Capybara](https://github.com/teamcapybara/capybara) and [Rspec](https://rspec.info/) for our unit tests. Type and enter `rspec` in your terminal console to run the tests. Or, if using docker:
+We use [Capybara](https://github.com/teamcapybara/capybara) and [Rspec](https://rspec.info/) for our unit tests.
+
+To run the `cucumber` tests, enter `cucumber` in your terminal console. Or, if using docker:
 
 ```shell
-docker-compose run web bash -c 'RAILS_ENV=test bundle exec rspec'
+docker-compose --env-file=.env.dev bundle exec rspec
 ```
 
+To run the `rspec` tests, enter `rspec` in your terminal console. Or, if using docker:
+
+```shell
+docker-compose --env-file=.env.dev run web bundle exec rspec
+```
+
+The tests can also ben run in the `test` environment by passing `--env-file=.env.test`, however note that you'll also need to run the previous commands (e.g. to seed the DB) in the same environment.
 
 ### <a id="testingknownissues"></a> Known Issues
 *For MacOS Catalina and Big Sur*

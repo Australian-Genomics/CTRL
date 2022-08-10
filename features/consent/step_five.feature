@@ -4,22 +4,24 @@ Feature: Consent Page
   should be able to sign up and go through the step four of the consent
 
   Scenario: User is not signed up
+    Given I do not exist as a user
+    And A study code exists
     When I sign in with valid credentials
     Then I see an invalid login message
     And I should not be signed in
 
   Scenario: User can see the step five page of the consent
+    Given I do not exist as a user
+    And A study code exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
     When I click on Next
     Then I should see the step two of the consent
-    When I click on Select All
+    When I click all the checkboxes
     And I click on Next
-    Then I should see the confirm answers page
-    And I click on Confirm
     Then I should be on the step three page of consent
-    When I select all questions on step three
+    When I click all the checkboxes
     When I click the Next button
     Then I should see the step four of the consent
     And I should see default answer to be Not Sure
@@ -28,17 +30,17 @@ Feature: Consent Page
     And I should see default answer to be Not Sure
 
   Scenario: User can go back to the step four of the consent
+    Given I do not exist as a user
+    And A study code exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
     When I click on Next
     Then I should see the step two of the consent
-    When I click on Select All
+    When I click all the checkboxes
     And I click on Next
-    Then I should see the confirm answers page
-    And I click on Confirm
     Then I should be on the step three page of consent
-    When I select all questions on step three
+    When I click all the checkboxes
     When I click the Next button
     Then I should see the step four of the consent
     When I click the Next button
@@ -47,17 +49,17 @@ Feature: Consent Page
     Then I should see the step four of the consent
 
   Scenario: User can save and go to the dashboard page
+    Given I do not exist as a user
+    And A study code exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
     When I click on Next
     Then I should see the step two of the consent
-    When I click on Select All
+    When I click all the checkboxes
     And I click on Next
-    Then I should see the confirm answers page
-    And I click on Confirm
     Then I should be on the step three page of consent
-    When I select all questions on step three
+    When I click all the checkboxes
     When I click the Next button
     Then I should see the step four of the consent
     And I should see default answer to be Not Sure

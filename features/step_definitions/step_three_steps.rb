@@ -14,10 +14,6 @@ Then('I should see the notification consent page') do
   expect(page).to have_link('Return to Dashboard')
 end
 
-Then('I select all questions on step three') do
-  find('#selectCheckBox15 + span').click
-end
-
 Then('I should see the step four of the consent') do
   expect(page).to have_content('Step 4 of 5')
 end

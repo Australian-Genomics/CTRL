@@ -41,3 +41,9 @@ end
 When(/^I fill in "(.*?)" with "(.*?)"$/) do |field, value|
   fill_in(field, with: value.to_s)
 end
+
+When('I click all the checkboxes') do
+  all('.controls__checkbox').each do |element|
+    element.click
+  end
+end

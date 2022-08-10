@@ -1,7 +1,7 @@
-name: Run rspec
 on: [push]
 jobs:
-  Run-Rspec:
+  run-rspec:
+    name: "rspec"
     runs-on: ubuntu-20.04
     steps:
       - name: Check out repository code
@@ -10,8 +10,32 @@ jobs:
       - env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
-      - run: docker-compose run web yarn install
-      - run: docker-compose run web bundle exec rails db:create
-      - run: docker-compose run web bundle exec rails db:migrate
-      - run: docker-compose run web bundle exec rails db:seed
-      - run: docker-compose run web bash -c 'RAILS_ENV=test bundle exec rspec'
+      - run: docker-compose --env-file=.env.test run web yarn install
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:seed
+      - run: docker-compose --env-file=.env.test run web bundle exec rspec
+  run-cucumber:
+    name: "cucumber"
+    runs-on: ubuntu-20.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: docker-compose build
+      - env:
+          MASTER_KEY: ${{ secrets.MASTER_KEY }}
+        run: printf "${MASTER_KEY}" > config/master.key
+      - run: docker-compose --env-file=.env.test run web yarn install
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:seed
+      - run: |
+          docker-compose --env-file=.env.test up -d
+          # Wait until the selenium container is ready
+          while ! curl -s http://localhost:4444/wd/hub/status | grep -qF '"ready": true'
+          do
+            echo selenium not ready, retrying in 5 seconds...
+            sleep 5
+          done
+          docker-compose --env-file=.env.test run web bundle exec rake cucumber
