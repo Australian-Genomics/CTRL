@@ -16,3 +16,8 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+.col-value {
+    max-width: 200px;
+    overflow: hidden;
+}
