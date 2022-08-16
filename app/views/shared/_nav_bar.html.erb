@@ -30,6 +30,11 @@
         <li id="news_and_info" class="nav-item">
           <%= link_to(t('navbar.news_and_information'), news_and_info_path, class: "nav-link") %>
         </li>
+        <% if GlossaryEntry.exists? %>
+          <li id="glossary" class="nav-item">
+            <%= link_to(t('navbar.glossary'), glossary_path, class: "nav-link") %>
+          </li>
+        <% end %>
         <li class="nav-item ml-md-auto py-30 py-md-0">
           <%= link_to(t('navbar.log_out'), destroy_user_session_path, method: :delete, class: "btn btn-outline-primary") %>
         </li>
