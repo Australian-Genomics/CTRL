@@ -304,7 +304,7 @@ We use [Capybara](https://github.com/teamcapybara/capybara) and [Rspec](https://
 To run the `cucumber` tests, enter `cucumber` in your terminal console. Or, if using docker:
 
 ```shell
-docker-compose --env-file=.env.dev bundle exec rspec
+docker-compose --env-file=.env.dev run web bundle exec rspec
 ```
 
 To run the `rspec` tests, enter `rspec` in your terminal console. Or, if using docker:
