@@ -13,6 +13,7 @@ The [AGHA(Australian Genomics Health Alliance)](https://www.australiangenomics.o
   - [Two Factor Authentication integration](#2faintegration )
   - [Password security and user validation](#passwordsecurityanduservalidation)
   - [Integration of a Content Management System](#integrationofcms)
+  - [Resetting your environment](#resetenv)
 - [Testing](#testing)
   - [Known Issues](#testingknownissues)
 - [Deployment](#deployment)
@@ -297,23 +298,47 @@ After starting your rails server and navigating to `localhost:3000/subfolder`, y
 
 You can create the initial admin user by visiting `localhost:3000/subfolder/refinery`.
 
+### <a id="resetenv"></a> Resetting your environment
+
+```bash
+# Stop all running containers mentioned in the docker-compose.yml file. Note
+# that if services were removed from the docker-compose.yml file between running
+# `docker-compose up` and `docker-compose down`, those services will not be
+# stopped.
+docker-compose down
+
+# Remove all unused containers, networks, images (both dangling and
+# unreferenced), and volumes.
+docker system prune --all --volumes
+
+# Remove, for example, `node_modules/`, `public/packs/`, `tmp/cache/`.
+git reset -xdf
+```
+
 ## <a id="testing"></a> Testing
 
 We use [Capybara](https://github.com/teamcapybara/capybara) and [Rspec](https://rspec.info/) for our unit tests.
 
-To run the `cucumber` tests, enter `cucumber` in your terminal console. Or, if using docker:
+Before running the tests, you might want to run some or all of the commands
+in the [resetting your environment](#resetenv) section. (If in doubt, run them all!)
+
+Make sure you also follow the
+[Getting Started - via Docker (recommended)](#gettingstarteddocker) section.
+However, note that any step containing `--env-file=.env.dev`, should have it
+replaced by `--env-file=.env.test`.
+
+With that done, you can run the `cucumber` tests in docker using the following
+command:
 
 ```shell
-docker-compose --env-file=.env.dev run web bundle exec rake cucumber
+docker-compose --env-file=.env.test run web bundle exec rake cucumber
 ```
 
-To run the `rspec` tests, enter `rspec` in your terminal console. Or, if using docker:
+Similarly, to run the `rspec` tests:
 
 ```shell
-docker-compose --env-file=.env.dev run web bundle exec rspec
+docker-compose --env-file=.env.test run web bundle exec rspec
 ```
-
-The tests can also ben run in the `test` environment by passing `--env-file=.env.test`, however note that you'll also need to run the previous commands (e.g. to seed the DB) in the same environment.
 
 ### <a id="testingknownissues"></a> Known Issues
 *For MacOS Catalina and Big Sur*
