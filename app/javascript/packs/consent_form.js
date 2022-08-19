@@ -13,11 +13,9 @@ import App from '../consent-form.vue'
 Vue.use(VModal)
 
 const app = new Vue({
+  el: "#consent-form-anchor",
   render: h => h(App)
-}).$mount()
-document.body.onload = function() {
-  document.getElementById('consent-form-anchor').replaceWith(app.$el);
-}
+})
 
 // The above code uses Vue without the compiler, which means you cannot
 // use Vue to target elements in your existing html templates. You would
