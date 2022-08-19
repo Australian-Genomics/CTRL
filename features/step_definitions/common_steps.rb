@@ -47,3 +47,8 @@ When('I click all the checkboxes') do
     element.click
   end
 end
+
+When(/I click the link '([^']+)'/) do |link_text|
+  click_link(link_text)
+end
+
