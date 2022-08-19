@@ -28,6 +28,7 @@ end
 
 Then('I should see the step one of consent section') do
   expect(page).to have_button('Save and Exit')
+  expect(page).to have_content('Watch our short video')
 end
 
 Then('I should see the step two of consent section') do
@@ -52,7 +53,7 @@ end
 
 Then('I should see the dashboard page as step one reviewed') do
   expect(page).to have_content('Reviewed', count: 1)
-  expect(page).to have_content('View', count: 1)
+  expect(page).to have_content("View\n", count: 1)
 end
 
 Then('I should see the dashboard page as step two reviewed') do

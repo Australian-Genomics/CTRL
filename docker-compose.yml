@@ -10,7 +10,7 @@ services:
   database:
     # Use the postgres 11.5 base image for this container.
     image: postgres:11.5
-    
+
     platform: "linux/amd64"
 
     volumes:
@@ -40,7 +40,7 @@ services:
   web:
     # The root directory from which we're building.
     build: .
-    
+
     platform: "linux/amd64"
 
     # This makes it so any code changes inside the project
@@ -65,11 +65,24 @@ services:
     # Specify the values of the environment variables
     # used in this container.
     environment:
-      RAILS_ENV: development
-      DATABASE_NAME: agha_development
-      DATABASE_USER: agha_development
-      DATABASE_PASSWORD:
-      DATABASE_HOST: database
+      RAILS_ENV: ${RAILS_ENV}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+
+  selenium:
+    image: seleniarm/standalone-chromium:4.3.0-20220728
+
+    platform: "linux/amd64"
+
+    ports:
+      - "4444:4444"
+
+    shm_size: "2g"
+
+    environment:
+      - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
 
 # Declare the volumes that our application uses.
 volumes:

@@ -13,11 +13,11 @@ Then('I should be on the step one of consent') do
 end
 
 Then('I should be on the step two of the consent') do
-  expect(page).to have_link('Back')
+  expect(page).to have_button('Back')
 end
 
 Then('I should come back to the step one page') do
-  click_link('Back')
+  click_button('Back')
 end
 
 Then('I should the dashboard page') do

@@ -10,7 +10,7 @@ development:
 test: &test
   <<: *default
   database: agha_test
-  username: <%= ENV['DATABASE_USER'] || 'test_user' %>
+  username: <%= ENV['DATABASE_USER'] || 'test_username' %>
   password: <%= ENV['DATABASE_PASSWORD'] || 'test_password' %>
   host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
 production:
