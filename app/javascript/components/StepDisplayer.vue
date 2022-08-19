@@ -8,7 +8,7 @@
             class="header__logo d-block mt-45 mx-auto ml-xl-0"
           >
              <img
-              src="~images/australian-genomics-logo.png"
+              src="/application/logo.png"
               alt="logo"
               class="h-100"
             >

@@ -1,5 +1,4 @@
 class SurveyConfig < ApplicationRecord
-    validates :value, presence: true
     after_create :set_key
     scope :get_config, -> (key){where("key = ? ", key)}
 

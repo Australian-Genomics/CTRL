@@ -1,8 +1,30 @@
+require 'base64'
+
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
 
+  def logo
+    logo_png_binary = self.logo_png_binary
+    args = {type: 'image/png', disposition: 'inline'}
+
+    if logo_png_binary
+      send_data logo_png_binary, args
+    else
+      send_file Rails.root.join('app', 'assets', 'images', 'australian-genomics-logo.png'), args
+    end
+  end
+
   protected
+
+  def logo_png_binary
+    sc = SurveyConfig.find_by(name: 'application/logo.png')
+    begin
+      (sc&.value and sc&.value != "") ? Base64.strict_decode64(sc&.value) : nil
+    rescue ArgumentError
+      nil
+    end
+  end
 
   def configure_permitted_parameters
     added_attrs = %i[first_name family_name flagship dob study_id email password password_confirmation remember_me terms_and_conditions]
