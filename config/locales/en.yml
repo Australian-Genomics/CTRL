@@ -49,7 +49,7 @@ en:
       There was a problem, we're working on it and the tech team have been
       notified.
     error_code_500: Error code 500
-    error_code_400: Error code 400
+    error_code_404: Error code 404
     we_cant_seem_to_find: We can't seem to find the page you're looking for.
   welcome_page:
     consent_to_participating: Consent to participating in the Australian Genomics program

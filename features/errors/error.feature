@@ -24,6 +24,7 @@ Feature: Error Page
     Then I should see the dashboard page
 
   Scenario: User can go to the previous page from 404 error page
+    Given I do not exist as a user
     When I click on Register
     And I fill in the user details
     Then I should see the welcome message
@@ -33,6 +34,8 @@ Feature: Error Page
     Then I should see the step one of consent
 
   Scenario: User sees the 404 page when not logged in
+    Given I do not exist as a user
+    And I am not logged in
     When I sign in with valid credentials
     Then I see an invalid login message
     And I should not be signed in
@@ -40,6 +43,7 @@ Feature: Error Page
     Then I should see the 404 page
 
   Scenario: User sees the welcome page after clicking on Back to homepage from 404 error page
+    Given I do not exist as a user
     When I sign in with valid credentials
     Then I see an invalid login message
     And I should not be signed in
@@ -69,6 +73,7 @@ Feature: Error Page
     Then I should see the dashboard page
 
   Scenario: User can go to the previous page from 500 error page
+    Given I do not exist as a user
     When I click on Register
     And I fill in the user details
     Then I should see the welcome message

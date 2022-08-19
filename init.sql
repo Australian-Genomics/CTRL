@@ -1,1 +1,3 @@
 CREATE USER agha_development SUPERUSER;
+CREATE USER agha_test SUPERUSER;
+CREATE USER agha_production SUPERUSER;

@@ -15,7 +15,7 @@ When('I click on Return to previous page') do
 end
 
 Then('I should see the {int} page') do |_int|
-  expect(page).to have_content('Error code: 404')
+  expect(page).to have_content('Error code 404')
 end
 
 Then('I should see the welcome page') do
@@ -24,5 +24,5 @@ Then('I should see the welcome page') do
 end
 
 Then('I should see the {string} page') do |_string|
-  expect(page).to have_content('Error code: 500')
+  expect(page).to have_content('Error code 500')
 end
