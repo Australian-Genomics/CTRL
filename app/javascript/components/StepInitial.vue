@@ -3,7 +3,6 @@
     <div class="d-flex mb-30">
       <p class="text-center mx-auto mb-0" v-html="surveyStep.description"></p>
     </div>
-
     <div class="steps__iframe">
       <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
         <ol class="carousel-indicators">
@@ -15,8 +14,6 @@
           <div class="carousel-item " v-for="(video, index) in surveyStep.tour_videos"
                v-bind:key="`tourVideo-${index}`" v-bind:class="{ active: index===0 }">
             <iframe
-                width="100%"
-                height="100%"
                 :src="video"
                 frameborder="0"
                 allow="autoplay; encrypted-media"
