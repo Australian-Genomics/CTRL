@@ -42,7 +42,7 @@
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
-                <%= f.input :dob, as: :string, label: false, placeholder: 'DD-MM-YYYY', required: false, input_html: { class: 'form-control', autocomplete:"off", id:"date-of-birth" } %>
+                <%= f.input :dob, as: :string, label: t('user_profile.date_of_birth'), placeholder: 'DD-MM-YYYY', required: false, input_html: { class: 'form-control', autocomplete: "off", id: "date-of-birth" } %>
               </div>
               <div id="custom-pos"></div>
             </div>
