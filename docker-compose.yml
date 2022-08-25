@@ -74,8 +74,6 @@ services:
   selenium:
     image: seleniarm/standalone-chromium:4.3.0-20220728
 
-    platform: "linux/amd64"
-
     ports:
       - "4444:4444"
 

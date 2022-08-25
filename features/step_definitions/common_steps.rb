@@ -17,7 +17,7 @@ When(/^I fill the user (.*?) date of birth field with future date$/) do |child|
     fill_in 'user_child_family_name', with: 'DSouza'
     fill_in 'user_child_dob', with: Date.tomorrow.to_s
   else
-    fill_in 'user_dob', with: Date.tomorrow.to_s
+    fill_in 'user[dob]', with: Date.tomorrow.to_s
   end
 end
 
