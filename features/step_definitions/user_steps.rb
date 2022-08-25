@@ -5,7 +5,7 @@ def create_visitor
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
-                 dob: '10-10-2000',
+                 dob: '30-05-1995',
                  study_id: 'A1543457' }
 end
 
@@ -52,7 +52,7 @@ def edit_user_details
   fill_in 'user_first_name', with: 'kaku'
   fill_in 'user_middle_name', with: 'something'
   fill_in 'user_family_name', with: 'last'
-  fill_in 'user_dob', with: '30-05-1995'
+  fill_in 'user[dob]', with: '30-05-1995'
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: 'Zetland'
@@ -169,7 +169,7 @@ When('I did not fill the mandatory fields') do
   fill_in 'user_first_name', with: 'kaku'
   fill_in 'user_middle_name', with: 'something'
   fill_in 'user_family_name', with: 'last'
-  fill_in 'user_dob', with: ''
+  fill_in 'user[dob]', with: ''
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: ''
@@ -231,10 +231,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_field('user[first_name]', with: 'kaku')
   expect(page).to have_field('user[middle_name]', with: 'something')
   expect(page).to have_field('user[family_name]', with: 'last')
-
-  # TODO(DoxasticFox): Re-enable as part of Australian-Genomics/CTRL#5
-  # expect(page).to have_field('user[dob]', with: '30-05-1995')
-
+  expect(page).to have_field('user[dob]', with: '30-05-1995')
   expect(page).to have_field('user[email]', with: 'sushant@sushant.com')
   expect(page).to have_field('user[address]', with: '413')
   expect(page).to have_field('user[suburb]', with: 'Zetland')
