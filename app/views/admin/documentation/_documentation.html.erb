@@ -76,12 +76,127 @@
 
       <%= image_tag 'admin/documentation/9' %>
 
-      <h2>Deleting a component</h2>
+      <h2>Deleting a Component</h2>
 
       <p>You can delete an existing Consent Group or specific Consent Questions by checking the "delete" checkbox and hitting the "update consent step" button. Note that deleting a consent group will delete all attached questions. When a question is deleted, its customer responses/answers are also deleted so be careful.</p>
 
+      <h2 id="adding-a-glossary-entry">Adding a Glossary Entry</h2>
+
+      <p>Start by clicking the "Glossary Entries" link from the navigation bar.</p>
+
+      <%= image_tag 'admin/documentation/10' %>
+
+      <p>From there, click the "New Glossary Entry" button located from the top right of the screen.</p>
+
+      <%= image_tag 'admin/documentation/11' %>
+
+      <p>Glossary entries you create will appear on the <a href="/glossary" target="_blank">glossary page</a>, as shown below.</p>
+
+      <%= image_tag 'admin/documentation/12' %>
+
+      <h2>Linking to a Glossary Entry</h2>
+
+      <p>
+        The first step is to add your glossary entries in the admin portal,
+        as described in the "<a href="#adding-a-glossary-entry">Adding a
+        Glossary Entry</a>" section. Once you do that, you'll see the newly
+        added glossary entries on the
+        <a href="/glossary" target="_blank">glossary page</a>. To
+        reference them in a consent question, use the following code template:
+      </p>
+
+      <pre><code>&lt;a href="glossary#term-id" target="_blank"&gt;human-readable-term&lt;/a&gt;</pre></code>
+
+      <p>
+        When using the template in a question, <code>term-id</code> and
+        <code>human-readable-term</code> should be replaced.
+      </p>
+
+      <p>
+        There's two ways to figure out the <code>term-id</code> of a term:
+      </p>
+
+      <ol>
+        <li>
+          Mentally, by taking the term you added via the admin portal,
+          replacing all non-alphanumeric characters with dashes, then changing
+          all the characters to lower case. e.g. the term "My 3rd Term" would
+          have the ID <code>my-3rd-term</code>.
+        </li>
+        <li>
+          By copying the link from the
+          <a href="/glossary" target="_blank">glossary page</a>. Each term has a pilcrow
+          (¶) before it with a hyperlink to the term. In your web browser, you
+          can right click on that hyperlink then click "Copy Link Address",
+          "Copy Link", or some other variant of that depending on the browser
+          you're using. Using this method will not only copy the term ID, but
+          the entire link in absolute form. So you'll get something like
+          <code><%= request.base_url %>/glossary#my-3rd-term</code> in your
+          clipboard instead of just the term's ID (e.g.
+          <code>my-3rd-term</code>).
+        </li>
+      </ol>
+
+      <p>
+        To figure out the <code>human-readable-term</code>, ask yourself what
+        text you'd like the survey particpant to see. For example if you'd like  is
+        what the survey participant sees. So you might replace that with, for
+        example, "Human Readable Term".
+      </p>
+
+      <p>
+        To make this concrete, let's go through an example of linking to a
+        glossary entry. Imagine that we had the following entry in the glossary:
+      </p>
+
+      <%= image_tag 'admin/documentation/13' %>
+
+      <p>
+        Then on the <a href="/glossary" target="_blank">glossary page</a>, we'll
+        see it appear as follows:
+      </p>
+
+      <%= image_tag 'admin/documentation/14' %>
+
+      <p>
+        Right-clicking the pilcrow will copy
+        <code><%= request.base_url %>/glossary#genetic-test</code> to the
+        clipboard:
+      </p>
+
+      <%= image_tag 'admin/documentation/15' %>
+
+      <p>
+        The <code>genetic-test</code> part of the URL is the term's ID. Now,
+        we'll use the ID in a consent question. Let's say that in the following
+        consent step, we wanted to link "genetic testing" to our "genetic test"
+        glossary entry:
+      </p>
+
+      <%= image_tag 'admin/documentation/16' %>
+
+      <p>
+        To do that, we'd replace all the instances of "genetic testing" with
+        this:
+      </p>
+
+      <pre><code>&lt;a href="glossary#genetic-test" target="_blank"&gt;genetic testing&lt;/a&gt;</pre></code>
+
+      <p>
+        In the administrator portal, we'll get the following:
+      </p>
+
+      <%= image_tag 'admin/documentation/17' %>
+
+      <p>
+        Now, within the survey which the user will see, "genetic testing" should
+        be blue and link to the term in the glossary:
+      </p>
+
+      <%= image_tag 'admin/documentation/18' %>
+
       <hr>
-      <h2>How to view a customer's answers to the survey questions</h2>
+      <h2>How to View a Customer's Answers to The Survey Questions</h2>
       <p>You can view customer responses by clicking the "Question Answers" button from the navigation bar</p>
       <%= image_tag 'admin/documentation/3' %>
 
