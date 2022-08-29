@@ -82,6 +82,7 @@ en:
   navbar:
     my_activities: My Activities
     my_personal_details: My Personal Details
+    glossary: Glossary
     contact_us: Contact Us
     news_and_information: News and Information
     log_out: Log Out
@@ -158,3 +159,5 @@ en:
   survey_responses:
     survey_responses_for: Survey responses for %{name}
     no_response: User has not responded to any of the survey questions.
+  glossary_entry:
+    glossary: Glossary

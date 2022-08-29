@@ -1,0 +1,30 @@
+
+<%= render 'shared/nav_bar' %>
+
+<section class="dashboard pb-sm-60 pb-md-180">
+
+  <div class="container px-md-4">
+    <div class="h2 mt-20 mb-15 px-15 px-md-0">
+      <%= t 'glossary_entry.glossary' %>
+    </div>
+  </div>
+
+  <div class="container px-md-0 dashboard__table glossary">
+    <div>
+      <table>
+        <%
+          GlossaryEntry.order(:term).each do |glossary_entry|
+          html_id = glossary_entry.term.parameterize
+        %>
+        <tr id="<%= html_id %>">
+          <td class="term">
+            <a href="#<%= html_id %>">¶</a>&nbsp;<b><%= glossary_entry.term.html_safe %></b>
+          </td>
+          <td><%= glossary_entry.definition.html_safe %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+</section>
