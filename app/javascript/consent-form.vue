@@ -273,6 +273,7 @@ export default {
       }
     },
     previousStep() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       this.consentStep -= 1
     },
     saveAndExit() {
