@@ -1,6 +1,10 @@
 <template>
   <div id="consent-form">
 
+    <div id="modal-loading" v-if="isLoading">
+      <img src="spinner.svg" />
+    </div>
+
     <ModalFallback
       :modal="modalFallback"
       v-if="modalFallback"
@@ -236,7 +240,8 @@ export default {
       steps: [],
       answers: [],
       checkedAnswers:[],
-      configs: []
+      configs: [],
+      isLoading: false
     }
   },
   methods: {
@@ -264,19 +269,20 @@ export default {
         this.checkedAnswers = this.checkedAnswers.filter(item => item !== target.value)
       }
     },
-    nextStep() {
-      this.saveAnswers()
+    async nextStep() {
+      await this.showSpinner(this.saveAnswers)
       if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
         this.$modal.show('modal-fallback')
       } else {
         this.consentStep += 1
       }
     },
-    previousStep() {
+    async previousStep() {
+      await this.showSpinner(this.saveAnswers)
       this.consentStep -= 1
     },
-    saveAndExit() {
-      this.saveAnswers()
+    async saveAndExit() {
+      await this.showSpinner(this.saveAnswers)
       window.location.href = '/'
     },
     toggleDescription(question) {
@@ -297,7 +303,7 @@ export default {
         })
       })
     },
-    saveAnswers() {
+    async saveAnswers() {
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
@@ -307,17 +313,23 @@ export default {
         answersParams.push(...answerArray)
       })
 
-      axios.put('/consent-form', {
-        consent_step_id: this.currentSurveyStep.id,
-        answers: answersParams
-      }).then(({ data }) => {
-        this.steps = data.consent_steps
-        console.log('success in saving answers')
-      })
-      .catch(({ response }) => {
-        console.log('errors while saving answers')
-        console.log(response)
-      });
+      try {
+        const { data } = await axios.put('/consent-form', {
+          consent_step_id: this.currentSurveyStep.id,
+          answers: answersParams
+        });
+        this.steps = data.consent_steps;
+        console.log('success in saving answers');
+      } catch ({ response }) {
+        console.log('errors while saving answers');
+        console.log(response);
+      }
+    },
+    async showSpinner(callback) {
+      this.isLoading = true;
+      const result = await callback();
+      this.isLoading = false;
+      return result;
     }
   },
   computed: {

@@ -48,6 +48,29 @@ Feature: Consent Page
     When I click on Back
     Then I should see the step four of the consent
 
+  Scenario: Going back to step four saves step five
+    Given I do not exist as a user
+    And A study code exists
+    When I click on Register
+    And I fill in the user details
+    Then I should see the step one of consent
+    When I click on Next
+    Then I should see the step two of the consent
+    When I click all the checkboxes
+    And I click on Next
+    Then I should be on the step three page of consent
+    When I click all the checkboxes
+    When I click the Next button
+    Then I should see the step four of the consent
+    When I click the Next button
+    Then I should see the step five of the consent
+    When I click the first radio button
+    And I click on Back
+    Then I should see the step four of the consent
+    When I click the Next button
+    Then I should see the step five of the consent
+    And the first radio button should be selected
+
   Scenario: User can save and go to the dashboard page
     Given I do not exist as a user
     And A study code exists
