@@ -195,6 +195,24 @@
 
       <%= image_tag 'admin/documentation/18' %>
 
+      <h2>Embedding YouTube Videos within Questions and Descriptions</h2>
+
+      <p>
+        Follow <a href="https://support.google.com/youtube/answer/171780?hl=en" target="_blank">
+        Google's guide on embedding YouTube videos</a> to acquire the HTML code
+        to do so. Via the admin portal, the HTML code can than be pasted into
+        the questions or descriptions where you'd like the video to appear, as
+        shown below:
+      </p>
+
+      <%= image_tag 'admin/documentation/19' %>
+
+      <p>
+        Note that the uploader of the YouTube video can remove or even edit the
+        embeded video. Only embed YouTube videos whose source you trust. It is
+        often preferable to embed videos from a channel you own.
+      </p>
+
       <hr>
       <h2>How to View a Customer's Answers to The Survey Questions</h2>
       <p>You can view customer responses by clicking the "Question Answers" button from the navigation bar</p>
@@ -213,7 +231,26 @@
 
       <h2>Other notes</h2>
 
-      <p>Note to the client: The front-end has hard coded variables depending on Step 1 "CTRL introduction" so it's important not to change or edit its "order" field.</p>
+      <ul>
+        <li>
+          Note to the client: The front-end has hard coded variables depending
+          on Step 1 "CTRL introduction" so it's important not to change or edit
+          its "order" field.
+        </li>
+        <li>
+          Fields in the admin portal to edit question text, question
+          descriptions, and step descriptions accept HTML code. In HTML, some
+          characters, such as angle brackets, have special meaning. Because of
+          this, writing a literal angle bracket in the admin portal will not
+          show an angle bracket to the user taking the survey and may even break
+          the survey. To display special characters to survey users, opening
+          angle brackets (<code>&lt;</code>) and closing angle
+          (<code>&gt;</code>) brackets, for example, must be written as
+          <code>&amp;lt;</code> and <code>&amp;gt;</code>, respectively.
+          Ampersands (<code>&amp;</code>) must also be written as
+          <code>&amp;amp;</code>.
+        </li>
+      </ul>
   </div>
 </div>
 
