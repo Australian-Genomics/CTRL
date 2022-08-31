@@ -1,7 +1,8 @@
 - order: 1
   question: |
-    I understand I am providing a sample so that my DNA can be extracted and all of my genes
-    could be looked at. This is called a genomic test.
+    I understand I am providing a sample so that my
+    <a href="glossary#DNA" target="_blank">DNA</a> can be extracted and all of
+    my genes could be looked at. This is called a genomic test.
   description: |
     The sample you have given may have been blood, saliva, skin or other sample already
     collected as part of your medical care. These samples contain your cells, and your DNA

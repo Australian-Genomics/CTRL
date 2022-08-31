@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'users/profile/edit', to: 'users#edit', as: 'edit_profile'
   patch 'users/profile/update', to: 'users#update', as: 'update_profile'
 
+  get 'glossary', to: 'glossary_entries#show', as: 'glossary'
+
   get 'news_and_info', to: 'dashboard#news_and_info', as: 'news_and_info'
   get 'contact_us', to: 'dashboard#contact_us', as: 'contact_us'
   get 'message_sent', to: 'dashboard#message_sent', as: 'message_sent'

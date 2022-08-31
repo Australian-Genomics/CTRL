@@ -1,3 +1,7 @@
+unless StudyCode.find_by(title: 'A1543457')
+  StudyCode.create!(title: 'A1543457')
+end
+
 unless AdminUser.find_by(email: 'adminuser@email.com')
   AdminUser.create(
     email: 'adminuser@email.com',
@@ -164,3 +168,12 @@ ConsentStep.fifth
 end
 
 puts 'Step 5 part 2 created'
+
+glossary_entries = Rails.root.join('db', 'seed_data', 'glossary_entries.yml')
+glossary_entries = YAML::load_file(glossary_entries)
+
+glossary_entries.each do |glossary_entry|
+  GlossaryEntry.create!(glossary_entry)
+end
+
+puts 'Glossary entries created'

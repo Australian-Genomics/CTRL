@@ -1,6 +1,10 @@
 <template>
   <div id="consent-form">
 
+    <div id="modal-loading" v-if="isLoading">
+      <img src="spinner.svg" />
+    </div>
+
     <ModalFallback
       :modal="modalFallback"
       v-if="modalFallback"
@@ -165,11 +169,11 @@
                           </span>
                       </div>
                     </div>
-                  </div>
-                  <div class="steps__row-collapse"
-                    v-if="question.show_description && question.description">
-                    <div class="steps__text-question"
-                      v-html="question.description">
+                    <div class="steps__row-collapse"
+                      v-if="question.show_description && question.description">
+                      <div class="steps__text-question"
+                        v-html="question.description">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -222,6 +226,34 @@ import Checkbox from "./components/Checkbox";
 import RadioButton from "./components/RadioButton";
 
 export default {
+  updated: function() {
+    /* Modifying the DOM directly when using Vue.js is an anti-pattern. But
+     * doing so allows administrators to copy/paste embed HTML from YouTube
+     * into the admin portal without asking them to follow more complicated
+     * instructions, like fishing-out the embed URL or modifying the HTML code
+     * which YouTube provides.
+     */
+    const youtubeIframes = document.querySelectorAll(
+      'iframe[title="YouTube video player"]'
+    )
+    youtubeIframes.forEach(function(youtubeIframe) {
+      // Without this, we'd have to ask administrators to manually remove the
+      // "height" and "width" attributes from YouTube's embed HTML to avoid them
+      // overriding our CSS.
+      youtubeIframe.removeAttribute('width')
+      youtubeIframe.removeAttribute('height')
+
+      // Each question is divided into three columns, containing the text,
+      // information icon, and input elements. Without this logic, the
+      // administrator would only be able to place the video in the first
+      // column, making it appear squashed to one side.
+      if (youtubeIframe.closest('.steps__row-main > .steps__text-question')) {
+        const parentStepsRow = youtubeIframe.closest('.steps__row')
+        youtubeIframe.parentElement.removeChild(youtubeIframe)
+        parentStepsRow.appendChild(youtubeIframe)
+      }
+    })
+  },
   components: {
     StepDisplayer,
     StepInitial,
@@ -235,7 +267,8 @@ export default {
       steps: [],
       answers: [],
       checkedAnswers:[],
-      configs: []
+      configs: [],
+      isLoading: false
     }
   },
   methods: {
@@ -263,8 +296,8 @@ export default {
         this.checkedAnswers = this.checkedAnswers.filter(item => item !== target.value)
       }
     },
-    nextStep() {
-      this.saveAnswers()
+    async nextStep() {
+      await this.showSpinner(this.saveAnswers)
       if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
         this.$modal.show('modal-fallback')
       } else {
@@ -272,12 +305,13 @@ export default {
         this.consentStep += 1
       }
     },
-    previousStep() {
+    async previousStep() {
+      await this.showSpinner(this.saveAnswers)
       window.scrollTo({ top: 0, behavior: 'smooth' });
       this.consentStep -= 1
     },
-    saveAndExit() {
-      this.saveAnswers()
+    async saveAndExit() {
+      await this.showSpinner(this.saveAnswers)
       window.location.href = '/'
     },
     toggleDescription(question) {
@@ -298,7 +332,7 @@ export default {
         })
       })
     },
-    saveAnswers() {
+    async saveAnswers() {
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
@@ -308,17 +342,23 @@ export default {
         answersParams.push(...answerArray)
       })
 
-      axios.put('/consent-form', {
-        consent_step_id: this.currentSurveyStep.id,
-        answers: answersParams
-      }).then(({ data }) => {
-        this.steps = data.consent_steps
-        console.log('success in saving answers')
-      })
-      .catch(({ response }) => {
-        console.log('errors while saving answers')
-        console.log(response)
-      });
+      try {
+        const { data } = await axios.put('/consent-form', {
+          consent_step_id: this.currentSurveyStep.id,
+          answers: answersParams
+        });
+        this.steps = data.consent_steps;
+        console.log('success in saving answers');
+      } catch ({ response }) {
+        console.log('errors while saving answers');
+        console.log(response);
+      }
+    },
+    async showSpinner(callback) {
+      this.isLoading = true;
+      const result = await callback();
+      this.isLoading = false;
+      return result;
     }
   },
   computed: {
