@@ -170,11 +170,11 @@
                           </span>
                       </div>
                     </div>
-                  </div>
-                  <div class="steps__row-collapse"
-                    v-if="question.show_description && question.description">
-                    <div class="steps__text-question"
-                      v-html="question.description">
+                    <div class="steps__row-collapse"
+                      v-if="question.show_description && question.description">
+                      <div class="steps__text-question"
+                        v-html="question.description">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -227,6 +227,34 @@ import Checkbox from "./components/Checkbox";
 import RadioButton from "./components/RadioButton";
 
 export default {
+  updated: function() {
+    /* Modifying the DOM directly when using Vue.js is an anti-pattern. But
+     * doing so allows administrators to copy/paste embed HTML from YouTube
+     * into the admin portal without asking them to follow more complicated
+     * instructions, like fishing-out the embed URL or modifying the HTML code
+     * which YouTube provides.
+     */
+    const youtubeIframes = document.querySelectorAll(
+      'iframe[title="YouTube video player"]'
+    )
+    youtubeIframes.forEach(function(youtubeIframe) {
+      // Without this, we'd have to ask administrators to manually remove the
+      // "height" and "width" attributes from YouTube's embed HTML to avoid them
+      // overriding our CSS.
+      youtubeIframe.removeAttribute('width')
+      youtubeIframe.removeAttribute('height')
+
+      // Each question is divided into three columns, containing the text,
+      // information icon, and input elements. Without this logic, the
+      // administrator would only be able to place the video in the first
+      // column, making it appear squashed to one side.
+      if (youtubeIframe.closest('.steps__row-main > .steps__text-question')) {
+        const parentStepsRow = youtubeIframe.closest('.steps__row')
+        youtubeIframe.parentElement.removeChild(youtubeIframe)
+        parentStepsRow.appendChild(youtubeIframe)
+      }
+    })
+  },
   components: {
     StepDisplayer,
     StepInitial,
