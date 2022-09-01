@@ -27,11 +27,10 @@
           >
 
             <StepInitial
-              :iframeSrc="'https://www.youtube.com/embed/Du8kYb_9AKY'"  
+              :iframeSrc="'https://www.youtube.com/embed/Du8kYb_9AKY'"
               :surveyStep="currentSurveyStep"
               v-if="isFirstStep && currentSurveyStep"
             />
-            
 
             <div v-if="consentStep !== 1">
               <h3 class="text-center mt-2 mb-15">
@@ -302,11 +301,13 @@ export default {
       if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
         this.$modal.show('modal-fallback')
       } else {
+        window.scrollTo({ top: 0 });
         this.consentStep += 1
       }
     },
     async previousStep() {
       await this.showSpinner(this.saveAnswers)
+      window.scrollTo({ top: 0 });
       this.consentStep -= 1
     },
     async saveAndExit() {
