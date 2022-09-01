@@ -1,179 +1,128 @@
-unless StudyCode.find_by(title: 'A1543457')
-  StudyCode.create!(title: 'A1543457')
+def assert_type(object, expected_type)
+  if object.class != expected_type
+    raise ArgumentError.new("Expected #{expected_type}, got #{object}")
+  end
 end
 
-unless AdminUser.find_by(email: 'adminuser@email.com')
-  AdminUser.create(
-    email: 'adminuser@email.com',
-    password: 'tester123',
-    password_confirmation: 'tester123'
-  )
-
-  puts 'created admin user email: adminuser@email.com, password is tester123'
+def string_specifies_record_type?(string)
+  string.match?(/\A[A-Z]/)
 end
 
-unless User.find_by(email: 'testuser@email.com')
-  User.create(
-    email: 'testuser@email.com',
-    password: 'tester123',
-    password_confirmation: 'tester123',
-    study_id: 'A1543457',
-    first_name: 'testser',
-    family_name: 'familyOfUser',
-    dob: 10.years.ago
-  )
+def fields_and_related_records(record_hash)
+  assert_type(record_hash, Hash)
 
-  puts 'created user created: testuser@email.com, password is tester123'
+  [
+    record_hash.reject { |key| string_specifies_record_type?(key) },
+    record_hash.select { |key| string_specifies_record_type?(key) }
+  ]
 end
 
-sc1 = SurveyConfig.find_by(name: "Radio Button Color")
-SurveyConfig.create(name: "Radio Button Color", value: "#02b0db") unless sc1.present?
+def create_related_record_of_type(
+  record,
+  related_record_type,
+  related_records_hash
+)
+  assert_type(related_record_type, String)
+  assert_type(related_records_hash, Hash)
 
-sc2 = SurveyConfig.find_by(name: "Checkbox Color")
-SurveyConfig.create(name: "Checkbox Color", value: "#02b0db") unless sc2.present?
+  fields_, related_records_hash_ = fields_and_related_records(
+    related_records_hash)
+  new_record = case related_record_type
+    when "AdminUser"       then record.admin_users.create!(fields_)
+    when "ConsentGroup"    then record.consent_groups.create!(fields_)
+    when "ConsentQuestion" then record.consent_questions.create!(fields_)
+    when "ConsentStep"     then record.consent_steps.create!(fields_)
+    when "GlossaryEntry"   then record.glossary_entries.create!(fields_)
+    when "ModalFallback"   then record.modal_fallbacks.create!(fields_)
+    when "QuestionOption"  then record.question_options.create!(fields_)
+    when "StudyCode"       then record.study_codes.create!(fields_)
+    when "SurveyConfig"    then record.survey_configs.create!(fields_)
+    when "User"            then record.users.create!(fields_)
+    else raise ArgumentError.new("No such record type: #{record_type}")
+  end
 
-sc3 = SurveyConfig.find_by(name: "application/logo.png")
-SurveyConfig.create(
-  name: "application/logo.png",
-  value: "",
-  is_file: true,
-  hint: "Must be a .png, or empty to restore the default logo"
-) unless sc3.present?
-
-
-consent_steps = Rails.root.join('db', 'seed_data', 'consent_steps.yml')
-
-return unless ConsentStep.count.zero?
-
-consent_steps = YAML::load_file(consent_steps)
-ConsentStep.create!(consent_steps)
-
-puts 'Steps 1 to 5 created'
-
-# Step two
-
-step_two_questions = Rails.root.join('db', 'seed_data', 'step_two_questions.yml')
-step_two_questions = YAML::load_file(step_two_questions)
-
-ConsentStep.second.consent_groups.create(
-  header: '',
-  order: 1
-).consent_questions.create!(step_two_questions)
-
-step_two_modal_fallback = Rails.root.join('db', 'seed_data', 'step_two_modal_fallback.yml')
-step_two_modal_fallback = YAML::load_file(step_two_modal_fallback)
-
-ConsentStep.second.modal_fallbacks.create!(step_two_modal_fallback)
-
-puts 'Step 2 questions created'
-
-# Step three
-
-step_three_questions = Rails.root.join('db', 'seed_data', 'step_three_questions.yml')
-step_three_questions = YAML::load_file(step_three_questions)
-
-ConsentStep.third.consent_groups.create(
-  header: '',
-  order: 1
-).consent_questions.create!(step_three_questions)
-
-step_three_modal_fallback = Rails.root.join('db', 'seed_data', 'step_three_modal_fallback.yml')
-step_three_modal_fallback = YAML::load_file(step_three_modal_fallback)
-
-ConsentStep.third.modal_fallbacks.create!(step_three_modal_fallback)
-
-puts 'Step 3 questions created'
-
-# Step four
-
-step_four_questions = Rails.root.join('db', 'seed_data', 'step_four_questions.yml')
-step_four_questions = YAML::load_file(step_four_questions)
-
-ConsentStep.fourth.consent_groups.create(
-  header: '',
-  order: 1
-).consent_questions.create!(step_four_questions)
-
-ConsentStep
-  .fourth
-  .consent_groups
-  .first
-  .consent_questions
-  .where(question_type: 'multiple choice')
-  .each do |consent_question|
-  consent_question.question_options.create!(
-    value: 'yes'
-  )
-  consent_question.question_options.create!(
-    value: 'no'
-  )
-  consent_question.question_options.create!(
-    value: 'not sure'
-  )
+  [new_record] + create_related_records(new_record, related_records_hash_)
 end
 
-puts 'Step 4 questions created'
+def create_related_records_of_type(
+  record, related_record_type, related_records_array
+)
+  assert_type(related_record_type, String)
+  assert_type(related_records_array, Array)
 
-# Step five
-
-step_five_part_one = Rails.root.join('db', 'seed_data', 'step_five_part_one_questions.yml')
-step_five_part_one = YAML::load_file(step_five_part_one)
-
-ConsentStep.fifth.consent_groups.create(
-  header: 'Who can have access to my de-identified samples and information?',
-  order: 1,
-).consent_questions.create!(step_five_part_one)
-
-ConsentStep.fifth
-  .consent_groups
-  .first
-  .consent_questions
-  .where(question_type: 'multiple choice').each do |consent_question|
-  consent_question.question_options.create!(
-    value: 'yes'
-  )
-  consent_question.question_options.create!(
-    value: 'no'
-  )
-  consent_question.question_options.create!(
-    value: 'not sure'
-  )
+  related_records_array.flat_map do |related_record_hash|
+    create_related_record_of_type(
+      record,
+      related_record_type,
+      related_record_hash
+    )
+  end
 end
 
-puts 'Step 5 part 1 created'
+def create_related_records(record, related_records_hash)
+  assert_type(related_records_hash, Hash)
 
-step_five_part_two = Rails.root.join('db', 'seed_data', 'step_five_part_two_questions.yml')
-step_five_part_two = YAML::load_file(step_five_part_two)
-
-ConsentStep.fifth.consent_groups.create(
-  header: 'What kinds of research can they do with my de-identified samples and information?',
-  order: 2,
-).consent_questions.create!(step_five_part_two)
-
-ConsentStep.fifth
-  .consent_groups
-  .second
-  .consent_questions
-  .where(question_type: 'multiple choice').each do |consent_question|
-
-  consent_question.question_options.create!(
-    value: 'yes'
-  )
-  consent_question.question_options.create!(
-    value: 'no'
-  )
-  consent_question.question_options.create!(
-    value: 'not sure'
-  )
+  related_records_hash.flat_map do |related_record_type, related_records_array|
+    create_related_records_of_type(
+      record,
+      related_record_type,
+      related_records_array
+    )
+  end
 end
 
-puts 'Step 5 part 2 created'
+def create_record_of_type(record_type, record_hash)
+  assert_type(record_type, String)
+  assert_type(record_hash, Hash)
 
-glossary_entries = Rails.root.join('db', 'seed_data', 'glossary_entries.yml')
-glossary_entries = YAML::load_file(glossary_entries)
+  fields_hash, related_records_hash = fields_and_related_records(record_hash)
+  new_record = case record_type
+    when "AdminUser"       then AdminUser.create!(fields_hash)
+    when "ConsentGroup"    then ConsentGroup.create!(fields_hash)
+    when "ConsentQuestion" then ConsentQuestion.create!(fields_hash)
+    when "ConsentStep"     then ConsentStep.create!(fields_hash)
+    when "GlossaryEntry"   then GlossaryEntry.create!(fields_hash)
+    when "ModalFallback"   then ModalFallback.create!(fields_hash)
+    when "QuestionOption"  then QuestionOption.create!(fields_hash)
+    when "StudyCode"       then StudyCode.create!(fields_hash)
+    when "SurveyConfig"    then SurveyConfig.create!(fields_hash)
+    when "User"            then User.create!(fields_hash)
+    else raise ArgumentError.new("No such record type: #{record_type}")
+  end
 
-glossary_entries.each do |glossary_entry|
-  GlossaryEntry.create!(glossary_entry)
+  [new_record] + create_related_records(new_record, related_records_hash)
 end
 
-puts 'Glossary entries created'
+def create_records_of_type(record_type, records_array)
+  assert_type(record_type, String)
+  assert_type(records_array, Array)
+
+  records_array.flat_map do |record_hash|
+    create_record_of_type(record_type, record_hash)
+  end
+end
+
+def create_records(records_array)
+  assert_type(records_array, Array)
+
+  records_array.flat_map do |record_hash|
+    assert_type(record_hash, Hash)
+
+    record_hash.flat_map do |record_type, records_array_|
+      create_records_of_type(record_type, records_array_)
+    end
+  end
+end
+
+path = Rails.root.join('db', 'data.yml')
+records_array = YAML::load_file(path)
+records = create_records(records_array)
+
+puts "
+=============================
+RECORDS CREATED SUCCESSFULLY:
+============================="
+records.each do |record|
+  puts
+  pp record
+end
