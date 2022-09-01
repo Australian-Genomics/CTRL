@@ -301,13 +301,13 @@ export default {
       if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
         this.$modal.show('modal-fallback')
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0 });
         this.consentStep += 1
       }
     },
     async previousStep() {
       await this.showSpinner(this.saveAnswers)
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0 });
       this.consentStep -= 1
     },
     async saveAndExit() {
