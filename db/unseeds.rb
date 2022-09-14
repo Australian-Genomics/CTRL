@@ -101,7 +101,7 @@ end
 
 def fetch_records
   [
-    # fetch_records_of_type('StudyCode'),
+    fetch_records_of_type('StudyCode'),
     # fetch_records_of_type('AdminUser'),
     # fetch_records_of_type('User'),
     fetch_records_of_type('SurveyConfig'),
@@ -109,7 +109,3 @@ def fetch_records
     fetch_records_of_type('ConsentStep'),
   ]
 end
-
-records_array = fetch_records
-path = Rails.root.join('db', 'exported-data.yml')
-File.write(path, records_array.to_yaml)
