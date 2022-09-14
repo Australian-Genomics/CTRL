@@ -102,8 +102,6 @@ end
 def fetch_records
   [
     fetch_records_of_type('StudyCode'),
-    # fetch_records_of_type('AdminUser'),
-    # fetch_records_of_type('User'),
     fetch_records_of_type('SurveyConfig'),
     fetch_records_of_type('GlossaryEntry'),
     fetch_records_of_type('ConsentStep'),
