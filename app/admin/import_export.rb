@@ -68,7 +68,7 @@ ActiveAdmin.register_page "Import/Export" do
           redirect_error e.message
         end
       elsif request.params[:submission_type] == "export"
-        send_data fetch_records.to_yaml.to_s, filename: "database.yml"
+        send_data fetch_records.to_yaml, filename: "database.yml"
       else
         redirect_error
       end
