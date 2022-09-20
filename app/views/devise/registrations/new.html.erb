@@ -55,6 +55,35 @@
               </div>
             </div>
           </div>
+
+          <% if next_of_kin_needed_to_register %>
+          <div id="kin">
+            <b><%= t('user_profile.next_of_kin') %></b><br>
+            </br>
+
+            <div class="form-row">
+              <div class="col-12 col-sm-6 pr-sm-3 mb-30">
+                <div class="position-relative">
+                  <%= f.input :kin_first_name, label: false, placeholder: t('user_profile.first_name'), required: false %>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 pl-sm-3 mb-30">
+                <div class="position-relative">
+                  <%= f.input :kin_family_name, label: false, placeholder: t('user_profile.family_name'), required: false %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col mb-30">
+                <div class="position-relative">
+                  <%= f.input :kin_email, label: false, placeholder: t(:email) %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% end %>
+
           <div class="col mb-30" align="center">
             <label class="controls controls__checkbox controls__checkbox_blue">
               <%= f.check_box :terms_and_conditions, hidden: :hidden, errors: true %>

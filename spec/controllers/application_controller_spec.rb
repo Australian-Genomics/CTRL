@@ -4,7 +4,7 @@ require 'base64'
 RSpec.describe ApplicationController, type: :controller do
   describe '#logo' do
     it 'returns the default logo when none is set' do
-      SurveyConfig.create(name: 'application/logo.png', value: '')
+      SurveyConfig.create(name: APPLICATION_LOGO_PNG, value: '')
 
       get :logo
       expect(response.stream.to_path).to eq(
@@ -17,7 +17,7 @@ RSpec.describe ApplicationController, type: :controller do
         'BbqAAAAH0lEQVRoge3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAvg0hAAABmmDh1QAAAABJR' \
         'U5ErkJggg=='
       binary = Base64.decode64(base64)
-      SurveyConfig.create(name: 'application/logo.png', value: base64)
+      SurveyConfig.create(name: APPLICATION_LOGO_PNG, value: base64)
 
       get :logo
       expect(response.stream.body).to eq(binary)
