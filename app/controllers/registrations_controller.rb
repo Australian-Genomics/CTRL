@@ -3,9 +3,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     @user = User.new
-    render 'new',
-      locals: { next_of_kin_needed_to_register: next_of_kin_needed_to_register? }
-
+    @next_of_kin_needed_to_register = next_of_kin_needed_to_register?
+    render 'new'
   end
 
   protected
