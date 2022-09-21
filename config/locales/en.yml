@@ -1,4 +1,24 @@
 en:
+  active_admin:
+    import_export: Import/Export
+    import:
+      top: Import Database
+      warning: |
+        Warning! Importing clears the database before creating new records.
+        Note, however, that only the record types mentioned in the imported file
+        will be cleared before creating new records.
+      body: |
+        The format of the imported file is the same as that of the exported
+        file. You may use the exported database YAML file (below) as a template.
+      upload: Upload
+    export:
+      top: Export Database
+      body: |
+        Click the link below to download a YAML file containing the database's
+        contents. For security, user accounts (and their passwords) are not
+        exported. However, Study Codes, Survey Config entries, Glossary entries,
+        and Consent Steps are exported.
+      link_text: Download
   back: Back
   back_to_homepage: Back to homepage
   cancel: Cancel
@@ -121,7 +141,6 @@ en:
         if you agree to it in the ‘preferences about your results’ section.
       survey_2_will_be_ready: |
         Survey 2 will be ready to complete after receiving your genomic test result.
-      not_yet_available: Not yet available
     message_sent:
       thank_you_for_contacting: Thank you for contacting the Australian Genomics research program
       your_message_sent_to_ctrl: |
