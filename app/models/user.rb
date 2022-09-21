@@ -31,17 +31,18 @@ class User < ApplicationRecord
     on: :update,
     unless: :skip_validation
 
+  validates :kin_first_name,
+    :kin_family_name,
+    :kin_email,
+    presence: true,
+    if: :next_of_kin_needed_to_register?
+
   validate :date_of_birth_in_future,
     unless: :skip_validation
 
   validate :kin_details_and_child_details,
     :child_date_of_birth_in_future,
     on: :update, unless: :skip_validation
-
-  validate :kin_first_name,
-    :kin_family_name,
-    :kin_email,
-    if: :next_of_kin_needed_to_register?
 
   validates :terms_and_conditions, acceptance: true
 

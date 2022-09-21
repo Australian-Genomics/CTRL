@@ -1,9 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
   include NextOfKinRegistrationValidator
 
+  def initialize
+    super
+    @next_of_kin_needed_to_register = next_of_kin_needed_to_register?
+  end
+
   def new
     @user = User.new
-    @next_of_kin_needed_to_register = next_of_kin_needed_to_register?
     render 'new'
   end
 
