@@ -21,6 +21,8 @@
     value: ''
     is_file: true
     hint: Must be a .png, or empty to restore the default logo
+  - name: '"Next of Kin" Needed to Register'
+    value: 'false'
 - GlossaryEntry:
   - term: DNA
     definition: |
