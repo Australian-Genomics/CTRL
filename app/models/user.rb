@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_paper_trail
   include UserDateValidator
+  include NextOfKinRegistrationValidator
 
   has_many :reviewed_steps,
     class_name:  'StepReview',
@@ -29,6 +30,12 @@ class User < ApplicationRecord
     presence: true,
     on: :update,
     unless: :skip_validation
+
+  validates :kin_first_name,
+    :kin_family_name,
+    :kin_email,
+    presence: true,
+    if: :next_of_kin_needed_to_register?
 
   validate :date_of_birth_in_future,
     unless: :skip_validation
