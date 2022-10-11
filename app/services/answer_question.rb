@@ -15,12 +15,10 @@ class AnswerQuestion < ApplicationService
     if @question_type == "multiple checkboxes"
       existing_answers = find_question_answers(question_id)
       multiple_answers = answer_params[:multiple_answers]
-      existing_answers.destroy_all if existing_answers.present? && multiple_answers.present?
+      existing_answers.destroy_all
 
-      if multiple_answers.present?
-        multiple_answers.each do |ans|
-          save_answer(ans, question_id)
-        end
+      multiple_answers.each do |ans|
+        save_answer(ans, question_id)
       end
     else
       existing_answer = find_question_answer(question_id)
