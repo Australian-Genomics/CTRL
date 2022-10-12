@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_11_010945) do
+ActiveRecord::Schema.define(version: 2022_10_11_010843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 2022_10_11_010945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_published", default: true
-    t.string "default_answer_redcap_code"
     t.index ["consent_group_id"], name: "index_consent_questions_on_consent_group_id"
     t.index ["order"], name: "index_consent_questions_on_order"
   end
@@ -104,7 +103,6 @@ ActiveRecord::Schema.define(version: 2022_10_11_010945) do
     t.string "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "redcap_code"
     t.index ["consent_question_id"], name: "index_question_answers_on_consent_question_id"
     t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
