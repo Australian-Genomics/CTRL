@@ -1,23 +1,19 @@
 class UploadRedcapDetailsJob < ApplicationJob
   queue_as :redcap_upload
 
+  # TODO: What happens if REDCap goes down, huh? Then what?
   # TODO: Make sure POSTing doesn't affect responsiveness/speed of the form
   # TODO: Write tests
 
-  # TODO: These should be read at the program's entrypoint
-  @@token = ENV['REDCAP_TOKEN']
-  @@api_url = ENV['REDCAP_URL']
-  @@connection_enabled = ActiveModel::Type::Boolean.new.cast(ENV['REDCAP_CONNECTION_ENABLED'] || 'false')
-
   # TODO: Get rollbar token
   def call_api(payload)
-    if !@@connection_enabled
+    if !REDCAP_CONNECTION_ENABLED
       logger.info("Connection disabled; not posting payload: #{payload}")
       return true
     end
 
     begin
-      response = HTTParty.post(@@api_url, body: payload)
+      response = HTTParty.post(REDCAP_API_URL, body: payload)
       logger.info("Posted payload: #{payload}")
       response.success? && response.parsed_response['count'] == 1
     rescue HTTParty::Error, SocketError => e
@@ -30,7 +26,7 @@ class UploadRedcapDetailsJob < ApplicationJob
 
   def make_redcap_api_payload(data)
     data.nil? ? nil : {
-      token: @@token,
+      token: REDCAP_TOKEN,
       content: 'record',
       format: 'json',
       type: 'flat',
@@ -39,14 +35,12 @@ class UploadRedcapDetailsJob < ApplicationJob
   end
 
   def fetch_redcap_code(consent_question, answer)
-    pp 'ASDF' # TODO
-    pp answer # TODO
     redcap_code = consent_question
       .question_options
       .where('LOWER(value) = ?', answer)
       .first
       &.redcap_code
-    pp redcap_code # TODO
+
     if redcap_code.nil?
       redcap_code = case answer
         when 'yes' then '1'
