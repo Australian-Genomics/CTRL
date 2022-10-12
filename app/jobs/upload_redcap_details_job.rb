@@ -1,8 +1,7 @@
 class UploadRedcapDetailsJob < ApplicationJob
   queue_as :redcap_upload
 
-  # TODO: What happens if REDCap goes down, huh? Then what?
-  # TODO: Make sure POSTing doesn't affect responsiveness/speed of the form
+  # TODO: Q: What happens if REDCap goes down, huh? Then what? A: Just show a HTTP 5xx error
   # TODO: Write tests
 
   # TODO: Get rollbar token
@@ -17,7 +16,7 @@ class UploadRedcapDetailsJob < ApplicationJob
       logger.info("Posted payload: #{payload}")
       response.success? && response.parsed_response['count'] == 1
     rescue HTTParty::Error, SocketError => e
-      msg = "Error connecting to RedCap - #{e.message}"
+      msg = "Error connecting to REDCap - #{e.message}"
       logger.error(msg)
       Rollbar.error(msg)
       false

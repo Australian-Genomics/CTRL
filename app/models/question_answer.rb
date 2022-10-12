@@ -9,7 +9,7 @@ class QuestionAnswer < ApplicationRecord
   before_destroy :destroy_redcap_details
 
   def upload_redcap_details
-    UploadRedcapDetailsJob.perform_later(id)
+    UploadRedcapDetailsJob.perform_now(id)
   end
 
   def destroy_redcap_details
