@@ -68,6 +68,9 @@ en:
     problem_tech_team_notified: |
       There was a problem, we're working on it and the tech team have been
       notified.
+    something_went_wrong: Something went wrong
+    responses_not_saved: |
+      Your responses could not be saved. Please try again later.
     error_code_500: Error code 500
     error_code_404: Error code 404
     we_cant_seem_to_find: We can't seem to find the page you're looking for.

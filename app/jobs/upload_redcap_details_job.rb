@@ -1,14 +1,12 @@
 class UploadRedcapDetailsJob < ApplicationJob
   queue_as :redcap_upload
 
-  # TODO: Q: What happens if REDCap goes down, huh? Then what? A: Just show a HTTP 5xx error
   # TODO: Write tests
 
   # TODO: Get rollbar token
   def call_api(payload)
     if !REDCAP_CONNECTION_ENABLED
       logger.info("Connection disabled; not posting payload: #{payload}")
-      return true
     end
 
     begin
@@ -19,7 +17,7 @@ class UploadRedcapDetailsJob < ApplicationJob
       msg = "Error connecting to REDCap - #{e.message}"
       logger.error(msg)
       Rollbar.error(msg)
-      false
+      raise
     end
   end
 
