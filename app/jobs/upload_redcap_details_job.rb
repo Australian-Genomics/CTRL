@@ -1,9 +1,6 @@
 class UploadRedcapDetailsJob < ApplicationJob
   queue_as :redcap_upload
 
-  # TODO: Write tests
-
-  # TODO: Get rollbar token
   def call_api(payload)
     if !REDCAP_CONNECTION_ENABLED
       logger.info("Connection disabled; not posting payload: #{payload}")
