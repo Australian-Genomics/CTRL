@@ -7,12 +7,25 @@ class UploadRedcapDetailsJob < ApplicationJob
   def call_api(payload)
     if !REDCAP_CONNECTION_ENABLED
       logger.info("Connection disabled; not posting payload: #{payload}")
+      return
     end
 
     begin
       response = HTTParty.post(REDCAP_API_URL, body: payload)
       logger.info("Posted payload: #{payload}")
-      response.success? && response.parsed_response['count'] == 1
+      if !response.success?
+        msg = "Unsuccessful response from REDCap: #{response}"
+        logger.error(msg)
+        Rollbar.error(msg)
+        raise StandardError.new msg
+      end
+      if response.parsed_response['count'] != 1
+        count = response.parsed_response['count']
+        msg = "Expected to modify 1 record, modified #{count}"
+        logger.error(msg)
+        Rollbar.error(msg)
+        raise StandardError.new msg
+      end
     rescue HTTParty::Error, SocketError => e
       msg = "Error connecting to REDCap - #{e.message}"
       logger.error(msg)
@@ -45,11 +58,13 @@ class UploadRedcapDetailsJob < ApplicationJob
         else nil
       end
     end
+
     redcap_code
   end
 
   def collect_data(question_answer_id, destroy)
     question_answer = QuestionAnswer.find(question_answer_id)
+
     if question_answer.nil?
       logger.info "Question answer not found with id=#{question_answer_id}"
       return
