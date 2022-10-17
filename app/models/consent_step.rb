@@ -16,7 +16,6 @@ class ConsentStep < ApplicationRecord
   validates :order, numericality: { greater_than: 0 }, uniqueness: true, on: :create
   validates :title, presence: true
   validates :popover, presence: true
-  validate :check_tour_video
 
   scope :ordered, -> { order(order: :asc) }
 
@@ -28,12 +27,4 @@ class ConsentStep < ApplicationRecord
     video_links = tour_videos.split(",").map{|url| url.strip}
     video_links.map{|link| URI.parse(link)}
   end
-
-  private
-  def check_tour_video
-    unless order > 1
-      self.errors[:base] << "Tour video links option can't be blank" if tour_videos.blank?
-    end
-  end
-
 end
