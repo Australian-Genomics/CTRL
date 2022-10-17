@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex mb-30">
-      <p class="text-center mx-auto mb-0" v-html="surveyStep.description"></p>
+      <p class="text-justify mx-auto mb-0" v-html="surveyStep.description"></p>
     </div>
     <div class="steps__iframe">
       <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
