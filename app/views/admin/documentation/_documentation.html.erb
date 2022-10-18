@@ -42,23 +42,23 @@
       <p>Click the "Add Question" button that appears after adding a consent group. A question form will have the following fields:</p>
 
       <ul>
-        <li><b>order</b> - the position of the question relative to the rest of the questions when displayed to the customer. The number should be non negative and unique to all the questions currently in the consent group.</li>
-        <li><b>question</b> - survey question for the customer.</li>
-        <li><b>description</b> - written representation of the question shown to the customer when the user clicks the information icon. The input accepts html so you can bold letters, italicize, write a list etc.</li>
-        <li><b>question_type</b> -
+        <li><b>Order</b> - The position of the question relative to the rest of the questions when displayed to the customer. The number should be non negative and unique to all the questions currently in the consent group.</li>
+        <li><b>Question</b> - Survey question for the customer.</li>
+        <li><b>Description</b> - Written representation of the question shown to the customer when the user clicks the information icon. The input accepts html so you can bold letters, italicize, write a list etc.</li>
+        <li><b>Question type</b> -
           There are currently three types available.
           <ul>
-            <li>checkbox - a small box on the form into which a check or other mark is entered as the response to a question.</li>
-            <li>multiple choice - several possible answers from which the customer must try to choose one. If this is selected, then you can define the options by clicking the "add multiple choice option" button.</li>
-            <li>checkbox agreement - a checkbox type of question that urges for an agreement. EG: I understand all of the information above and the choices I have made.
+            <li>checkbox - A small box on the form into which a check or other mark is entered as the response to a question.</li>
+            <li>multiple choice - Several possible answers from which the customer must try to choose one. If this is selected, then you can define the options by clicking the "add multiple choice option" button.</li>
+            <li>checkbox agreement - A checkbox type of question that urges for an agreement. EG: I understand all of the information above and the choices I have made.
             </li>
           </ul>
         </li>
-        <li><b>default_answer</b> - the preselected answer for a question. If the question type is "checkbox" then "yes" stands for checked while "no" stands for unchecked (should not be capitalized). If the question type is "multiple choice" then the default value should be the same as the multiple choice value that is intended to be the default answer (case sensitive).
+        <li><b>Default answer</b> - The preselected answer for a question. If the question type is "checkbox" then "yes" stands for checked while "no" stands for unchecked (should not be capitalized). If the question type is "multiple choice" then the default value should be the same as the multiple choice value that is intended to be the default answer (case sensitive).
         </li>
-        <li><b>answer_choices_position</b> - answer positioning only applies for the "multiple choice" question type. There are two choices: "right" and "bottom". The second choice "bottom" is useful if one of the question option values are long.
+        <li><b>Answer choices position</b> - Answer positioning only applies for the "multiple choice" question type. There are two choices: "right" and "bottom". The second choice "bottom" is useful if one of the question option values are long.
         </li>
-        <li><b>redcap_field</b> - a remnant of the old codebase, this field doesn't do anything for now.</li>
+        <li><b>Redcap field</b> - The REDCap variable which this question will be kept synchronised with, if such a REDCap variable exists. If not, this field can safely be left blank.</li>
       </ul>
 
       <h2>Adding a Modal fallback (optional)</h2>

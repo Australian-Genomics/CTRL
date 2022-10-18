@@ -1,3 +1,4 @@
+ENV['REDCAP_CONNECTION_ENABLED'] = 'false'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 

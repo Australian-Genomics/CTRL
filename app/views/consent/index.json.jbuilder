@@ -2,6 +2,13 @@ json.survey_configs SurveyConfig.all do |survey|
   json.value survey.value
   json.key survey.key
 end
+
+json.modal_server_error do
+  json.something_went_wrong t('layout_errors.something_went_wrong')
+  json.responses_not_saved t('layout_errors.responses_not_saved')
+  json.close t('close')
+end
+
 json.consent_steps do
   json.array! @consent_steps do |step|
     json.id step.id

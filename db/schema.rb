@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_15_202346) do
+ActiveRecord::Schema.define(version: 2022_10_11_010843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2022_08_15_202346) do
     t.string "value"
     t.bigint "consent_question_id"
     t.string "color", default: "#02b0db"
+    t.string "redcap_code"
     t.index ["consent_question_id"], name: "index_question_options_on_consent_question_id"
   end
 

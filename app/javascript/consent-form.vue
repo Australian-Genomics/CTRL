@@ -10,6 +10,11 @@
       v-if="modalFallback"
     />
 
+    <ModalServerError
+      :modal="modalServerError"
+      v-if="modalServerError"
+    />
+
     <StepDisplayer
       :consentStep="consentStep"
       :consentStepTotal="consentStepTotal"
@@ -222,6 +227,7 @@ import axios from 'axios';
 import StepDisplayer from './components/StepDisplayer'
 import StepInitial from './components/StepInitial'
 import ModalFallback from './components/ModalFallback'
+import ModalServerError from './components/ModalServerError'
 import Checkbox from "./components/Checkbox";
 import RadioButton from "./components/RadioButton";
 
@@ -258,6 +264,7 @@ export default {
     StepDisplayer,
     StepInitial,
     ModalFallback,
+    ModalServerError,
     Checkbox,
     RadioButton
   },
@@ -268,6 +275,7 @@ export default {
       answers: [],
       checkedAnswers:[],
       configs: [],
+      modal_server_error: null,
       isLoading: false
     }
   },
@@ -297,7 +305,9 @@ export default {
       }
     },
     async nextStep() {
-      await this.showSpinner(this.saveAnswers)
+      if (!await this.showSpinner(this.saveAnswers)) {
+        return;
+      }
       if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
         this.$modal.show('modal-fallback')
       } else {
@@ -306,12 +316,16 @@ export default {
       }
     },
     async previousStep() {
-      await this.showSpinner(this.saveAnswers)
+      if (!await this.showSpinner(this.saveAnswers)) {
+        return;
+      }
       window.scrollTo({ top: 0 });
       this.consentStep -= 1
     },
     async saveAndExit() {
-      await this.showSpinner(this.saveAnswers)
+      if (!await this.showSpinner(this.saveAnswers)) {
+        return;
+      }
       window.location.href = '/'
     },
     toggleDescription(question) {
@@ -352,7 +366,12 @@ export default {
       } catch ({ response }) {
         console.log('errors while saving answers');
         console.log(response);
+        if (response.status >= 500 && response.status <= 599) {
+          this.$modal.show('modal-server-error');
+          return false;
+        }
       }
+      return true;
     },
     async showSpinner(callback) {
       this.isLoading = true;
@@ -380,6 +399,9 @@ export default {
 
       return this.currentSurveyStep.modal_fallback
     },
+    modalServerError() {
+      return this.modal_server_error;
+    },
     consentStepTotal() {
       return this.steps.length;
     },
@@ -391,6 +413,7 @@ export default {
       this.steps = response.data.consent_steps
       this.fillAnswers()
       this.configs = [...response.data.survey_configs]
+      this.modal_server_error = response.data.modal_server_error
       const currentUrl = window.location.search
       const urlParams = new URLSearchParams(currentUrl)
       const toSurveyStep = urlParams.get('surveystep')
