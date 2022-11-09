@@ -1,5 +1,5 @@
 - StudyCode:
-  - title: A1543457
+  - title: "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
 - AdminUser:
   - email: adminuser@email.com
     password: 'tester123'
