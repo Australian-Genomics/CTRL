@@ -10,7 +10,7 @@ def create_visitor
 end
 
 def create_study_id
-  title = 'A1543457'
+  title = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
   unless StudyCode.find_by(title: title)
     StudyCode.create!(title: title)
   end
