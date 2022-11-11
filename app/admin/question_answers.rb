@@ -23,6 +23,42 @@ ActiveAdmin.register QuestionAnswer do
     actions
   end
 
+  csv do
+    column :id
+    column(:user_id) do |question_answer|
+      question_answer.user_id
+    end
+    column(:user_first_name) do |question_answer|
+      question_answer.user.first_name
+    end
+    column(:user_middle_name) do |question_answer|
+      question_answer.user.middle_name
+    end
+    column(:user_family_name) do |question_answer|
+      question_answer.user.family_name
+    end
+    column(:consent_question) do |question_answer|
+      question_answer.consent_question.question
+    end
+    column :answer
+    column(:answer_redcap_field) do |question_answer|
+      redcap_response = UploadRedcapDetails.question_answer_to_redcap_response(
+        question_answer, false
+      ) || {}
+
+      redcap_response.except('record_id').keys.first
+    end
+    column(:answer_redcap_code) do |question_answer|
+      redcap_response = UploadRedcapDetails.question_answer_to_redcap_response(
+        question_answer, false
+      ) || {}
+
+      redcap_response.except('record_id').values.first
+    end
+    column :created_at
+    column :updated_at
+  end
+
   filter :answer
   filter :user_id
   filter :consent_question_id
