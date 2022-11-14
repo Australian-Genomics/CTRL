@@ -11,6 +11,28 @@ ActiveAdmin.register User do
     actions
   end
 
+  csv do
+    column('record_id', humanize_name: false) do |user|
+      user.id
+    end
+
+    ConsentQuestion.all.each do |consent_question|
+      consent_question_id = consent_question.id
+      redcap_field = consent_question.redcap_field
+
+      if redcap_field.blank?
+        next
+      end
+
+      column(redcap_field, humanize_name: false) do |user|
+        QuestionAnswer.find_by(
+          user_id: user.id,
+          consent_question_id: consent_question_id,
+        ).answer
+      end
+    end
+  end
+
   filter :email
   filter :current_sign_in_at
   filter :sign_in_count
