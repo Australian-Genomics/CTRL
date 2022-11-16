@@ -38,9 +38,8 @@
             />
 
             <div v-if="consentStep !== 1">
-              <h3 class="text-center mt-2 mb-15">
-                {{ currentSurveyStep.title }}
-              </h3>
+              <h3 class="text-center mt-2 mb-15"
+                v-html="currentSurveyStep.title"/>
 
               <div class="d-flex mb-30">
                 <p class="steps__description mx-auto mb-0 text-justify"
@@ -54,7 +53,7 @@
               >
                 <div class="steps__general text-center py-2 mb-30"
                   v-if="qstionGrp.header">
-                  <b>{{qstionGrp.header}}</b>
+                  <b h-html="qstionGrp.header"/>
                 </div>
                 <div class="options"
                   v-for="(question, i) in qstionGrp.questions"
