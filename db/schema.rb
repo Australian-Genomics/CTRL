@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_11_010843) do
+ActiveRecord::Schema.define(version: 2022_11_14_040630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,14 @@ ActiveRecord::Schema.define(version: 2022_10_11_010843) do
     t.datetime "updated_at", null: false
     t.boolean "is_file"
     t.string "hint"
+  end
+
+  create_table "user_column_to_redcap_field_mappings", force: :cascade do |t|
+    t.string "user_column", null: false
+    t.string "redcap_field", null: false
+    t.string "redcap_event_name"
+    t.index ["redcap_field", "redcap_event_name"], name: "uctrfm_redcap_index", unique: true
+    t.index ["user_column"], name: "uctrfm_user_column_index", unique: true
   end
 
   create_table "users", force: :cascade do |t|

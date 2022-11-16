@@ -25,10 +25,15 @@ ActiveAdmin.register User do
       end
 
       column(redcap_field, humanize_name: false) do |user|
-        QuestionAnswer.find_by(
+        question_answer = QuestionAnswer.find_by(
           user_id: user.id,
           consent_question_id: consent_question_id,
-        ).answer
+        )
+        if question_answer.nil?
+          ''
+        else
+          UploadRedcapDetails.answer_string_to_code(question_answer.answer)
+        end
       end
     end
   end
