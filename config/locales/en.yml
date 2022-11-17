@@ -75,7 +75,6 @@ en:
     error_code_404: Error code 404
     we_cant_seem_to_find: We can't seem to find the page you're looking for.
   welcome_page:
-    consent_to_participating: Consent to participating in the Australian Genomics program
     register_now: Register Now
   user_registration:
     i_agree_to_the: I agree to the %{terms_and_conditions_link}
