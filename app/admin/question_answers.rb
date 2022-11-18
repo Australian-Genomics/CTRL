@@ -44,16 +44,16 @@ ActiveAdmin.register QuestionAnswer do
     column(:answer_redcap_field) do |question_answer|
       redcap_response = UploadRedcapDetails.question_answer_to_redcap_response(
         question_answer, false
-      ) || {}
+      ) || [{}]
 
-      redcap_response.except('record_id').keys.first
+      redcap_response.first.except('record_id').keys.first
     end
     column(:answer_redcap_code) do |question_answer|
       redcap_response = UploadRedcapDetails.question_answer_to_redcap_response(
         question_answer, false
-      ) || {}
+      ) || [{}]
 
-      redcap_response.except('record_id').values.first
+      redcap_response.first.except('record_id').values.first
     end
     column :created_at
     column :updated_at

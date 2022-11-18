@@ -72,6 +72,8 @@ class User < ApplicationRecord
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
   enum preferred_contact_method: %w[Email Phone Mail]
 
+  after_save :upload_redcap_details
+
   def kin_details_and_child_details
     if is_parent == false
       validates_presence_of :kin_first_name, :kin_family_name, :kin_contact_no
@@ -90,5 +92,9 @@ class User < ApplicationRecord
       errors.add(:password, :blank)
       false
     end
+  end
+
+  def upload_redcap_details
+    UploadRedcapDetails.perform(:user_to_redcap_response, self)
   end
 end

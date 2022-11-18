@@ -22,10 +22,12 @@ $permitted_fields = Set[
   'title',
   'tour_videos',
   'value',
-
   'small_note',
   'cancel_btn',
   'review_answers_btn',
+  'user_column',
+  'redcap_field',
+  'redcap_event_name',
 ]
 
 $permitted_record_types = Set[
@@ -39,6 +41,7 @@ $permitted_record_types = Set[
   'StudyCode',
   'SurveyConfig',
   'User',
+  'UserColumnToRedcapFieldMapping',
 ]
 
 def filter_permitted_keys(record)
@@ -79,16 +82,17 @@ end
 
 def fetch_records_of_type(record_type)
   records = case record_type
-    when "AdminUser"       then AdminUser.all
-    when "ConsentGroup"    then ConsentGroup.all
-    when "ConsentQuestion" then ConsentQuestion.all
-    when "ConsentStep"     then ConsentStep.all
-    when "GlossaryEntry"   then GlossaryEntry.all
-    when "ModalFallback"   then ModalFallback.all
-    when "QuestionOption"  then QuestionOption.all
-    when "StudyCode"       then StudyCode.all
-    when "SurveyConfig"    then SurveyConfig.all
-    when "User"            then User.all
+    when "AdminUser"                      then AdminUser.all
+    when "ConsentGroup"                   then ConsentGroup.all
+    when "ConsentQuestion"                then ConsentQuestion.all
+    when "ConsentStep"                    then ConsentStep.all
+    when "GlossaryEntry"                  then GlossaryEntry.all
+    when "ModalFallback"                  then ModalFallback.all
+    when "QuestionOption"                 then QuestionOption.all
+    when "StudyCode"                      then StudyCode.all
+    when "SurveyConfig"                   then SurveyConfig.all
+    when "User"                           then User.all
+    when "UserColumnToRedcapFieldMapping" then UserColumnToRedcapFieldMapping.all
     else raise ArgumentError.new("No such record type: #{record_type}")
   end
 
@@ -102,6 +106,7 @@ end
 def fetch_records
   [
     fetch_records_of_type('StudyCode'),
+    fetch_records_of_type('UserColumnToRedcapFieldMapping'),
     fetch_records_of_type('SurveyConfig'),
     fetch_records_of_type('GlossaryEntry'),
     fetch_records_of_type('ConsentStep'),
