@@ -180,7 +180,12 @@ RSpec.describe UploadRedcapDetails do
   end
 
   describe '#user_to_redcap_response' do
-    it 'produces the correct response' do
+    it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
+      user = create(:user)
+      expect(UploadRedcapDetails.user_to_redcap_response(user)).to eq(nil)
+    end
+
+    it 'produces the correct response for UserColumnToRedcapFieldMapping.count > 0' do
       user = create(:user)
 
       create(

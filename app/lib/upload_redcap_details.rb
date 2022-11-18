@@ -77,6 +77,10 @@ class UploadRedcapDetails
   def self.user_to_redcap_response(user, *_)
     user_id = user.id
 
+    if UserColumnToRedcapFieldMapping.count == 0
+      return nil
+    end
+
     UserColumnToRedcapFieldMapping.all.map { |user_column_to_redcap_field_mapping|
       user_column, redcap_field, redcap_event_name = [
         user_column_to_redcap_field_mapping.user_column,
