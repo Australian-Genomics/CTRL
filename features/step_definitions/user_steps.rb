@@ -53,6 +53,7 @@ def edit_user_details
   fill_in 'user_middle_name', with: 'something'
   fill_in 'user_family_name', with: 'last'
   fill_in 'user[dob]', with: '30-05-1995'
+  find('input[name="user[dob]"]').send_keys(:escape)
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: 'Zetland'
@@ -64,7 +65,8 @@ def edit_user_details
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
-  fill_in 'user_child_dob', with: '30-05-1995'
+  fill_in 'user[child_dob]', with: '30-05-1995'
+  find('input[name="user[child_dob]"]').send_keys(:escape)
 end
 
 Given('I am not logged in') do
