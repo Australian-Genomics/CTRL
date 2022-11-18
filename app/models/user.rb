@@ -25,8 +25,7 @@ class User < ApplicationRecord
     message: 'Please check Study ID'
   }, allow_blank: true
 
-  validates :flagship,
-    :preferred_contact_method,
+  validates :preferred_contact_method,
     presence: true,
     on: :update,
     unless: :skip_validation
@@ -49,25 +48,6 @@ class User < ApplicationRecord
   validate :check_study_code, if: -> { study_id.present? }
 
   accepts_nested_attributes_for :steps
-
-  enum flagship: [
-    'Acute Care Genomic Testing',
-    'Acute Lymphoblastic Leukaemia',
-    'Brain Malformations',
-    'Cardiovascular Genetic Disorders',
-    'chILDRANZ',
-    'Epileptic Encephalopathy',
-    'Genetic Immunology',
-    'Genomic Autopsy',
-    'Hereditary Cancer Syndromes (ICCon)',
-    'HIDDEN Renal Genetics',
-    'Intellectual Disability',
-    'Leukodystrophies',
-    'Mitochondrial Disorders',
-    'Neuromuscular Disorders',
-    'KidGen',
-    'Solid Tumours'
-  ]
 
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
   enum preferred_contact_method: %w[Email Phone Mail]

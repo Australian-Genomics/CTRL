@@ -98,14 +98,6 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :flagship, collection: User.flagships.keys, required: false, label: t('user_profile.flagship'), prompt: t('user_profile.select_one'), include_hidden: false, input_html: {class: "form-control mb-0"} %>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="col-12 mb-30">
-        <div class="position-relative">
           <%= f.input :study_id, label: t('user_profile.study_id'), required: false, placeholder: t('user_profile.study_id'), input_html: {class: "form-control mb-0"} %>
         </div>
       </div>

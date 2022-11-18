@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    added_attrs = %i[first_name family_name flagship dob study_id kin_first_name kin_family_name kin_email email password password_confirmation remember_me terms_and_conditions]
+    added_attrs = %i[first_name family_name dob study_id kin_first_name kin_family_name kin_email email password password_confirmation remember_me terms_and_conditions]
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end

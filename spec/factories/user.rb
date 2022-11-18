@@ -7,7 +7,6 @@ FactoryBot.define do
     first_name 'sushant'
     family_name 'ahuja'
     dob '22-05-1995'
-    flagship 'Genetic Immunology'
     password 'password'
     password_confirmation 'password'
     study_id {
