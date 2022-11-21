@@ -53,7 +53,7 @@
               >
                 <div class="steps__general text-center py-2 mb-30"
                   v-if="qstionGrp.header">
-                  <b h-html="qstionGrp.header"/>
+                  <b v-html="qstionGrp.header"/>
                 </div>
                 <div class="options"
                   v-for="(question, i) in qstionGrp.questions"
