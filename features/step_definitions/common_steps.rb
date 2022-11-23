@@ -15,9 +15,11 @@ When(/^I fill the user (.*?) date of birth field with future date$/) do |child|
     find('#user_is_parent + span').click
     fill_in 'user_child_first_name', with: 'Luca'
     fill_in 'user_child_family_name', with: 'DSouza'
-    fill_in 'user_child_dob', with: Date.tomorrow.to_s
+    fill_in 'user[child_dob]', with: Date.tomorrow.to_s
+    find('input[name="user[child_dob]"]').send_keys(:escape)
   else
     fill_in 'user[dob]', with: Date.tomorrow.to_s
+    find('input[name="user[dob]"]').send_keys(:escape)
   end
 end
 
