@@ -312,6 +312,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    regexp-examples (1.5.1)
     regexp_parser (1.5.1)
     request_store (1.4.1)
       rack (>= 1.4)
@@ -469,6 +470,7 @@ DEPENDENCIES
   rails (~> 5.2.3)
   rails-controller-testing
   rails-erd
+  regexp-examples (~> 1.5, >= 1.5.1)
   rollbar
   rspec-rails (~> 3.7)
   rubocop (~> 0.52.1)
@@ -492,4 +494,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   2.3.10
+   2.3.22

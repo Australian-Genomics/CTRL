@@ -10,7 +10,7 @@ def create_visitor
 end
 
 def create_study_id
-  title = 'A1543457'
+  title = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
   unless StudyCode.find_by(title: title)
     StudyCode.create!(title: title)
   end
@@ -228,19 +228,19 @@ Then('I should see Personal Details page') do
 end
 
 Then('I should see the new name on the user edit page') do
-  expect(page).to have_field('user[first_name]', with: 'kaku')
-  expect(page).to have_field('user[middle_name]', with: 'something')
-  expect(page).to have_field('user[family_name]', with: 'last')
-  expect(page).to have_field('user[dob]', with: '30-05-1995')
-  expect(page).to have_field('user[email]', with: 'sushant@sushant.com')
-  expect(page).to have_field('user[address]', with: '413')
-  expect(page).to have_field('user[suburb]', with: 'Zetland')
-  expect(page).to have_field('user[state]', with: 'VIC')
-  expect(page).to have_field('user[post_code]', with: '3000')
-  expect(page).to have_field('user[preferred_contact_method]', with: 'Phone')
-  expect(page).to have_field('user[flagship]', with: 'chILDRANZ')
-  expect(page).to have_field('user[study_id]', with: 'A1234567')
-  expect(page).to have_field('user[child_first_name]', with: 'Luca')
+  expect(page).to have_content('kaku')
+  expect(page).to have_content('something')
+  expect(page).to have_content('last')
+  expect(page).to have_content('30-05-1995')
+  expect(page).to have_content('sushant@sushant.com')
+  expect(page).to have_content('413')
+  expect(page).to have_content('Zetland')
+  expect(page).to have_content('VIC')
+  expect(page).to have_content('3000')
+  expect(page).to have_content('Phone')
+  expect(page).to have_content('chILDRANZ')
+  expect(page).to have_content('A1234567')
+  expect(page).to have_content('Luca')
 end
 
 Then('I should not see the new name on the user edit page') do

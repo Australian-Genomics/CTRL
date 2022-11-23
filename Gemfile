@@ -34,6 +34,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'activeadmin_addons'
 gem 'bootstrap-datepicker-rails'
+gem 'regexp-examples', '~> 1.5', '>= 1.5.1'
 
 group :development, :test do
   gem 'awesome_print'
