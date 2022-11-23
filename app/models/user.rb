@@ -18,12 +18,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :first_name, :family_name, :study_id, presence: true
-
-  validates :study_id, format: {
-    with: /\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\z/,
-    message: 'Please check Study ID'
-  }, allow_blank: true
+  validates :first_name, :family_name, presence: true
 
   validates :flagship,
     :preferred_contact_method,
@@ -46,6 +41,7 @@ class User < ApplicationRecord
 
   validates :terms_and_conditions, acceptance: true
 
+  validates :study_id, presence: true
   validate :check_study_code, if: -> { study_id.present? }
 
   accepts_nested_attributes_for :steps
