@@ -72,7 +72,7 @@ services:
       DATABASE_HOST: ${DATABASE_HOST}
       REDCAP_CONNECTION_ENABLED: ${REDCAP_CONNECTION_ENABLED}
       REDCAP_TOKEN: ${REDCAP_TOKEN}
-      REDCAP_URL: ${REDCAP_URL}
+      REDCAP_API_URL: ${REDCAP_API_URL}
 
   selenium:
     image: seleniarm/standalone-chromium:4.3.0-20220728
