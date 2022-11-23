@@ -135,12 +135,6 @@ en:
         Survey 1 will be ready to complete within a few weeks of enrolling in the program.
       available_for_completion: Available for completion
       do_survey: Do Survey
-      not_yet_available: Not yet available
-      genomic_test_results: Genomic test results
-      your_genomic_test_results_will_be: |
-        Your genomic test results will be given to you by your doctor or genetic counsellor.
-        A summary of the results can be stored in CTRL in future,
-        if you agree to it in the ‘preferences about your results’ section.
       survey_2_will_be_ready: |
         Survey 2 will be ready to complete after receiving your genomic test result.
     message_sent:
