@@ -1,4 +1,10 @@
 def create_visitor
+  @study_id_regexp_str = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+  @study_id_regexp = Regexp.new(@study_id_regexp_str)
+
+  @study_id_random_example_1 = @study_id_regexp.random_example
+  @study_id_random_example_2 = @study_id_regexp.random_example
+
   @visitor ||= { first_name: 'Sushant',
                  family_name: 'Ahuja',
                  flagship: 'Acute Care Genomic Testing',
@@ -6,13 +12,12 @@ def create_visitor
                  password: 'please2',
                  password_confirmation: 'please2',
                  dob: '30-05-1995',
-                 study_id: 'A1543457' }
+                 study_id: @study_id_random_example_1 }
 end
 
 def create_study_id
-  title = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
-  unless StudyCode.find_by(title: title)
-    StudyCode.create!(title: title)
+  unless StudyCode.find_by(title: @study_id_regexp_str)
+    StudyCode.create!(title: @study_id_regexp_str)
   end
 end
 
@@ -61,7 +66,7 @@ def edit_user_details
   fill_in 'user_post_code', with: '3000'
   select 'Phone', from: 'user_preferred_contact_method'
   select 'chILDRANZ', from: 'user_flagship'
-  fill_in 'user_study_id', with: 'A1234567'
+  fill_in 'user_study_id', with: @study_id_random_example_2
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
@@ -241,7 +246,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('3000')
   expect(page).to have_content('Phone')
   expect(page).to have_content('chILDRANZ')
-  expect(page).to have_content('A1234567')
+  expect(page).to have_content(@study_id_random_example_2)
   expect(page).to have_content('Luca')
 end
 
