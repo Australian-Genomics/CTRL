@@ -55,6 +55,36 @@ RSpec.describe User, type: :model do
       user.child_first_name = nil
       expect(user.valid?).to be false
     end
+    it 'should have an optional kin_email field when NEXT_OF_KIN_NEEDED_TO_REGISTER=false upon create' do
+      sc = SurveyConfig.find_or_create_by(name: NEXT_OF_KIN_NEEDED_TO_REGISTER)
+      sc.value = "false"
+      sc.save!
+
+      user = FactoryBot.create(:user, kin_email: nil)
+
+      expect(user.valid?).to be true
+    end
+    it 'should have a mandatory kin_email field when NEXT_OF_KIN_NEEDED_TO_REGISTER=true upon create' do
+      sc = SurveyConfig.find_or_create_by(name: NEXT_OF_KIN_NEEDED_TO_REGISTER)
+      sc.value = "true"
+      sc.save!
+
+      user = FactoryBot.build(:user, kin_email: nil)
+
+      expect(user.valid?).to be false
+      expect(user.errors[:kin_email]).to eq ['Is invalid']
+    end
+    it 'should have a mandatory kin_email field when is_parent=false upon update' do
+      user = FactoryBot.create(:user, is_parent: false, kin_email: nil)
+      user.kin_email = 'different email but still not valid'
+
+      expect(user.valid?).to be false
+      expect(user.errors[:kin_email]).to eq ['Is invalid']
+    end
+    it 'should have an optional kin_email field when is_parent=false upon create' do
+      user = FactoryBot.build(:user, is_parent: false, kin_email: nil)
+      expect(user.valid?).to be true
+    end
 
     describe 'Date of birth validations' do
       context 'when it is user dob' do
