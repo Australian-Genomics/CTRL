@@ -40,7 +40,9 @@ def sign_up
   fill_in 'user[family_name]', with: @visitor[:family_name]
   fill_in 'user[email]', with: @visitor[:email]
   fill_in 'user[dob]', with: @visitor[:dob]
+  expect(page).to have_content('Su Mo Tu We Th Fr Sa')
   find('input[name="user[dob]"]').send_keys(:escape)
+  expect(page).not_to have_content('Su Mo Tu We Th Fr Sa')
   fill_in 'user[study_id]', with: @visitor[:study_id]
   fill_in 'user[password]', with: @visitor[:password]
   fill_in 'user[password_confirmation]', with: @visitor[:password_confirmation]
@@ -53,7 +55,9 @@ def edit_user_details
   fill_in 'user_middle_name', with: 'something'
   fill_in 'user_family_name', with: 'last'
   fill_in 'user[dob]', with: '30-05-1995'
+  expect(page).to have_content('Su Mo Tu We Th Fr Sa')
   find('input[name="user[dob]"]').send_keys(:escape)
+  expect(page).not_to have_content('Su Mo Tu We Th Fr Sa')
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: 'Zetland'
@@ -66,7 +70,9 @@ def edit_user_details
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
   fill_in 'user[child_dob]', with: '30-05-1995'
+  expect(page).to have_content('Su Mo Tu We Th Fr Sa')
   find('input[name="user[child_dob]"]').send_keys(:escape)
+  expect(page).not_to have_content('Su Mo Tu We Th Fr Sa')
 end
 
 Given('I am not logged in') do
