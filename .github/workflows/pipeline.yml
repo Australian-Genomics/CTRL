@@ -39,3 +39,14 @@ jobs:
             sleep 5
           done
           docker-compose --env-file=.env.test run web bundle exec rake cucumber
+  check-db-schema-up-to-date:
+    name: "check-db-schema-up-to-date"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: docker-compose build
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
+      - run: |
+          [ -z "$(git status -s -- db/schema.rb)" ]
