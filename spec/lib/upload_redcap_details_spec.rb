@@ -196,12 +196,6 @@ RSpec.describe UploadRedcapDetails do
       )
       create(
         :user_column_to_redcap_field_mapping,
-        user_column: 'flagship',
-        redcap_field: 'ctrl_flagship',
-        redcap_event_name: 'proband_informatio_arm_1'
-      )
-      create(
-        :user_column_to_redcap_field_mapping,
         user_column: 'email',
         redcap_field: 'ctrl_email',
         redcap_event_name: 'proband_informatio_arm_1'
@@ -230,9 +224,6 @@ RSpec.describe UploadRedcapDetails do
         {"record_id"=>user.id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_dob"=>user.dob},
-        {"record_id"=>user.id,
-         "redcap_event_name"=>"proband_informatio_arm_1",
-         "ctrl_flagship"=>7},
         {"record_id"=>user.id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_email"=>user.email},

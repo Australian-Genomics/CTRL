@@ -7,7 +7,6 @@ def create_visitor
 
   @visitor ||= { first_name: 'Sushant',
                  family_name: 'Ahuja',
-                 flagship: 'Acute Care Genomic Testing',
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
@@ -76,7 +75,6 @@ def edit_user_details
   select 'VIC', from: 'user_state'
   fill_in 'user_post_code', with: '3000'
   select 'Phone', from: 'user_preferred_contact_method'
-  select 'chILDRANZ', from: 'user_flagship'
   fill_in 'user_study_id', with: @study_id_random_example_2
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
@@ -196,7 +194,6 @@ When('I did not fill the mandatory fields') do
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: ''
   fill_in 'user_post_code', with: '3000'
-  select 'chILDRANZ', from: 'user_flagship'
   fill_in 'user_study_id', with: 'Research'
 end
 
@@ -260,7 +257,6 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('VIC')
   expect(page).to have_content('3000')
   expect(page).to have_content('Phone')
-  expect(page).to have_content('chILDRANZ')
   expect(page).to have_content(@study_id_random_example_2)
   expect(page).to have_content('Luca')
 end
@@ -275,7 +271,6 @@ Then('I should not see the new name on the user edit page') do
   expect(page).to_not have_field('user[state]', with: 'VIC')
   expect(page).to_not have_field('user[post_code]', with: '3000')
   expect(page).to_not have_field('user[preferred_contact_method]', with: 'Phone')
-  expect(page).to_not have_field('user[flagship]', with: 'chILDRANZ')
   expect(page).to have_content('Next of Kin')
 end
 

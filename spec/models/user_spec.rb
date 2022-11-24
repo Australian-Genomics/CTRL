@@ -14,11 +14,6 @@ RSpec.describe User, type: :model do
       user.preferred_contact_method = nil
       expect(user.valid?).to be false
     end
-    it 'should have a mandatory flasghip' do
-      expect(user.valid?).to be true
-      user.flagship = nil
-      expect(user.valid?).to be false
-    end
     it 'should have a mandatory dob' do
       expect(user.valid?).to be true
       user.dob = nil

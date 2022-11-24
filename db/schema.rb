@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_040630) do
+ActiveRecord::Schema.define(version: 2022_11_18_015631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,7 +191,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_040630) do
     t.string "suburb"
     t.integer "state"
     t.string "post_code"
-    t.integer "flagship"
     t.boolean "is_parent", default: false
     t.string "kin_first_name"
     t.string "kin_middle_name"

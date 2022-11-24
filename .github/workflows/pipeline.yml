@@ -39,3 +39,22 @@ jobs:
             sleep 5
           done
           docker-compose --env-file=.env.test run web bundle exec rake cucumber
+  check-db-schema-up-to-date:
+    name: "check-db-schema-up-to-date"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: docker-compose build
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
+      - run: |
+          if [ -z "$(git status -s -- db/schema.rb)" ]
+          then
+            echo 'db/schema.rb is up-to-date!'
+            true
+          else
+            echo 'db/schema.rb is out of date! Please run `rails db:migrate`' \
+              'and commit the changes to db/schema.rb'
+            false
+          fi
