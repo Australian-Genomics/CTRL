@@ -11,7 +11,7 @@ def create_visitor
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
-                 dob: '30-05-1995',
+                 dob: Date.today.at_beginning_of_month.last_month,
                  study_id: @study_id_random_example_1 }
 end
 
@@ -44,8 +44,13 @@ def sign_up
   fill_in 'user[first_name]', with: @visitor[:first_name]
   fill_in 'user[family_name]', with: @visitor[:family_name]
   fill_in 'user[email]', with: @visitor[:email]
-  fill_in 'user[dob]', with: @visitor[:dob]
+
+  # Using the datepicker, select the first day of last month
+  find('input[name="user[dob]"]').click
+  find('table > thead > tr > th.prev').click
+  find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
   find('input[name="user[dob]"]').send_keys(:escape)
+
   fill_in 'user[study_id]', with: @visitor[:study_id]
   fill_in 'user[password]', with: @visitor[:password]
   fill_in 'user[password_confirmation]', with: @visitor[:password_confirmation]
@@ -57,8 +62,14 @@ def edit_user_details
   fill_in 'user_first_name', with: 'kaku'
   fill_in 'user_middle_name', with: 'something'
   fill_in 'user_family_name', with: 'last'
-  fill_in 'user[dob]', with: '30-05-1995'
+
+  # Using the datepicker, select the first day of the month before the
+  # previously selected one (i.e. two months ago)
+  find('input[name="user[dob]"]').click
+  find('table > thead > tr > th.prev').click
+  find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
   find('input[name="user[dob]"]').send_keys(:escape)
+
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: 'Zetland'
@@ -70,7 +81,11 @@ def edit_user_details
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
-  fill_in 'user[child_dob]', with: '30-05-1995'
+
+  # Using the datepicker, select the first day of last month
+  find('input[name="user[child_dob]"]').click
+  find('table > thead > tr > th.prev').click
+  find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
   find('input[name="user[child_dob]"]').send_keys(:escape)
 end
 
@@ -238,7 +253,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('kaku')
   expect(page).to have_content('something')
   expect(page).to have_content('last')
-  expect(page).to have_content('30-05-1995')
+  expect(page).to have_content(Date.today.at_beginning_of_month.last_month.last_month)
   expect(page).to have_content('sushant@sushant.com')
   expect(page).to have_content('413')
   expect(page).to have_content('Zetland')
