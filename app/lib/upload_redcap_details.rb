@@ -35,7 +35,7 @@ class UploadRedcapDetails
       content: 'record',
       format: 'json',
       type: 'flat',
-      data: data
+      data: data.to_json
     }
   end
 
@@ -47,7 +47,7 @@ class UploadRedcapDetails
     end
   end
 
-  def self.question_answer_to_redcap_response(question_answer, destroy)
+  def self.question_answer_to_redcap_response(question_answer, destroy, *_)
     answer_string = question_answer.answer
 
     consent_question = question_answer.consent_question
@@ -74,6 +74,50 @@ class UploadRedcapDetails
     )
   end
 
+  def self.user_to_redcap_response(user, *_)
+    if UserColumnToRedcapFieldMapping.count == 0
+      return nil
+    end
+
+    user_id = user.id
+
+    UserColumnToRedcapFieldMapping.all.map { |user_column_to_redcap_field_mapping|
+      user_column, redcap_field, redcap_event_name = [
+        user_column_to_redcap_field_mapping.user_column,
+        user_column_to_redcap_field_mapping.redcap_field,
+        user_column_to_redcap_field_mapping.redcap_event_name]
+
+      is_dropdown = User.defined_enums.has_key?(user_column)
+
+      user_column_value =
+        is_dropdown ?
+          user.read_attribute_before_type_cast(user_column) :
+          user.send(user_column)
+
+      response_base =
+        redcap_event_name.blank? ?
+          {'record_id' => user_id} :
+          {'record_id' => user_id, 'redcap_event_name' => redcap_event_name}
+
+      if user_column_value.nil?
+        {}
+      elsif is_dropdown
+        # Rails stores menu entries in the database as zero-indexed integers.
+        # REDCap stores menu entries as one-indexed integers. We must
+        # increment Rails' integer to get one which REDCap understands.
+        response_base.merge({redcap_field => user_column_value + 1})
+      elsif user_column_value == true
+        response_base.merge({redcap_field => '1'})
+      elsif user_column_value == false
+        response_base.merge({redcap_field => '0'})
+      else
+        response_base.merge({redcap_field => user_column_value})
+      end
+    }.select { |response_hash|
+      response_hash != {}
+    }
+  end
+
   def self.construct_redcap_response(
     raw_redcap_code,
     raw_redcap_field,
@@ -98,20 +142,22 @@ class UploadRedcapDetails
       redcap_code = coded_answer_or_raw_redcap_code
     end
 
-    data = {
-      'record_id' => user_id,
-      redcap_field => redcap_code,
-    }
+    [
+      {
+        'record_id' => user_id,
+        redcap_field => redcap_code,
+      }
+    ]
   end
 
-  def self.perform(question_answer, destroy=false)
-    Rails.logger.info "Performing upload job for question=#{question_answer.pretty_inspect}"
-    data = question_answer_to_redcap_response(question_answer, destroy)
+  def self.perform(data_getter, record, destroy=false)
+    Rails.logger.info "Using #{data_getter} to perform upload job for #{record.pretty_inspect}"
+    data = self.send(data_getter, record, destroy)
     if data.nil?
-      Rails.logger.info "Payload empty; Not posting for question=#{question_answer.pretty_inspect}"
+      Rails.logger.info "Payload empty; Not posting for #{record.pretty_inspect}"
       return
     end
-    redcap_api_payload = make_redcap_api_payload([data].to_json)
+    redcap_api_payload = make_redcap_api_payload(data)
     call_api(redcap_api_payload)
   end
 end

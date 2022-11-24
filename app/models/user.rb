@@ -18,12 +18,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :first_name, :family_name, :study_id, presence: true
-
-  validates :study_id, format: {
-    with: /\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\z/,
-    message: 'Please check Study ID'
-  }, allow_blank: true
+  validates :first_name, :family_name, presence: true
 
   validates :preferred_contact_method,
     presence: true,
@@ -45,12 +40,15 @@ class User < ApplicationRecord
 
   validates :terms_and_conditions, acceptance: true
 
+  validates :study_id, presence: true
   validate :check_study_code, if: -> { study_id.present? }
 
   accepts_nested_attributes_for :steps
 
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
   enum preferred_contact_method: %w[Email Phone Mail]
+
+  after_save :upload_redcap_details
 
   def kin_details_and_child_details
     if is_parent == false
@@ -70,5 +68,9 @@ class User < ApplicationRecord
       errors.add(:password, :blank)
       false
     end
+  end
+
+  def upload_redcap_details
+    UploadRedcapDetails.perform(:user_to_redcap_response, self)
   end
 end

@@ -1,17 +1,22 @@
 def create_visitor
+  @study_id_regexp_str = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+  @study_id_regexp = Regexp.new(@study_id_regexp_str)
+
+  @study_id_random_example_1 = @study_id_regexp.random_example
+  @study_id_random_example_2 = @study_id_regexp.random_example
+
   @visitor ||= { first_name: 'Sushant',
                  family_name: 'Ahuja',
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
-                 dob: '30-05-1995',
-                 study_id: 'A1543457' }
+                 dob: Date.today.at_beginning_of_month.last_month,
+                 study_id: @study_id_random_example_1 }
 end
 
 def create_study_id
-  title = 'A1543457'
-  unless StudyCode.find_by(title: title)
-    StudyCode.create!(title: title)
+  unless StudyCode.find_by(title: @study_id_regexp_str)
+    StudyCode.create!(title: @study_id_regexp_str)
   end
 end
 
@@ -38,8 +43,13 @@ def sign_up
   fill_in 'user[first_name]', with: @visitor[:first_name]
   fill_in 'user[family_name]', with: @visitor[:family_name]
   fill_in 'user[email]', with: @visitor[:email]
-  fill_in 'user[dob]', with: @visitor[:dob]
+
+  # Using the datepicker, select the first day of last month
+  find('input[name="user[dob]"]').click
+  find('table > thead > tr > th.prev').click
+  find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
   find('input[name="user[dob]"]').send_keys(:escape)
+
   fill_in 'user[study_id]', with: @visitor[:study_id]
   fill_in 'user[password]', with: @visitor[:password]
   fill_in 'user[password_confirmation]', with: @visitor[:password_confirmation]
@@ -51,18 +61,30 @@ def edit_user_details
   fill_in 'user_first_name', with: 'kaku'
   fill_in 'user_middle_name', with: 'something'
   fill_in 'user_family_name', with: 'last'
-  fill_in 'user[dob]', with: '30-05-1995'
+
+  # Using the datepicker, select the first day of the month before the
+  # previously selected one (i.e. two months ago)
+  find('input[name="user[dob]"]').click
+  find('table > thead > tr > th.prev').click
+  find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
+  find('input[name="user[dob]"]').send_keys(:escape)
+
   fill_in 'user_email', with: 'sushant@sushant.com'
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: 'Zetland'
   select 'VIC', from: 'user_state'
   fill_in 'user_post_code', with: '3000'
   select 'Phone', from: 'user_preferred_contact_method'
-  fill_in 'user_study_id', with: 'A1234567'
+  fill_in 'user_study_id', with: @study_id_random_example_2
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
-  fill_in 'user_child_dob', with: '30-05-1995'
+
+  # Using the datepicker, select the first day of last month
+  find('input[name="user[child_dob]"]').click
+  find('table > thead > tr > th.prev').click
+  find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
+  find('input[name="user[child_dob]"]').send_keys(:escape)
 end
 
 Given('I am not logged in') do
@@ -225,18 +247,18 @@ Then('I should see Personal Details page') do
 end
 
 Then('I should see the new name on the user edit page') do
-  expect(page).to have_field('user[first_name]', with: 'kaku')
-  expect(page).to have_field('user[middle_name]', with: 'something')
-  expect(page).to have_field('user[family_name]', with: 'last')
-  expect(page).to have_field('user[dob]', with: '30-05-1995')
-  expect(page).to have_field('user[email]', with: 'sushant@sushant.com')
-  expect(page).to have_field('user[address]', with: '413')
-  expect(page).to have_field('user[suburb]', with: 'Zetland')
-  expect(page).to have_field('user[state]', with: 'VIC')
-  expect(page).to have_field('user[post_code]', with: '3000')
-  expect(page).to have_field('user[preferred_contact_method]', with: 'Phone')
-  expect(page).to have_field('user[study_id]', with: 'A1234567')
-  expect(page).to have_field('user[child_first_name]', with: 'Luca')
+  expect(page).to have_content('kaku')
+  expect(page).to have_content('something')
+  expect(page).to have_content('last')
+  expect(page).to have_content(Date.today.at_beginning_of_month.last_month.last_month)
+  expect(page).to have_content('sushant@sushant.com')
+  expect(page).to have_content('413')
+  expect(page).to have_content('Zetland')
+  expect(page).to have_content('VIC')
+  expect(page).to have_content('3000')
+  expect(page).to have_content('Phone')
+  expect(page).to have_content(@study_id_random_example_2)
+  expect(page).to have_content('Luca')
 end
 
 Then('I should not see the new name on the user edit page') do

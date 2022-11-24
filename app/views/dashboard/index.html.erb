@@ -96,47 +96,10 @@
       <% end %>
     <% end %>
 
-    <div class="steps__row dashboard__row dashboard__row_disabled">
-      <div class="steps__row-main steps__row-main_deeper d-block d-md-flex">
-        <div class="d-flex align-items-center w-100 mb-15 mb-md-0">
-          <i class="icon__num mr-12"><%= @steps.count + 1 %></i>
-          <div class="mr-auto">
-            <%= t 'dashboard.index.genomic_test_results' %>
-          </div>
-          <%=
-            content_tag :i,
-            nil,
-            class: "icon__i icon__i_popover mr-md-60 ml-auto",
-            tabindex: 0,
-            role: :button,
-            data: {
-              toggle: :popover,
-              trigger: :focus,
-              placement: :bottom,
-              html: :true,
-              content: t('dashboard.index.your_genomic_test_results_will_be')
-            }
-          %>
-        </div>
-        <div class="d-flex w-100 mb-15 mb-md-0">
-          <i class="icon_placeholder mr-2"></i>
-          <div class="mr-auto">
-            <%= t('dashboard.index.not_yet_available') %>
-          </div>
-          <div class="mr-md-3">
-            ‒
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-end mnw-120">
-        </div>
-      </div>
-    </div>
-
     <div class="row">
       <div class="col-12">
         <%= link_to t('dashboard.index.view_responses'), survey_responses_path(format: :pdf),
-          class: 'btn btn-primary btn-sm float-right mt-3'
+          class: 'btn btn-primary btn-sm float-right mt-3', target: '_blank'
         %>
       </div>
     </div>

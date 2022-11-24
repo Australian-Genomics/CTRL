@@ -1,5 +1,5 @@
 - StudyCode:
-  - title: A1543457
+  - title: "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
 - AdminUser:
   - email: adminuser@email.com
     password: 'tester123'
@@ -12,6 +12,64 @@
     password_confirmation: 'tester123'
     dob: 21-12-2002
     study_id: A1543457
+- UserColumnToRedcapFieldMapping:
+  - user_column: created_at
+    redcap_field: ctrl_reg_date
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: first_name
+    redcap_field: ctrl_pers_name
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: family_name
+    redcap_field: ctrl_pers_surname
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: study_id
+    redcap_field: ctrl_stud_id
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: dob
+    redcap_field: ctrl_dob
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: phone_no
+    redcap_field: ctrl_phone_no
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: email
+    redcap_field: ctrl_email
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: preferred_contact_method
+    redcap_field: ctrl_pref_contact_meth
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: is_parent
+    redcap_field: ctrl_pg_register_for_child_yn
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: child_first_name
+    redcap_field: ctrl_child_name
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: child_family_name
+    redcap_field: ctrl_child_surname
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: address
+    redcap_field: ctrl_address
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: suburb
+    redcap_field: ctrl_suburb
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: state
+    redcap_field: ctrl_state
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: post_code
+    redcap_field: ctrl_postcode
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_first_name
+    redcap_field: ctrl_kin_name
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_family_name
+    redcap_field: ctrl_kin_surname
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_contact_no
+    redcap_field: ctrl_kin_contactno
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_email
+    redcap_field: ctrl_kin_email
+    redcap_event_name: proband_informatio_arm_1
 - SurveyConfig:
   - name: Radio Button Color
     value: "#02b0db"

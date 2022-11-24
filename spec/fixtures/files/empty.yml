@@ -1,5 +1,6 @@
 ---
 - StudyCode: []
+- UserColumnToRedcapFieldMapping: []
 - SurveyConfig: []
 - GlossaryEntry: []
 - ConsentStep: []

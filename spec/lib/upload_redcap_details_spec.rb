@@ -57,7 +57,7 @@ RSpec.describe UploadRedcapDetails do
         content: 'record',
         format: 'json',
         type: 'flat',
-        data: mock_data,
+        data: "\"my data\"",
       }
 
       expect(UploadRedcapDetails.make_redcap_api_payload(mock_data)).to eq(expected_payload)
@@ -124,8 +124,8 @@ RSpec.describe UploadRedcapDetails do
         'my_user_id',
         false
       )
-      expect(actual).to eq({'record_id' => 'my_user_id',
-                            'my_raw_redcap_field' => 'my_answer_string'})
+      expect(actual).to eq([{'record_id' => 'my_user_id',
+                             'my_raw_redcap_field' => 'my_answer_string'}])
     end
 
     it 'produces the correct response for question_type == "multiple checkboxes"' do
@@ -146,11 +146,11 @@ RSpec.describe UploadRedcapDetails do
         false
       )
       expect(actual_do_destroy).to eq(
-        {'record_id' => 'my_user_id',
-        'my_raw_redcap_field___my_raw_redcap_code' => '0'})
+        [{'record_id' => 'my_user_id',
+          'my_raw_redcap_field___my_raw_redcap_code' => '0'}])
       expect(actual_do_not_destroy).to eq(
-        {'record_id' => 'my_user_id',
-        'my_raw_redcap_field___my_raw_redcap_code' => '1'})
+        [{'record_id' => 'my_user_id',
+          'my_raw_redcap_field___my_raw_redcap_code' => '1'}])
     end
 
     it 'produces the correct response for question_type != "multiple checkboxes"' do
@@ -171,11 +171,69 @@ RSpec.describe UploadRedcapDetails do
         false
       )
       expect(actual_do_destroy).to eq(
-        {'record_id' => 'my_user_id',
-        'my_raw_redcap_field' => 'my_raw_redcap_code'})
+        [{'record_id' => 'my_user_id',
+          'my_raw_redcap_field' => 'my_raw_redcap_code'}])
       expect(actual_do_not_destroy).to eq(
-        {'record_id' => 'my_user_id',
-        'my_raw_redcap_field' => 'my_raw_redcap_code'})
+        [{'record_id' => 'my_user_id',
+          'my_raw_redcap_field' => 'my_raw_redcap_code'}])
+    end
+  end
+
+  describe '#user_to_redcap_response' do
+    it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
+      user = create(:user)
+      expect(UploadRedcapDetails.user_to_redcap_response(user)).to eq(nil)
+    end
+
+    it 'produces the correct response for UserColumnToRedcapFieldMapping.count > 0' do
+      user = create(:user)
+
+      create(
+        :user_column_to_redcap_field_mapping,
+        user_column: 'dob',
+        redcap_field: 'ctrl_dob',
+        redcap_event_name: 'proband_informatio_arm_1'
+      )
+      create(
+        :user_column_to_redcap_field_mapping,
+        user_column: 'email',
+        redcap_field: 'ctrl_email',
+        redcap_event_name: 'proband_informatio_arm_1'
+      )
+      create(
+        :user_column_to_redcap_field_mapping,
+        user_column: 'is_parent',
+        redcap_field: 'ctrl_is_parent',
+        redcap_event_name: 'proband_informatio_arm_1'
+      )
+      create(
+        :user_column_to_redcap_field_mapping,
+        user_column: 'family_name',
+        redcap_field: 'ctrl_family_name',
+        redcap_event_name: ''
+      )
+      create(
+        :user_column_to_redcap_field_mapping,
+        user_column: 'state',
+        redcap_field: 'ctrl_state',
+        redcap_event_name: ''
+      )
+
+      actual = UploadRedcapDetails.user_to_redcap_response(user)
+      expected = [
+        {"record_id"=>user.id,
+         "redcap_event_name"=>"proband_informatio_arm_1",
+         "ctrl_dob"=>user.dob},
+        {"record_id"=>user.id,
+         "redcap_event_name"=>"proband_informatio_arm_1",
+         "ctrl_email"=>user.email},
+        {"record_id"=>user.id,
+         "redcap_event_name"=>"proband_informatio_arm_1",
+         "ctrl_is_parent"=>"1"},
+        {"record_id"=>user.id,
+         "ctrl_family_name"=>user.family_name},
+      ]
+      expect(actual).to eq(expected)
     end
   end
 
@@ -184,8 +242,8 @@ RSpec.describe UploadRedcapDetails do
       allow(UploadRedcapDetails).to receive(:question_answer_to_redcap_response).and_return(:data)
       allow(UploadRedcapDetails).to receive(:make_redcap_api_payload).and_return(:payload)
       allow(UploadRedcapDetails).to receive(:call_api)
-      UploadRedcapDetails.perform('id', false)
-      expect(UploadRedcapDetails).to have_received(:make_redcap_api_payload).with("[\"data\"]")
+      UploadRedcapDetails.perform(:question_answer_to_redcap_response, 'id', false)
+      expect(UploadRedcapDetails).to have_received(:make_redcap_api_payload).with(:data)
       expect(UploadRedcapDetails).to have_received(:call_api).with(:payload)
     end
 
@@ -193,7 +251,7 @@ RSpec.describe UploadRedcapDetails do
       allow(UploadRedcapDetails).to receive(:question_answer_to_redcap_response).and_return(nil)
       allow(UploadRedcapDetails).to receive(:make_redcap_api_payload)
       allow(UploadRedcapDetails).to receive(:call_api)
-      UploadRedcapDetails.perform('id', false)
+      UploadRedcapDetails.perform(:question_answer_to_redcap_response, 'id', false)
       expect(UploadRedcapDetails).not_to have_received(:make_redcap_api_payload)
       expect(UploadRedcapDetails).not_to have_received(:call_api)
     end

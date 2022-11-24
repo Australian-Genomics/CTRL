@@ -1,6 +1,15 @@
 ---
 - StudyCode:
   - title: A1543457
+- UserColumnToRedcapFieldMapping:
+  - user_column: dob
+    redcap_field: dob
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: state
+    redcap_field: state
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: email
+    redcap_field: email
 - SurveyConfig:
   - name: Radio Button Color
     value: "#02b0db"

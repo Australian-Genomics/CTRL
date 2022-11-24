@@ -13,7 +13,12 @@ module UserDateValidator
 
   def check_study_code
     codes = StudyCode.pluck(:title)
-    codes.include?(study_id)? true : errors.add(:study_id, "Study ID not present in our system. Please try with different one.") && false
+    if codes.all? { |code| Regexp.new(code).match(study_id) }
+      true
+    else
+      errors.add(:study_id, 'Please check Study ID')
+      false
+    end
   end
 
   private
