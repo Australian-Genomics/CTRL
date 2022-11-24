@@ -27,9 +27,13 @@ class User < ApplicationRecord
 
   validates :kin_first_name,
     :kin_family_name,
-    :kin_email,
     presence: true,
     if: :next_of_kin_needed_to_register?
+
+  validates :kin_email, format: {
+    with: Devise::email_regexp,
+    message: 'Is invalid'
+  }, if: :do_validate_kin_email?
 
   validate :date_of_birth_in_future,
     unless: :skip_validation
@@ -49,6 +53,10 @@ class User < ApplicationRecord
   enum preferred_contact_method: %w[Email Phone Mail]
 
   after_save :upload_redcap_details
+
+  def do_validate_kin_email?
+    next_of_kin_needed_to_register? || (persisted? && !is_parent)
+  end
 
   def kin_details_and_child_details
     if is_parent == false

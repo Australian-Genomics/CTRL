@@ -17,6 +17,7 @@ FactoryBot.define do
     preferred_contact_method 'Email'
     is_parent 'true'
     kin_first_name 'Luca'
+    kin_email 'a@b.co'
     kin_family_name "D'Souza"
     kin_contact_no '98978146'
     child_first_name 'Alisha'
