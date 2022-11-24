@@ -49,4 +49,12 @@ jobs:
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
       - run: |
-          [ -z "$(git status -s -- db/schema.rb)" ]
+          if [ -z "$(git status -s -- db/schema.rb)" ]
+          then
+            echo 'db/schema.rb is up-to-date!'
+            true
+          else
+            echo 'db/schema.rb is out of date! Please run `rails db:migrate`' \
+              'and commit the changes to db/schema.rb'
+            false
+          fi
