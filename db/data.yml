@@ -288,6 +288,13 @@
         default_answer: 'no'
         question_type: checkbox agreement
         answer_choices_position: right
+      - order: 12
+        question: |
+          This is test checkbox agreement element which must be checked in
+          addition to the one before it in order to proceed.
+        default_answer: 'no'
+        question_type: checkbox agreement
+        answer_choices_position: right
     ModalFallback:
     - description: |
         <h3>Are you sure you don’t want the test?</h3><br>

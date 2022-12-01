@@ -307,7 +307,10 @@ export default {
       if (!await this.showSpinner(this.saveAnswers)) {
         return;
       }
-      if ( this.modalFallback && this.checkboxAgreement.answer == 'no') {
+
+      const doesAgreeToAll = this.checkboxAgreementQuestions.every(
+        question => question.answer != 'no');
+      if (this.modalFallback && !doesAgreeToAll) {
         this.$modal.show('modal-fallback')
       } else {
         window.scrollTo({ top: 0 });
@@ -389,9 +392,10 @@ export default {
     questionGroups() {
       return this.currentSurveyStep.groups
     },
-    checkboxAgreement() {
-      // TO DO: Change to include all question groups, not just the first
-      return this.answers[0].find(a => a.question_type == 'checkbox agreement')
+    checkboxAgreementQuestions() {
+      return this.answers.flatMap(
+        group => group.filter(
+          question => question.question_type == 'checkbox agreement'));
     },
     modalFallback() {
       if(!this.currentSurveyStep) return;
