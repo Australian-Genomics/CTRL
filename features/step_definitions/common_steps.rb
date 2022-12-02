@@ -50,6 +50,10 @@ When('I click all the checkboxes') do
   end
 end
 
+When('I click the last checkbox') do
+  all('.controls__checkbox').last.click
+end
+
 When(/I click the link '([^']+)'/) do |link_text|
   click_link(link_text)
 end
