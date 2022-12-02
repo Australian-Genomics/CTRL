@@ -94,7 +94,7 @@ RSpec.describe UploadRedcapDetails do
         "redcap_field_name",
         "yes",
         "multiple checkboxes",
-        question_answer.user_id,
+        question_answer.user.study_id,
         false)
       expect(actual).to eq(:response)
     end
@@ -221,16 +221,16 @@ RSpec.describe UploadRedcapDetails do
 
       actual = UploadRedcapDetails.user_to_redcap_response(user)
       expected = [
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_dob"=>user.dob},
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_email"=>user.email},
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_is_parent"=>"1"},
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "ctrl_family_name"=>user.family_name},
       ]
       expect(actual).to eq(expected)

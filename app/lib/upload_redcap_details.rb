@@ -62,14 +62,14 @@ class UploadRedcapDetails
 
     question_type = consent_question.question_type
 
-    user_id = question_answer.user_id
+    study_id = question_answer.user.study_id
 
     construct_redcap_response(
       raw_redcap_code,
       raw_redcap_field,
       answer_string,
       question_type,
-      user_id,
+      study_id,
       destroy
     )
   end
@@ -79,7 +79,7 @@ class UploadRedcapDetails
       return nil
     end
 
-    user_id = user.id
+    study_id = user.study_id
 
     UserColumnToRedcapFieldMapping.all.map { |user_column_to_redcap_field_mapping|
       user_column, redcap_field, redcap_event_name = [
@@ -96,8 +96,8 @@ class UploadRedcapDetails
 
       response_base =
         redcap_event_name.blank? ?
-          {'record_id' => user_id} :
-          {'record_id' => user_id, 'redcap_event_name' => redcap_event_name}
+          {'record_id' => study_id} :
+          {'record_id' => study_id, 'redcap_event_name' => redcap_event_name}
 
       if user_column_value.nil?
         {}
@@ -123,7 +123,7 @@ class UploadRedcapDetails
     raw_redcap_field,
     answer_string,
     question_type,
-    user_id,
+    study_id,
     destroy
   )
     if raw_redcap_field.blank?
@@ -144,7 +144,7 @@ class UploadRedcapDetails
 
     [
       {
-        'record_id' => user_id,
+        'record_id' => study_id,
         redcap_field => redcap_code,
       }
     ]
