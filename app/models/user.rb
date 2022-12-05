@@ -25,20 +25,14 @@ class User < ApplicationRecord
     on: :update,
     unless: :skip_validation
 
-  validates :kin_first_name,
-    :kin_family_name,
-    presence: true,
-    if: :next_of_kin_needed_to_register?
-
-  validates :kin_email, format: {
-    with: Devise::email_regexp,
-    message: 'Is invalid'
-  }, if: :do_validate_kin_email?
-
   validate :date_of_birth_in_future,
     unless: :skip_validation
 
-  validate :kin_details_and_child_details,
+  validate :kin_details_and_child_details_on_create,
+    :child_date_of_birth_in_future,
+    on: :create, if: :next_of_kin_needed_to_register?
+
+  validate :kin_details_and_child_details_on_update,
     :child_date_of_birth_in_future,
     on: :update, unless: :skip_validation
 
@@ -54,13 +48,19 @@ class User < ApplicationRecord
 
   after_save :upload_redcap_details
 
-  def do_validate_kin_email?
-    next_of_kin_needed_to_register? || (persisted? && !is_parent)
+  def kin_details_and_child_details_on_create
+    if is_parent == false
+      validates_presence_of :kin_first_name, :kin_family_name
+      validates_format_of :kin_email, with: Devise::email_regexp
+    elsif is_parent == true
+      validates_presence_of :child_first_name, :child_family_name
+    end
   end
 
-  def kin_details_and_child_details
+  def kin_details_and_child_details_on_update
     if is_parent == false
       validates_presence_of :kin_first_name, :kin_family_name, :kin_contact_no
+      validates_format_of :kin_email, with: Devise::email_regexp
     elsif is_parent == true
       validates_presence_of :child_first_name, :child_family_name
     end

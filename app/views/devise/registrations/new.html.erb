@@ -57,6 +57,20 @@
           </div>
 
           <% if @next_of_kin_needed_to_register %>
+          <div class="d-flex align-items-center mb-30">
+            <p class="mb-0">
+              <b><%= t('user_profile.register_as_a_guardian') %></b>
+            </p>
+            <div class="d-flex ml-auto pl-15">
+              <div class="text-dark mr-2"><%= t :no %></div>
+              <label class="controls controls__switch">
+                <%= f.check_box :is_parent, as: :boolean, input_html: {class: "form-control mb-0"} %>
+                <span class="slider"></span>
+              </label>
+              <div class="ml-2"><%= t :yes %></div>
+            </div>
+          </div>
+
           <div id="kin">
             <b><%= t('user_profile.next_of_kin') %></b><br>
             </br>
@@ -79,6 +93,43 @@
                 <div class="position-relative">
                   <%= f.input :kin_email, label: false, placeholder: t(:email) %>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="child">
+            <b><%= t('user_profile.registering_on_behalf_of')%></b><br>
+            </br>
+            <div class="form-row">
+              <div class="col-12 mb-30">
+                <div class="position-relative">
+                  <%= f.input :child_first_name, label: t('user_profile.first_name'), required: false, placeholder: t('user_profile.first_name'), input_html: {class: "form-control mb-0"} %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-12 mb-30">
+                <div class="position-relative">
+                  <%= f.input :child_middle_name, label: t('user_profile.middle_name'), required: false, placeholder: t('user_profile.middle_name'), input_html: {class: "form-control mb-0"} %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-12 mb-30">
+                <div class="position-relative">
+                  <%= f.input :child_family_name, label: t('user_profile.family_name'), required: false, placeholder: t('user_profile.family_name'), input_html: {class: "form-control mb-0"} %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-12 mb-30">
+                <div class="position-relative">
+                  <%= f.input :child_dob, as: :string, label: t('user_profile.date_of_birth'), placeholder: 'DD-MM-YYYY', required: false, input_html: {class: 'form-control mb-0', id: 'child-date-of-birth'} %>
+                </div>
+                <div id="child-date-of-birth-pos"></div>
               </div>
             </div>
           </div>
