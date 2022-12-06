@@ -29,7 +29,7 @@ class UploadRedcapDetails
     end
   end
 
-  def self.make_redcap_api_payload(data)
+  def self.make_api_import_payload(data)
     data.nil? ? nil : {
       token: REDCAP_TOKEN,
       content: 'record',
@@ -37,6 +37,10 @@ class UploadRedcapDetails
       type: 'flat',
       data: data.to_json
     }
+  end
+
+  def self.make_api_export_payload(data)
+    # TODO
   end
 
   def self.answer_string_to_code(answer_string)
@@ -157,7 +161,7 @@ class UploadRedcapDetails
       Rails.logger.info "Payload empty; Not posting for #{record.pretty_inspect}"
       return
     end
-    redcap_api_payload = make_redcap_api_payload(data)
+    redcap_api_payload = make_api_import_payload(data)
     call_api(redcap_api_payload)
   end
 end
