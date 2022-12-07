@@ -29,6 +29,14 @@ class Redcap
     end
   end
 
+  # Constructs a REDCap API payload which imports +data+. Example data:
+  #
+  # [
+  #   {
+  #     'record_id' => '42',
+  #     'my_redcap_field' => 'new REDCap field value'
+  #   }
+  # ]
   def self.make_api_import_payload(data)
     data.nil? ? nil : {
       token: REDCAP_TOKEN,
@@ -39,8 +47,27 @@ class Redcap
     }
   end
 
-  def self.make_api_export_payload(data)
-    # TODO
+  # Constructs a REDCap API payload which exports all records having the given
+  # +study_id+. Only one field in each record, named +email_field+, will be
+  # exported. There will be between one and zero such records. An example
+  # HTTP response would be: [{'my_email_field': 'bob@example.com'}].
+  def self.make_api_export_payload(study_id, email_field)
+    {
+      token: REDCAP_TOKEN,
+      content: 'record',
+      action: 'export',
+      format: 'json',
+      type: 'flat',
+      csvDelimiter: '',
+      'records[0]': study_id,
+      'fields[0]': email_field,
+      rawOrLabel: 'raw',
+      rawOrLabelHeaders: 'raw',
+      exportCheckboxLabel: 'false',
+      exportSurveyFields: 'false',
+      exportDataAccessGroups: 'false',
+      returnFormat: 'json'
+    }
   end
 
   def self.answer_string_to_code(answer_string)
