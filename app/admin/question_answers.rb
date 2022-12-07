@@ -42,14 +42,14 @@ ActiveAdmin.register QuestionAnswer do
     end
     column :answer
     column(:answer_redcap_field) do |question_answer|
-      redcap_response = UploadRedcapDetails.question_answer_to_redcap_response(
+      redcap_response = Redcap.question_answer_to_redcap_response(
         question_answer, false
       ) || [{}]
 
       redcap_response.first.except('record_id').keys.first
     end
     column(:answer_redcap_code) do |question_answer|
-      redcap_response = UploadRedcapDetails.question_answer_to_redcap_response(
+      redcap_response = Redcap.question_answer_to_redcap_response(
         question_answer, false
       ) || [{}]
 

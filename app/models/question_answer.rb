@@ -9,10 +9,10 @@ class QuestionAnswer < ApplicationRecord
   before_destroy :destroy_redcap_details
 
   def upload_redcap_details
-    UploadRedcapDetails.perform(:question_answer_to_redcap_response, self)
+    Redcap.perform(:question_answer_to_redcap_response, self)
   end
 
   def destroy_redcap_details
-    UploadRedcapDetails.perform(:question_answer_to_redcap_response, self, true)
+    Redcap.perform(:question_answer_to_redcap_response, self, true)
   end
 end

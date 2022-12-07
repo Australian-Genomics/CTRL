@@ -1,4 +1,4 @@
-class UploadRedcapDetails
+class Redcap
   def self.call_api(payload)
     if !REDCAP_CONNECTION_ENABLED
       Rails.logger.info("Connection disabled; not posting payload: #{payload}")

@@ -79,6 +79,6 @@ class User < ApplicationRecord
   end
 
   def upload_redcap_details
-    UploadRedcapDetails.perform(:user_to_redcap_response, self)
+    Redcap.perform(:user_to_redcap_response, self)
   end
 end
