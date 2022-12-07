@@ -9,10 +9,19 @@ class QuestionAnswer < ApplicationRecord
   before_destroy :destroy_redcap_details
 
   def upload_redcap_details
-    Redcap.perform(:question_answer_to_redcap_response, self)
+    Redcap.perform(
+      :question_answer_to_redcap_response,
+      :get_import_payload,
+      record: self,
+      expected_count: 1)
   end
 
   def destroy_redcap_details
-    Redcap.perform(:question_answer_to_redcap_response, self, true)
+    Redcap.perform(
+      :question_answer_to_redcap_response,
+      :get_import_payload,
+      record: self,
+      destroy: true,
+      expected_count: 1)
   end
 end
