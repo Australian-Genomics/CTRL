@@ -46,7 +46,7 @@ RSpec.describe Redcap do
     end
   end
 
-  describe '#make_api_import_payload' do
+  describe '#get_import_payload' do
     it 'returns a payload when passed data' do
       mock_data = 'my data'
       mock_redcap_token = 'redcap token'
@@ -60,11 +60,11 @@ RSpec.describe Redcap do
         data: "\"my data\"",
       }
 
-      expect(Redcap.make_api_import_payload(mock_data)).to eq(expected_payload)
+      expect(Redcap.get_import_payload(mock_data)).to eq(expected_payload)
     end
 
     it 'returns nil when passed nil' do
-      expect(Redcap.make_api_import_payload(nil)).to eq(nil)
+      expect(Redcap.get_import_payload(nil)).to eq(nil)
     end
   end
 
@@ -86,8 +86,8 @@ RSpec.describe Redcap do
 
       allow(Redcap).to receive(:construct_redcap_response).and_return(:response)
       actual = Redcap.question_answer_to_redcap_response(
-        question_answer,
-        false
+        record: question_answer,
+        destroy: false
       )
       expect(Redcap).to have_received(:construct_redcap_response).with(
         "11",
@@ -182,7 +182,7 @@ RSpec.describe Redcap do
   describe '#user_to_redcap_response' do
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
       user = create(:user)
-      expect(Redcap.user_to_redcap_response(user)).to eq(nil)
+      expect(Redcap.user_to_redcap_response(record: user)).to eq(nil)
     end
 
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count > 0' do
@@ -219,7 +219,7 @@ RSpec.describe Redcap do
         redcap_event_name: ''
       )
 
-      actual = Redcap.user_to_redcap_response(user)
+      actual = Redcap.user_to_redcap_response(record: user)
       expected = [
         {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
@@ -240,19 +240,19 @@ RSpec.describe Redcap do
   describe '#perform' do
     it 'updates REDCap when there are updates to do' do
       allow(Redcap).to receive(:question_answer_to_redcap_response).and_return(:data)
-      allow(Redcap).to receive(:make_api_import_payload).and_return(:payload)
+      allow(Redcap).to receive(:get_import_payload).and_return(:payload)
       allow(Redcap).to receive(:call_api)
-      Redcap.perform(:question_answer_to_redcap_response, 'id', false)
-      expect(Redcap).to have_received(:make_api_import_payload).with(:data)
-      expect(Redcap).to have_received(:call_api).with(:payload)
+      Redcap.perform(:question_answer_to_redcap_response, :get_import_payload, record: 'id', destroy: false)
+      expect(Redcap).to have_received(:get_import_payload).with(:data)
+      expect(Redcap).to have_received(:call_api).with(:payload, destroy: false)
     end
 
     it 'does not update REDCap when there are no updates to do' do
       allow(Redcap).to receive(:question_answer_to_redcap_response).and_return(nil)
-      allow(Redcap).to receive(:make_api_import_payload)
+      allow(Redcap).to receive(:get_import_payload)
       allow(Redcap).to receive(:call_api)
-      Redcap.perform(:question_answer_to_redcap_response, 'id', false)
-      expect(Redcap).not_to have_received(:make_api_import_payload)
+      Redcap.perform(:question_answer_to_redcap_response, :get_import_payload, record: 'id', destroy: false)
+      expect(Redcap).not_to have_received(:get_import_payload)
       expect(Redcap).not_to have_received(:call_api)
     end
   end
