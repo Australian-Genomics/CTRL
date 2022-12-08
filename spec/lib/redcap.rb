@@ -44,6 +44,34 @@ RSpec.describe Redcap do
       expect(Rollbar).to have_received(:error)
         .with('Error connecting to REDCap - HTTParty::Error')
     end
+
+    it 'raises an exception when the count is unexpected' do
+      parsed_response = {'count' => 42}
+      httparty = double('HTTParty', parsed_response: parsed_response)
+      allow(httparty).to receive(:success?).and_return(true)
+      allow(HTTParty).to receive(:post).and_return(httparty)
+      stub_const('REDCAP_API_URL', mock_redcap_url)
+      stub_const('REDCAP_CONNECTION_ENABLED', true)
+
+      payload = {'this is' => 'a payload'}
+
+      expect {
+        Redcap.call_api(payload, expected_count: 43)
+      }.to raise_error(StandardError)
+    end
+
+    it 'returns the parsed response when the count is expected' do
+      parsed_response = {'count' => 42}
+      httparty = double('HTTParty', parsed_response: parsed_response)
+      allow(httparty).to receive(:success?).and_return(true)
+      allow(HTTParty).to receive(:post).and_return(httparty)
+      stub_const('REDCAP_API_URL', mock_redcap_url)
+      stub_const('REDCAP_CONNECTION_ENABLED', true)
+
+      payload = {'this is' => 'a payload'}
+
+      expect(Redcap.call_api(payload, expected_count: 42)).to eq(parsed_response)
+    end
   end
 
   describe '#get_import_payload' do
@@ -65,6 +93,36 @@ RSpec.describe Redcap do
 
     it 'returns nil when passed nil' do
       expect(Redcap.get_import_payload(nil)).to eq(nil)
+    end
+  end
+
+  describe '#get_export_payload' do
+    it 'returns a payload when passed data' do
+      mock_data = 'my data'
+      mock_redcap_token = 'redcap token'
+
+      stub_const('REDCAP_TOKEN', mock_redcap_token)
+      expected_payload = {
+        token: mock_redcap_token,
+        content: 'record',
+        action: 'export',
+        format: 'json',
+        type: 'flat',
+        csvDelimiter: '',
+        'records[0]': mock_data,
+        rawOrLabel: 'raw',
+        rawOrLabelHeaders: 'raw',
+        exportCheckboxLabel: 'false',
+        exportSurveyFields: 'false',
+        exportDataAccessGroups: 'false',
+        returnFormat: 'json'
+      }
+
+      expect(Redcap.get_export_payload(mock_data)).to eq(expected_payload)
+    end
+
+    it 'returns nil when passed nil' do
+      expect(Redcap.get_export_payload(nil)).to eq(nil)
     end
   end
 
