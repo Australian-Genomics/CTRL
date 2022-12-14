@@ -55,7 +55,7 @@ Feature: Welcome Page
     And A study code exists
     When I click on Register
     And I fill in the user details invalid filling the Study ID
-    Then I should see an error 'Please check Study ID' on the page
+    Then I should see an error 'Invalid format' on the page
 
   Scenario: User enters the invalid email while signing up
     Given I do not exist as a user

@@ -19,10 +19,75 @@ RSpec.describe User, type: :model do
       user.dob = nil
       expect(user.valid?).to be false
     end
-    it 'should have a study id' do
+    it 'should have a study ID' do
       expect(user.valid?).to be true
       user.study_id = nil
       expect(user.valid?).to be false
+    end
+    it 'should have a study ID matching the regexes in StudyCode' do
+      regexp_str = '\Amy-study-code\z'
+      regexp = Regexp.new(regexp_str)
+
+      StudyCode.create(title: regexp_str)
+
+      expect {
+        FactoryBot.create(:user, study_id: regexp.random_example)
+      }.not_to raise_error(ActiveRecord::RecordInvalid)
+
+      expect {
+        FactoryBot.create(:user, study_id: regexp.random_example + '-invalid')
+      }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+    it 'should not need a study ID from REDCap when the email column is unset' do
+      user = FactoryBot.build(:user)
+
+      allow(user).to receive(:download_redcap_details)
+
+      user.save!
+
+      expect(user).not_to have_received(:download_redcap_details)
+    end
+    it 'should have a study ID from REDCap when the email column is set' do
+      UserColumnToRedcapFieldMapping.create(
+        user_column: 'email',
+        redcap_field: 'ctrl_email')
+
+      user = FactoryBot.build(:user)
+
+      allow(user).to receive(:download_redcap_details).and_return([])
+
+      expect {
+        user.save!
+      }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(user.errors.messages[:study_id]).to eq(['Study ID not found'])
+    end
+    it 'should have a study ID whose email address matches REDCap' do
+      UserColumnToRedcapFieldMapping.create(
+        user_column: 'email',
+        redcap_field: 'ctrl_email')
+
+      user = FactoryBot.build(:user)
+
+      # Non-matching email
+      allow(user).to receive(:download_redcap_details).and_return(
+        [{'ctrl_email': 'not-the-same-' + user.email}]
+      )
+
+      expect {
+        user.save!
+      }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(user.errors.messages[:study_id]).to eq(
+        ['Study ID does not match the provided email address']
+      )
+
+      # Matching email
+      allow(user).to receive(:download_redcap_details).and_return(
+        [{'ctrl_email' => user.email}]
+      )
+
+      expect {
+        user.save!
+      }.not_to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should have a mandatory first name' do
       user.first_name = nil
