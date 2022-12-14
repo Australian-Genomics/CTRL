@@ -45,7 +45,8 @@ class User < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
 
   validates :study_id, presence: true
-  validate :check_study_code, if: -> { study_id.present? }
+  validate :check_study_code_by_regex, if: -> { study_id.present? }, on: :create
+  validate :check_study_code_by_redcap, if: -> { study_id.present? }, on: :create
 
   accepts_nested_attributes_for :steps
 
@@ -78,7 +79,56 @@ class User < ApplicationRecord
     end
   end
 
+  def check_study_code_by_regex
+    codes = StudyCode.pluck(:title)
+    if codes.all? { |code| Regexp.new(code).match(study_id) }
+      true
+    else
+      errors.add(:study_id, 'Invalid format')
+      false
+    end
+  end
+
+  def check_study_code_by_redcap
+    redcap_email_field = UserColumnToRedcapFieldMapping.find_by(
+      user_column: 'email'
+    )&.redcap_field
+
+    if redcap_email_field.nil?
+      return true # CTRL was configured not to use REDCap's email field
+    end
+
+    redcap_details = download_redcap_details
+
+    if redcap_details.nil?
+      true # REDCap connection is probably disabled
+    elsif redcap_details.length == 0
+      errors.add(:study_id, 'Study ID not found')
+      false
+    elsif redcap_details.length == 1
+      if redcap_details[0][redcap_email_field] != email
+        errors.add(:study_id, 'Study ID does not match the provided email address')
+        false
+      else
+        true
+      end
+    else
+      raise Exception.new 'REDCap returned more than one record for the given study ID'
+    end
+  end
+
   def upload_redcap_details
-    UploadRedcapDetails.perform(:user_to_redcap_response, self)
+    Redcap.perform(
+      :user_to_redcap_response,
+      :get_import_payload,
+      record: self,
+      expected_count: 1)
+  end
+
+  def download_redcap_details
+    Redcap.perform(
+      :identity_data_fetcher,
+      :get_export_payload,
+      record: study_id)
   end
 end

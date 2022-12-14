@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe UploadRedcapDetails do
+RSpec.describe Redcap do
   describe '#call_api' do
     let(:mock_redcap_url) { 'example.com' }
 
@@ -9,7 +9,7 @@ RSpec.describe UploadRedcapDetails do
       stub_const('REDCAP_CONNECTION_ENABLED', false)
 
       payload = {'this is' => 'a payload'}
-      UploadRedcapDetails.call_api(payload)
+      Redcap.call_api(payload)
       expect(HTTParty).not_to receive(:post)
     end
 
@@ -22,7 +22,7 @@ RSpec.describe UploadRedcapDetails do
       stub_const('REDCAP_CONNECTION_ENABLED', true)
 
       payload = {'this is' => 'a payload'}
-      UploadRedcapDetails.call_api(payload)
+      Redcap.call_api(payload)
       expect(HTTParty).to have_received(:post)
         .with(mock_redcap_url, body: payload)
     end
@@ -36,7 +36,7 @@ RSpec.describe UploadRedcapDetails do
       payload = {'this is' => 'a payload'}
 
       expect {
-        UploadRedcapDetails.call_api(payload)
+        Redcap.call_api(payload)
       }.to raise_error(HTTParty::Error)
 
       expect(HTTParty).to have_received(:post)
@@ -44,9 +44,37 @@ RSpec.describe UploadRedcapDetails do
       expect(Rollbar).to have_received(:error)
         .with('Error connecting to REDCap - HTTParty::Error')
     end
+
+    it 'raises an exception when the count is unexpected' do
+      parsed_response = {'count' => 42}
+      httparty = double('HTTParty', parsed_response: parsed_response)
+      allow(httparty).to receive(:success?).and_return(true)
+      allow(HTTParty).to receive(:post).and_return(httparty)
+      stub_const('REDCAP_API_URL', mock_redcap_url)
+      stub_const('REDCAP_CONNECTION_ENABLED', true)
+
+      payload = {'this is' => 'a payload'}
+
+      expect {
+        Redcap.call_api(payload, expected_count: 43)
+      }.to raise_error(StandardError)
+    end
+
+    it 'returns the parsed response when the count is expected' do
+      parsed_response = {'count' => 42}
+      httparty = double('HTTParty', parsed_response: parsed_response)
+      allow(httparty).to receive(:success?).and_return(true)
+      allow(HTTParty).to receive(:post).and_return(httparty)
+      stub_const('REDCAP_API_URL', mock_redcap_url)
+      stub_const('REDCAP_CONNECTION_ENABLED', true)
+
+      payload = {'this is' => 'a payload'}
+
+      expect(Redcap.call_api(payload, expected_count: 42)).to eq(parsed_response)
+    end
   end
 
-  describe '#make_redcap_api_payload' do
+  describe '#get_import_payload' do
     it 'returns a payload when passed data' do
       mock_data = 'my data'
       mock_redcap_token = 'redcap token'
@@ -60,23 +88,53 @@ RSpec.describe UploadRedcapDetails do
         data: "\"my data\"",
       }
 
-      expect(UploadRedcapDetails.make_redcap_api_payload(mock_data)).to eq(expected_payload)
+      expect(Redcap.get_import_payload(mock_data)).to eq(expected_payload)
     end
 
     it 'returns nil when passed nil' do
-      expect(UploadRedcapDetails.make_redcap_api_payload(nil)).to eq(nil)
+      expect(Redcap.get_import_payload(nil)).to eq(nil)
+    end
+  end
+
+  describe '#get_export_payload' do
+    it 'returns a payload when passed data' do
+      mock_data = 'my data'
+      mock_redcap_token = 'redcap token'
+
+      stub_const('REDCAP_TOKEN', mock_redcap_token)
+      expected_payload = {
+        token: mock_redcap_token,
+        content: 'record',
+        action: 'export',
+        format: 'json',
+        type: 'flat',
+        csvDelimiter: '',
+        'records[0]': mock_data,
+        rawOrLabel: 'raw',
+        rawOrLabelHeaders: 'raw',
+        exportCheckboxLabel: 'false',
+        exportSurveyFields: 'false',
+        exportDataAccessGroups: 'false',
+        returnFormat: 'json'
+      }
+
+      expect(Redcap.get_export_payload(mock_data)).to eq(expected_payload)
+    end
+
+    it 'returns nil when passed nil' do
+      expect(Redcap.get_export_payload(nil)).to eq(nil)
     end
   end
 
   describe '#answer_string_to_code' do
     it 'returns "1" for the answer string "Yes"' do
-      expect(UploadRedcapDetails.answer_string_to_code('Yes')).to eq('1')
+      expect(Redcap.answer_string_to_code('Yes')).to eq('1')
     end
     it 'returns "0" for the answer string "No"' do
-      expect(UploadRedcapDetails.answer_string_to_code('No')).to eq('0')
+      expect(Redcap.answer_string_to_code('No')).to eq('0')
     end
     it 'returns nil for an answer string other than "Yes" or "No"' do
-      expect(UploadRedcapDetails.answer_string_to_code('Maybe')).to eq(nil)
+      expect(Redcap.answer_string_to_code('Maybe')).to eq(nil)
     end
   end
 
@@ -84,17 +142,17 @@ RSpec.describe UploadRedcapDetails do
     it 'passes the right arguments to construct_redcap_response' do
       question_answer = create(:question_answer, traits: [:multiple_checkboxes, :with_redcap_field])
 
-      allow(UploadRedcapDetails).to receive(:construct_redcap_response).and_return(:response)
-      actual = UploadRedcapDetails.question_answer_to_redcap_response(
-        question_answer,
-        false
+      allow(Redcap).to receive(:construct_redcap_response).and_return(:response)
+      actual = Redcap.question_answer_to_redcap_response(
+        record: question_answer,
+        destroy: false
       )
-      expect(UploadRedcapDetails).to have_received(:construct_redcap_response).with(
+      expect(Redcap).to have_received(:construct_redcap_response).with(
         "11",
         "redcap_field_name",
         "yes",
         "multiple checkboxes",
-        question_answer.user_id,
+        question_answer.user.study_id,
         false)
       expect(actual).to eq(:response)
     end
@@ -102,7 +160,7 @@ RSpec.describe UploadRedcapDetails do
 
   describe '#construct_redcap_response' do
     it 'returns nil when raw_redcap_field is blank' do
-      actual = UploadRedcapDetails.construct_redcap_response(
+      actual = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         nil,
         'my_answer_string',
@@ -114,9 +172,9 @@ RSpec.describe UploadRedcapDetails do
     end
 
     it 'uses the answer string to determine the code when none is given' do
-      allow(UploadRedcapDetails).to receive(:answer_string_to_code).and_return('my_answer_string')
+      allow(Redcap).to receive(:answer_string_to_code).and_return('my_answer_string')
 
-      actual = UploadRedcapDetails.construct_redcap_response(
+      actual = Redcap.construct_redcap_response(
         nil,
         'my_raw_redcap_field',
         'yes',
@@ -129,7 +187,7 @@ RSpec.describe UploadRedcapDetails do
     end
 
     it 'produces the correct response for question_type == "multiple checkboxes"' do
-      actual_do_destroy = UploadRedcapDetails.construct_redcap_response(
+      actual_do_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
         'my_answer_string',
@@ -137,7 +195,7 @@ RSpec.describe UploadRedcapDetails do
         'my_user_id',
         true
       )
-      actual_do_not_destroy = UploadRedcapDetails.construct_redcap_response(
+      actual_do_not_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
         'my_answer_string',
@@ -154,7 +212,7 @@ RSpec.describe UploadRedcapDetails do
     end
 
     it 'produces the correct response for question_type != "multiple checkboxes"' do
-      actual_do_destroy = UploadRedcapDetails.construct_redcap_response(
+      actual_do_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
         'my_answer_string',
@@ -162,7 +220,7 @@ RSpec.describe UploadRedcapDetails do
         'my_user_id',
         true
       )
-      actual_do_not_destroy = UploadRedcapDetails.construct_redcap_response(
+      actual_do_not_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
         'my_answer_string',
@@ -182,7 +240,7 @@ RSpec.describe UploadRedcapDetails do
   describe '#user_to_redcap_response' do
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
       user = create(:user)
-      expect(UploadRedcapDetails.user_to_redcap_response(user)).to eq(nil)
+      expect(Redcap.user_to_redcap_response(record: user)).to eq(nil)
     end
 
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count > 0' do
@@ -219,18 +277,18 @@ RSpec.describe UploadRedcapDetails do
         redcap_event_name: ''
       )
 
-      actual = UploadRedcapDetails.user_to_redcap_response(user)
+      actual = Redcap.user_to_redcap_response(record: user)
       expected = [
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_dob"=>user.dob},
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_email"=>user.email},
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_is_parent"=>"1"},
-        {"record_id"=>user.id,
+        {"record_id"=>user.study_id,
          "ctrl_family_name"=>user.family_name},
       ]
       expect(actual).to eq(expected)
@@ -239,21 +297,21 @@ RSpec.describe UploadRedcapDetails do
 
   describe '#perform' do
     it 'updates REDCap when there are updates to do' do
-      allow(UploadRedcapDetails).to receive(:question_answer_to_redcap_response).and_return(:data)
-      allow(UploadRedcapDetails).to receive(:make_redcap_api_payload).and_return(:payload)
-      allow(UploadRedcapDetails).to receive(:call_api)
-      UploadRedcapDetails.perform(:question_answer_to_redcap_response, 'id', false)
-      expect(UploadRedcapDetails).to have_received(:make_redcap_api_payload).with(:data)
-      expect(UploadRedcapDetails).to have_received(:call_api).with(:payload)
+      allow(Redcap).to receive(:question_answer_to_redcap_response).and_return(:data)
+      allow(Redcap).to receive(:get_import_payload).and_return(:payload)
+      allow(Redcap).to receive(:call_api)
+      Redcap.perform(:question_answer_to_redcap_response, :get_import_payload, record: 'id', destroy: false)
+      expect(Redcap).to have_received(:get_import_payload).with(:data)
+      expect(Redcap).to have_received(:call_api).with(:payload, destroy: false)
     end
 
     it 'does not update REDCap when there are no updates to do' do
-      allow(UploadRedcapDetails).to receive(:question_answer_to_redcap_response).and_return(nil)
-      allow(UploadRedcapDetails).to receive(:make_redcap_api_payload)
-      allow(UploadRedcapDetails).to receive(:call_api)
-      UploadRedcapDetails.perform(:question_answer_to_redcap_response, 'id', false)
-      expect(UploadRedcapDetails).not_to have_received(:make_redcap_api_payload)
-      expect(UploadRedcapDetails).not_to have_received(:call_api)
+      allow(Redcap).to receive(:question_answer_to_redcap_response).and_return(nil)
+      allow(Redcap).to receive(:get_import_payload)
+      allow(Redcap).to receive(:call_api)
+      Redcap.perform(:question_answer_to_redcap_response, :get_import_payload, record: 'id', destroy: false)
+      expect(Redcap).not_to have_received(:get_import_payload)
+      expect(Redcap).not_to have_received(:call_api)
     end
   end
 

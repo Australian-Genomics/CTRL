@@ -32,7 +32,7 @@ ActiveAdmin.register User do
         if question_answer.nil?
           ''
         else
-          UploadRedcapDetails.answer_string_to_code(question_answer.answer)
+          Redcap.answer_string_to_code(question_answer.answer)
         end
       end
     end

@@ -1,5 +1,5 @@
-class UploadRedcapDetails
-  def self.call_api(payload)
+class Redcap
+  def self.call_api(payload, expected_count: nil, **_)
     if !REDCAP_CONNECTION_ENABLED
       Rails.logger.info("Connection disabled; not posting payload: #{payload}")
       return
@@ -7,20 +7,27 @@ class UploadRedcapDetails
 
     begin
       response = HTTParty.post(REDCAP_API_URL, body: payload)
+
       Rails.logger.info("Posted payload: #{payload}")
+
       if !response.success?
         msg = "Unsuccessful response from REDCap: #{response}"
         Rails.logger.error(msg)
         Rollbar.error(msg)
         raise StandardError.new msg
       end
-      if response.parsed_response['count'] != 1
-        count = response.parsed_response['count']
-        msg = "Expected to modify 1 record, modified #{count}"
+
+      parsed_response = response.parsed_response
+
+      if !expected_count.nil? && parsed_response['count'] != expected_count
+        count = parsed_response['count']
+        msg = "Expected to modify #{expected_count} record, modified #{count}"
         Rails.logger.error(msg)
         Rollbar.error(msg)
         raise StandardError.new msg
       end
+
+      parsed_response
     rescue HTTParty::Error, SocketError => e
       msg = "Error connecting to REDCap - #{e.message}"
       Rails.logger.error(msg)
@@ -29,13 +36,50 @@ class UploadRedcapDetails
     end
   end
 
-  def self.make_redcap_api_payload(data)
+  # Constructs a REDCap API payload which imports +data+. Example data:
+  #
+  # [
+  #   {
+  #     'record_id' => '42',
+  #     'my_redcap_field' => 'new REDCap field value'
+  #   }
+  # ]
+  #
+  def self.get_import_payload(data)
     data.nil? ? nil : {
       token: REDCAP_TOKEN,
       content: 'record',
       format: 'json',
       type: 'flat',
       data: data.to_json
+    }
+  end
+
+  # Constructs a REDCap API payload which exports all records having the given
+  # +record_id+. There will be between one and zero such records.
+  #
+  # Example HTTP response: [
+  #   {
+  #     'my_field_name': 'field value from REDCap',
+  #     'my_other_field_name': 'other field value from REDCap'
+  #   }
+  # ]
+  #
+  def self.get_export_payload(data)
+    data.nil? ? nil : {
+      token: REDCAP_TOKEN,
+      content: 'record',
+      action: 'export',
+      format: 'json',
+      type: 'flat',
+      csvDelimiter: '',
+      'records[0]': data,
+      rawOrLabel: 'raw',
+      rawOrLabelHeaders: 'raw',
+      exportCheckboxLabel: 'false',
+      exportSurveyFields: 'false',
+      exportDataAccessGroups: 'false',
+      returnFormat: 'json'
     }
   end
 
@@ -47,7 +91,13 @@ class UploadRedcapDetails
     end
   end
 
-  def self.question_answer_to_redcap_response(question_answer, destroy, *_)
+  def self.identity_data_fetcher(record: nil, **_)
+    record
+  end
+
+  def self.question_answer_to_redcap_response(record: nil, destroy: false, **_)
+    question_answer = record
+
     answer_string = question_answer.answer
 
     consent_question = question_answer.consent_question
@@ -62,24 +112,26 @@ class UploadRedcapDetails
 
     question_type = consent_question.question_type
 
-    user_id = question_answer.user_id
+    study_id = question_answer.user.study_id
 
     construct_redcap_response(
       raw_redcap_code,
       raw_redcap_field,
       answer_string,
       question_type,
-      user_id,
+      study_id,
       destroy
     )
   end
 
-  def self.user_to_redcap_response(user, *_)
+  def self.user_to_redcap_response(record: nil, **_)
+    user = record
+
     if UserColumnToRedcapFieldMapping.count == 0
       return nil
     end
 
-    user_id = user.id
+    study_id = user.study_id
 
     UserColumnToRedcapFieldMapping.all.map { |user_column_to_redcap_field_mapping|
       user_column, redcap_field, redcap_event_name = [
@@ -96,8 +148,8 @@ class UploadRedcapDetails
 
       response_base =
         redcap_event_name.blank? ?
-          {'record_id' => user_id} :
-          {'record_id' => user_id, 'redcap_event_name' => redcap_event_name}
+          {'record_id' => study_id} :
+          {'record_id' => study_id, 'redcap_event_name' => redcap_event_name}
 
       if user_column_value.nil?
         {}
@@ -123,7 +175,7 @@ class UploadRedcapDetails
     raw_redcap_field,
     answer_string,
     question_type,
-    user_id,
+    study_id,
     destroy
   )
     if raw_redcap_field.blank?
@@ -144,20 +196,39 @@ class UploadRedcapDetails
 
     [
       {
-        'record_id' => user_id,
+        'record_id' => study_id,
         redcap_field => redcap_code,
       }
     ]
   end
 
-  def self.perform(data_getter, record, destroy=false)
-    Rails.logger.info "Using #{data_getter} to perform upload job for #{record.pretty_inspect}"
-    data = self.send(data_getter, record, destroy)
+  # +data_fetcher+ queries the database to fetch data required by the REDCap API
+  # call. It must be one of the following:
+  #   * :identity_data_fetcher
+  #   * :question_answer_to_redcap_response
+  #   * :user_to_redcap_response
+  #
+  # +payload_maker+ takes data from +data_fetcher+ and produces a REDCap API
+  # payload. It must be one of the following:
+  #   * :get_import_payload
+  #   * :get_export_payload
+  #
+  # Keyword arguments:
+  #   * record - The Rails record to call +data_fetcher+ on.
+  #   * expected_count - The number of records expected to be modified.
+  #   * destroy - A boolean value indicating whether the record should be destroyed in REDCap.
+  #
+  def self.perform(data_fetcher, payload_maker, record: nil, **kwargs)
+    Rails.logger.info "Using #{data_fetcher} to perform job for #{record.pretty_inspect}"
+
+    data = self.send(data_fetcher, record: record, **kwargs)
     if data.nil?
       Rails.logger.info "Payload empty; Not posting for #{record.pretty_inspect}"
       return
     end
-    redcap_api_payload = make_redcap_api_payload(data)
-    call_api(redcap_api_payload)
+
+    redcap_api_payload = self.send(payload_maker, data)
+
+    call_api(redcap_api_payload, **kwargs)
   end
 end

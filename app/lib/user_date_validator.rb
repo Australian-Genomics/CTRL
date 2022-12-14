@@ -11,16 +11,6 @@ module UserDateValidator
     !child_dob.future? ? true : errors.add(:child_dob, I18n.t('user.errors.dob.future')) && false
   end
 
-  def check_study_code
-    codes = StudyCode.pluck(:title)
-    if codes.all? { |code| Regexp.new(code).match(study_id) }
-      true
-    else
-      errors.add(:study_id, 'Please check Study ID')
-      false
-    end
-  end
-
   private
 
   def date_valid?(dob)
