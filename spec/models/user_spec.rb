@@ -129,17 +129,17 @@ RSpec.describe User, type: :model do
       sc.value = "true"
       sc.save!
 
-      user = FactoryBot.build(:user, kin_email: nil)
-
-      expect(user.valid?).to be false
-      expect(user.errors[:kin_email]).to eq ['Is invalid']
+      expect {
+        FactoryBot.create(:user, is_parent: false, kin_email: nil)
+      }.to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should have a mandatory kin_email field when is_parent=false upon update' do
       user = FactoryBot.create(:user, is_parent: false, kin_email: nil)
       user.kin_email = 'different email but still not valid'
 
-      expect(user.valid?).to be false
-      expect(user.errors[:kin_email]).to eq ['Is invalid']
+      expect {
+        user.save!
+      }.to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should have an optional kin_email field when is_parent=false upon create' do
       user = FactoryBot.build(:user, is_parent: false, kin_email: nil)
