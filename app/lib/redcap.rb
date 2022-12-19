@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class Redcap
   def self.call_api(payload, expected_count: nil, **_)
     if !REDCAP_CONNECTION_ENABLED
@@ -73,14 +75,16 @@ class Redcap
       format: 'json',
       type: 'flat',
       csvDelimiter: '',
-      'records[0]': data,
+      'records[0]': data.record_id,
       rawOrLabel: 'raw',
       rawOrLabelHeaders: 'raw',
       exportCheckboxLabel: 'false',
       exportSurveyFields: 'false',
       exportDataAccessGroups: 'false',
       returnFormat: 'json'
-    }
+    }.merge(data.event_name.nil? ? {} : {
+      'events[0]': data.event_name,
+    })
   end
 
   def self.answer_string_to_code(answer_string)
@@ -124,7 +128,18 @@ class Redcap
     )
   end
 
-  def self.user_to_redcap_response(record: nil, **_)
+  def self.user_to_export_redcap_response(record: nil, **_)
+    redcap_event_name = UserColumnToRedcapFieldMapping.find_by(
+      user_column: 'email'
+    )&.redcap_event_name
+
+    OpenStruct.new({
+      :record_id => record.study_id,
+      :event_name => redcap_event_name.blank? ? nil : redcap_event_name,
+    })
+  end
+
+  def self.user_to_import_redcap_response(record: nil, **_)
     user = record
 
     if UserColumnToRedcapFieldMapping.count == 0
@@ -204,9 +219,9 @@ class Redcap
 
   # +data_fetcher+ queries the database to fetch data required by the REDCap API
   # call. It must be one of the following:
-  #   * :identity_data_fetcher
   #   * :question_answer_to_redcap_response
-  #   * :user_to_redcap_response
+  #   * :user_to_export_redcap_response
+  #   * :user_to_import_redcap_response
   #
   # +payload_maker+ takes data from +data_fetcher+ and produces a REDCap API
   # payload. It must be one of the following:

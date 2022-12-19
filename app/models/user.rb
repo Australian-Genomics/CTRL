@@ -119,7 +119,7 @@ class User < ApplicationRecord
 
   def upload_redcap_details
     Redcap.perform(
-      :user_to_redcap_response,
+      :user_to_import_redcap_response,
       :get_import_payload,
       record: self,
       expected_count: 1)
@@ -127,8 +127,8 @@ class User < ApplicationRecord
 
   def download_redcap_details
     Redcap.perform(
-      :identity_data_fetcher,
+      :user_to_export_redcap_response,
       :get_export_payload,
-      record: study_id)
+      record: self)
   end
 end

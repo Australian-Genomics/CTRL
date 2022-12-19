@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ostruct'
 
 RSpec.describe Redcap do
   describe '#call_api' do
@@ -98,8 +99,14 @@ RSpec.describe Redcap do
 
   describe '#get_export_payload' do
     it 'returns a payload when passed data' do
-      mock_data = 'my data'
       mock_redcap_token = 'redcap token'
+      mock_study_id = 'my-study-id'
+      mock_event_name = 'my-event-name'
+
+      mock_data = OpenStruct.new({
+        :record_id => mock_study_id,
+        :event_name => mock_event_name,
+      })
 
       stub_const('REDCAP_TOKEN', mock_redcap_token)
       expected_payload = {
@@ -109,7 +116,38 @@ RSpec.describe Redcap do
         format: 'json',
         type: 'flat',
         csvDelimiter: '',
-        'records[0]': mock_data,
+        'records[0]': mock_study_id,
+        'events[0]': mock_event_name,
+        rawOrLabel: 'raw',
+        rawOrLabelHeaders: 'raw',
+        exportCheckboxLabel: 'false',
+        exportSurveyFields: 'false',
+        exportDataAccessGroups: 'false',
+        returnFormat: 'json'
+      }
+
+      expect(Redcap.get_export_payload(mock_data)).to eq(expected_payload)
+    end
+
+    it 'returns a payload when passed data with a nil event name' do
+      mock_redcap_token = 'redcap token'
+      mock_study_id = 'my-study-id'
+      mock_event_name = 'my-event-name'
+
+      mock_data = OpenStruct.new({
+        :record_id => mock_study_id,
+        :event_name => nil,
+      })
+
+      stub_const('REDCAP_TOKEN', mock_redcap_token)
+      expected_payload = {
+        token: mock_redcap_token,
+        content: 'record',
+        action: 'export',
+        format: 'json',
+        type: 'flat',
+        csvDelimiter: '',
+        'records[0]': mock_study_id,
         rawOrLabel: 'raw',
         rawOrLabelHeaders: 'raw',
         exportCheckboxLabel: 'false',
@@ -237,10 +275,58 @@ RSpec.describe Redcap do
     end
   end
 
-  describe '#user_to_redcap_response' do
+
+  describe '#user_to_export_redcap_response' do
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
       user = create(:user)
-      expect(Redcap.user_to_redcap_response(record: user)).to eq(nil)
+      expected_response = OpenStruct.new({
+        :record_id => user.study_id,
+        :event_name => nil,
+      })
+      expect(Redcap.user_to_export_redcap_response(record: user)).to eq(expected_response)
+    end
+
+    it 'produces the correct response for UserColumnToRedcapFieldMapping when email is set and not blank' do
+      user = create(:user)
+
+      create(
+        :user_column_to_redcap_field_mapping,
+        user_column: 'email',
+        redcap_field: 'ctrl_email',
+        redcap_event_name: 'proband_informatio_arm_1'
+      )
+
+      expected_response = OpenStruct.new({
+        :record_id => user.study_id,
+        :event_name => 'proband_informatio_arm_1',
+      })
+
+      expect(Redcap.user_to_export_redcap_response(record: user)).to eq(expected_response)
+    end
+
+    it 'produces the correct response for UserColumnToRedcapFieldMapping when email is set and blank' do
+      user = create(:user)
+
+      create(
+        :user_column_to_redcap_field_mapping,
+        user_column: 'email',
+        redcap_field: 'ctrl_email',
+        redcap_event_name: ''
+      )
+
+      expected_response = OpenStruct.new({
+        :record_id => user.study_id,
+        :event_name => nil,
+      })
+
+      expect(Redcap.user_to_export_redcap_response(record: user)).to eq(expected_response)
+    end
+  end
+
+  describe '#user_to_import_redcap_response' do
+    it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
+      user = create(:user)
+      expect(Redcap.user_to_import_redcap_response(record: user)).to eq(nil)
     end
 
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count > 0' do
@@ -277,7 +363,7 @@ RSpec.describe Redcap do
         redcap_event_name: ''
       )
 
-      actual = Redcap.user_to_redcap_response(record: user)
+      actual = Redcap.user_to_import_redcap_response(record: user)
       expected = [
         {"record_id"=>user.study_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
