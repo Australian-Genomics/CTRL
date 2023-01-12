@@ -12,7 +12,7 @@ WORKDIR /code
 COPY . /code
 
 # Run bundle install to install the Ruby dependencies.
-RUN gem install bundler
+RUN gem install bundler -v 2.3.26
 RUN bundle install
 
 RUN apt-get update && apt-get install apt-transport-https ca-certificates

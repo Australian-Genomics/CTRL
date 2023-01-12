@@ -1,0 +1,438 @@
+{
+  "type": "object",
+  "properties": {
+    "duo_limitation": {
+      "$ref": "#/$defs/duo_limitation"
+    },
+    "condition": {
+      "anyOf": [
+        { "$ref": "#/$defs/expr" }
+      ]
+    }
+  },
+  "required": [
+    "duo_limitation"
+  ],
+
+  "$defs": {
+    "and_expr": {
+      "type": "object",
+      "properties": {
+        "and": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        }
+      }
+    },
+
+    "or_expr": {
+      "type": "object",
+      "properties": {
+        "or": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/expr"
+          }
+        }
+      }
+    },
+
+    "not_expr": {
+      "type": "object",
+      "properties": {
+        "not": {
+          "$ref": "#/$defs/expr"
+        }
+      }
+    },
+
+    "equals_expr": {
+      "type": "object",
+      "properties": {
+        "consent_question_id": {
+          "type": "number"
+        },
+        "answer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "consent_question_id",
+        "answer"
+      ]
+    },
+
+    "expr": {
+      "anyOf": [
+        { "$ref": "#/$defs/and_expr" },
+        { "$ref": "#/$defs/or_expr" },
+        { "$ref": "#/$defs/not_expr" },
+        { "$ref": "#/$defs/equals_expr" }
+      ]
+    },
+
+    "duo_modifier": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000019",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000020",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000046",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000018",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000045",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000024",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000016",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000025",
+              "type": "string"
+            },
+            "start": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0\\d|1[0-2])-([0-2]\\d|3[01])$"
+            },
+            "end": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0\\d|1[0-2])-([0-2]\\d|3[01])$"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000029",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000043",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000015",
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000022",
+              "type": "string"
+            },
+            "regions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "regions"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000026",
+              "type": "string"
+            },
+            "users": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "users"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000006",
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "types"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000028",
+              "type": "string"
+            },
+            "institutions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "institutions"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000027",
+              "type": "string"
+            },
+            "projects": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "projects"
+          ]
+        }
+      ]
+    },
+    "duo_limitation": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000042",
+              "type": "string"
+            },
+            "modifiers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/duo_modifier"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "modifiers"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000006",
+              "type": "string"
+            },
+            "modifiers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/duo_modifier"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "modifiers"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000007",
+              "type": "string"
+            },
+            "diseaseSystem": {
+              "type": "string"
+            },
+            "diseaseCode": {
+              "type": "string"
+            },
+            "modifiers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/duo_modifier"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "diseaseSystem",
+            "diseaseCode",
+            "modifiers"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000011",
+              "type": "string"
+            },
+            "modifiers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/duo_modifier"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "modifiers"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "code": {
+              "const": "DUO:0000004",
+              "type": "string"
+            },
+            "modifiers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/duo_modifier"
+              }
+            }
+          },
+          "required": [
+            "code",
+            "modifiers"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description"
+          ]
+        }
+      ]
+    }
+  }
+}
