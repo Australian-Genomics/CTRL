@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   validates :terms_and_conditions, acceptance: true
 
-  validates :study_id, presence: true
+  validates :study_id, presence: true, uniqueness: true
   validate :check_study_code_by_regex, if: -> { study_id.present? }, on: :create
   validate :check_study_code_by_redcap, if: -> { study_id.present? }, on: :create
 

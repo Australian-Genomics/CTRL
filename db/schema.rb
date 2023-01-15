@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_13_050343) do
+ActiveRecord::Schema.define(version: 2023_01_15_224704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 2023_01_13_050343) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "api_users", force: :cascade do |t|
+    t.string "name"
+    t.string "token_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "conditional_duo_limitations", force: :cascade do |t|
@@ -228,6 +235,7 @@ ActiveRecord::Schema.define(version: 2023_01_13_050343) do
     t.integer "preferred_contact_method", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["study_id"], name: "index_users_on_study_id", unique: true
   end
 
   create_table "versions", force: :cascade do |t|

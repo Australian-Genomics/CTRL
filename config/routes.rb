@@ -36,4 +36,7 @@ Rails.application.routes.draw do
   get 'counselor-will-contact', to: 'counselor_contact#show'
 
   get 'application/logo.png', to: 'application#logo'
+
+  post '/api/v1/duo_limitations', to: 'api#duo_limitations'
+  match '/api/*path', to: 'api#not_found', via: :all
 end

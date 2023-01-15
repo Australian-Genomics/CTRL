@@ -6,7 +6,6 @@ ActiveAdmin.register ConditionalDuoLimitation do
     id_column
     column :json
     column :consent_questions
-    # TODO: Merge json permissions when sending
     actions
   end
 

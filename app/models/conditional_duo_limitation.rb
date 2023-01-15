@@ -1,6 +1,6 @@
 require 'json-schema'
 
-# TODO: Merge documents
+# TODO: Tests
 # TODO: Add documentation about conditionals in Active Admin
 
 class ConditionalDuoLimitation < ApplicationRecord
@@ -10,6 +10,91 @@ class ConditionalDuoLimitation < ApplicationRecord
 
   validates :json, presence: true
   validate :validate_json, if: -> { json.present? }
+
+  def parsed_json
+    JSON.parse(json)
+  end
+
+  def condition
+    parsed_json['condition']
+  end
+
+  def duo_limitation
+    parsed_json['duoLimitation']
+  end
+
+  def evaluate_condition(user)
+    evaluate_condition_(user, condition)
+  end
+
+  #
+  # Example:
+  #
+  #   x = {
+  #     "code": "DUO:1",
+  #     "modifiers": [
+  #       { "code": "DUO:2", "regions": ["US"] },
+  #       { "code": "DUO:3", "regions": ["US"] }
+  #     ]
+  #   }
+  #
+  #   y = {
+  #     "code": "DUO:1",
+  #     "modifiers": [
+  #       { "code": "DUO:2", "regions": ["AU"] },
+  #       { "code": "DUO:4", "regions": ["NZ"] }
+  #     ]
+  #   }
+  #
+  #   merge(x, y) == {
+  #     "code": "DUO:1",
+  #     "modifiers": [
+  #       { "code": "DUO:2", "regions": ["US", "AU"] }
+  #       { "code": "DUO:3", "regions": ["US"] }
+  #       { "code": "DUO:4", "regions": ["NZ"] }
+  #     ]
+  #   }
+  #
+  def self.merge(x, y)
+    if x.class == Array and y.class == Array
+      return merge_arrays(x, y)
+    end
+
+    if x.class != Hash or y.class != Hash
+      return x == y ? x : nil
+    end
+
+    if x.keys.to_set != y.keys.to_set
+      return nil
+    end
+
+    x.keys.map do |key|
+      merged = merge(x[key], y[key])
+      if merged.nil?
+        return
+      else
+        [key, merged]
+      end
+    end.to_h
+  end
+
+  def self.merge_into_array(array, x)
+    was_merged = false
+
+    merged = array.map do |y|
+      merged = merge(y, x)
+      was_merged ||= !merged.nil?
+      merged.nil? ? y : merged
+    end
+
+    was_merged ? merged : array + [x]
+  end
+
+  def self.merge_arrays(xs, ys)
+    (xs + ys).reduce([]) do |acc, z|
+      merge_into_array(acc, z)
+    end
+  end
 
   private
 
@@ -113,8 +198,7 @@ class ConditionalDuoLimitation < ApplicationRecord
   end
 
   def extract_equals_exprs
-    parsed_json = JSON.parse(json)
-    extract_equals_exprs_from_condition(parsed_json['condition'])
+    extract_equals_exprs_from_condition(condition)
   end
 
   def extract_equals_exprs_from_condition(parsed_json)
@@ -133,11 +217,6 @@ class ConditionalDuoLimitation < ApplicationRecord
     else
       raise StandardError.new "Unexpected expression " + parsed_json.to_s
     end
-  end
-
-  def evaluate_condition(user)
-    parsed_json = JSON.parse(json)
-    evaluate_condition_(user, parsed_json['condition'])
   end
 
   def evaluate_condition_(user, parsed_json)

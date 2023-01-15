@@ -1,8 +1,8 @@
 {
   "type": "object",
   "properties": {
-    "duo_limitation": {
-      "$ref": "#/$defs/duo_limitation"
+    "duoLimitation": {
+      "$ref": "#/$defs/duoLimitation"
     },
     "condition": {
       "anyOf": [
@@ -11,7 +11,7 @@
     }
   },
   "required": [
-    "duo_limitation"
+    "duoLimitation"
   ],
 
   "$defs": {
@@ -316,7 +316,7 @@
         }
       ]
     },
-    "duo_limitation": {
+    "duoLimitation": {
       "anyOf": [
         {
           "type": "object",
