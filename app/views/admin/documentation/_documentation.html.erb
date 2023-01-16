@@ -89,7 +89,7 @@
 
       <h3>Adding a Conditional DUO Limitation</h3>
       <p>
-        Conditional DUO Limitations can be added <a href="/admin/conditional_duo_limitations">here</a>. Upon clicking the "New Conditional Duo Limitation" button, you'll be taken <a href="/admin/conditional_duo_limitations/new">here</a>, where you can add a JSON document specifying the DUO limitation and conditions it must satisfy in order to annotate a participant's data.
+        Conditional DUO Limitations can be added via Active Admin, <a href="/admin/conditional_duo_limitations">here</a>. Upon clicking the "New Conditional Duo Limitation" button, you'll be taken <a href="/admin/conditional_duo_limitations/new">here</a>, where you can add a JSON document specifying the DUO limitation and conditions it must satisfy in order to annotate a participant's data.
       </p>
 
       <p>
@@ -115,10 +115,12 @@
         <li>
           The <code>"duoLimitation"</code> follows a schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>. Any JSON which is valid within that schema is also a valid <code>"duoLimitation"</code>. The meanings of the DUO codes allowed by the schema are defined by <a href="https://www.ga4gh.org/">GA4GH</a> and are available <a href="https://raw.githubusercontent.com/EBISPOT/DUO/master/duo.owl">here</a>.
         </li>
-        <li>The <code>"condition"</code> is evaluated for each participant. In the above example, any participant who answered "yes" to the question whose ID is <code>1</code> will have their data annotated with the DUO code <code>DUO:0000004</code>. (Questions' IDs can be found in Active Admin, <a href="/admin/consent_questions">here</a>.) Note that the condition will always be false for a particular participant if they haven't answered all the questions which the condition depends on.
+        <li>
+          The <code>"condition"</code> is evaluated for each participant. In the above example, any participant who answered "yes" to the question whose ID is <code>1</code> will have their data annotated with the DUO code <code>DUO:0000004</code>. (Questions' IDs can be found in Active Admin, <a href="/admin/consent_questions">here</a>.) Note that any condition which refers to unanswered questions will always evaluate to false. The only way to define a condition which is true irrespective of whether a question has been answered is by using <a href="#boolean-literals">boolean literals</a>.
         </li>
       </ul>
 
+      <h4>Logical Operators</h4>
       <p>
       Although the condition in the above example is simple, more complex conditions can be expressed. CTRL's JSON format allows the condition to be predicated on more than one question. For example, if we want the annotation to happen only for users who answered "yes" on question <code>1</code> and "no" on <code>2</code>, we would write:
       </p>
@@ -167,8 +169,20 @@
   }
 }</code></pre>
 
+      <h4>Boolean Literals</h4>
+      <p>The boolean literals <code>true</code> and <code>false</code> can be used. This is useful if you would like a DUO limitation to apply to all participants' data, irrespective of their answers:</p>
+
+      <pre><code>{
+  "duoLimitation": {
+    "code": "DUO:0000004",
+    "modifiers": []
+  },
+  "condition": true
+}</code></pre>
+
+      <h4>Multiple Conditional DUO Limitations</h4>
       <p>
-      Multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations. CTRL will merge the <code>"duoLimitation"</code> sections when returning the codes, if it makes sense to do so. See <a href="#fetching-duo-codes-for-a-user">Fetching DUO Codes for a User</a> for details on how this works.
+      Multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations at once. CTRL will merge the <code>"duoLimitation"</code> sections when returning the codes via the REST API, if it makes sense to do so. See <a href="#fetching-duo-codes-for-a-user">Fetching DUO Codes for a User</a> for details on how this works.
       </p>
 
       <h3 id="fetching-duo-codes-for-a-user">Fetching DUO Codes for a User</h3>
@@ -179,7 +193,7 @@
       <%= image_tag 'admin/documentation/20' %>
 
       <p>
-        The token can then be used to send a HTTP POST request to CTRL. The POST payload should be a JSON array of study IDs whose DUO codes you would like. For example:
+        The token can then be used to send a HTTP POST request to CTRL. The POST payload should be a JSON array of study IDs whose DUO codes you would like. Consider the following HTTP POST request for example:
       </p>
 
       <pre><code>$ curl \
@@ -194,7 +208,7 @@
      ]' \
   | jq</code></pre>
 
-      <p>Might produce the response:</p>
+      <p>CTRL might produce the following response:</p>
 
       <pre><code>{
   "A1543457": [
@@ -214,10 +228,12 @@
   ]
 }</code></pre>
 
-      <p>Each study ID's array elements follow the schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>.</p>
+      <p>Notice that the response contains data about <code>A1543457</code> (which is a study ID which <i>does</i> exist), but not <code>non-existent-study-id</code>.</p>
+
+      <p>Each study ID's array elements in the response follow the schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>.</p>
 
       <p>
-      Note that multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations. They will be combined if possible. For example, assume a user satisfies the conditions for these <code>"duoLimitation"</code>s:
+      Note that multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations at once. They will be combined if possible. For example, imagine that a user satisfies the conditions for these <code>"duoLimitation"</code>s:
       </p>
 
       <ol>
@@ -226,7 +242,7 @@
   "code": "DUO:1",
   "modifiers": [
     { "code": "DUO:2", "regions": ["US"] },
-    { "code": "DUO:3", "regions": ["US"] }
+    { "code": "DUO:3", "regions": ["EU"] }
   ]
 }</code></pre>
         </li>
@@ -250,7 +266,7 @@
       </ol>
 
       <p>
-      Despite three conditions being satisfied, the server will respond with a list of two entries, because the first two are combined:
+      Despite <i>three</i> conditions being satisfied, the server will respond with an array of <i>two</i> entries, because the first two are combined:
       </p>
 
       <pre><code>{
@@ -259,7 +275,7 @@
       "code": "DUO:1",
       "modifiers": [
         { "code": "DUO:2", "regions": [ "US", "AU" ] },
-        { "code": "DUO:3", "regions": [ "US" ] },
+        { "code": "DUO:3", "regions": [ "EU" ] },
         { "code": "DUO:4", "regions": [ "NZ" ] }
       ]
     },

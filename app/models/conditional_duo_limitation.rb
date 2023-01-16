@@ -1,7 +1,6 @@
 require 'json-schema'
 
 # TODO: Tests
-# TODO: Add documentation about conditionals in Active Admin
 
 class ConditionalDuoLimitation < ApplicationRecord
   has_and_belongs_to_many :consent_questions
