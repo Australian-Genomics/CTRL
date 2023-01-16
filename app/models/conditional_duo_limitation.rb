@@ -23,8 +23,9 @@ class ConditionalDuoLimitation < ApplicationRecord
     parsed_json['duoLimitation']
   end
 
-  def evaluate_condition(user)
-    evaluate_condition_(user, condition)
+  def eval_condition(user)
+    all_associated_consent_questions_have_answers(user) &&
+      eval_condition_recursively(user, condition)
   end
 
   #
@@ -34,7 +35,7 @@ class ConditionalDuoLimitation < ApplicationRecord
   #     "code": "DUO:1",
   #     "modifiers": [
   #       { "code": "DUO:2", "regions": ["US"] },
-  #       { "code": "DUO:3", "regions": ["US"] }
+  #       { "code": "DUO:3", "regions": ["EU"] }
   #     ]
   #   }
   #
@@ -50,7 +51,7 @@ class ConditionalDuoLimitation < ApplicationRecord
   #     "code": "DUO:1",
   #     "modifiers": [
   #       { "code": "DUO:2", "regions": ["US", "AU"] }
-  #       { "code": "DUO:3", "regions": ["US"] }
+  #       { "code": "DUO:3", "regions": ["EU"] }
   #       { "code": "DUO:4", "regions": ["NZ"] }
   #     ]
   #   }
@@ -181,20 +182,25 @@ class ConditionalDuoLimitation < ApplicationRecord
     end
   end
 
+  def is_boolean_expr(parsed_json)
+    [TrueClass, FalseClass].to_set.include?(parsed_json.class)
+  end
+
   def is_equals_expr(parsed_json)
-    parsed_json.keys.to_set == ['consent_question_id', 'answer'].to_set
+    parsed_json.class == Hash &&
+      parsed_json.keys.to_set == ['consent_question_id', 'answer'].to_set
   end
 
   def is_and_expr(parsed_json)
-    parsed_json.keys.to_set == ['and'].to_set
+    parsed_json.class == Hash && parsed_json.keys.to_set == ['and'].to_set
   end
 
   def is_or_expr(parsed_json)
-    parsed_json.keys.to_set == ['or'].to_set
+    parsed_json.class == Hash && parsed_json.keys.to_set == ['or'].to_set
   end
 
   def is_not_expr(parsed_json)
-    parsed_json.keys.to_set == ['not'].to_set
+    parsed_json.class == Hash && parsed_json.keys.to_set == ['not'].to_set
   end
 
   def extract_equals_exprs
@@ -214,12 +220,24 @@ class ConditionalDuoLimitation < ApplicationRecord
       end
     elsif is_not_expr(parsed_json)
       extract_equals_exprs_from_condition(parsed_json['not'])
+    elsif is_boolean_expr(parsed_json)
+      []
     else
       raise StandardError.new "Unexpected expression " + parsed_json.to_s
     end
   end
 
-  def evaluate_condition_(user, parsed_json)
+  def all_associated_consent_questions_have_answers(user)
+    user_id = user.id
+    extract_equals_exprs.all? do |equals_expr|
+      QuestionAnswer.find_by(
+        consent_question_id: equals_expr['consent_question_id'],
+        user_id: user_id,
+      ).present?
+    end
+  end
+
+  def eval_condition_recursively(user, parsed_json)
     if is_equals_expr(parsed_json)
       QuestionAnswer.find_by(
         consent_question_id: parsed_json['consent_question_id'],
@@ -227,11 +245,13 @@ class ConditionalDuoLimitation < ApplicationRecord
         answer: parsed_json['answer'],
       ).present?
     elsif is_and_expr(parsed_json)
-      parsed_json['and'].all? { |expr| evaluate_condition_(user, expr) }
+      parsed_json['and'].all? { |expr| eval_condition_recursively(user, expr) }
     elsif is_or_expr(parsed_json)
-      parsed_json['or'].any? { |expr| evaluate_condition_(user, expr) }
+      parsed_json['or'].any? { |expr| eval_condition_recursively(user, expr) }
     elsif is_not_expr(parsed_json)
-      not evaluate_condition_(user, parsed_json['not'])
+      not eval_condition_recursively(user, parsed_json['not'])
+    elsif is_boolean_expr(parsed_json)
+      parsed_json
     else
       raise StandardError.new "Unexpected expression " + parsed_json.to_s
     end

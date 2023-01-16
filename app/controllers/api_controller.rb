@@ -16,7 +16,7 @@ class ApiController < ApplicationController
 
   def duo_limitations_for_user(user)
     user_duo_limitations = ConditionalDuoLimitation.all.flat_map do |x|
-      x.evaluate_condition(user) ? [x.duo_limitation] : []
+      x.eval_condition(user) ? [x.duo_limitation] : []
     end
 
     ConditionalDuoLimitation.merge_arrays([], user_duo_limitations)
