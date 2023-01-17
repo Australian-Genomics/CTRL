@@ -1,7 +1,5 @@
 require 'json-schema'
 
-# TODO: Tests
-
 class ConditionalDuoLimitation < ApplicationRecord
   has_and_belongs_to_many :consent_questions
 
@@ -25,75 +23,6 @@ class ConditionalDuoLimitation < ApplicationRecord
   def eval_condition(user)
     all_associated_consent_questions_have_answers(user) &&
       eval_condition_recursively(user, condition)
-  end
-
-  #
-  # Example:
-  #
-  #   x = {
-  #     "code": "DUO:1",
-  #     "modifiers": [
-  #       { "code": "DUO:2", "regions": ["US"] },
-  #       { "code": "DUO:3", "regions": ["EU"] }
-  #     ]
-  #   }
-  #
-  #   y = {
-  #     "code": "DUO:1",
-  #     "modifiers": [
-  #       { "code": "DUO:2", "regions": ["AU"] },
-  #       { "code": "DUO:4", "regions": ["NZ"] }
-  #     ]
-  #   }
-  #
-  #   merge(x, y) == {
-  #     "code": "DUO:1",
-  #     "modifiers": [
-  #       { "code": "DUO:2", "regions": ["US", "AU"] }
-  #       { "code": "DUO:3", "regions": ["EU"] }
-  #       { "code": "DUO:4", "regions": ["NZ"] }
-  #     ]
-  #   }
-  #
-  def self.merge(x, y)
-    if x.class == Array and y.class == Array
-      return merge_arrays(x, y)
-    end
-
-    if x.class != Hash or y.class != Hash
-      return x == y ? x : nil
-    end
-
-    if x.keys.to_set != y.keys.to_set
-      return nil
-    end
-
-    x.keys.map do |key|
-      merged = merge(x[key], y[key])
-      if merged.nil?
-        return
-      else
-        [key, merged]
-      end
-    end.to_h
-  end
-
-  def self.merge_into_array(array, x)
-    was_merged = false
-
-    merged = array.map do |y|
-      merged = merge(y, x)
-      was_merged ||= !merged.nil?
-      merged.nil? ? y : merged
-    end
-
-    was_merged ? merged : array + [x]
-  end
-
-  def self.merge_arrays(xs, ys)
-    (xs + ys).reduce([]) do |acc, z|
-      merge_into_array(acc, z)
-    end
   end
 
   private

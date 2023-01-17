@@ -710,3 +710,23 @@
         default_answer: 'no'
         question_type: checkbox
         answer_choices_position: right
+- ConditionalDuoLimitation:
+  - json: |
+      {
+        "duoLimitation": {
+          "code": "DUO:0000004",
+          "modifiers": [ { "code": "DUO:0000046" } ]
+        },
+        "condition": true
+      }
+  - json: |
+      {
+        "duoLimitation": {
+          "code": "DUO:0000004",
+          "modifiers": [ { "code": "DUO:0000019" } ]
+        },
+        "condition": {
+          "consent_question_id": 1,
+          "answer": "yes"
+        }
+      }

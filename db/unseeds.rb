@@ -28,10 +28,12 @@ $permitted_fields = Set[
   'user_column',
   'redcap_field',
   'redcap_event_name',
+  'json',
 ]
 
 $permitted_record_types = Set[
   'AdminUser',
+  'ConditionalDuoLimitation',
   'ConsentGroup',
   'ConsentQuestion',
   'ConsentStep',
@@ -93,6 +95,7 @@ def fetch_records_of_type(record_type)
     when "SurveyConfig"                   then SurveyConfig.all
     when "User"                           then User.all
     when "UserColumnToRedcapFieldMapping" then UserColumnToRedcapFieldMapping.all
+    when "ConditionalDuoLimitation"       then ConditionalDuoLimitation.all
     else raise ArgumentError.new("No such record type: #{record_type}")
   end
 

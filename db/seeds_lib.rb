@@ -39,6 +39,7 @@ def create_related_record_of_type(
     when "SurveyConfig"                   then record.survey_configs.create!(fields_)
     when "User"                           then record.users.create!(fields_)
     when "UserColumnToRedcapFieldMapping" then record.user_column_to_redcap_field_mapping.create!(fields_)
+    when "ConditionalDuoLimitation"       then record.conditional_duo_limitations.create!(fields_)
     else raise ArgumentError.new("No such record type: #{record_type}")
   end
 
@@ -89,6 +90,7 @@ def create_record_of_type(record_type, record_hash)
     when "SurveyConfig"                   then SurveyConfig.create!(fields_hash)
     when "User"                           then User.create!(fields_hash)
     when "UserColumnToRedcapFieldMapping" then UserColumnToRedcapFieldMapping.create!(fields_hash)
+    when "ConditionalDuoLimitation"       then ConditionalDuoLimitation.create!(fields_hash)
     else raise ArgumentError.new("No such record type: #{record_type}")
   end
 
@@ -117,6 +119,7 @@ def destroy_all_records_of_type(record_type)
     when "SurveyConfig"                   then SurveyConfig.destroy_all
     when "User"                           then User.destroy_all
     when "UserColumnToRedcapFieldMapping" then UserColumnToRedcapFieldMapping.destroy_all
+    when "ConditionalDuoLimitation"       then ConditionalDuoLimitation.destroy_all
     else raise ArgumentError.new("No such record type: #{record_type}")
   end
 end
