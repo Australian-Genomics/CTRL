@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2023_01_15_224704) do
     t.string "token_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_api_users_on_name", unique: true
   end
 
   create_table "conditional_duo_limitations", force: :cascade do |t|
