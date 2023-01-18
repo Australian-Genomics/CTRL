@@ -113,7 +113,7 @@
 
       <ul>
         <li>
-          The <code>"duoLimitation"</code> follows a schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>. Any JSON which is valid within that schema is also a valid <code>"duoLimitation"</code>. The meanings of the DUO codes allowed by the schema are defined by <a href="https://www.ga4gh.org/">GA4GH</a> and are available <a href="https://raw.githubusercontent.com/EBISPOT/DUO/master/duo.owl">here</a>.
+          The <code>"duoLimitation"</code> follows a schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>. Any JSON which is valid within that schema is also a valid <code>"duoLimitation"</code>. The meanings of the DUO codes allowed by the schema are defined by <a href="https://www.ga4gh.org/">GA4GH</a> and are available <a href="https://www.ebi.ac.uk/ols/ontologies/duo">here</a>.
         </li>
         <li>
           The <code>"condition"</code> is evaluated for each participant. In the above example, any participant who answered "yes" to the question whose ID is <code>1</code> will have their data annotated with the DUO code <code>DUO:0000004</code>. (Questions' IDs can be found in Active Admin, <a href="/admin/consent_questions">here</a>.) Note that any condition which refers to unanswered questions will always evaluate to false. The only way to define a condition which is true irrespective of whether a question has been answered is by using <a href="#boolean-literals">boolean literals</a>.
