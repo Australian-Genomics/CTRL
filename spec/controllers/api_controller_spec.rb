@@ -7,8 +7,9 @@ RSpec.describe ApiController, type: :request do
 
   let(:other_user) { create(:user) }
 
-  let(:consent_question) { create(:consent_question) }
-  let(:other_consent_question) { create(:consent_question) }
+  let(:consent_question_1) { create(:consent_question) }
+  let(:consent_question_2) { create(:consent_question) }
+  let(:consent_question_3) { create(:consent_question) }
 
   let(:invalid_headers) { {'Authorization': "Bearer invalid-#{test_token}"} }
 
@@ -18,7 +19,7 @@ RSpec.describe ApiController, type: :request do
     ConditionalDuoLimitation.create!(
       json: '
         {
-          "duoLimitation": {
+          "duo_limitation": {
             "code": "DUO:0000004",
             "modifiers": [ { "code": "DUO:0000046" } ]
           },
@@ -29,12 +30,12 @@ RSpec.describe ApiController, type: :request do
     ConditionalDuoLimitation.create!(
       json: %Q{
         {
-          "duoLimitation": {
+          "duo_limitation": {
             "code": "DUO:0000004",
             "modifiers": [ { "code": "DUO:0000019" } ]
           },
           "condition": {
-            "consent_question_id": #{consent_question.id},
+            "consent_question_id": #{consent_question_1.id},
             "answer": "yes"
           }
         }
@@ -43,12 +44,12 @@ RSpec.describe ApiController, type: :request do
     ConditionalDuoLimitation.create!(
       json: %Q{
         {
-          "duoLimitation": {
+          "duo_limitation": {
             "code": "DUO:0000004",
             "modifiers": [ { "code": "DUO:0000046" } ]
           },
           "condition": {
-            "consent_question_id": #{consent_question.id},
+            "consent_question_id": #{consent_question_1.id},
             "answer": "no"
           }
         }
@@ -57,23 +58,32 @@ RSpec.describe ApiController, type: :request do
     ConditionalDuoLimitation.create!(
       json: %Q{
         {
-          "duoLimitation": { "code": "DUO:0000011", "modifiers": [] },
+          "duo_limitation": { "code": "DUO:0000011", "modifiers": [] },
           "condition": {
             "and": [
               {
                 "or": [
                   {
-                    "consent_question_id": #{consent_question.id},
+                    "consent_question_id": #{consent_question_1.id},
                     "answer": "no"
                   },
-                  { "and": [true, false] }
+                  { "and": [true, false] },
+                  false
                 ]
               },
               {
                 "not": {
-                  "consent_question_id": #{other_consent_question.id},
+                  "consent_question_id": #{consent_question_2.id},
                   "answer": "no"
                 }
+              },
+              {
+                "consent_question_id": #{consent_question_1.id},
+                "answer_exists": true
+              },
+              {
+                "consent_question_id": #{consent_question_3.id},
+                "answer_exists": { "and": [true, false] }
               }
             ]
           }
@@ -131,7 +141,7 @@ RSpec.describe ApiController, type: :request do
 
     it "yields merged DUO limitations when multiple conditions are satisfied" do
       QuestionAnswer.create!(
-        consent_question: consent_question,
+        consent_question: consent_question_1,
         user: user,
         answer: 'yes',
       )
@@ -149,12 +159,12 @@ RSpec.describe ApiController, type: :request do
 
     it "correctly evaluates a condition using all the logical operators and literals" do
       QuestionAnswer.create!(
-        consent_question: consent_question,
+        consent_question: consent_question_1,
         user: user,
         answer: 'no',
       )
       QuestionAnswer.create!(
-        consent_question: other_consent_question,
+        consent_question: consent_question_2,
         user: user,
         answer: 'yes',
       )
@@ -172,7 +182,7 @@ RSpec.describe ApiController, type: :request do
 
     it "yields DUO limitations for the right user" do
       QuestionAnswer.create!(
-        consent_question: consent_question,
+        consent_question: consent_question_1,
         user: user,
         answer: 'yes',
       )

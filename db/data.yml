@@ -713,7 +713,7 @@
 - ConditionalDuoLimitation:
   - json: |
       {
-        "duoLimitation": {
+        "duo_limitation": {
           "code": "DUO:0000004",
           "modifiers": [ { "code": "DUO:0000046" } ]
         },
@@ -721,7 +721,7 @@
       }
   - json: |
       {
-        "duoLimitation": {
+        "duo_limitation": {
           "code": "DUO:0000004",
           "modifiers": [ { "code": "DUO:0000019" } ]
         },

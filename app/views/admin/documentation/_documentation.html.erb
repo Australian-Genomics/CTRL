@@ -84,7 +84,7 @@
 
       <h2>Conditional DUO Limitations</h2>
       <p>
-        <a href="https://www.ga4gh.org/genomic-data-toolkit/data-use-ontology-duo/">DUO (Data Use Ontology)</a> codes define restrictions on how a particular participant's data can be used. CTRL supports conditionally annotating a participant's data with DUO codes, based on that participant's responses to consent questions. In CTRL, these annotations are referred to as "Conditional DUO Limitations".
+        <a href="https://www.ga4gh.org/genomic-data-toolkit/data-use-ontology-duo/">DUO (Data Use Ontology)</a> codes define restrictions or permissions on how a particular participant's data can be used. CTRL supports conditionally annotating a participant's data with DUO codes, based on that participant's responses to consent questions. In CTRL, these annotations are referred to as "Conditional DUO Limitations".
       </p>
 
       <h3>Adding a Conditional DUO Limitation</h3>
@@ -93,11 +93,42 @@
       </p>
 
       <p>
-      As an example, let's say we want to annotate the data of any participant who answers "yes" to the question having the ID <code>1</code>. Specifically, we want to annotate it with the DUO code <code>DUO:0000004</code>. We can express this limitation in CTRL's JSON format by writing:
+      As an example, let's say we want to annotate all participant's data with the DUO code <code>DUO:0000004</code>. We can express this limitation in CTRL's JSON format by writing:
       </p>
 
       <pre><code>{
-  "duoLimitation": {
+  "duo_limitation": {
+    "code": "DUO:0000004",
+    "modifiers": []
+  },
+  "condition": true
+}</code></pre>
+
+      <p>
+      Notice that the JSON document has two parts: one is the <code>"duo_limitation"</code> and the other is the <code>"condition"</code>:
+      </p>
+
+      <ul>
+        <li>
+          The <code>"duo_limitation"</code> follows a schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>. Any JSON which is valid within that schema is also a valid <code>"duo_limitation"</code>. The meanings of the DUO codes allowed by the schema are defined by <a href="https://www.ga4gh.org/">GA4GH</a> and are available <a href="https://www.ebi.ac.uk/ols/ontologies/duo">here</a>.
+        </li>
+        <li>
+          The <code>"condition"</code> is evaluated for each participant. In the above example, the condition will be <code>true</code> for every participant. Therefore, every participant will have their data annotated with the DUO code <code>DUO:0000004</code>. This is the simplest possible kind of condition. More expressive conditions, based on answers to the consent questions, can be defined using the syntax described in the next few sections.
+        </li>
+      </ul>
+
+      <h4>Conditions Containing Boolean Literals</h4>
+      <p>
+      In the above example, we saw one example of a <i>Boolean literal</i>, <code>true</code>. The other Boolean literal, <code>false</code>, can also be used. If we replaced <code>true</code> with <code>false</code> in the previous example, the <code>duo_limitation</code> wouldn't ever annotate any participant's data. Boolean literals, by themselves, wouldn't let us construct conditions based on the participants' answers. But they're important to understand because, after CTRL evaluates it for a particular participant, each <code>condition</code> is equivalent either to <code>true</code> or <code>false</code>.
+      </p>
+
+      <h4>Conditions Containing "Equals" Expressions</h4>
+      <p>
+      Let's say we only want CTRL to annotate a participant's data with a particular DUO code when they give a particular answer to a question. We can do this using <i>"equals" expressions</i>. Here's an example:
+      </p>
+
+      <pre><code>{
+  "duo_limitation": {
     "code": "DUO:0000004",
     "modifiers": []
   },
@@ -108,86 +139,119 @@
 }</code></pre>
 
       <p>
-      Notice that the JSON document has two parts: one is the <code>"duoLimitation"</code> and the other is the <code>"condition"</code>:
-      </p>
-
-      <ul>
-        <li>
-          The <code>"duoLimitation"</code> follows a schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>. Any JSON which is valid within that schema is also a valid <code>"duoLimitation"</code>. The meanings of the DUO codes allowed by the schema are defined by <a href="https://www.ga4gh.org/">GA4GH</a> and are available <a href="https://www.ebi.ac.uk/ols/ontologies/duo">here</a>.
-        </li>
-        <li>
-          The <code>"condition"</code> is evaluated for each participant. In the above example, any participant who answered "yes" to the question whose ID is <code>1</code> will have their data annotated with the DUO code <code>DUO:0000004</code>. (Questions' IDs can be found in Active Admin, <a href="/admin/consent_questions">here</a>.) Note that any condition which refers to unanswered questions will always evaluate to false. The only way to define a condition which is true irrespective of whether a question has been answered is by using <a href="#boolean-literals">boolean literals</a>.
-        </li>
-      </ul>
-
-      <h4>Logical Operators</h4>
-      <p>
-      Although the condition in the above example is simple, more complex conditions can be expressed. CTRL's JSON format allows the condition to be predicated on more than one question. For example, if we want the annotation to happen only for users who answered "yes" on question <code>1</code> and "no" on <code>2</code>, we would write:
+      The "equals" expression itself is this part:
       </p>
 
       <pre><code>{
-  "duoLimitation": {
-    "code": "DUO:0000004",
+  "consent_question_id": 1,
+  "answer": "yes"
+}</code></pre>
+
+      <p>
+      This expression will evaluate to <code>true</code> for any participant who answered "yes" to question 1, and <code>false</code> for all other participants. The entire conditional DUO limitation tells CTRL, "annotate the data of any participant who answers 'yes' to question 1 with the DUO code <code>DUO:0000004</code>." (When you construct a condition containing an ID, it's useful to refer to <a href="/admin/consent_questions">this</a> Active Admin page to know which question has which ID.)
+      </p>
+
+      <h4>Conditions Containing "Exists" Expressions</h4>
+      <p>
+      As well as predicating conditions on whether each participant provided a specific answer, we can check whether each participant provided any response at all by using <i>"exists" expressions</i>. Here's an example:
+      </p>
+
+      <pre><code>{
+  "consent_question_id": 42,
+  "answer_exists": true
+}</code></pre>
+
+      <p>CTRL will evaluate this to <code>true</code> for any participant who provided an answer to question 42, and <code>false</code> for all other participants.</p>
+
+      <h4>Conditions Containing Logical Operator Expressions</h4>
+      <p>
+      We might want a DUO code to apply (or not) based on multiple answers from a participant. We can achieve this by using the logical operators, <code>and</code> and <code>or</code>. The following example shows the <code>and</code> operator being used:</p>
+
+      <pre><code>{
+  "duo_limitation": {
+    "code": "DUO:0000042",
     "modifiers": []
   },
   "condition": {
     "and": [
-      {
-        "consent_question_id": 1,
-        "answer": "yes"
-      },
-      {
-        "consent_question_id": 2,
-        "answer": "no"
-      }
+      { "consent_question_id": 1, "answer": "yes" },
+      { "consent_question_id": 2, "answer_exists": true },
+      { "consent_question_id": 3, "answer": "no" }
     ]
   }
 }</code></pre>
 
       <p>
-       A logical <code>or</code> operator also exists, which follows the same syntax as the <code>and</code> operator in the example above. There's also a <code>not</code> operator, which can be used as in the following example:
+      The <code>and</code> operator will evaluate to <code>true</code> whenever all its sub-expressions evaluate to true. In this case, the answer to question 1 must be "yes", an answer to question 2 must exist, and the answer to question 3 must be "no". <code>DUO:0000042</code> will only annotate a participant's data if all three of these conditions are <code>true</code>.
+      </p>
+
+      <p>
+      Whereas the <code>and</code> operator will only be <code>true</code> when <i>all</i> its sub-expressions are <code>true</code>, the <code>or</code> will be true if <i>any</i> of them are <code>true</code>. For example, the following condition will always evaluate to <code>true</code>, irrespective of the participants' answers:
       </p>
 
       <pre><code>{
-  "duoLimitation": {
-    "code": "DUO:0000004",
+  "duo_limitation": {
+    "code": "DUO:0000042",
     "modifiers": []
   },
   "condition": {
-    "and": [
-      {
-        "not": {
-          "consent_question_id": 1,
-          "answer": "yes"
-        }
-      },
-      {
-        "consent_question_id": 2,
-        "answer": "no"
-      }
+    "or": [
+      { "consent_question_id": 1, "answer": "yes" },
+      { "consent_question_id": 2, "answer_exists": true },
+      { "consent_question_id": 3, "answer": "no" },
+      true
     ]
   }
 }</code></pre>
 
-      <h4>Boolean Literals</h4>
-      <p>The boolean literals <code>true</code> and <code>false</code> can be used. This is useful if you would like a DUO limitation to apply to all participants' data, irrespective of their answers:</p>
+      <p>The last kind of logical operator CTRL supports is <code>not</code>, which flips between Boolean values such that <code>{"not": true}</code> is equivalent to <code>false</code>, and <code>{"not": false}</code> is equivalent to <code>true</code>. An example of its use is as follows:</p>
 
       <pre><code>{
-  "duoLimitation": {
-    "code": "DUO:0000004",
+  "duo_limitation": {
+    "code": "DUO:0000006",
     "modifiers": []
   },
-  "condition": true
+  "condition": {
+    "not": {
+      "consent_question_id": 32,
+      "answer": "yes"
+    }
+  }
 }</code></pre>
+
+      <p>The conditional DUO limitation reads: "annotate a participant's data with <code>DUO:0000006</code> if they didn't answer 'yes' to question 32." (This might be because the answer was 'no' or 'not sure', or that the participant didn't even provide an answer.)</p>
+
+      <h4>Conditions Combining Expressions</h4>
+      <p>
+      Because all expressions in CTRL either evaluate to <code>true</code> or <code>false</code>, they can be combined arbitrarily to form very specific conditions. We already saw this to some degree in the examples for <code>and</code> and <code>or</code>, whose sub-expressions were "exists" expressions. But arbitrarily deep nesting of conditions is possible, such as in this example:
+      </p>
+
+      <pre><code>{
+  "duo_limitation": {
+    "code": "DUO:0000006",
+    "modifiers": []
+  },
+  "condition": {
+    "not": {
+      "and": [
+        { "or": [true, false] },
+        { "consent_question_id": 1337, "answer": "yes" },
+        { "consent_question_id": 1337, "answer_exists": {"not": false} }
+      ]
+    }
+  }
+}</code></pre>
+
+      <p>As an exercise, you can assume that there's two participants. The first answered "yes" to question 1337, whereas the second answered "no". Which participant will have their data annotated with <code>DUO:0000006</code>? (Hint: keep replacing expressions with Boolean literals until you arrive at an answer. You can start with <code>{"not": false}</code>, which we said earlier was the same as writing <code>true</code>.)</p>
 
       <h4>Multiple Conditional DUO Limitations</h4>
       <p>
-      Multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations at once. CTRL will merge the <code>"duoLimitation"</code> sections when returning the codes via the REST API, if it makes sense to do so. See <a href="#fetching-duo-codes-for-a-user">Fetching DUO Codes for a User</a> for details on how this works.
+      Multiple conditional DUO limitations can be defined in Active Admin. This means that a participant might satisfy the conditions for many DUO limitations at once. CTRL will merge the <code>"duo_limitation"</code> sections when returning the codes via the REST API, if it makes sense to do so. See <a href="#fetching-duo-codes-for-a-participant">Fetching DUO Codes for a Participant</a> for details on how this works.
       </p>
 
-      <h3 id="fetching-duo-codes-for-a-user">Fetching DUO Codes for a User</h3>
+      <h3 id="fetching-duo-codes-for-a-participant">Fetching DUO Codes for a Participant</h3>
       <p>
-        We can fetch the DUO codes whose condition is satisfied by a particular user. To do so, we can use a REST API built into CTRL. Using the REST API requires creating an API User <a href="/admin/api_users">here</a>. When you do so, you'll be asked for a name. The name is arbitrary and is used as a human-readable way to differentiate between tokens. Upon entering a name and clicking the "Create Api User" button, you'll be redirected to a page displaying your new API token:
+        We can fetch the DUO codes whose condition is satisfied by a particular participant. To do so, we can use a REST API built into CTRL. Using the REST API requires creating an API User <a href="/admin/api_users">here</a>. When you do so, you'll be asked for a name. The name is arbitrary and is used as a human-readable way to differentiate between tokens. Upon entering a name and clicking the "Create Api User" button, you'll be redirected to a page displaying your new API token:
       </p>
 
       <%= image_tag 'admin/documentation/20' %>
@@ -233,7 +297,7 @@
       <p>Each study ID's array elements in the response follow the schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>.</p>
 
       <p>
-      Note that multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations at once. They will be combined if possible. For example, imagine that a user satisfies the conditions for these <code>"duoLimitation"</code>s:
+      Note that multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations at once. They will be combined if possible. For example, imagine that a participant satisfies the conditions for these <code>"duo_limitation"</code>s:
       </p>
 
       <ol>

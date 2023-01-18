@@ -17,12 +17,11 @@ class ConditionalDuoLimitation < ApplicationRecord
   end
 
   def duo_limitation
-    parsed_json['duoLimitation']
+    parsed_json['duo_limitation']
   end
 
   def eval_condition(user)
-    all_associated_consent_questions_have_answers(user) &&
-      eval_condition_recursively(user, condition)
+    eval_condition_recursively(user, condition)
   end
 
   private
@@ -50,9 +49,11 @@ class ConditionalDuoLimitation < ApplicationRecord
       return false
     end
 
-    # Validate that `json`'s `consent_question_id` and `answer` refer to real things in
-    # the DB.
-    semantics_validation_errors = validate_equals_exprs(extract_equals_exprs)
+    # Validate that `json`'s `consent_question_id` and `answer` refer to real
+    # things in the DB.
+    semantics_validation_errors = validate_consent_question_ids(
+        extract_equals_exprs + extract_exists_exprs
+      ) + validate_answers(extract_equals_exprs)
 
     semantics_validation_errors.each do |semantics_validation_error|
       errors.add(:json, semantics_validation_error)
@@ -66,29 +67,40 @@ class ConditionalDuoLimitation < ApplicationRecord
   end
 
   def associate_with_consent_questions
-    equals_exprs = extract_equals_exprs
+    exprs = extract_equals_exprs + extract_exists_exprs
 
-    self.consent_questions = equals_exprs.map do |equals_expr|
-      ConsentQuestion.find_by(id: equals_expr['consent_question_id'])
+    self.consent_questions = exprs.map do |expr|
+      ConsentQuestion.find_by(id: expr['consent_question_id'])
     end
   end
 
-  def validate_equals_exprs(equals_exprs)
-    equals_exprs.map do |equals_expr|
-      validate_equals_expr(equals_expr)
-    end.select do |error|
-      not error.nil?
+  def validate_consent_question_ids(exprs)
+    exprs.flat_map { |expr| validate_consent_question_id(expr) }
+  end
+
+  def validate_answers(equals_exprs)
+    equals_exprs.flat_map { |equals_expr| validate_answer(equals_expr) }
+  end
+
+  def validate_consent_question_id(expr)
+    consent_question_id = expr['consent_question_id']
+
+    if ConsentQuestion.find_by(id: consent_question_id).nil?
+      ["No consent question exists having the consent_question_id " +
+        "#{consent_question_id}"]
+    else
+      []
     end
   end
 
-  def validate_equals_expr(equals_expr)
-    expected_id = equals_expr['consent_question_id']
-    expected_value = equals_expr['answer']
+  def validate_answer(equals_expr)
+    consent_question_id = equals_expr['consent_question_id']
+    answer = equals_expr['answer']
 
-    consent_question = ConsentQuestion.find_by(id: expected_id)
+    consent_question = ConsentQuestion.find_by(id: consent_question_id)
+
     if consent_question.nil?
-      return "No consent question exists having the consent_question_id " +
-        "#{expected_id}"
+      return []
     end
 
     values = consent_question.question_options.map do |question_option|
@@ -103,10 +115,12 @@ class ConditionalDuoLimitation < ApplicationRecord
       end
     )
 
-    if not values.include?(expected_value)
-      return (
-        "The question whose consent_question_id is #{expected_id} can only " +
-        "have the values (#{values.to_a.join(', ')})")
+    if values.include?(answer)
+      []
+    else
+      [
+        "The question whose consent_question_id is #{consent_question_id} " +
+        "can only have the values (#{values.to_a.join(', ')})"]
     end
   end
 
@@ -117,6 +131,11 @@ class ConditionalDuoLimitation < ApplicationRecord
   def is_equals_expr(parsed_json)
     parsed_json.class == Hash &&
       parsed_json.keys.to_set == ['consent_question_id', 'answer'].to_set
+  end
+
+  def is_exists_expr(parsed_json)
+    parsed_json.class == Hash &&
+      parsed_json.keys.to_set == ['consent_question_id', 'answer_exists'].to_set
   end
 
   def is_and_expr(parsed_json)
@@ -132,36 +151,28 @@ class ConditionalDuoLimitation < ApplicationRecord
   end
 
   def extract_equals_exprs
-    extract_equals_exprs_from_condition(condition)
+    flat_map_condition(condition) { |expr| is_equals_expr(expr) ? [expr] : [] }
   end
 
-  def extract_equals_exprs_from_condition(parsed_json)
-    if is_equals_expr(parsed_json)
-      [parsed_json]
+  def extract_exists_exprs
+    flat_map_condition(condition) { |expr| is_exists_expr(expr) ? [expr] : [] }
+  end
+
+  def flat_map_condition(parsed_json, &block)
+    block.call(parsed_json) + if is_equals_expr(parsed_json)
+      []
+    elsif is_exists_expr(parsed_json)
+      flat_map_condition(parsed_json['answer_exists'], &block)
     elsif is_and_expr(parsed_json)
-      parsed_json['and'].flat_map do |expr|
-        extract_equals_exprs_from_condition(expr)
-      end
+      parsed_json['and'].flat_map { |expr| flat_map_condition(expr, &block) }
     elsif is_or_expr(parsed_json)
-      parsed_json['or'].flat_map do |expr|
-        extract_equals_exprs_from_condition(expr)
-      end
+      parsed_json['or'].flat_map { |expr| flat_map_condition(expr, &block) }
     elsif is_not_expr(parsed_json)
-      extract_equals_exprs_from_condition(parsed_json['not'])
+      flat_map_condition(parsed_json['not'], &block)
     elsif is_boolean_expr(parsed_json)
       []
     else
       raise StandardError.new "Unexpected expression " + parsed_json.to_s
-    end
-  end
-
-  def all_associated_consent_questions_have_answers(user)
-    user_id = user.id
-    extract_equals_exprs.all? do |equals_expr|
-      QuestionAnswer.find_by(
-        consent_question_id: equals_expr['consent_question_id'],
-        user_id: user_id,
-      ).present?
     end
   end
 
@@ -172,6 +183,14 @@ class ConditionalDuoLimitation < ApplicationRecord
         user_id: user.id,
         answer: parsed_json['answer'],
       ).present?
+    elsif is_exists_expr(parsed_json)
+      QuestionAnswer.find_by(
+        consent_question_id: parsed_json['consent_question_id'],
+        user_id: user.id,
+      ).present? == eval_condition_recursively(
+        user,
+        parsed_json['answer_exists'],
+      )
     elsif is_and_expr(parsed_json)
       parsed_json['and'].all? { |expr| eval_condition_recursively(user, expr) }
     elsif is_or_expr(parsed_json)

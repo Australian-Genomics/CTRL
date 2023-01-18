@@ -1,17 +1,15 @@
 {
   "type": "object",
   "properties": {
-    "duoLimitation": {
-      "$ref": "#/$defs/duoLimitation"
+    "duo_limitation": {
+      "$ref": "#/$defs/duo_limitation"
     },
     "condition": {
-      "anyOf": [
-        { "$ref": "#/$defs/expr" }
-      ]
+      "$ref": "#/$defs/expr"
     }
   },
   "required": [
-    "duoLimitation"
+    "duo_limitation"
   ],
 
   "$defs": {
@@ -21,7 +19,6 @@
         "and": {
           "type": "array",
           "minItems": 2,
-          "maxItems": 2,
           "items": {
             "$ref": "#/$defs/expr"
           }
@@ -35,7 +32,6 @@
         "or": {
           "type": "array",
           "minItems": 2,
-          "maxItems": 2,
           "items": {
             "$ref": "#/$defs/expr"
           }
@@ -68,12 +64,29 @@
       ]
     },
 
+    "exists_expr": {
+      "type": "object",
+      "properties": {
+        "consent_question_id": {
+          "type": "integer"
+        },
+        "answer_exists": {
+          "$ref": "#/$defs/expr"
+        }
+      },
+      "required": [
+        "consent_question_id",
+        "answer_exists"
+      ]
+    },
+
     "expr": {
       "anyOf": [
         { "$ref": "#/$defs/and_expr" },
         { "$ref": "#/$defs/or_expr" },
         { "$ref": "#/$defs/not_expr" },
         { "$ref": "#/$defs/equals_expr" },
+        { "$ref": "#/$defs/exists_expr" },
         { "type": "boolean" }
       ]
     },
@@ -317,7 +330,7 @@
         }
       ]
     },
-    "duoLimitation": {
+    "duo_limitation": {
       "anyOf": [
         {
           "type": "object",

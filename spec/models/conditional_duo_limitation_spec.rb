@@ -4,7 +4,7 @@ RSpec.describe ConditionalDuoLimitation do
   it 'is fails schema validation for unknown DUO codes' do
     json = %Q{
       {
-        "duoLimitation": {
+        "duo_limitation": {
           "code": "DUO:doesnt-exist",
           "modifiers": []
         },
@@ -18,10 +18,10 @@ RSpec.describe ConditionalDuoLimitation do
     expect(c.errors.full_messages).to all(match(/schema specific errors/))
   end
 
-  it 'is fails semantics validation for non-existent consent question IDs' do
+  it 'it fails semantics validation for non-existent consent question IDs in equals exprs' do
     json = %Q{
       {
-        "duoLimitation": {
+        "duo_limitation": {
           "code": "DUO:0000004",
           "modifiers": []
         },
@@ -40,12 +40,34 @@ RSpec.describe ConditionalDuoLimitation do
     ])
   end
 
+  it 'it fails semantics validation for non-existent consent question IDs in exists exprs' do
+    json = %Q{
+      {
+        "duo_limitation": {
+          "code": "DUO:0000004",
+          "modifiers": []
+        },
+        "condition": {
+          "consent_question_id": -1,
+          "answer_exists": true
+        }
+      }
+    }.strip
+
+    c = ConditionalDuoLimitation.new(json: json)
+    c.save
+
+    expect(c.errors.full_messages).to eq([
+      'Json No consent question exists having the consent_question_id -1'
+    ])
+  end
+
   it 'is fails semantics validation for non-existent answers' do
     consent_question = create(:consent_question)
 
     json = %Q{
       {
-        "duoLimitation": {
+        "duo_limitation": {
           "code": "DUO:0000004",
           "modifiers": []
         },
@@ -73,7 +95,7 @@ RSpec.describe ConditionalDuoLimitation do
 
     json = %Q{
       {
-        "duoLimitation": {
+        "duo_limitation": {
           "code": "DUO:0000004",
           "modifiers": []
         },
@@ -85,7 +107,7 @@ RSpec.describe ConditionalDuoLimitation do
             },
             {
               "consent_question_id": #{other_related_consent_question.id},
-              "answer": "no"
+              "answer_exists": false
             }
           ]
         }
