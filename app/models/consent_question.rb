@@ -11,6 +11,8 @@ class ConsentQuestion < ApplicationRecord
     'right'
   ]
 
+  has_and_belongs_to_many :conditional_duo_limitations
+
   belongs_to :consent_group
 
   has_many :answers,
@@ -45,4 +47,14 @@ class ConsentQuestion < ApplicationRecord
   scope :published_ordered, -> {
     where(is_published: true).order(order: :asc)
   }
+
+  before_destroy :destroy_associated_conditional_duo_limitations
+
+  private
+
+  def destroy_associated_conditional_duo_limitations
+    conditional_duo_limitations.each do |conditional_duo_limitation|
+      conditional_duo_limitation.destroy!
+    end
+  end
 end
