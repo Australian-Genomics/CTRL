@@ -38,5 +38,6 @@ Feature: Consent Page
     Then I should see the step one of consent
     When I click on Next
     Then I should see the step two of the consent
-    When I click on Save and Exit
+    When I click all the checkboxes
+    And I click on Save and Exit
     Then I should see the dashboard page
