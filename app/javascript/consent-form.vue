@@ -308,9 +308,7 @@ export default {
         return;
       }
 
-      const doesAgreeToAll = this.checkboxAgreementQuestions.every(
-        question => question.answer != 'no');
-      if (this.modalFallback && !doesAgreeToAll) {
+      if (this.modalFallback && !this.doesAgreeToAll()) {
         this.$modal.show('modal-fallback')
       } else {
         window.scrollTo({ top: 0 });
@@ -328,7 +326,12 @@ export default {
       if (!await this.showSpinner(this.saveAnswers)) {
         return;
       }
-      window.location.href = '/'
+
+      if (this.modalFallback && !this.doesAgreeToAll()) {
+        this.$modal.show('modal-fallback')
+      } else {
+        window.location.href = '/'
+      }
     },
     toggleDescription(question) {
       question.show_description = !question.show_description
@@ -380,6 +383,10 @@ export default {
       const result = await callback();
       this.isLoading = false;
       return result;
+    },
+    doesAgreeToAll() {
+      return this.checkboxAgreementQuestions.every(
+        question => question.answer != 'no');
     }
   },
   computed: {
