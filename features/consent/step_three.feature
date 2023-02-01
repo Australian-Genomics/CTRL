@@ -47,7 +47,8 @@ Feature: Consent Page
     When I click all the checkboxes
     And I click on Next
     Then I should be on the step three page of consent
-    When I click on Save and Exit
+    When I click all the checkboxes
+    And I click on Save and Exit
     Then I should see the dashboard page
 
   Scenario: User can go to the step four of the consent
