@@ -1,6 +1,12 @@
 # Australian Genomics Health Alliance CTRL Project
 
-The [AGHA(Australian Genomics Health Alliance)](https://www.australiangenomics.org.au/introducing-ctrl-a-new-online-research-consent-and-engagement-platform/) Dynamic Consent project is building a web based platform that will manage consent for genomic testing, and allow participants to manage their preferences around how and where their test results are received and shared.
+The [AGHA(Australian Genomics Health
+Alliance)](https://www.australiangenomics.org.au/introducing-ctrl-a-new-online-research-consent-and-engagement-platform/)
+Dynamic Consent project is building a web based platform that will manage
+consent for genomic testing, and allow participants to manage their preferences
+around how and where their test results are received and shared.
+
+CTRL is distributed under the terms of the [MIT licence](LICENSE).
 
 ## Table of Contents
 
