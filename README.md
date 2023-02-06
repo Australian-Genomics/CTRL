@@ -27,6 +27,12 @@ CTRL is distributed under the terms of the [MIT licence](LICENSE).
   - [Deploying to Heroku](#deployingtoheroku)
 
 ## <a id="installation"></a> Installation
+
+Starting from release `v1.0.0` CTRL follows the [Gitflow model](https://nvie.com/posts/a-successful-git-branching-model/).
+This means active development happens on the `devel` branch, while the `main` branch only contains
+official releases, tagged with their version number. Depending on your needs please check out the
+appropriate branch and tag.
+
 ### <a id="gettingstarteddocker"></a> Getting Started - via Docker (recommended)
 
 There are two ways to get started, via Docker or the standard way. We recommend using Docker to minimise operating system installation issues. To install via Docker, first make sure that [Docker](https://www.docker.com/) is installed on your machine, then follow these steps.
