@@ -43,14 +43,14 @@ ActiveAdmin.register QuestionAnswer do
     column :answer
     column(:answer_redcap_field) do |question_answer|
       redcap_response = Redcap.question_answer_to_redcap_response(
-        question_answer, false
+        record: question_answer
       ) || [{}]
 
       redcap_response.first.except('record_id').keys.first
     end
     column(:answer_redcap_code) do |question_answer|
       redcap_response = Redcap.question_answer_to_redcap_response(
-        question_answer, false
+        record: question_answer
       ) || [{}]
 
       redcap_response.first.except('record_id').values.first
