@@ -23,9 +23,16 @@ RSpec.describe ConsentQuestion do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:question) }
-    it { is_expected.to validate_presence_of(:default_answer) }
+
+    it {
+      is_expected.to validate_inclusion_of(:default_answer)
+        .in_array(['yes', 'no'])
+    }
+
     it { is_expected.to validate_presence_of(:answer_choices_position) }
+
     it { is_expected.to validate_presence_of(:question_type) }
+
     it { is_expected.to_not validate_presence_of(:redcap_field) }
 
     it {

@@ -22,7 +22,7 @@ class ConsentQuestion < ApplicationRecord
   has_many :question_options, dependent: :destroy
 
   validates :question, presence: true
-  validates :default_answer, presence: true
+  validate :default_answer_is_in_question_options
 
   validates :order,
     numericality: { greater_than: 0 },
@@ -51,6 +51,30 @@ class ConsentQuestion < ApplicationRecord
   before_destroy :destroy_associated_conditional_duo_limitations
 
   private
+
+  def valid_answers
+    case question_type
+    when 'checkbox'
+      ['yes', 'no']
+    when 'multiple choice'
+      question_options.map { |question_option| question_option.value }
+    when 'checkbox agreement'
+      ['yes', 'no']
+    when 'multiple checkboxes'
+      question_options.map { |question_option| question_option.value }
+    end
+  end
+
+  def default_answer_is_in_question_options
+    if valid_answers.nil?
+      true
+    elsif valid_answers.include? default_answer
+      true
+    else
+      errors.add(:default_answer, "Must be one of: #{valid_answers.join(', ')}")
+      false
+    end
+  end
 
   def destroy_associated_conditional_duo_limitations
     conditional_duo_limitations.each do |conditional_duo_limitation|
