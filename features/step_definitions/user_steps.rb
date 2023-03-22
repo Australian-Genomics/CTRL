@@ -271,7 +271,7 @@ Then('I should not see the new name on the user edit page') do
   expect(page).to_not have_field('user[state]', with: 'VIC')
   expect(page).to_not have_field('user[post_code]', with: '3000')
   expect(page).to_not have_field('user[preferred_contact_method]', with: 'Phone')
-  expect(page).to have_content('Next of kin')
+  expect(page).to have_content('Nominated alternate contact')
 end
 
 Then('I should see the user edit page') do

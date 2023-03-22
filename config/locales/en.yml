@@ -159,8 +159,8 @@ en:
     preferred_contact_method: Preferred contact method
     study_id: Study ID
     register_as_a_guardian: Are you registering as a parent/guardian or carer?
-    next_of_kin: Next of kin
-    alternate_contact_for_making_medical_decisions: (Alternate contact for making medical decisions)
+    next_of_kin: Nominated alternate contact
+    in_case_we_cant_reach_you: (in case we can't reach you)
     contact_no: Contact No.
     edit_personal_details: Edit personal details
     address_line: Address Line
