@@ -72,7 +72,16 @@
           </div>
 
           <div id="kin">
-            <b><%= t('user_profile.next_of_kin') %></b><br>
+            <span>
+              <b>
+                <%= t 'user_profile.next_of_kin' %>
+              </b>
+              <span class="text-secondary">
+                <%= t 'user_profile.alternate_contact_for_making_medical_decisions' %>
+              </span>
+            </span>
+
+            <br>
             </br>
 
             <div class="form-row">
