@@ -28,6 +28,9 @@ ActiveAdmin.register QuestionAnswer do
     column(:user_id) do |question_answer|
       question_answer.user_id
     end
+    column(:study_id_id) do |question_answer|
+      question_answer.user.study_id
+    end
     column(:user_first_name) do |question_answer|
       question_answer.user.first_name
     end
