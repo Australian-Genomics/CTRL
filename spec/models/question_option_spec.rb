@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe QuestionOption do
-  let(:question_option) { build(:question_option) }
+  let(:question_option) {
+    create(:question_option, :with_consent_question)
+  }
 
   subject { question_option }
 
@@ -28,6 +30,14 @@ RSpec.describe QuestionOption do
         it { is_expected.to be_valid }
       end
 
+      context 'multiple checkboxes' do
+        subject do
+          create(:consent_question, :multiple_checkboxes).options.first
+        end
+
+        it { is_expected.to be_valid }
+      end
+
       context 'other values' do
         subject do
           question = create(:consent_question, :checkbox)
@@ -42,6 +52,32 @@ RSpec.describe QuestionOption do
           expect(subject.errors[:consent_question_id])
             .to match_array('incompatible question')
         }
+      end
+    end
+
+    describe 'associated_question_still_valid?' do
+      context 'multiple choice' do
+        let(:consent_question) {
+          create(:consent_question, :multiple_choice)
+        }
+
+        it 'raises an exception when deleting an option used as a default' do
+          expect {
+            consent_question.question_options.destroy_all
+          }.to raise_error(UncaughtThrowError)
+        end
+      end
+
+      context 'multiple checkboxes' do
+        let(:consent_question) {
+          create(:consent_question, :multiple_choice)
+        }
+
+        it 'raises an exception when deleting an option used as a default' do
+          expect {
+            consent_question.question_options.destroy_all
+          }.to raise_error(UncaughtThrowError)
+        end
       end
     end
   end
