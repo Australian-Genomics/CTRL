@@ -22,7 +22,7 @@ class ConsentQuestion < ApplicationRecord
   has_many :question_options, dependent: :destroy
 
   validates :question, presence: true
-  validate :default_answer_is_in_question_options
+  validate :default_answer_is_valid
 
   validates :order,
     numericality: { greater_than: 0 },
@@ -65,7 +65,7 @@ class ConsentQuestion < ApplicationRecord
     end
   end
 
-  def default_answer_is_in_question_options
+  def default_answer_is_valid
     if valid_answers.nil?
       true
     elsif valid_answers.include? default_answer
