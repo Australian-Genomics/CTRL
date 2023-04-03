@@ -114,6 +114,8 @@ class Redcap
 
     raw_redcap_field = consent_question.redcap_field
 
+    raw_redcap_event_name = consent_question.redcap_event_name
+
     question_type = consent_question.question_type
 
     study_id = question_answer.user.study_id
@@ -121,6 +123,7 @@ class Redcap
     construct_redcap_response(
       raw_redcap_code,
       raw_redcap_field,
+      raw_redcap_event_name,
       answer_string,
       question_type,
       study_id,
@@ -188,6 +191,7 @@ class Redcap
   def self.construct_redcap_response(
     raw_redcap_code,
     raw_redcap_field,
+    raw_redcap_event_name,
     answer_string,
     question_type,
     study_id,
@@ -213,7 +217,9 @@ class Redcap
       {
         'record_id' => study_id,
         redcap_field => redcap_code,
-      }
+      }.merge(raw_redcap_event_name.blank? ? {} : {
+        'redcap_event_name' => raw_redcap_event_name,
+      })
     ]
   end
 
