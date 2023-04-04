@@ -69,6 +69,11 @@ def fetch_related_records(record)
       .send(association_name)
       .select { |related_record|
         $permitted_record_types.member? related_record.class.to_s }
+      .sort_by { |related_record|
+        related_record.respond_to?(:created_at) ?
+        related_record.created_at :
+        related_record.id }
+
 
     related_records_as_yaml = related_records
       .map { |related_record|
