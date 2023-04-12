@@ -70,5 +70,9 @@ FactoryBot.define do
     trait :with_redcap_field do
       redcap_field 'redcap_field_name'
     end
+
+    trait :with_redcap_event_name do
+      redcap_event_name 'redcap_event_name'
+    end
   end
 end

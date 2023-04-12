@@ -177,8 +177,14 @@ RSpec.describe Redcap do
   end
 
   describe '#question_answer_to_redcap_response' do
-    it 'passes the right arguments to construct_redcap_response' do
-      question_answer = create(:question_answer, traits: [:multiple_checkboxes, :with_redcap_field])
+    it "passes the right arguments to construct_redcap_response when when the redcap_event_name is blank" do
+      question_answer = create(
+        :question_answer,
+        traits: [
+          :multiple_checkboxes,
+          :with_redcap_field,
+        ]
+      )
 
       allow(Redcap).to receive(:construct_redcap_response).and_return(:response)
       actual = Redcap.question_answer_to_redcap_response(
@@ -188,6 +194,33 @@ RSpec.describe Redcap do
       expect(Redcap).to have_received(:construct_redcap_response).with(
         "11",
         "redcap_field_name",
+        nil,
+        "yes",
+        "multiple checkboxes",
+        question_answer.user.study_id,
+        false)
+      expect(actual).to eq(:response)
+    end
+
+    it "passes the right arguments to construct_redcap_response when when the redcap_event_name is filled" do
+      question_answer = create(
+        :question_answer,
+        traits: [
+          :multiple_checkboxes,
+          :with_redcap_field,
+          :with_redcap_event_name,
+        ]
+      )
+
+      allow(Redcap).to receive(:construct_redcap_response).and_return(:response)
+      actual = Redcap.question_answer_to_redcap_response(
+        record: question_answer,
+        destroy: false
+      )
+      expect(Redcap).to have_received(:construct_redcap_response).with(
+        "11",
+        "redcap_field_name",
+        "redcap_event_name",
         "yes",
         "multiple checkboxes",
         question_answer.user.study_id,
@@ -200,6 +233,7 @@ RSpec.describe Redcap do
     it 'returns nil when raw_redcap_field is blank' do
       actual = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
+        nil,
         nil,
         'my_answer_string',
         'my_question_type',
@@ -215,6 +249,7 @@ RSpec.describe Redcap do
       actual = Redcap.construct_redcap_response(
         nil,
         'my_raw_redcap_field',
+        nil,
         'yes',
         'my_question_type',
         'my_user_id',
@@ -228,6 +263,7 @@ RSpec.describe Redcap do
       actual_do_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
+        nil,
         'my_answer_string',
         'multiple checkboxes',
         'my_user_id',
@@ -236,6 +272,7 @@ RSpec.describe Redcap do
       actual_do_not_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
+        nil,
         'my_answer_string',
         'multiple checkboxes',
         'my_user_id',
@@ -253,6 +290,7 @@ RSpec.describe Redcap do
       actual_do_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
+        nil,
         'my_answer_string',
         'my_question_type',
         'my_user_id',
@@ -261,6 +299,7 @@ RSpec.describe Redcap do
       actual_do_not_destroy = Redcap.construct_redcap_response(
         'my_raw_redcap_code',
         'my_raw_redcap_field',
+        nil,
         'my_answer_string',
         'my_question_type',
         'my_user_id',
@@ -272,6 +311,23 @@ RSpec.describe Redcap do
       expect(actual_do_not_destroy).to eq(
         [{'record_id' => 'my_user_id',
           'my_raw_redcap_field' => 'my_raw_redcap_code'}])
+    end
+
+    it 'uses adds the redcap_event_name when one is provided' do
+      allow(Redcap).to receive(:answer_string_to_code).and_return('my_answer_string')
+
+      actual = Redcap.construct_redcap_response(
+        nil,
+        'my_raw_redcap_field',
+        'my_raw_redcap_event_name',
+        'yes',
+        'my_question_type',
+        'my_user_id',
+        false
+      )
+      expect(actual).to eq([{'record_id' => 'my_user_id',
+                             'my_raw_redcap_field' => 'my_answer_string',
+                             'redcap_event_name' => 'my_raw_redcap_event_name'}])
     end
   end
 

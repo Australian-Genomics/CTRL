@@ -15,6 +15,7 @@ ActiveAdmin.register ConsentStep do
       :default_answer,
       :answer_choices_position,
       :redcap_field,
+      :redcap_event_name,
       question_options_attributes: [
         :id,
         :_destroy,
@@ -93,6 +94,7 @@ ActiveAdmin.register ConsentStep do
           c.input :default_answer
           c.input :answer_choices_position, as: :select, collection: ConsentQuestion::POSITIONS
           c.input :redcap_field
+          c.input :redcap_event_name
 
           c.has_many :question_options,
             new_record: 'Add Multiple Choice Option',
