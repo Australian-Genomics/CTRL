@@ -58,24 +58,30 @@ RSpec.describe QuestionOption do
     describe 'associated_question_still_valid?' do
       context 'multiple choice' do
         let(:consent_question) {
-          create(:consent_question, :multiple_choice)
+          create(:consent_question, :multiple_choice, default_answer: 'yes')
         }
 
         it 'raises an exception when deleting an option used as a default' do
           expect {
-            consent_question.question_options.destroy_all
+            consent_question
+              .question_options
+              .select { |qo| qo.value == consent_question.default_answer }
+              .each { |qo| qo.destroy }
           }.to raise_error(UncaughtThrowError)
         end
       end
 
       context 'multiple checkboxes' do
         let(:consent_question) {
-          create(:consent_question, :multiple_choice)
+          create(:consent_question, :multiple_choice, default_answer: 'yes')
         }
 
         it 'raises an exception when deleting an option used as a default' do
           expect {
-            consent_question.question_options.destroy_all
+            consent_question
+              .question_options
+              .select { |qo| qo.value == consent_question.default_answer }
+              .each { |qo| qo.destroy }
           }.to raise_error(UncaughtThrowError)
         end
       end
