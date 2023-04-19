@@ -50,8 +50,6 @@ class ConsentQuestion < ApplicationRecord
 
   before_destroy :destroy_associated_conditional_duo_limitations
 
-  private
-
   def valid_answers
     case question_type
     when 'checkbox'
@@ -64,6 +62,8 @@ class ConsentQuestion < ApplicationRecord
       question_options.map { |question_option| question_option.value }
     end
   end
+
+  private
 
   def default_answer_is_valid
     if valid_answers.nil?

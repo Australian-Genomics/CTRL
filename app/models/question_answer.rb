@@ -3,10 +3,14 @@ class QuestionAnswer < ApplicationRecord
   belongs_to :user
 
   validates :user_id, uniqueness: { scope: :consent_question_id }, unless: Proc.new { |ans| ans&.consent_question&.question_type == "multiple checkboxes" }
+
   validates :answer, presence: true
+  validate :answer_is_valid, if: -> { answer.present? }
 
   after_save :upload_redcap_details
   before_destroy :destroy_redcap_details
+
+  private
 
   def upload_redcap_details
     Redcap.perform(
@@ -23,5 +27,17 @@ class QuestionAnswer < ApplicationRecord
       record: self,
       destroy: true,
       expected_count: 1)
+  end
+
+  def answer_is_valid
+    valid_answers = consent_question&.valid_answers
+    if valid_answers.nil?
+      true
+    elsif valid_answers.include? answer
+      true
+    else
+      errors.add(:answer, "Must be one of: #{valid_answers.join(', ')}")
+      false
+    end
   end
 end
