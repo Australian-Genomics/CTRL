@@ -62,9 +62,11 @@ RSpec.describe QuestionOption do
         }
 
         it 'raises an exception when deleting an option used as a default' do
+          answers = consent_question.answers.map { |a| a.answer }
           expect {
             consent_question
               .question_options
+              .select { |qo| !answers.include?(qo.value) }
               .select { |qo| qo.value == consent_question.default_answer }
               .each { |qo| qo.destroy }
           }.to raise_error(UncaughtThrowError)
@@ -77,9 +79,11 @@ RSpec.describe QuestionOption do
         }
 
         it 'raises an exception when deleting an option used as a default' do
+          answers = consent_question.answers.map { |a| a.answer }
           expect {
             consent_question
               .question_options
+              .select { |qo| !answers.include?(qo.value) }
               .select { |qo| qo.value == consent_question.default_answer }
               .each { |qo| qo.destroy }
           }.to raise_error(UncaughtThrowError)
