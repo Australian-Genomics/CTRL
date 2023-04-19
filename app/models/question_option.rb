@@ -22,7 +22,11 @@ class QuestionOption < ApplicationRecord
   end
 
   def associated_question_still_valid?
-    if !destroyed_by_association && consent_question.default_answer == value
+    if destroyed_by_association
+      return
+    end
+
+    if consent_question.default_answer == value || consent_question.answers.any? { |a| a.answer == value }
       throw "Deleting the question option '#{value}' would make the associated consent question invalid"
     end
   end
