@@ -23,6 +23,7 @@ class ConsentQuestion < ApplicationRecord
 
   validates :question, presence: true
   validate :default_answer_is_valid
+  validate :answers_are_valid
 
   validates :order,
     numericality: { greater_than: 0 },
@@ -50,8 +51,6 @@ class ConsentQuestion < ApplicationRecord
 
   before_destroy :destroy_associated_conditional_duo_limitations
 
-  private
-
   def valid_answers
     case question_type
     when 'checkbox'
@@ -65,6 +64,8 @@ class ConsentQuestion < ApplicationRecord
     end
   end
 
+  private
+
   def default_answer_is_valid
     if valid_answers.nil?
       true
@@ -72,6 +73,25 @@ class ConsentQuestion < ApplicationRecord
       true
     else
       errors.add(:default_answer, "Must be one of: #{valid_answers.join(', ')}")
+      false
+    end
+  end
+
+  def answers_are_valid
+    valid_answers_ = valid_answers
+    if valid_answers.nil?
+      return true
+    end
+
+    answer_strings = answers.map { |a| a.answer }.to_set.to_a
+    invalid_answer_strings = answer_strings.select { |s| !valid_answers_.include?(s) }
+
+    if invalid_answer_strings.empty?
+      true
+    else
+      errors.add(
+        :answers,
+        "This question's options and answers are incompatible with each other. The answers include: #{invalid_answer_strings.join(', ')}. The question options are: #{valid_answers.join(', ')}.")
       false
     end
   end

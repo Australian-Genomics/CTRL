@@ -16,6 +16,11 @@ RSpec.describe QuestionAnswer do
     it { is_expected.to validate_presence_of(:answer) }
 
     it {
+      is_expected.to validate_inclusion_of(:answer)
+        .in_array(['yes', 'no'])
+    }
+
+    it {
       should validate_uniqueness_of(:user_id)
         .scoped_to(:consent_question_id)
     }

@@ -6,7 +6,7 @@
     password_confirmation: 'tester123'
 - User:
   - email: testuser@email.com
-    first_name: testser
+    first_name: testuser
     family_name: familyOfUser
     password: 'tester123'
     password_confirmation: 'tester123'
