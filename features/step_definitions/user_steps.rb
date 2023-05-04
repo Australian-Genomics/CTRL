@@ -1,9 +1,9 @@
 def create_visitor
-  @study_id_regexp_str = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
-  @study_id_regexp = Regexp.new(@study_id_regexp_str)
+  @participant_id_regexp_str = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+  @participant_id_regexp = Regexp.new(@participant_id_regexp_str)
 
-  @study_id_random_example_1 = @study_id_regexp.random_example
-  @study_id_random_example_2 = @study_id_regexp.random_example
+  @participant_id_random_example_1 = @participant_id_regexp.random_example
+  @participant_id_random_example_2 = @participant_id_regexp.random_example
 
   @visitor ||= { first_name: 'Sushant',
                  family_name: 'Ahuja',
@@ -11,12 +11,12 @@ def create_visitor
                  password: 'please2',
                  password_confirmation: 'please2',
                  dob: Date.today.at_beginning_of_month.last_month,
-                 study_id: @study_id_random_example_1 }
+                 participant_id: @participant_id_random_example_1 }
 end
 
-def create_study_id
-  unless StudyCode.find_by(title: @study_id_regexp_str)
-    StudyCode.create!(title: @study_id_regexp_str)
+def create_participant_id
+  unless StudyCode.find_by(title: @participant_id_regexp_str)
+    StudyCode.create!(title: @participant_id_regexp_str)
   end
 end
 
@@ -50,7 +50,7 @@ def sign_up
   find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
   find('input[name="user[dob]"]').send_keys(:escape)
 
-  fill_in 'user[study_id]', with: @visitor[:study_id]
+  fill_in 'user[participant_id]', with: @visitor[:participant_id]
   fill_in 'user[password]', with: @visitor[:password]
   fill_in 'user[password_confirmation]', with: @visitor[:password_confirmation]
   find('#new_user > div.col.mb-30 > label > span').click
@@ -75,7 +75,7 @@ def edit_user_details
   select 'VIC', from: 'user_state'
   fill_in 'user_post_code', with: '3000'
   select 'Phone', from: 'user_preferred_contact_method'
-  fill_in 'user_study_id', with: @study_id_random_example_2
+  fill_in 'user_participant_id', with: @participant_id_random_example_2
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
@@ -95,7 +95,7 @@ Given('I am not logged in') do
 end
 
 Given('A study code exists') do
-  create_study_id
+  create_participant_id
 end
 
 Given('I do not exist as a user') do
@@ -170,10 +170,10 @@ When('I fill in the user details with wrong confirm password') do
   sign_up
 end
 
-When(/^I fill in the user details (without|invalid) filling the Study ID$/) do |arg|
+When(/^I fill in the user details (without|invalid) filling the Participant ID$/) do |arg|
   create_visitor
-  study_id = arg.eql?('invalid') ? 'B1523456' : ''
-  @visitor = @visitor.merge(study_id: study_id)
+  participant_id = arg.eql?('invalid') ? 'B1523456' : ''
+  @visitor = @visitor.merge(participant_id: participant_id)
   sign_up
 end
 
@@ -194,7 +194,7 @@ When('I did not fill the mandatory fields') do
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: ''
   fill_in 'user_post_code', with: '3000'
-  fill_in 'user_study_id', with: 'Research'
+  fill_in 'user_participant_id', with: 'Research'
 end
 
 When('I submit the user details') do
@@ -257,7 +257,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('VIC')
   expect(page).to have_content('3000')
   expect(page).to have_content('Phone')
-  expect(page).to have_content(@study_id_random_example_2)
+  expect(page).to have_content(@participant_id_random_example_2)
   expect(page).to have_content('Luca')
 end
 

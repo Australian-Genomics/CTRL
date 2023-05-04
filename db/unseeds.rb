@@ -17,7 +17,7 @@ $permitted_fields = Set[
   'popover',
   'question',
   'question_type',
-  'study_id',
+  'participant_id',
   'term',
   'title',
   'tour_videos',

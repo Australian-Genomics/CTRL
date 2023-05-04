@@ -9,7 +9,7 @@ RSpec.describe StudyCode, type: :model do
       it { expect(study_code.errors[:title]).to eq(['study code must be a valid regular expression; premature end of char-class: /B1523456[/']) }
     end
 
-    context 'when StudyCode has a valid Study id' do
+    context 'when StudyCode has a valid Participant ID' do
       let(:study_code) { StudyCode.create(title: 'A1543457') }
 
       it { expect(study_code).to be_a(StudyCode) }

@@ -119,7 +119,7 @@ RSpec.describe ApiController, type: :request do
       expect(response.response_code).to eq(422)
     end
 
-    it "ignores study IDs which don't exist" do
+    it "ignores participant IDs which don't exist" do
       request_body = %Q{ ["doesnt-exist", "doesnt-exist-either"] }.strip
       post '/api/v1/duo_limitations', params: request_body, headers: headers
 
@@ -128,9 +128,9 @@ RSpec.describe ApiController, type: :request do
     end
 
     it "yields only the DUO limitation which is unconditionally true when no questions are answered" do
-      request_body = %Q{ ["#{user.study_id}"] }
+      request_body = %Q{ ["#{user.participant_id}"] }
       response_body = %Q{
-        {"#{user.study_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]}]}
+        {"#{user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]}]}
       }.strip
 
       post '/api/v1/duo_limitations', params: request_body, headers: headers
@@ -146,9 +146,9 @@ RSpec.describe ApiController, type: :request do
         answer: 'yes',
       )
 
-      request_body = %Q{ ["#{user.study_id}"] }
+      request_body = %Q{ ["#{user.participant_id}"] }
       response_body = %Q{
-        {"#{user.study_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"},{"code":"DUO:0000019"}]}]}
+        {"#{user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"},{"code":"DUO:0000019"}]}]}
       }.strip
 
       post '/api/v1/duo_limitations', params: request_body, headers: headers
@@ -169,9 +169,9 @@ RSpec.describe ApiController, type: :request do
         answer: 'yes',
       )
 
-      request_body = %Q{ ["#{user.study_id}"] }
+      request_body = %Q{ ["#{user.participant_id}"] }
       response_body = %Q{
-        {"#{user.study_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]},{"code":"DUO:0000011","modifiers":[]}]}
+        {"#{user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]},{"code":"DUO:0000011","modifiers":[]}]}
       }.strip
 
       post '/api/v1/duo_limitations', params: request_body, headers: headers
@@ -187,16 +187,16 @@ RSpec.describe ApiController, type: :request do
         answer: 'yes',
       )
 
-      request_body = %Q{ ["#{user.study_id}", "#{other_user.study_id}"] }
+      request_body = %Q{ ["#{user.participant_id}", "#{other_user.participant_id}"] }
       response_body = %Q{
         {
-          "#{user.study_id}":[
+          "#{user.participant_id}":[
             {
               "code": "DUO:0000004",
               "modifiers": [{"code": "DUO:0000046"}, {"code": "DUO:0000019"}]
             }
           ],
-          "#{other_user.study_id}":[
+          "#{other_user.participant_id}":[
             {
               "code": "DUO:0000004",
               "modifiers": [{"code":"DUO:0000046"}]

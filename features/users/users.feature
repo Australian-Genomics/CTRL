@@ -43,18 +43,18 @@ Feature: Welcome Page
     And I fill in the user details without filling the family name
     Then I should not see the welcome message
 
-  Scenario: User didn't fills the study id while signing up
+  Scenario: User didn't fills the participant ID while signing up
     Given I do not exist as a user
     And A study code exists
     When I click on Register
-    And I fill in the user details without filling the Study ID
+    And I fill in the user details without filling the Participant ID
     Then I should not see the welcome message
 
-  Scenario: User fills the invalid study id while signing up
+  Scenario: User fills the invalid participant ID while signing up
     Given I do not exist as a user
     And A study code exists
     When I click on Register
-    And I fill in the user details invalid filling the Study ID
+    And I fill in the user details invalid filling the Participant ID
     Then I should see an error 'Invalid format' on the page
 
   Scenario: User enters the invalid email while signing up

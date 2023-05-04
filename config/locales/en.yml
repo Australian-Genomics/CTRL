@@ -157,7 +157,7 @@ en:
     mobile_phone: Mobile phone
     address: Address
     preferred_contact_method: Preferred contact method
-    study_id: Study ID
+    participant_id: Participant ID
     register_as_a_guardian: Are you registering as a parent/guardian or carer?
     next_of_kin: Nominated alternate contact
     in_case_we_cant_reach_you: (In case we can't reach you)

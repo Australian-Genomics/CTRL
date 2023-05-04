@@ -11,7 +11,7 @@
     password: 'tester123'
     password_confirmation: 'tester123'
     dob: 21-12-2002
-    study_id: A1543457
+    participant_id: A1543457
 - UserColumnToRedcapFieldMapping:
   - user_column: created_at
     redcap_field: ctrl_reg_date
@@ -22,7 +22,7 @@
   - user_column: family_name
     redcap_field: ctrl_pers_surname
     redcap_event_name: proband_informatio_arm_1
-  - user_column: study_id
+  - user_column: participant_id
     redcap_field: ctrl_stud_id
     redcap_event_name: proband_informatio_arm_1
   - user_column: dob

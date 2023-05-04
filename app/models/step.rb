@@ -4,5 +4,5 @@ class Step < ApplicationRecord
 
   belongs_to :user
 
-  delegate :study_id, to: :user, prefix: true, allow_nil: true
+  delegate :participant_id, to: :user, prefix: true, allow_nil: true
 end

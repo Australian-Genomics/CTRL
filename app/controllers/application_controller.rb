@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       first_name
       family_name
       dob
-      study_id
+      participant_id
       kin_first_name
       kin_family_name
       kin_email

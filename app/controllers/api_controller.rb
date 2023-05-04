@@ -3,15 +3,15 @@ class ApiController < ApplicationController
   before_action :check_token
 
   def duo_limitations
-    study_ids = parse_duo_limitations_payload(request.raw_post)
-    if study_ids.nil?
+    participant_ids = parse_duo_limitations_payload(request.raw_post)
+    if participant_ids.nil?
       return render json: {'error': 'Invalid payload'}, status: :unprocessable_entity
     end
 
-    users = User.where(study_id: study_ids)
+    users = User.where(participant_id: participant_ids)
 
     duo_limitations_json = users.map do |user|
-      [user.study_id, duo_limitations_for_user(user)]
+      [user.participant_id, duo_limitations_for_user(user)]
     end.to_h
 
     render json: duo_limitations_json

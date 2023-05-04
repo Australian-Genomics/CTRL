@@ -9,7 +9,7 @@ FactoryBot.define do
     dob '22-05-1995'
     password 'password'
     password_confirmation 'password'
-    study_id {
+    participant_id {
       regex_str = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
       regex = Regexp.new(regex_str)
 

@@ -118,7 +118,7 @@ class Redcap
 
     question_type = consent_question.question_type
 
-    study_id = question_answer.user.study_id
+    participant_id = question_answer.user.participant_id
 
     construct_redcap_response(
       raw_redcap_code,
@@ -126,7 +126,7 @@ class Redcap
       raw_redcap_event_name,
       answer_string,
       question_type,
-      study_id,
+      participant_id,
       destroy
     )
   end
@@ -137,7 +137,7 @@ class Redcap
     )&.redcap_event_name
 
     OpenStruct.new({
-      :record_id => record.study_id,
+      :record_id => record.participant_id,
       :event_name => redcap_event_name.blank? ? nil : redcap_event_name,
     })
   end
@@ -149,7 +149,7 @@ class Redcap
       return nil
     end
 
-    study_id = user.study_id
+    participant_id = user.participant_id
 
     UserColumnToRedcapFieldMapping.all.map { |user_column_to_redcap_field_mapping|
       user_column, redcap_field, redcap_event_name = [
@@ -166,8 +166,8 @@ class Redcap
 
       response_base =
         redcap_event_name.blank? ?
-          {'record_id' => study_id} :
-          {'record_id' => study_id, 'redcap_event_name' => redcap_event_name}
+          {'record_id' => participant_id} :
+          {'record_id' => participant_id, 'redcap_event_name' => redcap_event_name}
 
       if user_column_value.nil?
         {}
@@ -194,7 +194,7 @@ class Redcap
     raw_redcap_event_name,
     answer_string,
     question_type,
-    study_id,
+    participant_id,
     destroy
   )
     if raw_redcap_field.blank?
@@ -215,7 +215,7 @@ class Redcap
 
     [
       {
-        'record_id' => study_id,
+        'record_id' => participant_id,
         redcap_field => redcap_code,
       }.merge(raw_redcap_event_name.blank? ? {} : {
         'redcap_event_name' => raw_redcap_event_name,
