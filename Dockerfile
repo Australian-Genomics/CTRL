@@ -1,7 +1,7 @@
 FROM debian:bullseye-20230502
 
 SHELL ["/bin/bash", "-lc"]
-ENTRYPOINT ["/bin/bash", "-lc"]
+ENTRYPOINT ["/bin/bash", "-lc", "exec \"$@\"", "--"]
 
 # Use a directory called /code in which to store
 # this application's files. (The directory name
