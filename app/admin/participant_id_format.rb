@@ -1,11 +1,11 @@
-ActiveAdmin.register StudyCode do
-  permit_params :title
+ActiveAdmin.register ParticipantIdFormat do
+  permit_params :participant_id_format
 
   RESTRICTED_ACTIONS = ["new"]
 
   controller do
     def action_methods
-      if StudyCode.count < 1
+      if ParticipantIdFormat.count < 1
         super
       else
         super - RESTRICTED_ACTIONS
@@ -16,16 +16,16 @@ ActiveAdmin.register StudyCode do
   index do
     selectable_column
     id_column
-    column :title
+    column :participant_id_format
     column :created_at
     actions
   end
 
-  filter :title
+  filter :participant_id_format
 
   form do |f|
     f.inputs do
-      f.input :title, hint: hint(f.object.title)
+      f.input :participant_id_format, hint: hint(f.object.participant_id_format)
     end
     f.actions
   end

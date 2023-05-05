@@ -16,8 +16,8 @@ en:
       body: |
         Click the link below to download a YAML file containing the database's
         contents. For security, user accounts (and their passwords) are not
-        exported. However, Study Codes, Survey Config entries, Glossary entries,
-        and Consent Steps are exported.
+        exported. However, Participant ID Formats, Survey Config entries,
+        Glossary entries, and Consent Steps are exported.
       link_text: Download
   back: Back
   back_to_homepage: Back to homepage

@@ -11,69 +11,69 @@ Feature: Welcome Page
 
   Scenario: User should see the privacy link in registration page
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     Then I should see the CTRL Platform Privacy Policy link
 
   Scenario: User signs up successfully
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the welcome message
 
   Scenario: User tries to sign up without filling in the details
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I did not fill in the user details
     Then I should see the error cannot be blank
 
   Scenario: User didn't fills the first name while signing up
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details without filling the first name
     Then I should not see the welcome message
 
   Scenario: User didn't fills the family name while signing up
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details without filling the family name
     Then I should not see the welcome message
 
   Scenario: User didn't fills the participant ID while signing up
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details without filling the Participant ID
     Then I should not see the welcome message
 
   Scenario: User fills the invalid participant ID while signing up
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details invalid filling the Participant ID
     Then I should see an error 'Invalid format' on the page
 
   Scenario: User enters the invalid email while signing up
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details with invalid email
     Then I should see an error 'Is invalid' on the page
 
   Scenario: User enters the short password
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details with short password
     Then I should see an error under the password field
 
   Scenario: User enters the wrong confirm password
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details with wrong confirm password
     Then I should see an error under the confirm password field

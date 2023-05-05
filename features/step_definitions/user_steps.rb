@@ -15,8 +15,8 @@ def create_visitor
 end
 
 def create_participant_id
-  unless StudyCode.find_by(title: @participant_id_regexp_str)
-    StudyCode.create!(title: @participant_id_regexp_str)
+  unless ParticipantIdFormat.find_by(participant_id_format: @participant_id_regexp_str)
+    ParticipantIdFormat.create!(participant_id_format: @participant_id_regexp_str)
   end
 end
 
@@ -94,7 +94,7 @@ Given('I am not logged in') do
   end
 end
 
-Given('A study code exists') do
+Given('A participant ID format exists') do
   create_participant_id
 end
 

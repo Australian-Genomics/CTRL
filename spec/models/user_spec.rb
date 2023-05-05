@@ -24,11 +24,11 @@ RSpec.describe User, type: :model do
       user.participant_id = nil
       expect(user.valid?).to be false
     end
-    it 'should have a participant ID matching the regexes in StudyCode' do
-      regexp_str = '\Amy-study-code\z'
+    it 'should have a participant ID matching the regexes in ParticipantIdFormat' do
+      regexp_str = '\Amy-participant-id-format\z'
       regexp = Regexp.new(regexp_str)
 
-      StudyCode.create(title: regexp_str)
+      ParticipantIdFormat.create(participant_id_format: regexp_str)
 
       expect {
         FactoryBot.create(:user, participant_id: regexp.random_example)

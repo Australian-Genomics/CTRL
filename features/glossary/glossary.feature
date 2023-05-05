@@ -10,7 +10,7 @@ Feature: Glossary
 
   Scenario: User can access the glossary from terms which link to it
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent

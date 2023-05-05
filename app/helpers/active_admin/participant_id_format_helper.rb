@@ -1,7 +1,7 @@
-module ActiveAdmin::StudyCodeHelper
-  def hint(study_code)
+module ActiveAdmin::ParticipantIdFormatHelper
+  def hint(participant_id_format)
     begin
-      regex = Regexp.new(study_code)
+      regex = Regexp.new(participant_id_format)
     rescue
     end
 
@@ -18,7 +18,7 @@ module ActiveAdmin::StudyCodeHelper
     examples.empty? ?
       'Must be a valid regular expression.' :
       "Must be a valid regular expression. (For example, the regular " \
-      "expression #{study_code} will match each of the following: " \
+      "expression #{participant_id_format} will match each of the following: " \
       "#{examples.join(', ')}.)"
   end
 end

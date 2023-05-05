@@ -117,6 +117,12 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.index ["consent_step_id"], name: "index_modal_fallbacks_on_consent_step_id"
   end
 
+  create_table "participant_id_formats", force: :cascade do |t|
+    t.string "participant_id_format"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "question_answers", force: :cascade do |t|
     t.integer "consent_question_id"
     t.integer "user_id"
@@ -163,12 +169,6 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_steps_on_user_id"
-  end
-
-  create_table "study_codes", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "survey_configs", force: :cascade do |t|

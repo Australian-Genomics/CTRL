@@ -1,6 +1,6 @@
 ---
-- StudyCode:
-  - title: A1543457
+- ParticipantIdFormat:
+  - participant_id_format: A1543457
 - UserColumnToRedcapFieldMapping:
   - user_column: dob
     redcap_field: dob

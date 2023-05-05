@@ -1,5 +1,5 @@
-- StudyCode:
-  - title: "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+- ParticipantIdFormat:
+  - participant_id_format: "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
 - AdminUser:
   - email: adminuser@email.com
     password: 'tester123'
