@@ -1,6 +1,7 @@
-# Use the Ruby 2.5.3 image from Docker Hub
-# as the base image (https://hub.docker.com/_/ruby)
-FROM ruby:2.5.3
+FROM debian:bullseye-20230502
+
+SHELL ["/bin/bash", "-lc"]
+ENTRYPOINT ["/bin/bash", "-lc"]
 
 # Use a directory called /code in which to store
 # this application's files. (The directory name
@@ -11,18 +12,24 @@ WORKDIR /code
 # directory.
 COPY . /code
 
-# Run bundle install to install the Ruby dependencies.
-RUN gem install bundler -v 2.3.26
-RUN bundle install
-
-RUN apt-get update && apt-get install apt-transport-https ca-certificates
-
-# Install Yarn.
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-RUN apt-get update -qq && apt-get install -y nodejs yarn
+RUN : \
+  && apt-get update \
+  && apt-get install -y curl gnupg2 apt-transport-https \
+  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update \
+  && apt-get install -y nodejs yarn rbenv apt-transport-https git libpq-dev \
+  && rm -rf /var/lib/apt/lists/* \
+  && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /etc/profile \
+  && echo 'eval "$(rbenv init -)"' >> /etc/profile \
+  && source /etc/profile \
+  && rbenv install 2.5.3 \
+  && rbenv global 2.5.3 \
+  && gem install bundler -v 2.3.26 \
+  && rbenv rehash \
+  && bundle config --global silence_root_warning 1 \
+  && bundle install
 
 # Set "rails server -b 0.0.0.0" as the command to
 # run when this container starts.
