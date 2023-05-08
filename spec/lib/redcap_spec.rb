@@ -2,6 +2,50 @@ require 'spec_helper'
 require 'ostruct'
 
 RSpec.describe Redcap do
+  describe '#filter_repeat_instruments' do
+    it 'returns nil when passed nil' do
+      expect(Redcap.filter_repeat_instruments(nil)).to eq(nil)
+    end
+
+    it 'filters out REDCap repeating instruments' do
+      record1 = {
+        "record_id" => "10",
+        "redcap_event_name" => "proband_informatio_arm_1",
+        "redcap_repeat_instrument" => "qwer",
+        "redcap_repeat_instance" => "1",
+        "site" => "",
+      }
+      record2 = {
+        "record_id" => "11",
+        "redcap_event_name" => "proband_informatio_arm_1",
+        "site" => "",
+      }
+      record3 = {
+        "record_id" => "12",
+        "redcap_event_name" => "proband_informatio_arm_1",
+        "redcap_repeat_instrument" => "",
+        "redcap_repeat_instance" => "",
+        "site" => "",
+      }
+      record4 = {
+        "record_id" => "13",
+        "redcap_event_name" => "proband_informatio_arm_1",
+        "redcap_repeat_instrument" => "asdf",
+        "redcap_repeat_instance" => "2",
+        "site" => "",
+      }
+
+      records = [
+        record1,
+        record2,
+        record3,
+        record4,
+      ]
+
+      expect(Redcap.filter_repeat_instruments(records)).to eq([record2, record3])
+    end
+  end
+
   describe '#call_api' do
     let(:mock_redcap_url) { 'example.com' }
 

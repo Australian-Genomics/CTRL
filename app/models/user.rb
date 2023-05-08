@@ -98,7 +98,7 @@ class User < ApplicationRecord
       return true # CTRL was configured not to use REDCap's email field
     end
 
-    redcap_details = download_redcap_details
+    redcap_details = Redcap.filter_repeat_instruments download_redcap_details
 
     if redcap_details.nil?
       true # REDCap connection is probably disabled
