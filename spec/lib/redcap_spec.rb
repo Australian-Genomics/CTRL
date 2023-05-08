@@ -100,11 +100,11 @@ RSpec.describe Redcap do
   describe '#get_export_payload' do
     it 'returns a payload when passed data' do
       mock_redcap_token = 'redcap token'
-      mock_study_id = 'my-study-id'
+      mock_participant_id = 'my-participant-id'
       mock_event_name = 'my-event-name'
 
       mock_data = OpenStruct.new({
-        :record_id => mock_study_id,
+        :record_id => mock_participant_id,
         :event_name => mock_event_name,
       })
 
@@ -116,7 +116,7 @@ RSpec.describe Redcap do
         format: 'json',
         type: 'flat',
         csvDelimiter: '',
-        'records[0]': mock_study_id,
+        'records[0]': mock_participant_id,
         'events[0]': mock_event_name,
         rawOrLabel: 'raw',
         rawOrLabelHeaders: 'raw',
@@ -131,11 +131,11 @@ RSpec.describe Redcap do
 
     it 'returns a payload when passed data with a nil event name' do
       mock_redcap_token = 'redcap token'
-      mock_study_id = 'my-study-id'
+      mock_participant_id = 'my-participant-id'
       mock_event_name = 'my-event-name'
 
       mock_data = OpenStruct.new({
-        :record_id => mock_study_id,
+        :record_id => mock_participant_id,
         :event_name => nil,
       })
 
@@ -147,7 +147,7 @@ RSpec.describe Redcap do
         format: 'json',
         type: 'flat',
         csvDelimiter: '',
-        'records[0]': mock_study_id,
+        'records[0]': mock_participant_id,
         rawOrLabel: 'raw',
         rawOrLabelHeaders: 'raw',
         exportCheckboxLabel: 'false',
@@ -197,7 +197,7 @@ RSpec.describe Redcap do
         nil,
         "yes",
         "multiple checkboxes",
-        question_answer.user.study_id,
+        question_answer.user.participant_id,
         false)
       expect(actual).to eq(:response)
     end
@@ -223,7 +223,7 @@ RSpec.describe Redcap do
         "redcap_event_name",
         "yes",
         "multiple checkboxes",
-        question_answer.user.study_id,
+        question_answer.user.participant_id,
         false)
       expect(actual).to eq(:response)
     end
@@ -336,7 +336,7 @@ RSpec.describe Redcap do
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
       user = create(:user)
       expected_response = OpenStruct.new({
-        :record_id => user.study_id,
+        :record_id => user.participant_id,
         :event_name => nil,
       })
       expect(Redcap.user_to_export_redcap_response(record: user)).to eq(expected_response)
@@ -353,7 +353,7 @@ RSpec.describe Redcap do
       )
 
       expected_response = OpenStruct.new({
-        :record_id => user.study_id,
+        :record_id => user.participant_id,
         :event_name => 'proband_informatio_arm_1',
       })
 
@@ -371,7 +371,7 @@ RSpec.describe Redcap do
       )
 
       expected_response = OpenStruct.new({
-        :record_id => user.study_id,
+        :record_id => user.participant_id,
         :event_name => nil,
       })
 
@@ -421,16 +421,16 @@ RSpec.describe Redcap do
 
       actual = Redcap.user_to_import_redcap_response(record: user)
       expected = [
-        {"record_id"=>user.study_id,
+        {"record_id"=>user.participant_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_dob"=>user.dob},
-        {"record_id"=>user.study_id,
+        {"record_id"=>user.participant_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_email"=>user.email},
-        {"record_id"=>user.study_id,
+        {"record_id"=>user.participant_id,
          "redcap_event_name"=>"proband_informatio_arm_1",
          "ctrl_is_parent"=>"1"},
-        {"record_id"=>user.study_id,
+        {"record_id"=>user.participant_id,
          "ctrl_family_name"=>user.family_name},
       ]
       expect(actual).to eq(expected)

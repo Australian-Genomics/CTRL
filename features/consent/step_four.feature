@@ -5,14 +5,14 @@ Feature: Consent Page
 
   Scenario: User is not signed up
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I sign in with valid credentials
     Then I see an invalid login message
     And I should not be signed in
 
   Scenario: User can see the step four page of the consent
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -28,7 +28,7 @@ Feature: Consent Page
 
   Scenario: User can go back to the step three page of the consent
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -46,7 +46,7 @@ Feature: Consent Page
 
   Scenario: User can go to the dashboard page
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -64,7 +64,7 @@ Feature: Consent Page
 
   Scenario: User can go to the step five of the consent
     Given I do not exist as a user
-    And A study code exists
+    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent

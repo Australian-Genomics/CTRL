@@ -117,7 +117,7 @@ docker-compose --env-file=.env.dev up
 To access the homepage and login, go to `localhost:3000`.
 To access the Active Admin interface and the survey builder, go to `localhost:3000/admin`.
 
-If you want to try and register a new user, you can append with the following Study ID: A1543457
+If you want to try and register a new user, you can append with the following Participant ID: A1543457
 
 ### <a id="gettingstartedstandard"></a> Getting Started - Standard
 

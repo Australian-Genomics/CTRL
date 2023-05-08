@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_03_012723) do
+ActiveRecord::Schema.define(version: 2023_05_04_051318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,12 @@ ActiveRecord::Schema.define(version: 2023_04_03_012723) do
     t.index ["consent_step_id"], name: "index_modal_fallbacks_on_consent_step_id"
   end
 
+  create_table "participant_id_formats", force: :cascade do |t|
+    t.string "participant_id_format"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "question_answers", force: :cascade do |t|
     t.integer "consent_question_id"
     t.integer "user_id"
@@ -165,12 +171,6 @@ ActiveRecord::Schema.define(version: 2023_04_03_012723) do
     t.index ["user_id"], name: "index_steps_on_user_id"
   end
 
-  create_table "study_codes", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "survey_configs", force: :cascade do |t|
     t.string "name"
     t.string "value"
@@ -217,7 +217,7 @@ ActiveRecord::Schema.define(version: 2023_04_03_012723) do
     t.string "kin_family_name"
     t.string "kin_contact_no"
     t.string "kin_email"
-    t.string "study_id"
+    t.string "participant_id"
     t.string "child_first_name"
     t.string "child_middle_name"
     t.string "child_family_name"
@@ -236,8 +236,8 @@ ActiveRecord::Schema.define(version: 2023_04_03_012723) do
     t.date "red_cap_date_of_result_disclosure"
     t.integer "preferred_contact_method", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["participant_id"], name: "index_users_on_participant_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["study_id"], name: "index_users_on_study_id", unique: true
   end
 
   create_table "versions", force: :cascade do |t|

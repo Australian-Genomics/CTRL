@@ -257,7 +257,7 @@
       <%= image_tag 'admin/documentation/20' %>
 
       <p>
-        The token can then be used to send a HTTP POST request to CTRL. The POST payload should be a JSON array of study IDs whose DUO codes you would like. Consider the following HTTP POST request for example:
+        The token can then be used to send a HTTP POST request to CTRL. The POST payload should be a JSON array of participant IDs whose DUO codes you would like. Consider the following HTTP POST request for example:
       </p>
 
       <pre><code>$ curl \
@@ -267,7 +267,7 @@
   -H "Authorization: Bearer 26f854124dd05b76bab3aa5def63364f510562e6ff49df9bbe24a0868006c45fb56c4e24caefbd7f" \
   -d '
      [
-       "non-existent-study-id",
+       "non-existent-participant-id",
        "A1543457"
      ]' \
   | jq</code></pre>
@@ -292,9 +292,9 @@
   ]
 }</code></pre>
 
-      <p>Notice that the response contains data about <code>A1543457</code> (which is a study ID which <i>does</i> exist), but not <code>non-existent-study-id</code>.</p>
+      <p>Notice that the response contains data about <code>A1543457</code> (which is a participant ID which <i>does</i> exist), but not <code>non-existent-participant-id</code>.</p>
 
-      <p>Each study ID's array elements in the response follow the schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>.</p>
+      <p>Each participant ID's array elements in the response follow the schema defined <a href="https://github.com/umccr/elsa-data/blob/420350e70458ba0c022db188362c2d2100ae62e5/application/common/elsa-types/schemas-duo.ts#L215">here</a>.</p>
 
       <p>
       Note that multiple conditional DUO limitations can be defined. This means that a participant might satisfy the conditions for many DUO limitations at once. They will be combined if possible. For example, imagine that a participant satisfies the conditions for these <code>"duo_limitation"</code>s:

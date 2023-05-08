@@ -19,26 +19,26 @@ RSpec.describe User, type: :model do
       user.dob = nil
       expect(user.valid?).to be false
     end
-    it 'should have a study ID' do
+    it 'should have a participant ID' do
       expect(user.valid?).to be true
-      user.study_id = nil
+      user.participant_id = nil
       expect(user.valid?).to be false
     end
-    it 'should have a study ID matching the regexes in StudyCode' do
-      regexp_str = '\Amy-study-code\z'
+    it 'should have a participant ID matching the regexes in ParticipantIdFormat' do
+      regexp_str = '\Amy-participant-id-format\z'
       regexp = Regexp.new(regexp_str)
 
-      StudyCode.create(title: regexp_str)
+      ParticipantIdFormat.create(participant_id_format: regexp_str)
 
       expect {
-        FactoryBot.create(:user, study_id: regexp.random_example)
+        FactoryBot.create(:user, participant_id: regexp.random_example)
       }.not_to raise_error(ActiveRecord::RecordInvalid)
 
       expect {
-        FactoryBot.create(:user, study_id: regexp.random_example + '-invalid')
+        FactoryBot.create(:user, participant_id: regexp.random_example + '-invalid')
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
-    it 'should not need a study ID from REDCap when the email column is unset' do
+    it 'should not need a participant ID from REDCap when the email column is unset' do
       user = FactoryBot.build(:user)
 
       allow(user).to receive(:download_redcap_details)
@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
 
       expect(user).not_to have_received(:download_redcap_details)
     end
-    it 'should have a study ID from REDCap when the email column is set' do
+    it 'should have a participant ID from REDCap when the email column is set' do
       UserColumnToRedcapFieldMapping.create(
         user_column: 'email',
         redcap_field: 'ctrl_email')
@@ -59,9 +59,9 @@ RSpec.describe User, type: :model do
       expect {
         user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
-      expect(user.errors.messages[:study_id]).to eq(['Study ID not found'])
+      expect(user.errors.messages[:participant_id]).to eq(['Participant ID not found'])
     end
-    it 'should have a study ID whose email address matches REDCap' do
+    it 'should have a Participant ID whose email address matches REDCap' do
       UserColumnToRedcapFieldMapping.create(
         user_column: 'email',
         redcap_field: 'ctrl_email')
@@ -76,8 +76,8 @@ RSpec.describe User, type: :model do
       expect {
         user.save!
       }.to raise_error(ActiveRecord::RecordInvalid)
-      expect(user.errors.messages[:study_id]).to eq(
-        ['Study ID does not match the provided email address']
+      expect(user.errors.messages[:participant_id]).to eq(
+        ['Participant ID does not match the provided email address']
       )
 
       # Matching email

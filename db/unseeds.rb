@@ -17,7 +17,8 @@ $permitted_fields = Set[
   'popover',
   'question',
   'question_type',
-  'study_id',
+  'participant_id',
+  'participant_id_format',
   'term',
   'title',
   'tour_videos',
@@ -40,7 +41,7 @@ $permitted_record_types = Set[
   'GlossaryEntry',
   'ModalFallback',
   'QuestionOption',
-  'StudyCode',
+  'ParticipantIdFormat',
   'SurveyConfig',
   'User',
   'UserColumnToRedcapFieldMapping',
@@ -96,7 +97,7 @@ def fetch_records_of_type(record_type)
     when "GlossaryEntry"                  then GlossaryEntry.all
     when "ModalFallback"                  then ModalFallback.all
     when "QuestionOption"                 then QuestionOption.all
-    when "StudyCode"                      then StudyCode.all
+    when "ParticipantIdFormat"            then ParticipantIdFormat.all
     when "SurveyConfig"                   then SurveyConfig.all
     when "User"                           then User.all
     when "UserColumnToRedcapFieldMapping" then UserColumnToRedcapFieldMapping.all
@@ -113,7 +114,7 @@ end
 
 def fetch_records
   [
-    fetch_records_of_type('StudyCode'),
+    fetch_records_of_type('ParticipantIdFormat'),
     fetch_records_of_type('UserColumnToRedcapFieldMapping'),
     fetch_records_of_type('SurveyConfig'),
     fetch_records_of_type('GlossaryEntry'),

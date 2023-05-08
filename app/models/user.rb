@@ -38,9 +38,9 @@ class User < ApplicationRecord
 
   validates :terms_and_conditions, acceptance: true
 
-  validates :study_id, presence: true, uniqueness: true
-  validate :check_study_code_by_regex, if: -> { study_id.present? }, on: :create
-  validate :check_study_code_by_redcap, if: -> { study_id.present? }, on: :create
+  validates :participant_id, presence: true, uniqueness: true
+  validate :check_participant_id_format_by_regex, if: -> { participant_id.present? }, on: :create
+  validate :check_participant_id_format_by_redcap, if: -> { participant_id.present? }, on: :create
 
   accepts_nested_attributes_for :steps
 
@@ -79,17 +79,17 @@ class User < ApplicationRecord
     end
   end
 
-  def check_study_code_by_regex
-    codes = StudyCode.pluck(:title)
-    if codes.all? { |code| Regexp.new(code).match(study_id) }
+  def check_participant_id_format_by_regex
+    codes = ParticipantIdFormat.pluck(:participant_id_format)
+    if codes.all? { |code| Regexp.new(code).match(participant_id) }
       true
     else
-      errors.add(:study_id, 'Invalid format')
+      errors.add(:participant_id, 'Invalid format')
       false
     end
   end
 
-  def check_study_code_by_redcap
+  def check_participant_id_format_by_redcap
     redcap_email_field = UserColumnToRedcapFieldMapping.find_by(
       user_column: 'email'
     )&.redcap_field
@@ -103,17 +103,17 @@ class User < ApplicationRecord
     if redcap_details.nil?
       true # REDCap connection is probably disabled
     elsif redcap_details.length == 0
-      errors.add(:study_id, 'Study ID not found')
+      errors.add(:participant_id, 'Participant ID not found')
       false
     elsif redcap_details.length == 1
       if redcap_details[0][redcap_email_field] != email
-        errors.add(:study_id, 'Study ID does not match the provided email address')
+        errors.add(:participant_id, 'Participant ID does not match the provided email address')
         false
       else
         true
       end
     else
-      raise Exception.new 'REDCap returned more than one record for the given study ID'
+      raise Exception.new 'REDCap returned more than one record for the given participant ID'
     end
   end
 

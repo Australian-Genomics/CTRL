@@ -35,7 +35,7 @@ def create_related_record_of_type(
     when "GlossaryEntry"                  then record.glossary_entries.new(fields_)
     when "ModalFallback"                  then record.modal_fallbacks.new(fields_)
     when "QuestionOption"                 then record.question_options.new(fields_)
-    when "StudyCode"                      then record.study_codes.new(fields_)
+    when "ParticipantIdFormat"            then record.participant_id_formats.new(fields_)
     when "SurveyConfig"                   then record.survey_configs.new(fields_)
     when "User"                           then record.users.new(fields_)
     when "UserColumnToRedcapFieldMapping" then record.user_column_to_redcap_field_mapping.new(fields_)
@@ -88,7 +88,7 @@ def create_record_of_type(record_type, record_hash)
     when "GlossaryEntry"                  then GlossaryEntry.new(fields_hash)
     when "ModalFallback"                  then ModalFallback.new(fields_hash)
     when "QuestionOption"                 then QuestionOption.new(fields_hash)
-    when "StudyCode"                      then StudyCode.new(fields_hash)
+    when "ParticipantIdFormat"            then ParticipantIdFormat.new(fields_hash)
     when "SurveyConfig"                   then SurveyConfig.new(fields_hash)
     when "User"                           then User.new(fields_hash)
     when "UserColumnToRedcapFieldMapping" then UserColumnToRedcapFieldMapping.new(fields_hash)
@@ -119,7 +119,7 @@ def destroy_all_records_of_type(record_type)
     when "GlossaryEntry"                  then GlossaryEntry.destroy_all
     when "ModalFallback"                  then ModalFallback.destroy_all
     when "QuestionOption"                 then QuestionOption.destroy_all
-    when "StudyCode"                      then StudyCode.destroy_all
+    when "ParticipantIdFormat"            then ParticipantIdFormat.destroy_all
     when "SurveyConfig"                   then SurveyConfig.destroy_all
     when "User"                           then User.destroy_all
     when "UserColumnToRedcapFieldMapping" then UserColumnToRedcapFieldMapping.destroy_all
