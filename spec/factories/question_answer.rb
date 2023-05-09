@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :question_answer do
-    transient {
+    transient do
       traits { [] }
-    }
+    end
     consent_question { create(:consent_question, *traits) }
     user { create(:user) }
 

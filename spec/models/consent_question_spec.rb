@@ -26,7 +26,7 @@ RSpec.describe ConsentQuestion do
 
     it {
       is_expected.to validate_inclusion_of(:default_answer)
-        .in_array(['yes', 'no'])
+        .in_array(%w[yes no])
     }
 
     it { is_expected.to validate_presence_of(:answer_choices_position) }

@@ -1,5 +1,5 @@
 def create_visitor
-  @participant_id_regexp_str = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+  @participant_id_regexp_str = '\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z'
   @participant_id_regexp = Regexp.new(@participant_id_regexp_str)
 
   @participant_id_random_example_1 = @participant_id_regexp.random_example
@@ -15,9 +15,7 @@ def create_visitor
 end
 
 def create_participant_id
-  unless ParticipantIdFormat.find_by(participant_id_format: @participant_id_regexp_str)
-    ParticipantIdFormat.create!(participant_id_format: @participant_id_regexp_str)
-  end
+  ParticipantIdFormat.create!(participant_id_format: @participant_id_regexp_str) unless ParticipantIdFormat.find_by(participant_id_format: @participant_id_regexp_str)
 end
 
 def delete_user
@@ -89,9 +87,7 @@ end
 
 Given('I am not logged in') do
   visit 'dashboard'
-  if has_button?('Log Out')
-    click_button 'Log Out'
-  end
+  click_button 'Log Out' if has_button?('Log Out')
 end
 
 Given('A participant ID format exists') do

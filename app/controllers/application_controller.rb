@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def logo
     logo_png_binary = self.logo_png_binary
-    args = {type: 'image/png', disposition: 'inline'}
+    args = { type: 'image/png', disposition: 'inline' }
 
     if logo_png_binary
       send_data logo_png_binary, args
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   def logo_png_binary
     sc = SurveyConfig.find_by(name: APPLICATION_LOGO_PNG)
     begin
-      (sc&.value and sc&.value != "") ? Base64.strict_decode64(sc&.value) : nil
+      sc&.value && (sc&.value != '') ? Base64.strict_decode64(sc&.value) : nil
     rescue ArgumentError
       nil
     end

@@ -6,12 +6,12 @@ class User < ApplicationRecord
   include NextOfKinRegistrationValidator
 
   has_many :reviewed_steps,
-    class_name:  'StepReview',
-    dependent:   :destroy
+           class_name:  'StepReview',
+           dependent:   :destroy
 
   has_many :answers,
-    class_name:  'QuestionAnswer',
-    dependent:   :destroy
+           class_name:  'QuestionAnswer',
+           dependent:   :destroy
 
   has_many :steps, dependent: :destroy, class_name: 'Step'
 
@@ -21,20 +21,20 @@ class User < ApplicationRecord
   validates :first_name, :family_name, presence: true
 
   validates :preferred_contact_method,
-    presence: true,
-    on: :update,
-    unless: :skip_validation
+            presence: true,
+            on: :update,
+            unless: :skip_validation
 
   validate :date_of_birth_in_future,
-    unless: :skip_validation
+           unless: :skip_validation
 
   validate :kin_details_and_child_details_on_create,
-    :child_date_of_birth_in_future,
-    on: :create, if: :next_of_kin_needed_to_register?
+           :child_date_of_birth_in_future,
+           on: :create, if: :next_of_kin_needed_to_register?
 
   validate :kin_details_and_child_details_on_update,
-    :child_date_of_birth_in_future,
-    on: :update, unless: :skip_validation
+           :child_date_of_birth_in_future,
+           on: :update, unless: :skip_validation
 
   validates :terms_and_conditions, acceptance: true
 
@@ -52,7 +52,7 @@ class User < ApplicationRecord
   def kin_details_and_child_details_on_create
     if is_parent == false
       validates_presence_of :kin_first_name, :kin_family_name
-      validates_format_of :kin_email, with: Devise::email_regexp
+      validates_format_of :kin_email, with: Devise.email_regexp
     elsif is_parent == true
       validates_presence_of :child_first_name, :child_family_name
     end
@@ -61,7 +61,7 @@ class User < ApplicationRecord
   def kin_details_and_child_details_on_update
     if is_parent == false
       validates_presence_of :kin_first_name, :kin_family_name, :kin_contact_no
-      validates_format_of :kin_email, with: Devise::email_regexp
+      validates_format_of :kin_email, with: Devise.email_regexp
     elsif is_parent == true
       validates_presence_of :child_first_name, :child_family_name
     end
@@ -102,7 +102,7 @@ class User < ApplicationRecord
 
     if redcap_details.nil?
       true # REDCap connection is probably disabled
-    elsif redcap_details.length == 0
+    elsif redcap_details.empty?
       errors.add(:participant_id, 'Participant ID not found')
       false
     elsif redcap_details.length == 1
@@ -113,7 +113,7 @@ class User < ApplicationRecord
         true
       end
     else
-      raise Exception.new 'REDCap returned more than one record for the given participant ID'
+      raise Exception, 'REDCap returned more than one record for the given participant ID'
     end
   end
 
@@ -122,13 +122,15 @@ class User < ApplicationRecord
       :user_to_import_redcap_response,
       :get_import_payload,
       record: self,
-      expected_count: 1)
+      expected_count: 1
+    )
   end
 
   def download_redcap_details
     Redcap.perform(
       :user_to_export_redcap_response,
       :get_export_payload,
-      record: self)
+      record: self
+    )
   end
 end

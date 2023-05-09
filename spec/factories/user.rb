@@ -9,13 +9,13 @@ FactoryBot.define do
     dob '22-05-1995'
     password 'password'
     password_confirmation 'password'
-    participant_id {
-      regex_str = "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+    participant_id do
+      regex_str = '\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z'
       regex = Regexp.new(regex_str)
 
       participant_id_format = ParticipantIdFormat.create(participant_id_format: regex_str)
       regex.random_example
-    }
+    end
     suburb 'Bankstown.'
     preferred_contact_method 'Email'
     is_parent 'true'

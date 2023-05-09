@@ -2,7 +2,7 @@ require 'ostruct'
 
 class Redcap
   def self.call_api(payload, expected_count: nil, **_)
-    if !REDCAP_CONNECTION_ENABLED
+    unless REDCAP_CONNECTION_ENABLED
       Rails.logger.info("Connection disabled; not posting payload: #{payload}")
       return
     end
@@ -12,11 +12,11 @@ class Redcap
 
       Rails.logger.info("Posted payload: #{payload}")
 
-      if !response.success?
+      unless response.success?
         msg = "Unsuccessful response from REDCap: #{response}"
         Rails.logger.error(msg)
         Rollbar.error(msg)
-        raise StandardError.new msg
+        raise StandardError, msg
       end
 
       parsed_response = response.parsed_response
@@ -26,7 +26,7 @@ class Redcap
         msg = "Expected to modify #{expected_count} record, modified #{count}"
         Rails.logger.error(msg)
         Rollbar.error(msg)
-        raise StandardError.new msg
+        raise StandardError, msg
       end
 
       parsed_response
@@ -83,15 +83,14 @@ class Redcap
       exportDataAccessGroups: 'false',
       returnFormat: 'json'
     }.merge(data.event_name.nil? ? {} : {
-      'events[0]': data.event_name,
-    })
+              'events[0]': data.event_name
+            })
   end
 
   def self.answer_string_to_code(answer_string)
     case answer_string.downcase
     when 'yes' then '1'
     when 'no' then '0'
-    else nil
     end
   end
 
@@ -107,9 +106,9 @@ class Redcap
     consent_question = question_answer.consent_question
 
     raw_redcap_code = consent_question
-      .question_options
-      .where('LOWER(value) = ?', answer_string)
-      .first
+                      .question_options
+                      .where('LOWER(value) = ?', answer_string)
+                      .first
       &.redcap_code
 
     raw_redcap_field = consent_question.redcap_field
@@ -136,28 +135,25 @@ class Redcap
       user_column: 'email'
     )&.redcap_event_name
 
-    OpenStruct.new({
-      :record_id => record.participant_id,
-      :event_name => redcap_event_name.blank? ? nil : redcap_event_name,
-    })
+    OpenStruct.new(
+      record_id: record.participant_id,
+      event_name: redcap_event_name.blank? ? nil : redcap_event_name
+    )
   end
 
   def self.user_to_import_redcap_response(record: nil, **_)
     user = record
 
-    if UserColumnToRedcapFieldMapping.count == 0
-      return nil
-    end
+    return nil if UserColumnToRedcapFieldMapping.count == 0
 
     participant_id = user.participant_id
 
-    UserColumnToRedcapFieldMapping.all.map { |user_column_to_redcap_field_mapping|
-      user_column, redcap_field, redcap_event_name = [
-        user_column_to_redcap_field_mapping.user_column,
-        user_column_to_redcap_field_mapping.redcap_field,
-        user_column_to_redcap_field_mapping.redcap_event_name]
+    UserColumnToRedcapFieldMapping.all.map do |user_column_to_redcap_field_mapping|
+      user_column = user_column_to_redcap_field_mapping.user_column
+      redcap_field = user_column_to_redcap_field_mapping.redcap_field
+      redcap_event_name = user_column_to_redcap_field_mapping.redcap_event_name
 
-      is_dropdown = User.defined_enums.has_key?(user_column)
+      is_dropdown = User.defined_enums.key?(user_column)
 
       user_column_value =
         is_dropdown ?
@@ -166,8 +162,8 @@ class Redcap
 
       response_base =
         redcap_event_name.blank? ?
-          {'record_id' => participant_id} :
-          {'record_id' => participant_id, 'redcap_event_name' => redcap_event_name}
+          { 'record_id' => participant_id } :
+          { 'record_id' => participant_id, 'redcap_event_name' => redcap_event_name }
 
       if user_column_value.nil?
         {}
@@ -175,17 +171,17 @@ class Redcap
         # Rails stores menu entries in the database as zero-indexed integers.
         # REDCap stores menu entries as one-indexed integers. We must
         # increment Rails' integer to get one which REDCap understands.
-        response_base.merge({redcap_field => user_column_value + 1})
+        response_base.merge(redcap_field => user_column_value + 1)
       elsif user_column_value == true
-        response_base.merge({redcap_field => '1'})
+        response_base.merge(redcap_field => '1')
       elsif user_column_value == false
-        response_base.merge({redcap_field => '0'})
+        response_base.merge(redcap_field => '0')
       else
-        response_base.merge({redcap_field => user_column_value})
+        response_base.merge(redcap_field => user_column_value)
       end
-    }.select { |response_hash|
-      response_hash != {}
-    }
+    end.reject do |response_hash|
+      response_hash == {}
+    end
   end
 
   def self.construct_redcap_response(
@@ -197,15 +193,13 @@ class Redcap
     participant_id,
     destroy
   )
-    if raw_redcap_field.blank?
-      return
-    end
+    return if raw_redcap_field.blank?
 
     coded_answer_or_raw_redcap_code = raw_redcap_code.nil? ?
       answer_string_to_code(answer_string) :
       raw_redcap_code
 
-    if question_type == "multiple checkboxes"
+    if question_type == 'multiple checkboxes'
       redcap_field = "#{raw_redcap_field}___#{coded_answer_or_raw_redcap_code}"
       redcap_code = destroy ? '0' : '1'
     else
@@ -216,10 +210,10 @@ class Redcap
     [
       {
         'record_id' => participant_id,
-        redcap_field => redcap_code,
+        redcap_field => redcap_code
       }.merge(raw_redcap_event_name.blank? ? {} : {
-        'redcap_event_name' => raw_redcap_event_name,
-      })
+                'redcap_event_name' => raw_redcap_event_name
+              })
     ]
   end
 
@@ -242,13 +236,13 @@ class Redcap
   def self.perform(data_fetcher, payload_maker, record: nil, **kwargs)
     Rails.logger.info "Using #{data_fetcher} to perform job for #{record.pretty_inspect}"
 
-    data = self.send(data_fetcher, record: record, **kwargs)
+    data = send(data_fetcher, record: record, **kwargs)
     if data.nil?
       Rails.logger.info "Payload empty; Not posting for #{record.pretty_inspect}"
       return
     end
 
-    redcap_api_payload = self.send(payload_maker, data)
+    redcap_api_payload = send(payload_maker, data)
 
     call_api(redcap_api_payload, **kwargs)
   end

@@ -30,13 +30,13 @@ RSpec.describe User, type: :model do
 
       ParticipantIdFormat.create(participant_id_format: regexp_str)
 
-      expect {
+      expect do
         FactoryBot.create(:user, participant_id: regexp.random_example)
-      }.not_to raise_error(ActiveRecord::RecordInvalid)
+      end.not_to raise_error(ActiveRecord::RecordInvalid)
 
-      expect {
+      expect do
         FactoryBot.create(:user, participant_id: regexp.random_example + '-invalid')
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should not need a participant ID from REDCap when the email column is unset' do
       user = FactoryBot.build(:user)
@@ -50,44 +50,46 @@ RSpec.describe User, type: :model do
     it 'should have a participant ID from REDCap when the email column is set' do
       UserColumnToRedcapFieldMapping.create(
         user_column: 'email',
-        redcap_field: 'ctrl_email')
+        redcap_field: 'ctrl_email'
+      )
 
       user = FactoryBot.build(:user)
 
       allow(user).to receive(:download_redcap_details).and_return([])
 
-      expect {
+      expect do
         user.save!
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
       expect(user.errors.messages[:participant_id]).to eq(['Participant ID not found'])
     end
     it 'should have a Participant ID whose email address matches REDCap' do
       UserColumnToRedcapFieldMapping.create(
         user_column: 'email',
-        redcap_field: 'ctrl_email')
+        redcap_field: 'ctrl_email'
+      )
 
       user = FactoryBot.build(:user)
 
       # Non-matching email
       allow(user).to receive(:download_redcap_details).and_return(
-        [{'ctrl_email': 'not-the-same-' + user.email}]
+        [{ 'ctrl_email': 'not-the-same-' + user.email }]
       )
 
-      expect {
+      expect do
         user.save!
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
       expect(user.errors.messages[:participant_id]).to eq(
         ['Participant ID does not match the provided email address']
       )
 
       # Matching email
       allow(user).to receive(:download_redcap_details).and_return(
-        [{'ctrl_email' => user.email}]
+        [{ 'ctrl_email' => user.email }]
       )
 
-      expect {
+      expect do
         user.save!
-      }.not_to raise_error(ActiveRecord::RecordInvalid)
+      end.not_to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should have a mandatory first name' do
       user.first_name = nil
@@ -117,7 +119,7 @@ RSpec.describe User, type: :model do
     end
     it 'should have an optional kin_email field when NEXT_OF_KIN_NEEDED_TO_REGISTER=false upon create' do
       sc = SurveyConfig.find_or_create_by(name: NEXT_OF_KIN_NEEDED_TO_REGISTER)
-      sc.value = "false"
+      sc.value = 'false'
       sc.save!
 
       user = FactoryBot.create(:user, kin_email: nil)
@@ -126,20 +128,20 @@ RSpec.describe User, type: :model do
     end
     it 'should have a mandatory kin_email field when NEXT_OF_KIN_NEEDED_TO_REGISTER=true upon create' do
       sc = SurveyConfig.find_or_create_by(name: NEXT_OF_KIN_NEEDED_TO_REGISTER)
-      sc.value = "true"
+      sc.value = 'true'
       sc.save!
 
-      expect {
+      expect do
         FactoryBot.create(:user, is_parent: false, kin_email: nil)
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should have a mandatory kin_email field when is_parent=false upon update' do
       user = FactoryBot.create(:user, is_parent: false, kin_email: nil)
       user.kin_email = 'different email but still not valid'
 
-      expect {
+      expect do
         user.save!
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should have an optional kin_email field when is_parent=false upon create' do
       user = FactoryBot.build(:user, is_parent: false, kin_email: nil)

@@ -26,10 +26,9 @@ module DashboardHelper
     time = time.get_utc
 
     content_tag(:span,
-      I18n.l(time, format: :long),
-      data: {
-        time: time.iso8601
-      }
-    )
+                I18n.l(time, format: :long),
+                data: {
+                  time: time.iso8601
+                })
   end
 end

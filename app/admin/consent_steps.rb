@@ -1,38 +1,38 @@
 ActiveAdmin.register ConsentStep do
   permit_params :order, :title, :description, :popover, :tour_videos,
-  consent_groups_attributes: [
-    :id,
-    :_destroy,
-    :header,
-    :order,
-    consent_questions_attributes: [
-      :id,
-      :_destroy,
-      :order,
-      :question,
-      :description,
-      :question_type,
-      :default_answer,
-      :answer_choices_position,
-      :redcap_field,
-      :redcap_event_name,
-      question_options_attributes: [
-        :id,
-        :_destroy,
-        :value,
-        :redcap_code,
-        :color
-      ]
-    ]
-  ],
-  modal_fallbacks_attributes: [
-    :id,
-    :_destroy,
-    :description,
-    :small_note,
-    :review_answers_btn,
-    :cancel_btn
-  ]
+                consent_groups_attributes: [
+                  :id,
+                  :_destroy,
+                  :header,
+                  :order,
+                  consent_questions_attributes: [
+                    :id,
+                    :_destroy,
+                    :order,
+                    :question,
+                    :description,
+                    :question_type,
+                    :default_answer,
+                    :answer_choices_position,
+                    :redcap_field,
+                    :redcap_event_name,
+                    question_options_attributes: %i[
+                      id
+                      _destroy
+                      value
+                      redcap_code
+                      color
+                    ]
+                  ]
+                ],
+                modal_fallbacks_attributes: %i[
+                  id
+                  _destroy
+                  description
+                  small_note
+                  review_answers_btn
+                  cancel_btn
+                ]
 
   index do
     selectable_column
@@ -53,11 +53,11 @@ ActiveAdmin.register ConsentStep do
   filter :updated_at
 
   after_update do |cs|
-      unless cs.valid?
-        cs.errors.full_messages.each do |error|
-            flash[:error] = error
-        end
+    unless cs.valid?
+      cs.errors.full_messages.each do |error|
+        flash[:error] = error
       end
+    end
   end
 
   form do |f|
@@ -66,9 +66,8 @@ ActiveAdmin.register ConsentStep do
       f.input :title
       f.input :description
       f.input :popover
-      f.input :tour_videos, label:"Tour Videos (Separated by Comma(,)"
+      f.input :tour_videos, label: 'Tour Videos (Separated by Comma(,)'
     end
-
 
     f.inputs 'Consent Group' do
       f.has_many :consent_groups,
@@ -76,16 +75,16 @@ ActiveAdmin.register ConsentStep do
                  remove_record: 'Remove Group',
                  sortable: :order,
                  sortable_start: 1,
-                allow_destroy: true do |b|
+                 allow_destroy: true do |b|
         b.input :header
         b.input :order
 
         b.has_many :consent_questions,
-                 new_record: 'Add Question',
-                 remove_record: 'Remove Question',
-                 sortable: :order,
-                 sortable_start: 1,
-                 allow_destroy: true do |c|
+                   new_record: 'Add Question',
+                   remove_record: 'Remove Question',
+                   sortable: :order,
+                   sortable_start: 1,
+                   allow_destroy: true do |c|
 
           c.input :order
           c.input :question
@@ -97,13 +96,13 @@ ActiveAdmin.register ConsentStep do
           c.input :redcap_event_name
 
           c.has_many :question_options,
-            new_record: 'Add Multiple Choice Option',
-            remove_record: 'Remove Option',
-            allow_destroy: true do |d|
+                     new_record: 'Add Multiple Choice Option',
+                     remove_record: 'Remove Option',
+                     allow_destroy: true do |d|
 
             d.input :value
             d.input :redcap_code
-            d.input :color, as: :color_picker, palette: ["#000000","#333333","#663300","#CC0000","#CC3300","#FFCC00","#009900","#006666","#0066FF","#0000CC","#663399","#CC0099","#FF9999","#FF9966","#FFFF99","#99FF99","#66FFCC","#99FFFF","#66CCFF","#9999FF","#FF99FF","#FFCCCC","#FFCC99","#f77088"]
+            d.input :color, as: :color_picker, palette: ['#000000', '#333333', '#663300', '#CC0000', '#CC3300', '#FFCC00', '#009900', '#006666', '#0066FF', '#0000CC', '#663399', '#CC0099', '#FF9999', '#FF9966', '#FFFF99', '#99FF99', '#66FFCC', '#99FFFF', '#66CCFF', '#9999FF', '#FF99FF', '#FFCCCC', '#FFCC99', '#f77088']
           end
         end
       end

@@ -8,9 +8,9 @@ ENV['REDCAP_CONNECTION_ENABLED'] = 'false'
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(
     app,
-    :browser => :remote,
-    :url => 'http://selenium:4444/',
-    :desired_capabilities => Selenium::WebDriver::Remote::Capabilities.chrome
+    browser: :remote,
+    url: 'http://selenium:4444/',
+    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome
   )
 end
 

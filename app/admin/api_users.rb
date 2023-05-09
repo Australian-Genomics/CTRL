@@ -9,7 +9,7 @@ ActiveAdmin.register ApiUser do
     actions
   end
 
-  show do |f|
+  show do |_f|
     attributes_table do
       row :name
       row :created_at
@@ -32,11 +32,11 @@ ActiveAdmin.register ApiUser do
 
       api_user = ApiUser.create(name: name, token_digest: token_digest)
 
-      notice = (
-        "This is your new API token, which will only be shown once: #{token}")
+      notice =
+        "This is your new API token, which will only be shown once: #{token}"
 
       if api_user.invalid?
-        redirect_to new_admin_api_user_path, flash: {error: api_user.errors.full_messages.first}
+        redirect_to new_admin_api_user_path, flash: { error: api_user.errors.full_messages.first }
       else
         redirect_to admin_api_users_path, notice: notice
       end

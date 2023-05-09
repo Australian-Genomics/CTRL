@@ -61,3 +61,11 @@ jobs:
               'and commit the changes to db/schema.rb'
             false
           fi
+  run-rubocop:
+    name: "run-rubocop"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: docker-compose build
+      - run: docker-compose --env-file=.env.test run web bundle exec rubocop

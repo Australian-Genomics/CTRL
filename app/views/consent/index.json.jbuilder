@@ -51,7 +51,7 @@ json.consent_steps do
         json.answer do
           json.question_id answer&.consent_question&.id
           json.answer answer&.answer
-          json.multiple_answers multiple_answers.map{|a| a.answer} if question.question_type == "multiple checkboxes"
+          json.multiple_answers multiple_answers.map(&:answer) if question.question_type == 'multiple checkboxes'
         end
       end
     end

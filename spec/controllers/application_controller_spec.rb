@@ -9,7 +9,9 @@ RSpec.describe ApplicationController, type: :controller do
       get :logo
       expect(response.stream.to_path).to eq(
         Rails.root.join(
-          'app', 'assets', 'images', 'australian-genomics-logo.png'))
+          'app', 'assets', 'images', 'australian-genomics-logo.png'
+        )
+      )
     end
 
     it 'returns the custom logo when one is set' do

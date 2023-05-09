@@ -25,9 +25,7 @@ ActiveAdmin.register QuestionAnswer do
 
   csv do
     column :id
-    column(:user_id) do |question_answer|
-      question_answer.user_id
-    end
+    column(:user_id, &:user_id)
     column(:participant_id_id) do |question_answer|
       question_answer.user.participant_id
     end

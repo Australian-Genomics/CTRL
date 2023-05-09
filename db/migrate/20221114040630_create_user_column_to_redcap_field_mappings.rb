@@ -7,6 +7,6 @@ class CreateUserColumnToRedcapFieldMappings < ActiveRecord::Migration[5.2]
     end
 
     add_index(:user_column_to_redcap_field_mappings, :user_column, unique: true, name: 'uctrfm_user_column_index')
-    add_index(:user_column_to_redcap_field_mappings,  [:redcap_field, :redcap_event_name], unique: true, name: 'uctrfm_redcap_index')
+    add_index(:user_column_to_redcap_field_mappings, %i[redcap_field redcap_event_name], unique: true, name: 'uctrfm_redcap_index')
   end
 end

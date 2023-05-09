@@ -9,7 +9,7 @@ ActiveAdmin.register ConditionalDuoLimitation do
     actions
   end
 
-  show do |f|
+  show do |_f|
     attributes_table do
       row :json
       row :consent_questions

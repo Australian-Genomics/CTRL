@@ -26,9 +26,9 @@ ActiveAdmin.register UserColumnToRedcapFieldMapping do
 
   form do |f|
     f.inputs do
-      f.input :user_column, :as => :select, :collection => (User.column_names.map do |column_name|
-          [column_name.humanize.upcase, column_name]
-        end)
+      f.input :user_column, as: :select, collection: (User.column_names.map do |column_name|
+                                                        [column_name.humanize.upcase, column_name]
+                                                      end)
       f.input :redcap_field
       f.input :redcap_event_name
     end

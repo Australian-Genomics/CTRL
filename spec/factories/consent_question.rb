@@ -12,7 +12,6 @@ FactoryBot.define do
     answer_choices_position { 'right' }
 
     trait :multiple_choice do
-
       before(:create) do |consent_question, _evaluator|
         consent_question.question_type = 'multiple choice'
 
@@ -33,7 +32,7 @@ FactoryBot.define do
           )
         ]
 
-        consent_question.question_options.each { |x| x.save! }
+        consent_question.question_options.each(&:save!)
       end
     end
 
@@ -58,7 +57,7 @@ FactoryBot.define do
           )
         ]
 
-        consent_question.question_options.each { |x| x.save! }
+        consent_question.question_options.each(&:save!)
       end
     end
 
