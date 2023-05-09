@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# rubocop:disable Style/GlobalVars
+
 $permitted_fields = Set[
   'answer_choices_position',
   'default_answer',
@@ -49,7 +53,7 @@ $permitted_record_types = Set[
 
 def filter_permitted_keys(record)
   record.attributes.select do |key, value|
-    $permitted_fields.member?(key) && (!value.nil?)
+    $permitted_fields.member?(key) && !value.nil?
   end
 end
 
@@ -63,46 +67,67 @@ def fetch_related_records(record)
   association_names = record
                       .class
                       .reflect_on_all_associations(:has_many)
-                      .map { |a| a.name }
+                      .map(&:name)
 
   association_names.each_with_object({}) do |association_name, accumulator|
-    related_records = record
-                      .send(association_name)
-                      .select do |related_record|
-        $permitted_record_types.member? related_record.class.to_s end
-                      .sort_by do |related_record|
-        related_record.respond_to?(:created_at) ?
-        related_record.created_at :
-        related_record.id end
+    unsorted_related_records =
+      record
+      .send(association_name)
+      .select do |related_record|
+        $permitted_record_types.member? related_record.class.to_s
+      end
 
-    related_records_as_yaml = related_records
-                              .map do |related_record|
-        record_to_yaml(related_record) end
+    related_records =
+      unsorted_related_records
+      .sort_by do |related_record|
+        if related_record.respond_to?(:created_at)
+          related_record.created_at
+        else
+          related_record.id
+        end
+      end
+
+    related_records_as_yaml =
+      related_records.map do |related_record|
+        record_to_yaml(related_record)
+      end
 
     unless related_records.empty?
       record_type = related_records.first.class.to_s
       accumulator[record_type] = related_records_as_yaml
     end
-
   end
 end
 
 def fetch_records_of_type(record_type)
-  records = case record_type
-            when 'AdminUser'                      then AdminUser.all
-            when 'ConsentGroup'                   then ConsentGroup.all
-            when 'ConsentQuestion'                then ConsentQuestion.all
-            when 'ConsentStep'                    then ConsentStep.all
-            when 'GlossaryEntry'                  then GlossaryEntry.all
-            when 'ModalFallback'                  then ModalFallback.all
-            when 'QuestionOption'                 then QuestionOption.all
-            when 'ParticipantIdFormat'            then ParticipantIdFormat.all
-            when 'SurveyConfig'                   then SurveyConfig.all
-            when 'User'                           then User.all
-            when 'UserColumnToRedcapFieldMapping' then UserColumnToRedcapFieldMapping.all
-            when 'ConditionalDuoLimitation'       then ConditionalDuoLimitation.all
+  records =
+    case record_type
+    when 'AdminUser'
+      then AdminUser.all
+    when 'ConsentGroup'
+      then ConsentGroup.all
+    when 'ConsentQuestion'
+      then ConsentQuestion.all
+    when 'ConsentStep'
+      then ConsentStep.all
+    when 'GlossaryEntry'
+      then GlossaryEntry.all
+    when 'ModalFallback'
+      then ModalFallback.all
+    when 'QuestionOption'
+      then QuestionOption.all
+    when 'ParticipantIdFormat'
+      then ParticipantIdFormat.all
+    when 'SurveyConfig'
+      then SurveyConfig.all
+    when 'User'
+      then User.all
+    when 'UserColumnToRedcapFieldMapping'
+      then UserColumnToRedcapFieldMapping.all
+    when 'ConditionalDuoLimitation'
+      then ConditionalDuoLimitation.all
     else raise ArgumentError, "No such record type: #{record_type}"
-  end
+    end
 
   filtered_records = records.map do |record|
     record_to_yaml(record)
@@ -120,3 +145,5 @@ def fetch_records
     fetch_records_of_type('ConsentStep')
   ]
 end
+
+# rubocop:enable Style/GlobalVars
