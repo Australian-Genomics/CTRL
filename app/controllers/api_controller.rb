@@ -60,11 +60,8 @@ class ApiController < ApplicationController
 
     x.keys.map do |key|
       merged = merge(x[key], y[key])
-      if merged.nil?
-        return
-      else
-        [key, merged]
-      end
+
+      [key, merged] unless merged.nil?
     end.to_h
   end
 
@@ -89,7 +86,7 @@ class ApiController < ApplicationController
   def parse_duo_limitations_payload(payload)
     parsed = begin
       JSON.parse(payload)
-    rescue StandardError => e
+    rescue StandardError
       return nil
     end
 

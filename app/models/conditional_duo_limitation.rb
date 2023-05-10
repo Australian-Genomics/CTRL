@@ -118,66 +118,67 @@ class ConditionalDuoLimitation < ApplicationRecord
     end
   end
 
-  def is_boolean_expr(parsed_json)
+  def boolean_expr?(parsed_json)
     [TrueClass, FalseClass].to_set.include?(parsed_json.class)
   end
 
-  def is_equals_expr(parsed_json)
+  def equals_expr?(parsed_json)
     parsed_json.class == Hash &&
       parsed_json.keys.to_set == %w[consent_question_id answer].to_set
   end
 
-  def is_exists_expr(parsed_json)
+  def exists_expr?(parsed_json)
     parsed_json.class == Hash &&
       parsed_json.keys.to_set == %w[consent_question_id answer_exists].to_set
   end
 
-  def is_and_expr(parsed_json)
+  def and_expr?(parsed_json)
     parsed_json.class == Hash && parsed_json.keys.to_set == ['and'].to_set
   end
 
-  def is_or_expr(parsed_json)
+  def or_expr?(parsed_json)
     parsed_json.class == Hash && parsed_json.keys.to_set == ['or'].to_set
   end
 
-  def is_not_expr(parsed_json)
+  def not_expr?(parsed_json)
     parsed_json.class == Hash && parsed_json.keys.to_set == ['not'].to_set
   end
 
   def extract_equals_exprs
-    flat_map_condition(condition) { |expr| is_equals_expr(expr) ? [expr] : [] }
+    flat_map_condition(condition) { |expr| equals_expr?(expr) ? [expr] : [] }
   end
 
   def extract_exists_exprs
-    flat_map_condition(condition) { |expr| is_exists_expr(expr) ? [expr] : [] }
+    flat_map_condition(condition) { |expr| exists_expr?(expr) ? [expr] : [] }
   end
 
   def flat_map_condition(parsed_json, &block)
-    yield(parsed_json) + if is_equals_expr(parsed_json)
-                           []
-                         elsif is_exists_expr(parsed_json)
-                           flat_map_condition(parsed_json['answer_exists'], &block)
-                         elsif is_and_expr(parsed_json)
-                           parsed_json['and'].flat_map { |expr| flat_map_condition(expr, &block) }
-                         elsif is_or_expr(parsed_json)
-                           parsed_json['or'].flat_map { |expr| flat_map_condition(expr, &block) }
-                         elsif is_not_expr(parsed_json)
-                           flat_map_condition(parsed_json['not'], &block)
-                         elsif is_boolean_expr(parsed_json)
-                           []
-                         else
-                           raise StandardError, 'Unexpected expression ' + parsed_json.to_s
-    end
+    yield(parsed_json) +
+      if equals_expr?(parsed_json)
+        []
+      elsif exists_expr?(parsed_json)
+        flat_map_condition(parsed_json['answer_exists'], &block)
+      elsif and_expr?(parsed_json)
+        parsed_json['and'].flat_map { |expr| flat_map_condition(expr, &block) }
+      elsif or_expr?(parsed_json)
+        parsed_json['or'].flat_map { |expr| flat_map_condition(expr, &block) }
+      elsif not_expr?(parsed_json)
+        flat_map_condition(parsed_json['not'], &block)
+      elsif boolean_expr?(parsed_json)
+        []
+      else
+        raise StandardError, 'Unexpected expression ' + parsed_json.to_s
+      end
   end
 
   def eval_condition_recursively(user, parsed_json)
-    if is_equals_expr(parsed_json)
+    if equals_expr?(parsed_json)
       QuestionAnswer.find_by(
         consent_question_id: parsed_json['consent_question_id'],
         user_id: user.id,
         answer: parsed_json['answer']
       ).present?
-    elsif is_exists_expr(parsed_json)
+    elsif exists_expr?(parsed_json)
       QuestionAnswer.find_by(
         consent_question_id: parsed_json['consent_question_id'],
         user_id: user.id
@@ -185,13 +186,13 @@ class ConditionalDuoLimitation < ApplicationRecord
         user,
         parsed_json['answer_exists']
       )
-    elsif is_and_expr(parsed_json)
+    elsif and_expr?(parsed_json)
       parsed_json['and'].all? { |expr| eval_condition_recursively(user, expr) }
-    elsif is_or_expr(parsed_json)
+    elsif or_expr?(parsed_json)
       parsed_json['or'].any? { |expr| eval_condition_recursively(user, expr) }
-    elsif is_not_expr(parsed_json)
+    elsif not_expr?(parsed_json)
       !eval_condition_recursively(user, parsed_json['not'])
-    elsif is_boolean_expr(parsed_json)
+    elsif boolean_expr?(parsed_json)
       parsed_json
     else
       raise StandardError, 'Unexpected expression ' + parsed_json.to_s

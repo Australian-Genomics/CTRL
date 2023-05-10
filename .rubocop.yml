@@ -1,17 +1,20 @@
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
-  Max: 999
+  Enabled: false
 
 Metrics/LineLength:
   Max: 200
 
 Metrics/ClassLength:
-  Max: 160
+  Enabled: false
 
 Metrics/AbcSize:
-  Max: 999
-  Exclude:
-    - "db/migrate/*.rb"
-    - 'features/step_definitions/*.rb'
+  Enabled: false
 
 AllCops:
   Exclude:
@@ -45,6 +48,4 @@ Metrics/MethodLength:
       - "features/step_definitions/*.rb"
 
 Metrics/BlockLength:
-  Exclude:
-      - "**/*_spec.rb"
-      - "spec/factories/*"
+  Enabled: false

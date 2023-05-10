@@ -5,18 +5,23 @@ module ActiveAdmin::ParticipantIdFormatHelper
     rescue StandardError
     end
 
-    examples = regex.nil? ?
-      [] :
-      (1..10).map do |_x|
-        regex.random_example
-      rescue StandardError
-        nil
-      end.to_set.to_a.compact
+    examples =
+      if regex.nil?
+        []
+      else
+        (1..10).map do |_x|
+          regex.random_example
+        rescue StandardError
+          nil
+        end.to_set.to_a.compact
+      end
 
-    examples.empty? ?
-      'Must be a valid regular expression.' :
+    if examples.empty?
+      'Must be a valid regular expression.'
+    else
       'Must be a valid regular expression. (For example, the regular ' \
       "expression #{participant_id_format} will match each of the following: " \
       "#{examples.join(', ')}.)"
+    end
   end
 end
