@@ -1,3 +1,6 @@
+Lint/NestedMethodDefinition:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 

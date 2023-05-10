@@ -98,7 +98,7 @@ class ConditionalDuoLimitation < ApplicationRecord
 
     return [] if consent_question.nil?
 
-    values = consent_question.question_options.map(&:value).to_set.merge (
+    values = consent_question.question_options.map(&:value).to_set.merge(
       if consent_question.question_type == 'checkbox agreement'
         %w[yes no].to_set
       elsif consent_question.question_type == 'checkbox'

@@ -58,11 +58,11 @@ class ApiController < ApplicationController
 
     return nil if x.keys.to_set != y.keys.to_set
 
-    x.keys.map do |key|
-      merged = merge(x[key], y[key])
-
-      [key, merged] unless merged.nil?
+    merged_hashes = x.keys.map do |key|
+      [key, merge(x[key], y[key])]
     end.to_h
+
+    merged_hashes.values.any?(&:nil?) ? nil : merged_hashes
   end
 
   def merge_into_array(array, x)

@@ -13,7 +13,7 @@ FactoryBot.define do
       regex_str = '\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z'
       regex = Regexp.new(regex_str)
 
-      participant_id_format = ParticipantIdFormat.create(participant_id_format: regex_str)
+      ParticipantIdFormat.create(participant_id_format: regex_str)
       regex.random_example
     end
     suburb 'Bankstown.'

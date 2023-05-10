@@ -1,9 +1,11 @@
 module ActiveAdmin::ParticipantIdFormatHelper
   def hint(participant_id_format)
-    begin
-      regex = Regexp.new(participant_id_format)
-    rescue StandardError
-    end
+    regex =
+      begin
+        Regexp.new(participant_id_format)
+      rescue StandardError
+        nil
+      end
 
     examples =
       if regex.nil?

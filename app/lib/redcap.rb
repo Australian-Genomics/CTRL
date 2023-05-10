@@ -48,13 +48,17 @@ class Redcap
   # ]
   #
   def self.get_import_payload(data)
-    data.nil? ? nil : {
-      token: REDCAP_TOKEN,
-      content: 'record',
-      format: 'json',
-      type: 'flat',
-      data: data.to_json
-    }
+    if data.nil?
+      nil
+    else
+      {
+        token: REDCAP_TOKEN,
+        content: 'record',
+        format: 'json',
+        type: 'flat',
+        data: data.to_json
+      }
+    end
   end
 
   # Constructs a REDCap API payload which exports all records having the given
@@ -68,23 +72,25 @@ class Redcap
   # ]
   #
   def self.get_export_payload(data)
-    data.nil? ? nil : {
-      token: REDCAP_TOKEN,
-      content: 'record',
-      action: 'export',
-      format: 'json',
-      type: 'flat',
-      csvDelimiter: '',
-      'records[0]': data.record_id,
-      rawOrLabel: 'raw',
-      rawOrLabelHeaders: 'raw',
-      exportCheckboxLabel: 'false',
-      exportSurveyFields: 'false',
-      exportDataAccessGroups: 'false',
-      returnFormat: 'json'
-    }.merge(data.event_name.nil? ? {} : {
-              'events[0]': data.event_name
-            })
+    if data.nil?
+      nil
+    else
+      {
+        token: REDCAP_TOKEN,
+        content: 'record',
+        action: 'export',
+        format: 'json',
+        type: 'flat',
+        csvDelimiter: '',
+        'records[0]': data.record_id,
+        rawOrLabel: 'raw',
+        rawOrLabelHeaders: 'raw',
+        exportCheckboxLabel: 'false',
+        exportSurveyFields: 'false',
+        exportDataAccessGroups: 'false',
+        returnFormat: 'json'
+      }.merge(data.event_name.nil? ? {} : { 'events[0]': data.event_name })
+    end
   end
 
   def self.answer_string_to_code(answer_string)
@@ -144,7 +150,7 @@ class Redcap
   def self.user_to_import_redcap_response(record: nil, **_)
     user = record
 
-    return nil if UserColumnToRedcapFieldMapping.count == 0
+    return nil if UserColumnToRedcapFieldMapping.count.zero?
 
     participant_id = user.participant_id
 
@@ -156,17 +162,21 @@ class Redcap
       is_dropdown = User.defined_enums.key?(user_column)
 
       user_column_value =
-        is_dropdown ?
-          user.read_attribute_before_type_cast(user_column) :
+        if is_dropdown
+          user.read_attribute_before_type_cast(user_column)
+        else
           user.send(user_column)
+        end
 
       response_base =
-        redcap_event_name.blank? ?
-          { 'record_id' => participant_id } :
+        if redcap_event_name.blank?
+          { 'record_id' => participant_id }
+        else
           { 'record_id' => participant_id, 'redcap_event_name' => redcap_event_name }
+        end
 
       if user_column_value.nil?
-        {}
+        nil
       elsif is_dropdown
         # Rails stores menu entries in the database as zero-indexed integers.
         # REDCap stores menu entries as one-indexed integers. We must
@@ -179,12 +189,10 @@ class Redcap
       else
         response_base.merge(redcap_field => user_column_value)
       end
-    end.reject do |response_hash|
-      response_hash == {}
-    end
+    end.compact
   end
 
-  def self.construct_redcap_response(
+  def self.construct_redcap_response( # rubocop:disable Metrics/ParameterLists
     raw_redcap_code,
     raw_redcap_field,
     raw_redcap_event_name,
@@ -195,9 +203,12 @@ class Redcap
   )
     return if raw_redcap_field.blank?
 
-    coded_answer_or_raw_redcap_code = raw_redcap_code.nil? ?
-      answer_string_to_code(answer_string) :
-      raw_redcap_code
+    coded_answer_or_raw_redcap_code =
+      if raw_redcap_code.nil?
+        answer_string_to_code(answer_string)
+      else
+        raw_redcap_code
+      end
 
     if question_type == 'multiple checkboxes'
       redcap_field = "#{raw_redcap_field}___#{coded_answer_or_raw_redcap_code}"
@@ -211,9 +222,13 @@ class Redcap
       {
         'record_id' => participant_id,
         redcap_field => redcap_code
-      }.merge(raw_redcap_event_name.blank? ? {} : {
-                'redcap_event_name' => raw_redcap_event_name
-              })
+      }.merge(
+        if raw_redcap_event_name.blank?
+          {}
+        else
+          { 'redcap_event_name' => raw_redcap_event_name }
+        end
+      )
     ]
   end
 

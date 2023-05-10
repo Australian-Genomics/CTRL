@@ -45,9 +45,9 @@ class ConsentQuestion < ApplicationRecord
 
   alias_attribute :options, :question_options
 
-  scope :published_ordered, lambda do
+  scope :published_ordered, lambda {
     where(is_published: true).order(order: :asc)
-  end
+  }
 
   before_destroy :destroy_associated_conditional_duo_limitations
 

@@ -132,7 +132,6 @@ RSpec.describe Redcap do
     it 'returns a payload when passed data with a nil event name' do
       mock_redcap_token = 'redcap token'
       mock_participant_id = 'my-participant-id'
-      mock_event_name = 'my-event-name'
 
       mock_data = OpenStruct.new(
         record_id: mock_participant_id,

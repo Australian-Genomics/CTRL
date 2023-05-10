@@ -2,8 +2,8 @@ def create_visitor
   @participant_id_regexp_str = '\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z'
   @participant_id_regexp = Regexp.new(@participant_id_regexp_str)
 
-  @participant_id_random_example_1 = @participant_id_regexp.random_example
-  @participant_id_random_example_2 = @participant_id_regexp.random_example
+  @participant_id_random_example1 = @participant_id_regexp.random_example
+  @participant_id_random_example2 = @participant_id_regexp.random_example
 
   @visitor ||= { first_name: 'Sushant',
                  family_name: 'Ahuja',
@@ -11,7 +11,7 @@ def create_visitor
                  password: 'please2',
                  password_confirmation: 'please2',
                  dob: Date.today.at_beginning_of_month.last_month,
-                 participant_id: @participant_id_random_example_1 }
+                 participant_id: @participant_id_random_example1 }
 end
 
 def create_participant_id
@@ -73,7 +73,7 @@ def edit_user_details
   select 'VIC', from: 'user_state'
   fill_in 'user_post_code', with: '3000'
   select 'Phone', from: 'user_preferred_contact_method'
-  fill_in 'user_participant_id', with: @participant_id_random_example_2
+  fill_in 'user_participant_id', with: @participant_id_random_example2
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
@@ -253,7 +253,7 @@ Then('I should see the new name on the user edit page') do
   expect(page).to have_content('VIC')
   expect(page).to have_content('3000')
   expect(page).to have_content('Phone')
-  expect(page).to have_content(@participant_id_random_example_2)
+  expect(page).to have_content(@participant_id_random_example2)
   expect(page).to have_content('Luca')
 end
 
