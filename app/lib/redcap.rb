@@ -1,6 +1,16 @@
 require 'ostruct'
 
 class Redcap
+  def self.filter_repeat_instruments(redcap_details)
+    if redcap_details.nil?
+      nil
+    else
+      redcap_details.select do |record|
+        record["redcap_repeat_instrument"].blank?
+      end
+    end
+  end
+
   def self.call_api(payload, expected_count: nil, **_)
     unless REDCAP_CONNECTION_ENABLED
       Rails.logger.info("Connection disabled; not posting payload: #{payload}")
