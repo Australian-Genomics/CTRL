@@ -11,8 +11,7 @@ class AnswerQuestion < ApplicationService
   end
 
   def call
-
-    if @question_type == "multiple checkboxes"
+    if @question_type == 'multiple checkboxes'
       existing_answers = find_question_answers(question_id)
       multiple_answers = answer_params[:multiple_answers]
       existing_answers.destroy_all
@@ -28,7 +27,6 @@ class AnswerQuestion < ApplicationService
         save_answer(user_answer, question_id)
       end
     end
-
   end
 
   private
@@ -42,8 +40,8 @@ class AnswerQuestion < ApplicationService
 
   def find_question_answers(question_id)
     QuestionAnswer.where(
-        user: user,
-        consent_question_id: question_id
+      user: user,
+      consent_question_id: question_id
     )
   end
 

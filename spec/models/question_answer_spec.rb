@@ -17,7 +17,7 @@ RSpec.describe QuestionAnswer do
 
     it {
       is_expected.to validate_inclusion_of(:answer)
-        .in_array(['yes', 'no'])
+        .in_array(%w[yes no])
     }
 
     it {

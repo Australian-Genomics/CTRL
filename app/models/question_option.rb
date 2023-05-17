@@ -2,8 +2,8 @@ class QuestionOption < ApplicationRecord
   belongs_to :consent_question
 
   validates :value,
-    presence: true,
-    uniqueness: { scope: :consent_question_id }
+            presence: true,
+            uniqueness: { scope: :consent_question_id }
 
   validate :consent_question_type, on: :create
 
@@ -22,12 +22,10 @@ class QuestionOption < ApplicationRecord
   end
 
   def associated_question_still_valid?
-    if destroyed_by_association
-      return
-    end
+    return if destroyed_by_association
 
-    if consent_question.default_answer == value || consent_question.answers.any? { |a| a.answer == value }
-      throw "Deleting the question option '#{value}' would make the associated consent question invalid"
-    end
+    return unless consent_question.default_answer == value || consent_question.answers.any? { |a| a.answer == value }
+
+    throw "Deleting the question option '#{value}' would make the associated consent question invalid"
   end
 end

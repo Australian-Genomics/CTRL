@@ -12,9 +12,9 @@ RSpec.describe AnswerQuestion do
       end
 
       it 'saves the answer' do
-        expect {
+        expect do
           AnswerQuestion.call(answer_params, user)
-        }.to change(QuestionAnswer, :count).by(1)
+        end.to change(QuestionAnswer, :count).by(1)
 
         answer = QuestionAnswer.first
 
@@ -44,9 +44,9 @@ RSpec.describe AnswerQuestion do
 
         expect(answer.reload.answer).to eq('yes')
 
-        expect {
+        expect do
           AnswerQuestion.call(answer_params, user)
-        }.to change(QuestionAnswer, :count).by(0)
+        end.to change(QuestionAnswer, :count).by(0)
 
         expect(answer.reload.answer).to eq('no')
       end
@@ -61,10 +61,10 @@ RSpec.describe AnswerQuestion do
       end
 
       it 'raises an error' do
-        expect {
+        expect do
           AnswerQuestion.call(answer_params, user)
-        }.to change(QuestionAnswer, :count).by(0)
-        .and raise_error(ActiveRecord::RecordNotFound)
+        end.to change(QuestionAnswer, :count).by(0)
+                                             .and raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

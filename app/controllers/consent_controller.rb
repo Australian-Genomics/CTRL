@@ -1,6 +1,6 @@
 class ConsentController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_steps, only: [:index, :update]
+  before_action :find_steps, only: %i[index update]
 
   def edit; end
 

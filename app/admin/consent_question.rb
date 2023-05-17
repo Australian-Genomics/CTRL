@@ -9,14 +9,14 @@ ActiveAdmin.register ConsentQuestion do
     column :is_published
     column :conditional_duo_limitations
     column :updated_at
-    toggle_bool_column "Publish Status", :is_published, success_message: 'Publish Status Updated Successfully!'
+    toggle_bool_column 'Publish Status', :is_published, success_message: 'Publish Status Updated Successfully!'
     actions
   end
   index do
     tag_column :is_published, interactive: true
   end
 
-  show do |f|
+  show do |_f|
     attributes_table do
       row :order
       row :consent_group

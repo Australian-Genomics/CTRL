@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe QuestionOption do
-  let(:question_option) {
+  let(:question_option) do
     create(:question_option, :with_consent_question)
-  }
+  end
 
   subject { question_option }
 
@@ -57,60 +57,60 @@ RSpec.describe QuestionOption do
 
     describe 'associated_question_still_valid?' do
       context 'multiple choice' do
-        let(:consent_question) {
+        let(:consent_question) do
           create(:consent_question, :multiple_choice, default_answer: 'yes')
-        }
+        end
 
         it 'raises an exception when deleting an option used as a default' do
-          answers = consent_question.answers.map { |a| a.answer }
-          expect {
+          answers = consent_question.answers.map(&:answer)
+          expect do
             consent_question
               .question_options
-              .select { |qo| !answers.include?(qo.value) }
+              .reject { |qo| answers.include?(qo.value) }
               .select { |qo| qo.value == consent_question.default_answer }
-              .each { |qo| qo.destroy }
-          }.to raise_error(UncaughtThrowError)
+              .each(&:destroy)
+          end.to raise_error(UncaughtThrowError)
         end
 
         it 'raises an exception when deleting an option used as an answer' do
           consent_question.answers.build(answer: 'no')
-          answers = consent_question.answers.map { |a| a.answer }
-          expect {
+          answers = consent_question.answers.map(&:answer)
+          expect do
             consent_question
               .question_options
               .select { |qo| answers.include?(qo.value) }
-              .select { |qo| qo.value != consent_question.default_answer }
-              .each { |qo| qo.destroy }
-          }.to raise_error(UncaughtThrowError)
+              .reject { |qo| qo.value == consent_question.default_answer }
+              .each(&:destroy)
+          end.to raise_error(UncaughtThrowError)
         end
       end
 
       context 'multiple checkboxes' do
-        let(:consent_question) {
+        let(:consent_question) do
           create(:consent_question, :multiple_choice, default_answer: 'yes')
-        }
+        end
 
         it 'raises an exception when deleting an option used as a default' do
-          answers = consent_question.answers.map { |a| a.answer }
-          expect {
+          answers = consent_question.answers.map(&:answer)
+          expect do
             consent_question
               .question_options
-              .select { |qo| !answers.include?(qo.value) }
+              .reject { |qo| answers.include?(qo.value) }
               .select { |qo| qo.value == consent_question.default_answer }
-              .each { |qo| qo.destroy }
-          }.to raise_error(UncaughtThrowError)
+              .each(&:destroy)
+          end.to raise_error(UncaughtThrowError)
         end
 
         it 'raises an exception when deleting an option used as an answer' do
           consent_question.answers.build(answer: 'no')
-          answers = consent_question.answers.map { |a| a.answer }
-          expect {
+          answers = consent_question.answers.map(&:answer)
+          expect do
             consent_question
               .question_options
               .select { |qo| answers.include?(qo.value) }
-              .select { |qo| qo.value != consent_question.default_answer }
-              .each { |qo| qo.destroy }
-          }.to raise_error(UncaughtThrowError)
+              .reject { |qo| qo.value == consent_question.default_answer }
+              .each(&:destroy)
+          end.to raise_error(UncaughtThrowError)
         end
       end
     end

@@ -14,22 +14,18 @@ ActiveAdmin.register User do
   end
 
   csv do
-    column('record_id', humanize_name: false) do |user|
-      user.id
-    end
+    column('record_id', humanize_name: false, &:id)
 
     ConsentQuestion.all.each do |consent_question|
       consent_question_id = consent_question.id
       redcap_field = consent_question.redcap_field
 
-      if redcap_field.blank?
-        next
-      end
+      next if redcap_field.blank?
 
       column(redcap_field, humanize_name: false) do |user|
         question_answer = QuestionAnswer.find_by(
           user_id: user.id,
-          consent_question_id: consent_question_id,
+          consent_question_id: consent_question_id
         )
         if question_answer.nil?
           ''

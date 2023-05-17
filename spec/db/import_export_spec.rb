@@ -7,8 +7,8 @@ RSpec.describe 'import/export round-trip' do
     empty_unparsed_yaml = file_fixture('empty.yml').read
     full_unparsed_yaml = file_fixture('full.yml').read
 
-    empty_parsed_yaml = YAML::load(empty_unparsed_yaml)
-    full_parsed_yaml = YAML::load(full_unparsed_yaml)
+    empty_parsed_yaml = YAML.safe_load(empty_unparsed_yaml)
+    full_parsed_yaml = YAML.safe_load(full_unparsed_yaml)
 
     original_yaml = fetch_records
 

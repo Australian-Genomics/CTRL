@@ -9,20 +9,20 @@ RSpec.describe Redcap do
       allow(HTTParty).to receive(:post)
       stub_const('REDCAP_CONNECTION_ENABLED', false)
 
-      payload = {'this is' => 'a payload'}
+      payload = { 'this is' => 'a payload' }
       Redcap.call_api(payload)
       expect(HTTParty).not_to receive(:post)
     end
 
     it 'posts the payload when REDCAP_CONNECTION_ENABLED == true' do
-      parsed_response = {'count' => 1}
+      parsed_response = { 'count' => 1 }
       httparty = double('HTTParty', parsed_response: parsed_response)
       allow(httparty).to receive(:success?).and_return(true)
       allow(HTTParty).to receive(:post).and_return(httparty)
       stub_const('REDCAP_API_URL', mock_redcap_url)
       stub_const('REDCAP_CONNECTION_ENABLED', true)
 
-      payload = {'this is' => 'a payload'}
+      payload = { 'this is' => 'a payload' }
       Redcap.call_api(payload)
       expect(HTTParty).to have_received(:post)
         .with(mock_redcap_url, body: payload)
@@ -34,11 +34,11 @@ RSpec.describe Redcap do
       stub_const('REDCAP_API_URL', mock_redcap_url)
       stub_const('REDCAP_CONNECTION_ENABLED', true)
 
-      payload = {'this is' => 'a payload'}
+      payload = { 'this is' => 'a payload' }
 
-      expect {
+      expect do
         Redcap.call_api(payload)
-      }.to raise_error(HTTParty::Error)
+      end.to raise_error(HTTParty::Error)
 
       expect(HTTParty).to have_received(:post)
         .with(mock_redcap_url, body: payload)
@@ -47,29 +47,29 @@ RSpec.describe Redcap do
     end
 
     it 'raises an exception when the count is unexpected' do
-      parsed_response = {'count' => 42}
+      parsed_response = { 'count' => 42 }
       httparty = double('HTTParty', parsed_response: parsed_response)
       allow(httparty).to receive(:success?).and_return(true)
       allow(HTTParty).to receive(:post).and_return(httparty)
       stub_const('REDCAP_API_URL', mock_redcap_url)
       stub_const('REDCAP_CONNECTION_ENABLED', true)
 
-      payload = {'this is' => 'a payload'}
+      payload = { 'this is' => 'a payload' }
 
-      expect {
+      expect do
         Redcap.call_api(payload, expected_count: 43)
-      }.to raise_error(StandardError)
+      end.to raise_error(StandardError)
     end
 
     it 'returns the parsed response when the count is expected' do
-      parsed_response = {'count' => 42}
+      parsed_response = { 'count' => 42 }
       httparty = double('HTTParty', parsed_response: parsed_response)
       allow(httparty).to receive(:success?).and_return(true)
       allow(HTTParty).to receive(:post).and_return(httparty)
       stub_const('REDCAP_API_URL', mock_redcap_url)
       stub_const('REDCAP_CONNECTION_ENABLED', true)
 
-      payload = {'this is' => 'a payload'}
+      payload = { 'this is' => 'a payload' }
 
       expect(Redcap.call_api(payload, expected_count: 42)).to eq(parsed_response)
     end
@@ -86,7 +86,7 @@ RSpec.describe Redcap do
         content: 'record',
         format: 'json',
         type: 'flat',
-        data: "\"my data\"",
+        data: '"my data"'
       }
 
       expect(Redcap.get_import_payload(mock_data)).to eq(expected_payload)
@@ -103,10 +103,10 @@ RSpec.describe Redcap do
       mock_participant_id = 'my-participant-id'
       mock_event_name = 'my-event-name'
 
-      mock_data = OpenStruct.new({
-        :record_id => mock_participant_id,
-        :event_name => mock_event_name,
-      })
+      mock_data = OpenStruct.new(
+        record_id: mock_participant_id,
+        event_name: mock_event_name
+      )
 
       stub_const('REDCAP_TOKEN', mock_redcap_token)
       expected_payload = {
@@ -132,12 +132,11 @@ RSpec.describe Redcap do
     it 'returns a payload when passed data with a nil event name' do
       mock_redcap_token = 'redcap token'
       mock_participant_id = 'my-participant-id'
-      mock_event_name = 'my-event-name'
 
-      mock_data = OpenStruct.new({
-        :record_id => mock_participant_id,
-        :event_name => nil,
-      })
+      mock_data = OpenStruct.new(
+        record_id: mock_participant_id,
+        event_name: nil
+      )
 
       stub_const('REDCAP_TOKEN', mock_redcap_token)
       expected_payload = {
@@ -177,12 +176,12 @@ RSpec.describe Redcap do
   end
 
   describe '#question_answer_to_redcap_response' do
-    it "passes the right arguments to construct_redcap_response when when the redcap_event_name is blank" do
+    it 'passes the right arguments to construct_redcap_response when when the redcap_event_name is blank' do
       question_answer = create(
         :question_answer,
-        traits: [
-          :multiple_checkboxes,
-          :with_redcap_field,
+        traits: %i[
+          multiple_checkboxes
+          with_redcap_field
         ]
       )
 
@@ -192,23 +191,24 @@ RSpec.describe Redcap do
         destroy: false
       )
       expect(Redcap).to have_received(:construct_redcap_response).with(
-        "11",
-        "redcap_field_name",
+        '11',
+        'redcap_field_name',
         nil,
-        "yes",
-        "multiple checkboxes",
+        'yes',
+        'multiple checkboxes',
         question_answer.user.participant_id,
-        false)
+        false
+      )
       expect(actual).to eq(:response)
     end
 
-    it "passes the right arguments to construct_redcap_response when when the redcap_event_name is filled" do
+    it 'passes the right arguments to construct_redcap_response when when the redcap_event_name is filled' do
       question_answer = create(
         :question_answer,
-        traits: [
-          :multiple_checkboxes,
-          :with_redcap_field,
-          :with_redcap_event_name,
+        traits: %i[
+          multiple_checkboxes
+          with_redcap_field
+          with_redcap_event_name
         ]
       )
 
@@ -218,13 +218,14 @@ RSpec.describe Redcap do
         destroy: false
       )
       expect(Redcap).to have_received(:construct_redcap_response).with(
-        "11",
-        "redcap_field_name",
-        "redcap_event_name",
-        "yes",
-        "multiple checkboxes",
+        '11',
+        'redcap_field_name',
+        'redcap_event_name',
+        'yes',
+        'multiple checkboxes',
         question_answer.user.participant_id,
-        false)
+        false
+      )
       expect(actual).to eq(:response)
     end
   end
@@ -255,8 +256,8 @@ RSpec.describe Redcap do
         'my_user_id',
         false
       )
-      expect(actual).to eq([{'record_id' => 'my_user_id',
-                             'my_raw_redcap_field' => 'my_answer_string'}])
+      expect(actual).to eq([{ 'record_id' => 'my_user_id',
+                              'my_raw_redcap_field' => 'my_answer_string' }])
     end
 
     it 'produces the correct response for question_type == "multiple checkboxes"' do
@@ -279,11 +280,13 @@ RSpec.describe Redcap do
         false
       )
       expect(actual_do_destroy).to eq(
-        [{'record_id' => 'my_user_id',
-          'my_raw_redcap_field___my_raw_redcap_code' => '0'}])
+        [{ 'record_id' => 'my_user_id',
+           'my_raw_redcap_field___my_raw_redcap_code' => '0' }]
+      )
       expect(actual_do_not_destroy).to eq(
-        [{'record_id' => 'my_user_id',
-          'my_raw_redcap_field___my_raw_redcap_code' => '1'}])
+        [{ 'record_id' => 'my_user_id',
+           'my_raw_redcap_field___my_raw_redcap_code' => '1' }]
+      )
     end
 
     it 'produces the correct response for question_type != "multiple checkboxes"' do
@@ -306,11 +309,13 @@ RSpec.describe Redcap do
         false
       )
       expect(actual_do_destroy).to eq(
-        [{'record_id' => 'my_user_id',
-          'my_raw_redcap_field' => 'my_raw_redcap_code'}])
+        [{ 'record_id' => 'my_user_id',
+           'my_raw_redcap_field' => 'my_raw_redcap_code' }]
+      )
       expect(actual_do_not_destroy).to eq(
-        [{'record_id' => 'my_user_id',
-          'my_raw_redcap_field' => 'my_raw_redcap_code'}])
+        [{ 'record_id' => 'my_user_id',
+           'my_raw_redcap_field' => 'my_raw_redcap_code' }]
+      )
     end
 
     it 'uses adds the redcap_event_name when one is provided' do
@@ -325,20 +330,19 @@ RSpec.describe Redcap do
         'my_user_id',
         false
       )
-      expect(actual).to eq([{'record_id' => 'my_user_id',
-                             'my_raw_redcap_field' => 'my_answer_string',
-                             'redcap_event_name' => 'my_raw_redcap_event_name'}])
+      expect(actual).to eq([{ 'record_id' => 'my_user_id',
+                              'my_raw_redcap_field' => 'my_answer_string',
+                              'redcap_event_name' => 'my_raw_redcap_event_name' }])
     end
   end
-
 
   describe '#user_to_export_redcap_response' do
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count == 0' do
       user = create(:user)
-      expected_response = OpenStruct.new({
-        :record_id => user.participant_id,
-        :event_name => nil,
-      })
+      expected_response = OpenStruct.new(
+        record_id: user.participant_id,
+        event_name: nil
+      )
       expect(Redcap.user_to_export_redcap_response(record: user)).to eq(expected_response)
     end
 
@@ -352,10 +356,10 @@ RSpec.describe Redcap do
         redcap_event_name: 'proband_informatio_arm_1'
       )
 
-      expected_response = OpenStruct.new({
-        :record_id => user.participant_id,
-        :event_name => 'proband_informatio_arm_1',
-      })
+      expected_response = OpenStruct.new(
+        record_id: user.participant_id,
+        event_name: 'proband_informatio_arm_1'
+      )
 
       expect(Redcap.user_to_export_redcap_response(record: user)).to eq(expected_response)
     end
@@ -370,10 +374,10 @@ RSpec.describe Redcap do
         redcap_event_name: ''
       )
 
-      expected_response = OpenStruct.new({
-        :record_id => user.participant_id,
-        :event_name => nil,
-      })
+      expected_response = OpenStruct.new(
+        record_id: user.participant_id,
+        event_name: nil
+      )
 
       expect(Redcap.user_to_export_redcap_response(record: user)).to eq(expected_response)
     end
@@ -421,17 +425,17 @@ RSpec.describe Redcap do
 
       actual = Redcap.user_to_import_redcap_response(record: user)
       expected = [
-        {"record_id"=>user.participant_id,
-         "redcap_event_name"=>"proband_informatio_arm_1",
-         "ctrl_dob"=>user.dob},
-        {"record_id"=>user.participant_id,
-         "redcap_event_name"=>"proband_informatio_arm_1",
-         "ctrl_email"=>user.email},
-        {"record_id"=>user.participant_id,
-         "redcap_event_name"=>"proband_informatio_arm_1",
-         "ctrl_is_parent"=>"1"},
-        {"record_id"=>user.participant_id,
-         "ctrl_family_name"=>user.family_name},
+        { 'record_id' => user.participant_id,
+          'redcap_event_name' => 'proband_informatio_arm_1',
+          'ctrl_dob' => user.dob },
+        { 'record_id' => user.participant_id,
+          'redcap_event_name' => 'proband_informatio_arm_1',
+          'ctrl_email' => user.email },
+        { 'record_id' => user.participant_id,
+          'redcap_event_name' => 'proband_informatio_arm_1',
+          'ctrl_is_parent' => '1' },
+        { 'record_id' => user.participant_id,
+          'ctrl_family_name' => user.family_name }
       ]
       expect(actual).to eq(expected)
     end
@@ -456,5 +460,4 @@ RSpec.describe Redcap do
       expect(Redcap).not_to have_received(:call_api)
     end
   end
-
 end

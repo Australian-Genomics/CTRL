@@ -2,8 +2,8 @@ class ConsentStep < ApplicationRecord
   has_many :consent_groups, dependent: :destroy
 
   has_many :users_reviewed,
-    class_name:  'StepReview',
-    dependent: :destroy
+           class_name:  'StepReview',
+           dependent: :destroy
 
   # Suppose to be a has_one association
   # however, active admin's form builder is
@@ -24,7 +24,7 @@ class ConsentStep < ApplicationRecord
   end
 
   def parse_tour_videos
-    video_links = tour_videos.split(",").map{|url| url.strip}
-    video_links.map{|link| URI.parse(link)}
+    video_links = tour_videos.split(',').map(&:strip)
+    video_links.map { |link| URI.parse(link) }
   end
 end

@@ -4,9 +4,7 @@ class ApiController < ApplicationController
 
   def duo_limitations
     participant_ids = parse_duo_limitations_payload(request.raw_post)
-    if participant_ids.nil?
-      return render json: {'error': 'Invalid payload'}, status: :unprocessable_entity
-    end
+    return render json: { 'error': 'Invalid payload' }, status: :unprocessable_entity if participant_ids.nil?
 
     users = User.where(participant_id: participant_ids)
 
@@ -18,7 +16,7 @@ class ApiController < ApplicationController
   end
 
   def not_found
-    render json: {'error': 'Not found'}, status: :not_found
+    render json: { 'error': 'Not found' }, status: :not_found
   end
 
   private
@@ -52,26 +50,19 @@ class ApiController < ApplicationController
   #   }
   #
   def merge(x, y)
-    if x.class == Array and y.class == Array
-      return merge_arrays(x, y)
-    end
+    return merge_arrays(x, y) if (x.class == Array) && (y.class == Array)
 
-    if x.class != Hash or y.class != Hash
+    if (x.class != Hash) || (y.class != Hash)
       return x == y ? x : nil
     end
 
-    if x.keys.to_set != y.keys.to_set
-      return nil
-    end
+    return nil if x.keys.to_set != y.keys.to_set
 
-    x.keys.map do |key|
-      merged = merge(x[key], y[key])
-      if merged.nil?
-        return
-      else
-        [key, merged]
-      end
+    merged_hashes = x.keys.map do |key|
+      [key, merge(x[key], y[key])]
     end.to_h
+
+    merged_hashes.values.any?(&:nil?) ? nil : merged_hashes
   end
 
   def merge_into_array(array, x)
@@ -95,13 +86,11 @@ class ApiController < ApplicationController
   def parse_duo_limitations_payload(payload)
     parsed = begin
       JSON.parse(payload)
-    rescue => e
+    rescue StandardError
       return nil
     end
 
-    if parsed.class == Array && parsed.all? {|x| x.class == String}
-      return parsed
-    end
+    return parsed if parsed.class == Array && parsed.all? { |x| x.class == String }
   end
 
   def duo_limitations_for_user(user)
@@ -120,7 +109,7 @@ class ApiController < ApplicationController
 
     token_digest = Digest::SHA256.hexdigest(authorization_token)
 
-    if authorization_scheme.downcase() != 'bearer'
+    if !authorization_scheme.casecmp('bearer').zero?
       authorization_failed
     elsif ApiUser.find_by(token_digest: token_digest).nil?
       authorization_failed
@@ -128,6 +117,6 @@ class ApiController < ApplicationController
   end
 
   def authorization_failed
-    render json: {'error' => 'Unauthorized'}, :status => :unauthorized
+    render json: { 'error' => 'Unauthorized' }, status: :unauthorized
   end
 end

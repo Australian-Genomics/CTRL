@@ -45,9 +45,7 @@ When(/^I fill in "(.*?)" with "(.*?)"$/) do |field, value|
 end
 
 When('I click all the checkboxes') do
-  all('.controls__checkbox').each do |element|
-    element.click
-  end
+  all('.controls__checkbox').each(&:click)
 end
 
 When('I click the last checkbox') do
@@ -57,4 +55,3 @@ end
 When(/I click the link '([^']+)'/) do |link_text|
   click_link(link_text)
 end
-

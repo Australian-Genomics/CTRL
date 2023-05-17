@@ -4,20 +4,20 @@ class ConsentQuestion < ApplicationRecord
     'multiple choice',
     'checkbox agreement',
     'multiple checkboxes'
-  ]
+  ].freeze
 
-  POSITIONS = [
-    'bottom',
-    'right'
-  ]
+  POSITIONS = %w[
+    bottom
+    right
+  ].freeze
 
   has_and_belongs_to_many :conditional_duo_limitations
 
   belongs_to :consent_group
 
   has_many :answers,
-    class_name:  'QuestionAnswer',
-    dependent:   :destroy
+           class_name:  'QuestionAnswer',
+           dependent:   :destroy
 
   has_many :question_options, dependent: :destroy
 
@@ -26,26 +26,26 @@ class ConsentQuestion < ApplicationRecord
   validate :answers_are_valid
 
   validates :order,
-    numericality: { greater_than: 0 },
-    uniqueness: { scope: :consent_group_id }, on: :create
+            numericality: { greater_than: 0 },
+            uniqueness: { scope: :consent_group_id }, on: :create
 
   validates :answer_choices_position,
-    presence: true,
-    inclusion: {
-      in: POSITIONS
-    }
+            presence: true,
+            inclusion: {
+              in: POSITIONS
+            }
 
   validates :question_type,
-    presence: true,
-    inclusion: {
-      in: QUESTION_TYPES
-    }
+            presence: true,
+            inclusion: {
+              in: QUESTION_TYPES
+            }
 
   accepts_nested_attributes_for :question_options, allow_destroy: true
 
   alias_attribute :options, :question_options
 
-  scope :published_ordered, -> {
+  scope :published_ordered, lambda {
     where(is_published: true).order(order: :asc)
   }
 
@@ -54,13 +54,13 @@ class ConsentQuestion < ApplicationRecord
   def valid_answers
     case question_type
     when 'checkbox'
-      ['yes', 'no']
+      %w[yes no]
     when 'multiple choice'
-      question_options.map { |question_option| question_option.value }
+      question_options.map(&:value)
     when 'checkbox agreement'
-      ['yes', 'no']
+      %w[yes no]
     when 'multiple checkboxes'
-      question_options.map { |question_option| question_option.value }
+      question_options.map(&:value)
     end
   end
 
@@ -79,26 +79,23 @@ class ConsentQuestion < ApplicationRecord
 
   def answers_are_valid
     valid_answers_ = valid_answers
-    if valid_answers.nil?
-      return true
-    end
+    return true if valid_answers.nil?
 
-    answer_strings = answers.map { |a| a.answer }.to_set.to_a
-    invalid_answer_strings = answer_strings.select { |s| !valid_answers_.include?(s) }
+    answer_strings = answers.map(&:answer).to_set.to_a
+    invalid_answer_strings = answer_strings.reject { |s| valid_answers_.include?(s) }
 
     if invalid_answer_strings.empty?
       true
     else
       errors.add(
         :answers,
-        "This question's options and answers are incompatible with each other. The answers include: #{invalid_answer_strings.join(', ')}. The question options are: #{valid_answers.join(', ')}.")
+        "This question's options and answers are incompatible with each other. The answers include: #{invalid_answer_strings.join(', ')}. The question options are: #{valid_answers.join(', ')}."
+      )
       false
     end
   end
 
   def destroy_associated_conditional_duo_limitations
-    conditional_duo_limitations.each do |conditional_duo_limitation|
-      conditional_duo_limitation.destroy!
-    end
+    conditional_duo_limitations.each(&:destroy!)
   end
 end

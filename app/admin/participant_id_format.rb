@@ -1,7 +1,7 @@
 ActiveAdmin.register ParticipantIdFormat do
   permit_params :participant_id_format
 
-  RESTRICTED_ACTIONS = ["new"]
+  RESTRICTED_ACTIONS = ['new'].freeze
 
   controller do
     def action_methods

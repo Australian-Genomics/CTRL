@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe ConditionalDuoLimitation do
   it 'is fails schema validation for unknown DUO codes' do
-    json = %Q{
+    json = %(
       {
         "duo_limitation": {
           "code": "DUO:doesnt-exist",
@@ -10,7 +10,7 @@ RSpec.describe ConditionalDuoLimitation do
         },
         "condition": true
       }
-    }.strip
+    ).strip
 
     c = ConditionalDuoLimitation.new(json: json)
     c.save
@@ -19,7 +19,7 @@ RSpec.describe ConditionalDuoLimitation do
   end
 
   it 'it fails semantics validation for non-existent consent question IDs in equals exprs' do
-    json = %Q{
+    json = %(
       {
         "duo_limitation": {
           "code": "DUO:0000004",
@@ -30,18 +30,18 @@ RSpec.describe ConditionalDuoLimitation do
           "answer": "yes"
         }
       }
-    }.strip
+    ).strip
 
     c = ConditionalDuoLimitation.new(json: json)
     c.save
 
     expect(c.errors.full_messages).to eq([
-      'Json No consent question exists having the consent_question_id -1'
-    ])
+                                           'Json No consent question exists having the consent_question_id -1'
+                                         ])
   end
 
   it 'it fails semantics validation for non-existent consent question IDs in exists exprs' do
-    json = %Q{
+    json = %(
       {
         "duo_limitation": {
           "code": "DUO:0000004",
@@ -52,20 +52,20 @@ RSpec.describe ConditionalDuoLimitation do
           "answer_exists": true
         }
       }
-    }.strip
+    ).strip
 
     c = ConditionalDuoLimitation.new(json: json)
     c.save
 
     expect(c.errors.full_messages).to eq([
-      'Json No consent question exists having the consent_question_id -1'
-    ])
+                                           'Json No consent question exists having the consent_question_id -1'
+                                         ])
   end
 
   it 'is fails semantics validation for non-existent answers' do
     consent_question = create(:consent_question)
 
-    json = %Q{
+    json = %(
       {
         "duo_limitation": {
           "code": "DUO:0000004",
@@ -76,15 +76,15 @@ RSpec.describe ConditionalDuoLimitation do
           "answer": "'doesn't exist'"
         }
       }
-    }.strip
+    ).strip
 
     c = ConditionalDuoLimitation.new(json: json)
     c.save
 
     expect(c.errors.full_messages).to eq([
-      "Json The question whose consent_question_id is #{consent_question.id} " +
-      "can only have the values (yes, no)"
-    ])
+                                           "Json The question whose consent_question_id is #{consent_question.id} " \
+                                           'can only have the values (yes, no)'
+                                         ])
   end
 
   it 'saves relationships to consent questions mentioned in the JSON document' do
@@ -93,7 +93,7 @@ RSpec.describe ConditionalDuoLimitation do
 
     unrelated_consent_question = create(:consent_question)
 
-    json = %Q{
+    json = %(
       {
         "duo_limitation": {
           "code": "DUO:0000004",
@@ -112,18 +112,16 @@ RSpec.describe ConditionalDuoLimitation do
           ]
         }
       }
-    }.strip
+    ).strip
 
     c = ConditionalDuoLimitation.new(json: json)
     c.save
 
-    related_consent_question_ids = c.consent_questions.map do |consent_question|
-      consent_question.id
-    end.to_set
+    related_consent_question_ids = c.consent_questions.map(&:id).to_set
 
     expected_consent_question_ids = [
       related_consent_question.id,
-      other_related_consent_question.id,
+      other_related_consent_question.id
     ].to_set
 
     expect(related_consent_question_ids).to eq(expected_consent_question_ids)

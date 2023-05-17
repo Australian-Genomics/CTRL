@@ -1,11 +1,11 @@
 def assert_glossary_page(page)
-  expect(page).to have_content("Glossary")
+  expect(page).to have_content('Glossary')
 
-  expect(page).to have_content("DNA")
-  expect(page).to have_content("noun")
+  expect(page).to have_content('DNA')
+  expect(page).to have_content('noun')
 
-  expect(page).to have_content("Genetic")
-  expect(page).to have_content("adjective")
+  expect(page).to have_content('Genetic')
+  expect(page).to have_content('adjective')
 end
 
 Then('I should see the glossary page') do

@@ -1,24 +1,29 @@
 module ActiveAdmin::ParticipantIdFormatHelper
   def hint(participant_id_format)
-    begin
-      regex = Regexp.new(participant_id_format)
-    rescue
-    end
+    regex =
+      begin
+        Regexp.new(participant_id_format)
+      rescue StandardError
+        nil
+      end
 
-    examples = regex.nil? ?
-      [] :
-      (1..10).map { |x|
-        begin
+    examples =
+      if regex.nil?
+        []
+      else
+        (1..10).map do |_x|
           regex.random_example
-        rescue
+        rescue StandardError
           nil
-        end
-      }.to_set.to_a.compact
+        end.to_set.to_a.compact
+      end
 
-    examples.empty? ?
-      'Must be a valid regular expression.' :
-      "Must be a valid regular expression. (For example, the regular " \
+    if examples.empty?
+      'Must be a valid regular expression.'
+    else
+      'Must be a valid regular expression. (For example, the regular ' \
       "expression #{participant_id_format} will match each of the following: " \
       "#{examples.join(', ')}.)"
+    end
   end
 end
