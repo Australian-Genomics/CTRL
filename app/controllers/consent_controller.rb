@@ -9,7 +9,7 @@ class ConsentController < ApplicationController
   end
 
   def update
-    mark_step_as_reviewed(params[:consent_step_id])
+    mark_step_as_reviewed(params[:consent_step_id]).touch
     params[:answers].each { |answer| answer_question(answer) }
     render 'index.json.jbuilder'
   end
