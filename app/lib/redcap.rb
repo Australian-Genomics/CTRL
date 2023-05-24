@@ -6,7 +6,7 @@ class Redcap
       nil
     else
       redcap_details.select do |record|
-        record["redcap_repeat_instrument"].blank?
+        record['redcap_repeat_instrument'].blank?
       end
     end
   end
