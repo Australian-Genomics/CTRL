@@ -3,7 +3,7 @@ class SurveyConfig < ApplicationRecord
   scope :get_config, ->(key) { where('key = ? ', key) }
 
   def set_key
-    update_attributes(key: snakecase(name))
+    update(key: snakecase(name))
   end
 
   private

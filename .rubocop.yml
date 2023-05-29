@@ -21,6 +21,7 @@ Metrics/AbcSize:
 
 AllCops:
   Exclude:
+    - 'db/migrate/*' # auto-generated
     - 'db/schema.rb'
     - 'db/seeds.rb'
     - 'lib/tasks/*.rake' # auto-generated

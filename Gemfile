@@ -23,7 +23,7 @@ gem 'paper_trail'
 gem 'pg', '0.19.0'
 gem 'premailer-rails'
 gem 'puma', '~> 3.11'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0'
 gem 'rollbar'
 gem 'sass-rails', '~> 5.0'
 gem 'simple_form'
@@ -45,7 +45,7 @@ group :development, :test do
   gem 'faker'
   gem 'pry'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.7'
+  gem 'rspec-rails', '~> 5.1'
 end
 
 group :development do

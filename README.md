@@ -76,22 +76,10 @@ When deploying a production instance, you will also want to include a
 docker-compose --env-file=.env.dev run web yarn install
 ```
 
-#### Create the database
-
-```shell
-docker-compose --env-file=.env.dev run web bundle exec rails db:create
-```
-
-#### Migrate the database
-
-```shell
-docker-compose --env-file=.env.dev run web bundle exec rails db:migrate
-```
-
 #### Seed the database
 
 ```shell
-docker-compose --env-file=.env.dev run web bundle exec rails db:seed
+docker-compose --env-file=.env.dev run web bundle exec rails db:reset
 ```
 
 After seeding, an Admin user is created with the following credentials:
@@ -147,7 +135,7 @@ yarn install
 ##### Seed the database
 
 ```shell
-rails db:seed
+rails db:reset
 ```
 
 ##### Start the server! `rails s`
