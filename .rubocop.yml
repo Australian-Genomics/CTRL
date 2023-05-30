@@ -21,14 +21,15 @@ Metrics/AbcSize:
 
 AllCops:
   Exclude:
+    - 'Gemfile'
+    - 'bin/**/*'
+    - 'config.ru' # auto-generated
+    - 'config/**/*'
     - 'db/migrate/*' # auto-generated
     - 'db/schema.rb'
     - 'db/seeds.rb'
-    - 'lib/tasks/*.rake' # auto-generated
     - 'lib/tasks'
-    - 'config/**/*'
-    - 'bin/**/*'
-    - 'Gemfile'
+    - 'lib/tasks/*.rake' # auto-generated
     - 'vendor/**/*'
 
 Style/SafeNavigation:

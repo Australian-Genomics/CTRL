@@ -14,6 +14,8 @@ jobs:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
       - run: docker-compose --env-file=.env.test run web yarn install
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:reset
       - run: docker-compose --env-file=.env.test run web bundle exec rspec
   run-cucumber:
@@ -28,6 +30,8 @@ jobs:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
       - run: docker-compose --env-file=.env.test run web yarn install
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:reset
       - run: |
           docker-compose --env-file=.env.test up -d

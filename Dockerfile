@@ -19,7 +19,7 @@ RUN : \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
   && apt-get update \
-  && apt-get install -y nodejs yarn rbenv apt-transport-https git libpq-dev \
+  && apt-get install -y nodejs yarn rbenv git libpq-dev \
   && rm -rf /var/lib/apt/lists/* \
   && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /etc/profile \
   && echo 'eval "$(rbenv init -)"' >> /etc/profile \
