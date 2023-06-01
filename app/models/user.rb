@@ -6,12 +6,12 @@ class User < ApplicationRecord
   include NextOfKinRegistrationValidator
 
   has_many :reviewed_steps,
-           class_name:  'StepReview',
-           dependent:   :destroy
+           class_name: 'StepReview',
+           dependent: :destroy
 
   has_many :answers,
-           class_name:  'QuestionAnswer',
-           dependent:   :destroy
+           class_name: 'QuestionAnswer',
+           dependent: :destroy
 
   has_many :steps, dependent: :destroy, class_name: 'Step'
 
@@ -113,7 +113,7 @@ class User < ApplicationRecord
         true
       end
     else
-      raise Exception, 'REDCap returned more than one record for the given participant ID'
+      raise StandardError, 'REDCap returned more than one record for the given participant ID'
     end
   end
 

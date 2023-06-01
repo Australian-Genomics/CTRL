@@ -12,6 +12,7 @@ class Question < ApplicationRecord
   def radio_button_checked?(default_value)
     if answer
       return answer if answer.eql?('not_sure')
+
       answer.eql?('true')
     else
       default_value

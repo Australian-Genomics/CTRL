@@ -123,25 +123,25 @@ class ConditionalDuoLimitation < ApplicationRecord
   end
 
   def equals_expr?(parsed_json)
-    parsed_json.class == Hash &&
+    parsed_json.instance_of?(Hash) &&
       parsed_json.keys.to_set == %w[consent_question_id answer].to_set
   end
 
   def exists_expr?(parsed_json)
-    parsed_json.class == Hash &&
+    parsed_json.instance_of?(Hash) &&
       parsed_json.keys.to_set == %w[consent_question_id answer_exists].to_set
   end
 
   def and_expr?(parsed_json)
-    parsed_json.class == Hash && parsed_json.keys.to_set == ['and'].to_set
+    parsed_json.instance_of?(Hash) && parsed_json.keys.to_set == ['and'].to_set
   end
 
   def or_expr?(parsed_json)
-    parsed_json.class == Hash && parsed_json.keys.to_set == ['or'].to_set
+    parsed_json.instance_of?(Hash) && parsed_json.keys.to_set == ['or'].to_set
   end
 
   def not_expr?(parsed_json)
-    parsed_json.class == Hash && parsed_json.keys.to_set == ['not'].to_set
+    parsed_json.instance_of?(Hash) && parsed_json.keys.to_set == ['not'].to_set
   end
 
   def extract_equals_exprs
@@ -167,7 +167,7 @@ class ConditionalDuoLimitation < ApplicationRecord
       elsif boolean_expr?(parsed_json)
         []
       else
-        raise StandardError, 'Unexpected expression ' + parsed_json.to_s
+        raise StandardError, "Unexpected expression #{parsed_json}"
       end
   end
 
@@ -195,7 +195,7 @@ class ConditionalDuoLimitation < ApplicationRecord
     elsif boolean_expr?(parsed_json)
       parsed_json
     else
-      raise StandardError, 'Unexpected expression ' + parsed_json.to_s
+      raise StandardError, "Unexpected expression #{parsed_json}"
     end
   end
 end

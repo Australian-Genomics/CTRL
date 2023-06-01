@@ -35,7 +35,7 @@ RSpec.describe User, type: :model do
       end.not_to raise_error(ActiveRecord::RecordInvalid)
 
       expect do
-        FactoryBot.create(:user, participant_id: regexp.random_example + '-invalid')
+        FactoryBot.create(:user, participant_id: "#{regexp.random_example}-invalid")
       end.to raise_error(ActiveRecord::RecordInvalid)
     end
     it 'should not need a participant ID from REDCap when the email column is unset' do
@@ -72,7 +72,7 @@ RSpec.describe User, type: :model do
 
       # Non-matching email
       allow(user).to receive(:download_redcap_details).and_return(
-        [{ 'ctrl_email': 'not-the-same-' + user.email }]
+        [{ 'ctrl_email': "not-the-same-#{user.email}" }]
       )
 
       expect do

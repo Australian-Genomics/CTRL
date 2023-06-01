@@ -2,6 +2,7 @@ class AnswerQuestion < ApplicationService
   attr_accessor :answer_params, :user
   attr_reader :question_id, :user_answer
 
+  # rubocop:disable Lint/MissingSuper
   def initialize(answer_params, user)
     @answer_params = answer_params
     @user = user
@@ -9,6 +10,7 @@ class AnswerQuestion < ApplicationService
     @user_answer = answer_params[:answer]
     @question_type = answer_params[:question_type]
   end
+  # rubocop:enable Lint/MissingSuper
 
   def call
     if @question_type == 'multiple checkboxes'

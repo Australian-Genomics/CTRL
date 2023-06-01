@@ -33,7 +33,7 @@ ActiveAdmin.register SurveyConfig do
       value = attrs ? attrs[:value] : ''
 
       sc = SurveyConfig.find_by(id: params[:id])
-      sc.value = if value.class == ActionDispatch::Http::UploadedFile
+      sc.value = if value.instance_of?(ActionDispatch::Http::UploadedFile)
                    Base64.strict_encode64(value.read)
                  else
                    value

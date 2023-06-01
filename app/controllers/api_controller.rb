@@ -50,7 +50,7 @@ class ApiController < ApplicationController
   #   }
   #
   def merge(x, y)
-    return merge_arrays(x, y) if (x.class == Array) && (y.class == Array)
+    return merge_arrays(x, y) if x.instance_of?(Array) && y.instance_of?(Array)
 
     if (x.class != Hash) || (y.class != Hash)
       return x == y ? x : nil
@@ -90,7 +90,7 @@ class ApiController < ApplicationController
       return nil
     end
 
-    return parsed if parsed.class == Array && parsed.all? { |x| x.class == String }
+    return parsed if parsed.instance_of?(Array) && parsed.all? { |x| x.instance_of?(String) }
   end
 
   def duo_limitations_for_user(user)

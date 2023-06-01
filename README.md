@@ -40,7 +40,7 @@ There are two ways to get started, via Docker or the standard way. We recommend 
 ##### From the project root, build the containers:
 
 ```shell
-docker-compose build
+docker-compose build --progress=plain
 ```
 
 #### Decode or create `config/credentials.yml`

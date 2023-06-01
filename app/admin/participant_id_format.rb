@@ -1,14 +1,12 @@
 ActiveAdmin.register ParticipantIdFormat do
   permit_params :participant_id_format
 
-  RESTRICTED_ACTIONS = ['new'].freeze
-
   controller do
     def action_methods
       if ParticipantIdFormat.count < 1
         super
       else
-        super - RESTRICTED_ACTIONS
+        super - ['new'].freeze
       end
     end
   end
