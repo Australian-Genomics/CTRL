@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Agha
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 7.0
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -23,5 +23,6 @@ module Agha
     config.exceptions_app = self.routes
     config.generators.system_tests = nil
     config.time_zone = 'Australia/Melbourne'
+    config.active_record.legacy_connection_handling = false
   end
 end
