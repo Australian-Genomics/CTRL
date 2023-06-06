@@ -5,13 +5,15 @@ FROM ruby:3.2.2-bullseye
 # is arbitrary and could have been anything.)
 WORKDIR /code
 
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 # Copy all the application's files into the /code
 # directory.
 COPY . /code
 
 RUN : \
+  && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
   && apt-get update \
   && apt-get install -y nodejs yarn \
