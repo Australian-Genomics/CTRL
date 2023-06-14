@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_224639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
     t.string "token_digest"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "study_id"
     t.index ["name"], name: "index_api_users_on_name", unique: true
   end
 
@@ -80,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.text "tour_videos"
+    t.integer "study_id"
     t.index ["order"], name: "index_consent_steps_on_order", unique: true
   end
 
@@ -103,6 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
     t.text "definition", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "study_id"
   end
 
   create_table "modal_fallbacks", force: :cascade do |t|
@@ -114,12 +117,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["consent_step_id"], name: "index_modal_fallbacks_on_consent_step_id"
-  end
-
-  create_table "participant_id_formats", force: :cascade do |t|
-    t.string "participant_id_format"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "question_answers", force: :cascade do |t|
@@ -168,6 +165,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_steps_on_user_id"
+  end
+
+  create_table "studies", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "participant_id_format", null: false
+  end
+
+  create_table "studies_users", id: false, force: :cascade do |t|
+    t.bigint "study_id", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "survey_configs", force: :cascade do |t|
@@ -250,8 +257,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "api_users", "studies"
   add_foreign_key "consent_groups", "consent_steps"
   add_foreign_key "consent_questions", "consent_groups"
+  add_foreign_key "consent_steps", "studies"
+  add_foreign_key "glossary_entries", "studies"
   add_foreign_key "modal_fallbacks", "consent_steps"
   add_foreign_key "question_options", "consent_questions"
 end

@@ -5,6 +5,9 @@ class User < ApplicationRecord
   include UserDateValidator
   include NextOfKinRegistrationValidator
 
+  has_many :user_studies, dependent: :destroy
+  has_many :studies, through: :user_studies
+
   has_many :reviewed_steps,
            class_name: 'StepReview',
            dependent: :destroy

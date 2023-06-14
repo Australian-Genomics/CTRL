@@ -42,8 +42,8 @@ def create_related_record_of_type(
       record.modal_fallbacks.new(fields_)
     when 'QuestionOption'
       record.question_options.new(fields_)
-    when 'ParticipantIdFormat'
-      record.participant_id_formats.new(fields_)
+    when 'Study'
+      record.studies.new(fields_)
     when 'SurveyConfig'
       record.survey_configs.new(fields_)
     when 'User'
@@ -108,8 +108,8 @@ def create_record_of_type(record_type, record_hash)
       ModalFallback.new(fields_hash)
     when 'QuestionOption'
       QuestionOption.new(fields_hash)
-    when 'ParticipantIdFormat'
-      ParticipantIdFormat.new(fields_hash)
+    when 'Study'
+      Study.new(fields_hash)
     when 'SurveyConfig'
       SurveyConfig.new(fields_hash)
     when 'User'
@@ -144,7 +144,7 @@ def destroy_all_records_of_type(record_type)
   when 'GlossaryEntry'                  then GlossaryEntry.destroy_all
   when 'ModalFallback'                  then ModalFallback.destroy_all
   when 'QuestionOption'                 then QuestionOption.destroy_all
-  when 'ParticipantIdFormat'            then ParticipantIdFormat.destroy_all
+  when 'Study'                          then Study.destroy_all
   when 'SurveyConfig'                   then SurveyConfig.destroy_all
   when 'User'                           then User.destroy_all
   when 'UserColumnToRedcapFieldMapping' then UserColumnToRedcapFieldMapping.destroy_all

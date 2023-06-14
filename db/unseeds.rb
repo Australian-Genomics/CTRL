@@ -45,7 +45,7 @@ $permitted_record_types = Set[
   'GlossaryEntry',
   'ModalFallback',
   'QuestionOption',
-  'ParticipantIdFormat',
+  'Study',
   'SurveyConfig',
   'User',
   'UserColumnToRedcapFieldMapping',
@@ -116,8 +116,8 @@ def fetch_records_of_type(record_type)
       ModalFallback.all
     when 'QuestionOption'
       QuestionOption.all
-    when 'ParticipantIdFormat'
-      ParticipantIdFormat.all
+    when 'Study'
+      Study.all
     when 'SurveyConfig'
       SurveyConfig.all
     when 'User'
@@ -138,11 +138,9 @@ end
 
 def fetch_records
   [
-    fetch_records_of_type('ParticipantIdFormat'),
+    fetch_records_of_type('Study'),
     fetch_records_of_type('UserColumnToRedcapFieldMapping'),
     fetch_records_of_type('SurveyConfig'),
-    fetch_records_of_type('GlossaryEntry'),
-    fetch_records_of_type('ConsentStep')
   ]
 end
 

@@ -1,15 +1,73 @@
----
-- ParticipantIdFormat:
-  - participant_id_format: A1543457
+- AdminUser:
+  - email: adminuser@email.com
+    password: 'tester123'
+    password_confirmation: 'tester123'
+- User:
+  - email: testuser@email.com
+    first_name: testuser
+    family_name: familyOfUser
+    password: 'tester123'
+    password_confirmation: 'tester123'
+    dob: 21-12-2002
+    participant_id: A1543457
 - UserColumnToRedcapFieldMapping:
-  - user_column: dob
-    redcap_field: dob
+  - user_column: created_at
+    redcap_field: ctrl_reg_date
     redcap_event_name: proband_informatio_arm_1
-  - user_column: state
-    redcap_field: state
+  - user_column: first_name
+    redcap_field: ctrl_pers_name
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: family_name
+    redcap_field: ctrl_pers_surname
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: participant_id
+    redcap_field: ctrl_stud_id
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: dob
+    redcap_field: ctrl_dob
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: phone_no
+    redcap_field: ctrl_phone_no
     redcap_event_name: proband_informatio_arm_1
   - user_column: email
-    redcap_field: email
+    redcap_field: ctrl_email
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: preferred_contact_method
+    redcap_field: ctrl_pref_contact_meth
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: is_parent
+    redcap_field: ctrl_pg_register_for_child_yn
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: child_first_name
+    redcap_field: ctrl_child_name
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: child_family_name
+    redcap_field: ctrl_child_surname
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: address
+    redcap_field: ctrl_address
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: suburb
+    redcap_field: ctrl_suburb
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: state
+    redcap_field: ctrl_state
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: post_code
+    redcap_field: ctrl_postcode
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_first_name
+    redcap_field: ctrl_kin_name
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_family_name
+    redcap_field: ctrl_kin_surname
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_contact_no
+    redcap_field: ctrl_kin_contactno
+    redcap_event_name: proband_informatio_arm_1
+  - user_column: kin_email
+    redcap_field: ctrl_kin_email
+    redcap_event_name: proband_informatio_arm_1
 - SurveyConfig:
   - name: Radio Button Color
     value: "#02b0db"
@@ -19,607 +77,645 @@
     value: ''
     is_file: true
     hint: Must be a .png, or empty to restore the default logo
-- GlossaryEntry:
-  - term: DNA
-    definition: |
-      <i>noun</i>
-      <br>
-      a self-replicating material that is present in nearly all living organisms
-      as the main constituent of chromosomes. It is the carrier of genetic
-      information.
-  - term: Genetic
-    definition: |
-      <i>adjective</i>
-      <br>
-      <ol>
-        <li>relating to genes or heredity.</li>
-        <li>relating to origin, or arising from a common origin.</li>
-      </ol>
-- ConsentStep:
-  - order: 1
-    title: CTRL introduction
-    description: |
-      Watch our short video about thes consent process for taking
-      part in medical research, and how you can use this website
-      during the study.
-    popover: |
-      Watch the video introduction to why we are asking you to provide your
-      consent to our program online.
-    tour_videos: https://www.youtube.com/embed/Du8kYb_9AKY
-  - order: 2
-    title: Consent for the genomic test
-    description: |
-      This section follows on from your consent to have a genomic test as
-      part of the Australian Genomics study.
-      Your doctor or <a href="glossary#genetic" target="_blank">genetic</a>
-      counsellor will have already discussed the genomic test with you. The
-      answers are all pre-selected, because you have already agreed to have the
-      test.
-      <br></br>
-      If you choose to unselect any statements we will contact you to talk
-      about whether you still consent to having the test.
-    popover: Review your consent to have a genomic test as part of the program.
-    ConsentGroup:
+  - name: '"Next of Kin" Needed to Register'
+    value: 'false'
+  - name: Landing Text
+    value: Consent to participating in the Australian Genomics program
+- ConditionalDuoLimitation:
+  - json: |
+      {
+        "duo_limitation": {
+          "code": "DUO:0000004",
+          "modifiers": [ { "code": "DUO:0000046" } ]
+        },
+        "condition": true
+      }
+  - json: |
+      {
+        "duo_limitation": {
+          "code": "DUO:0000004",
+          "modifiers": [ { "code": "DUO:0000019" } ]
+        },
+        "condition": {
+          "consent_question_id": 1,
+          "answer": "yes"
+        }
+      }
+- Study:
+  - name: default
+  - participant_id_format: "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+  - GlossaryEntry:
+    - term: DNA
+      definition: |
+        <i>noun</i>
+        <br>
+        a self-replicating material that is present in nearly all living organisms
+        as the main constituent of chromosomes. It is the carrier of genetic
+        information.
+    - term: Genetic
+      definition: |
+        <i>adjective</i>
+        <br>
+        <ol>
+          <li>relating to genes or heredity.</li>
+          <li>relating to origin, or arising from a common origin.</li>
+        </ol>
+  - ConsentStep:
     - order: 1
-      header: ''
-      ConsentQuestion:
-      - order: 1
-        question: |
-          I understand I am providing a sample so that my
-          <a href="glossary#DNA" target="_blank">DNA</a> can be extracted and all of
-          my genes could be looked at. This is called a genomic test.
-        description: |
-          The sample you have given may have been blood, saliva, skin or other sample already
-          collected as part of your medical care. These samples contain your cells, and your DNA
-          can be extracted from the cells. Your DNA is needed for the genomic test.
-          DNA makes up genes. Genes are inside almost every cell of your body.
-          There are over 20,000 genes in each of your cells, and together these genes
-          make up your “genome”.  Each gene has a specific function, however
-          the function of every gene is not yet known. Everyone has different
-          variations within their genes, which is why we are all unique. Most variations are harmless,
-          but other variations can change how a gene works, which might cause a health condition.
-          Identifying variations may help to find the cause of your health condition. Previously,
-          testing to look for variations in genes involved looking at only one gene at a time.
-          New technology means we can now look at many or all of our genes at once.
-          This is known as “genomic testing”.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 2
-        question: I understand having a genomic test may not find the genetic cause
-          of my condition.
-        description: |
-          The likelihood of finding a genetic cause depends on a number of things, including your health condition
-          and how much is already known about it. We are still learning about what genes do and how they work.
-          Between 30 and 50% of patients with rare disease receive a diagnosis through genomic
-          testing. That is, 3 to 5 people in every 10 tested will receive a genetic explanation
-          for their condition. We expect more patients will receive a diagnosis in the future,
-          as the technology and our ability to interpret genomic information improve.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 3
-        question: |
-          I understand my sample and genomic information will be stored by the testing laboratory
-          so that it could be looked at again in the future, when we know more about genes that cause my
-          health condition.
-        description: |
-          Your sample will be stored in the laboratory for at least 3 months. Depending on the laboratory
-          and the law, it may be stored many years after this.
-          The laboratory will also keep the genomic information they obtain from your sample.
-          This allows for future re-analysis (looking at your genomic information again)
-          if there is a specific reason or request to do so. For example, this might be done
-          if new gene variants linked with your health condition are identified.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 4
-        question: |
-          I understand my genomic test results are confidential and will only be shared with the
-          medical team directly involved in my care.
-        description: |
-          This could include your Clinical Geneticist and other specialist doctors,
-          your Genetic Counsellor or your GP. Agreeing to participate in the
-          Australian Genomics research means your results will be shared with relevant investigators on the study.
-          Your result may be included in your My Health Record, if you have one.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 5
-        question: |
-          I understand that the testing laboratory could share my anonymous genomic
-          information with other laboratories, in order to understand more about the genetic changes
-          that can cause my health condition or other conditions.
-        description: |
-          Anonymous means that your personal details have been removed,
-          so it cannot be easily identified as yours. This kind of sharing is done to benefit research,
-          but means that you will probably not personally benefit
-          from anything that is discovered from sharing your information.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 6
-        question: |
-          I understand the laboratory performing my test will store and may sometimes use my
-          DNA sample for purposes like reference and control material.
-        description: |
-          Your DNA is stored in the testing laboratory for at least three months,
-          but it could be years. When doing any laboratory test, it is important to compare the
-          test sample with a control sample. Your DNA may be used as a control sample.
-          All of your personal, identifying information will be removed if your sample is used for this purpose.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 7
-        question: |
-          I understand there are certain risks involved in having a genomic test.
-          These could include finding out something that may be important for my family’s health,
-          incidental findings, or having to disclose the genomic information.
-        description: |
-          The main risks involved in having a genomic test are related to the information that
-          you may get, rather than any physical harm.
-          For example: <ul><li>Waiting for the test results, or the results you receive, may bring up
-          a number of different emotions.</li><li>We may be uncertain about what your result means.
-          </li><li>It may be uncomfortable or stressful to share a result with your family.</li><li>
-          The test may find something important to your health that you or the doctors were not expecting.
-          This is called an incidental finding. You will be given the opportunity to give your preferences about
-          incidental findings in step 4.</li><li>You may have to disclose the information to insurance companies
-          or employers. There is more information on this in the next question.</li></ul>
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 8
-        question: |
-          I understand that if I am taking out a new policy for life, critical illness or income protection insurance,
-          the insurer may ask me to disclose that I have had a genetic test and require me to provide my results.
-        description: |
-          How insurance companies use personal genetic information is currently
-          being investigated by government. If you would like more information about
-          the impact of genetic testing on certain insurance products,
-          visit the Centre for Genetics Education
-          <a href="http://www.genetics.edu.au/publications-and-resources/facts-sheets/fact-sheet-20-life-insurance-products-and-genetic-testing-in-australia" target="_blank">
-          insurance fact sheet.
-          </a>
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 9
-        question: |
-          I understand my employer, or future employers, may ask for my results to decide whether there
-          is a risk associated with a particular job role.
-        description: |
-          The law allows an employer to ask for your health details,
-          including genetic testing results, if they think it is relevant in
-          deciding whether you are able to fulfil a job role.
-          In reality, very few employers do ask for your genetic testing results,
-          but it's important that you know it may become more relevant in the future.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 10
-        question: |
-          I understand that it might be important to tell my family members
-          about genetic changes that could directly affect their health.
-          My medical team will support me in sharing such information with my family.
-        description: |
-          Family members who may have an interest in knowing about your result are your biological,
-          or blood relatives. These people include your parents, children, aunts, uncles and cousins.
-          If you are planning to have (more) children your partner may need to know.
-          Exactly who needs to know is different on a case by case basis. Your
-          medical team will support you in sharing information with family members.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 11
-        question: |
-          I understand all of the information above and the choices I have made.
-          </br>(leaving this box unchecked means you will be contacted by a Genetic
-          Counsellor who will give you more information)
-        default_answer: 'no'
-        question_type: checkbox agreement
-        answer_choices_position: right
-    ModalFallback:
-    - description: |
-        <h3>Are you sure you don’t want the test?</h3><br>
-        You have not selected all statements, which means you have not agreed to have genomic testing.<br><br>
-        If you choose “I don't want the test” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
-        It may take 7 days for the study genetic counsellor to contact you.
-      cancel_btn: I don't want the test
-      review_answers_btn: Review Answers
-      small_note: |
-        Please click “Review Answers” if you would like to go back and change your responses. <br>
-        Click “I don’t want the test” if you are sure you do not want the genomic test.
-  - order: 3
-    title: Consent to Australian Genomics research participation
-    description: |
-      By signing the Australian Genomics consent form, you have agreed to
-      participate in the research, along with
-      having the genomic test. Thank you. The research we are doing will
-      help to decide whether genomic testing
-      should be standard care for your health condition. To do this, we would
-      like to collect information about
-      you from your health records as well as information directly from you.
-      The answers are all pre-selected,
-      because you have already agreed to participate in the research.
-      <br>
-      <br>
-      If you choose to unselect any statements below we will contact you to
-      talk about whether
-      you still agree to being in the research project.
-    popover: Review your consent to be part of the research program.
-    ConsentGroup:
-    - order: 1
-      header: ''
-      ConsentQuestion:
-      - order: 1
-        question: I understand that the researchers will collect information from
-          my medical records.
-        description: We will ask the Commonwealth Department of Health for your Medicare
-          (MBS) and Pharmacy (PBS) records, covering a period of up to 8 years. We
-          will ask Data Linkage agencies in each State or Territory of Australia for
-          your hospital inpatient records and emergency department visit records.
-          This information will cover a period of up to 14 years. This information
-          will be very important for us to understand how having a genomic test and
-          a genomic diagnosis might reduce the long-term costs of health care. Access
-          to the information is tightly regulated to protect your privacy, and we
-          only receive it after applying for it through the proper channels. We will
-          also be required to destroy it after we finish using it.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 2
-        question: |
-          I understand that at times during the research project I will be asked to complete surveys or questionnaires.
-          I’ll be reminded when they are ready to complete and I can ask for help to do them.
-        description: |
-          The surveys and questionnaires will help us understand your views and your understanding of genomic testing,
-          as well as your personal experiences of the test.
-          We will sometimes ask you questions about the financial costs of clinic visits or
-          having your specific health condition.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 3
-        question: |
-          I understand that my samples and data may be used in further research when no cause is found as part of the initial test
-          and/or when further investigation is required to understand my condition.
-        description: Your samples and/or data will only be shared for further research
-          that follows the relevant privacy and security requirements, and ethical
-          guidelines for biomedical and health research. Your data and samples will
-          be shared without any personal information (eg name), however they will
-          be coded so if needed they can be linked back to you. We may be able to
-          report back to you if research findings could increase your understanding
-          of your health condition or change your clinical care. Not everyone who
-          does not get a result from the initial testing will have their samples or
-          information shared for further research. This will depend on whether there
-          is a suitable research program available to look further into your initial
-          testing results and/or health condition.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 4
-        question: I understand all of the information above and the choices I have
-          made.</br>(leaving this box unchecked means you will be contacted by a Genetic
-          Counsellor who will give you more information)
-        default_answer: 'no'
-        question_type: checkbox agreement
-        answer_choices_position: right
-    ModalFallback:
-    - description: |
-        <h3>Are you sure you don’t want to be part of the
-        research project?</h3><br>
-        You have not selected all statements, which means you have not agreed to be part of the research project.<br><br>
-        If you choose “I don't want to take part” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
-        It may take 7 days for the study genetic counsellor to contact you.
-      cancel_btn: I don't want to take part
-      review_answers_btn: Review Answers
-      small_note: |
-        Please click “Review Answers” if you would like to go back and change your responses. <br>
-        Click “I don't want to take part” if you do not want to take part in the research project.
-  - order: 4
-    title: Preferences about your results
-    description: |
-      <b>Incidental findings:</b>
-      Because a genomic test looks at many genes at once, a
-      genetic change that is not related to the specific
-      health condition you are being tested for could be found.
-      These incidental findings may be important to know
-      about for your health and for your family as well.
-      <br>
-      <br>
-      An incidental finding is a genetic change that we know or think
-      is linked with certain health conditions that the testing
-      laboratory comes across accidentally, despite efforts not
-      to look closely at certain genes. It is very uncommon, but
-      you should be aware that it can happen.
-      <br>
-      <br>
-      Genomic testing services have their own policies about whether
-      they will tell you about incidental findings.
-      If your testing is transferred to a research setting they may
-      identify incidental findings. For those that
-      do return incidental findings, we would like to know your preferences.
-    popover: |
-      Tell us your preferences for knowing results that fall outside the main
-      reason you are having a genomic test.
-    ConsentGroup:
-    - order: 1
-      header: ''
-      ConsentQuestion:
-      - order: 1
-        question: |
-          I want to know about the genetic change if it is medically actionable
-          (can alter my health management or treatment).
-        description: |
-          For example, there are some types of cancers that run in families.
-          Sometimes we can find a genetic change that means a family is more likely
-          to develop a cancer throughout their lifetime. If this genetic change is
-          medically actionable, it means these families can reduce that risk through
-          closer surveillance or surgical options.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 2
-        question: |
-          I want to know about the genetic change if it is non-medically actionable
-          (will not alter my health management or treatment).
-        description: |
-          There are some conditions that run in families and have a genetic cause,
-          but cannot be treated at this time. An example of this is early
-          onset Alzheimer’s disease. This type of result would mean that you know
-          that you are at risk of developing this condition,
-          but at this time your health management or treatment would not change.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 3
-        question: |
-          I want to know if I am a carrier of a genetic change that can cause disease
-          (it might affect decisions I make about having children, or for my grandchildren).
-        description: |
-          Sometimes we can be “carriers” of genetic changes that do not affect our
-          health but can cause problems when we have a baby with a partner who also carries
-          that same genetic change. An example of this is cystic fibrosis.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 4
-        question: |
-          Id like my medical team and the testing laboratory to decide whether I should be
-          told about medically actionable, non-medically actionable and carrier
-          status findings on a case by case basis.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 5
-        question: |
-          I would like a summary of the main findings of my genomic testing report securely stored in CTRL,
-          so I can access it at any time.
-        description: |
-          We are developing ways of showing your genomic results in a way that is understandable to you,
-          your family and anyone else you would like to show them to.
-          We will make this available to you as soon as it is ready,
-          if you indicate that you would like to have it.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 6
-        question: |
-          I understand all of the information above and the choices I have
-          made.</br>(leaving this box unchecked means you will be contacted by a
-          Genetic Counsellor who will give you more information)
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-  - order: 5
-    title: Consent to research outside this study
-    description: |
-      Genomic testing is not yet routinely done and we still don’t know a
-      lot about genetic changes that cause
-      health conditions. Sometimes we would like to share your DNA sample,
-      your genomic information or your
-      general health information with other researchers in Australia and
-      internationally. We will only share this
-      information with researchers whose projects meet our criteria and
-      have been approved by a Human Research
-      Ethics Committee (HREC). A HREC is a group of medical, scientific
-      and ethics experts, as well as members of
-      the public, who look closely at planned research to make sure it
-      is going to be beneficial and not harmful
-      to participants.
-      <br>
-      <br>
-      We will remove your personal details from your DNA sample, genomic and
-      health information (de-identify
-      them), but there always remains a small chance someone could work out
-      who you are from your genomic
-      information.
-      <br>
-      <br>
-      De-identified samples are coded and so it remains possible to re-identify you.
-      We will keep the
-      re-identification code with us, it will not be shared. By keeping the code,
-      it means that in some cases we
-      may be able to contact you if the research finds something that will
-      benefit you personally.
-      <br>
-      <br>
-      Whether we share this information outside the current study is your choice, and
-      you can use this section to
-      change your mind any time you want to. Your answers to these questions will
-      not stop you having the genomic
-      test.
-    popover: |
-      Decide who we can share your samples and information with,
-      and for what kinds of research.
-    ConsentGroup:
-    - order: 1
-      header: Who can have access to my de-identified samples and information?
-      ConsentQuestion:
-      - order: 1
-        question: Not-for-profit research organisations (eg Murdoch Children’s Research
-          Institute)
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 2
-        question: Universities and research institutes (eg The University of Queensland)
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 3
-        question: Government (eg Australian Government Department of Health)
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 4
-        question: Commercial companies (eg pharmaceutical companies)
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
+      title: CTRL introduction
+      description: |
+        Watch our short video about thes consent process for taking
+        part in medical research, and how you can use this website
+        during the study.
+      popover: |
+        Watch the video introduction to why we are asking you to provide your
+        consent to our program online.
+      tour_videos: https://www.youtube.com/embed/Du8kYb_9AKY
     - order: 2
-      header: What kinds of research can they do with my de-identified samples and
-        information?
-      ConsentQuestion:
+      title: Consent for the genomic test
+      description: |
+        This section follows on from your consent to have a genomic test as
+        part of the Australian Genomics study.
+        Your doctor or <a href="glossary#genetic" target="_blank">genetic</a>
+        counsellor will have already discussed the genomic test with you. The
+        answers are all pre-selected, because you have already agreed to have the
+        test.
+        <br></br>
+        If you choose to unselect any statements we will contact you to talk
+        about whether you still consent to having the test.
+      popover: Review your consent to have a genomic test as part of the program.
+      ConsentGroup:
       - order: 1
-        question: General research use and clinical care
-        description: |
-          General research use and clinical care refers to research where, for example,
-          your genomic information might be shared through clinical networks
-          internationally to see if there are any other cases in the world like yours.
-          This is for clinical benefit, but because of the close links between clinical
-          and research genomics, your genomic and other health information will
-          likely also be used in a research setting.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
+        header: ''
+        ConsentQuestion:
+        - order: 1
+          question: |
+            I understand I am providing a sample so that my
+            <a href="glossary#DNA" target="_blank">DNA</a> can be extracted and all of
+            my genes could be looked at. This is called a genomic test.
+          description: |
+            The sample you have given may have been blood, saliva, skin or other sample already
+            collected as part of your medical care. These samples contain your cells, and your DNA
+            can be extracted from the cells. Your DNA is needed for the genomic test.
+            DNA makes up genes. Genes are inside almost every cell of your body.
+            There are over 20,000 genes in each of your cells, and together these genes
+            make up your “genome”.  Each gene has a specific function, however
+            the function of every gene is not yet known. Everyone has different
+            variations within their genes, which is why we are all unique. Most variations are harmless,
+            but other variations can change how a gene works, which might cause a health condition.
+            Identifying variations may help to find the cause of your health condition. Previously,
+            testing to look for variations in genes involved looking at only one gene at a time.
+            New technology means we can now look at many or all of our genes at once.
+            This is known as “genomic testing”.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 2
+          question: I understand having a genomic test may not find the genetic cause
+            of my condition.
+          description: |
+            The likelihood of finding a genetic cause depends on a number of things, including your health condition
+            and how much is already known about it. We are still learning about what genes do and how they work.
+            Between 30 and 50% of patients with rare disease receive a diagnosis through genomic
+            testing. That is, 3 to 5 people in every 10 tested will receive a genetic explanation
+            for their condition. We expect more patients will receive a diagnosis in the future,
+            as the technology and our ability to interpret genomic information improve.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 3
+          question: |
+            I understand my sample and genomic information will be stored by the testing laboratory
+            so that it could be looked at again in the future, when we know more about genes that cause my
+            health condition.
+          description: |
+            Your sample will be stored in the laboratory for at least 3 months. Depending on the laboratory
+            and the law, it may be stored many years after this.
+            The laboratory will also keep the genomic information they obtain from your sample.
+            This allows for future re-analysis (looking at your genomic information again)
+            if there is a specific reason or request to do so. For example, this might be done
+            if new gene variants linked with your health condition are identified.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 4
+          question: |
+            I understand my genomic test results are confidential and will only be shared with the
+            medical team directly involved in my care.
+          description: |
+            This could include your Clinical Geneticist and other specialist doctors,
+            your Genetic Counsellor or your GP. Agreeing to participate in the
+            Australian Genomics research means your results will be shared with relevant investigators on the study.
+            Your result may be included in your My Health Record, if you have one.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 5
+          question: |
+            I understand that the testing laboratory could share my anonymous genomic
+            information with other laboratories, in order to understand more about the genetic changes
+            that can cause my health condition or other conditions.
+          description: |
+            Anonymous means that your personal details have been removed,
+            so it cannot be easily identified as yours. This kind of sharing is done to benefit research,
+            but means that you will probably not personally benefit
+            from anything that is discovered from sharing your information.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 6
+          question: |
+            I understand the laboratory performing my test will store and may sometimes use my
+            DNA sample for purposes like reference and control material.
+          description: |
+            Your DNA is stored in the testing laboratory for at least three months,
+            but it could be years. When doing any laboratory test, it is important to compare the
+            test sample with a control sample. Your DNA may be used as a control sample.
+            All of your personal, identifying information will be removed if your sample is used for this purpose.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 7
+          question: |
+            I understand there are certain risks involved in having a genomic test.
+            These could include finding out something that may be important for my family’s health,
+            incidental findings, or having to disclose the genomic information.
+          description: |
+            The main risks involved in having a genomic test are related to the information that
+            you may get, rather than any physical harm.
+            For example: <ul><li>Waiting for the test results, or the results you receive, may bring up
+            a number of different emotions.</li><li>We may be uncertain about what your result means.
+            </li><li>It may be uncomfortable or stressful to share a result with your family.</li><li>
+            The test may find something important to your health that you or the doctors were not expecting.
+            This is called an incidental finding. You will be given the opportunity to give your preferences about
+            incidental findings in step 4.</li><li>You may have to disclose the information to insurance companies
+            or employers. There is more information on this in the next question.</li></ul>
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 8
+          question: |
+            I understand that if I am taking out a new policy for life, critical illness or income protection insurance,
+            the insurer may ask me to disclose that I have had a genetic test and require me to provide my results.
+          description: |
+            How insurance companies use personal genetic information is currently
+            being investigated by government. If you would like more information about
+            the impact of genetic testing on certain insurance products,
+            visit the Centre for Genetics Education
+            <a href="http://www.genetics.edu.au/publications-and-resources/facts-sheets/fact-sheet-20-life-insurance-products-and-genetic-testing-in-australia" target="_blank">
+            insurance fact sheet.
+            </a>
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 9
+          question: |
+            I understand my employer, or future employers, may ask for my results to decide whether there
+            is a risk associated with a particular job role.
+          description: |
+            The law allows an employer to ask for your health details,
+            including genetic testing results, if they think it is relevant in
+            deciding whether you are able to fulfil a job role.
+            In reality, very few employers do ask for your genetic testing results,
+            but it's important that you know it may become more relevant in the future.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 10
+          question: |
+            I understand that it might be important to tell my family members
+            about genetic changes that could directly affect their health.
+            My medical team will support me in sharing such information with my family.
+          description: |
+            Family members who may have an interest in knowing about your result are your biological,
+            or blood relatives. These people include your parents, children, aunts, uncles and cousins.
+            If you are planning to have (more) children your partner may need to know.
+            Exactly who needs to know is different on a case by case basis. Your
+            medical team will support you in sharing information with family members.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 11
+          question: |
+            I understand all of the information above and the choices I have made.
+            </br>(leaving this box unchecked means you will be contacted by a Genetic
+            Counsellor who will give you more information)
+          default_answer: 'no'
+          question_type: checkbox agreement
+          answer_choices_position: right
+        - order: 12
+          question: |
+            This is test checkbox agreement element which must be checked in
+            addition to the one before it in order to proceed.
+          default_answer: 'no'
+          question_type: checkbox agreement
+          answer_choices_position: right
+      ModalFallback:
+      - description: |
+          <h3>Are you sure you don’t want the test?</h3><br>
+          You have not selected all statements, which means you have not agreed to have genomic testing.<br><br>
+          If you choose “I don't want the test” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
+          It may take 7 days for the study genetic counsellor to contact you.
+        cancel_btn: I don't want the test
+        review_answers_btn: Review Answers
+        small_note: |
+          Please click “Review Answers” if you would like to go back and change your responses. <br>
+          Click “I don’t want the test” if you are sure you do not want the genomic test.
+    - order: 3
+      title: Consent to Australian Genomics research participation
+      description: |
+        By signing the Australian Genomics consent form, you have agreed to
+        participate in the research, along with
+        having the genomic test. Thank you. The research we are doing will
+        help to decide whether genomic testing
+        should be standard care for your health condition. To do this, we would
+        like to collect information about
+        you from your health records as well as information directly from you.
+        The answers are all pre-selected,
+        because you have already agreed to participate in the research.
+        <br>
+        <br>
+        If you choose to unselect any statements below we will contact you to
+        talk about whether
+        you still agree to being in the research project.
+      popover: Review your consent to be part of the research program.
+      ConsentGroup:
+      - order: 1
+        header: ''
+        ConsentQuestion:
+        - order: 1
+          question: I understand that the researchers will collect information from
+            my medical records.
+          description: We will ask the Commonwealth Department of Health for your Medicare
+            (MBS) and Pharmacy (PBS) records, covering a period of up to 8 years. We
+            will ask Data Linkage agencies in each State or Territory of Australia for
+            your hospital inpatient records and emergency department visit records.
+            This information will cover a period of up to 14 years. This information
+            will be very important for us to understand how having a genomic test and
+            a genomic diagnosis might reduce the long-term costs of health care. Access
+            to the information is tightly regulated to protect your privacy, and we
+            only receive it after applying for it through the proper channels. We will
+            also be required to destroy it after we finish using it.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 2
+          question: |
+            I understand that at times during the research project I will be asked to complete surveys or questionnaires.
+            I’ll be reminded when they are ready to complete and I can ask for help to do them.
+          description: |
+            The surveys and questionnaires will help us understand your views and your understanding of genomic testing,
+            as well as your personal experiences of the test.
+            We will sometimes ask you questions about the financial costs of clinic visits or
+            having your specific health condition.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 3
+          question: |
+            I understand that my samples and data may be used in further research when no cause is found as part of the initial test
+            and/or when further investigation is required to understand my condition.
+          description: Your samples and/or data will only be shared for further research
+            that follows the relevant privacy and security requirements, and ethical
+            guidelines for biomedical and health research. Your data and samples will
+            be shared without any personal information (eg name), however they will
+            be coded so if needed they can be linked back to you. We may be able to
+            report back to you if research findings could increase your understanding
+            of your health condition or change your clinical care. Not everyone who
+            does not get a result from the initial testing will have their samples or
+            information shared for further research. This will depend on whether there
+            is a suitable research program available to look further into your initial
+            testing results and/or health condition.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 4
+          question: I understand all of the information above and the choices I have
+            made.</br>(leaving this box unchecked means you will be contacted by a Genetic
+            Counsellor who will give you more information)
+          default_answer: 'no'
+          question_type: checkbox agreement
+          answer_choices_position: right
+      ModalFallback:
+      - description: |
+          <h3>Are you sure you don’t want to be part of the
+          research project?</h3><br>
+          You have not selected all statements, which means you have not agreed to be part of the research project.<br><br>
+          If you choose “I don't want to take part” an Australian Genomics Genetic Counsellor will contact you to talk about your options.
+          It may take 7 days for the study genetic counsellor to contact you.
+        cancel_btn: I don't want to take part
+        review_answers_btn: Review Answers
+        small_note: |
+          Please click “Review Answers” if you would like to go back and change your responses. <br>
+          Click “I don't want to take part” if you do not want to take part in the research project.
+    - order: 4
+      title: Preferences about your results
+      description: |
+        <b>Incidental findings:</b>
+        Because a genomic test looks at many genes at once, a
+        genetic change that is not related to the specific
+        health condition you are being tested for could be found.
+        These incidental findings may be important to know
+        about for your health and for your family as well.
+        <br>
+        <br>
+        An incidental finding is a genetic change that we know or think
+        is linked with certain health conditions that the testing
+        laboratory comes across accidentally, despite efforts not
+        to look closely at certain genes. It is very uncommon, but
+        you should be aware that it can happen.
+        <br>
+        <br>
+        Genomic testing services have their own policies about whether
+        they will tell you about incidental findings.
+        If your testing is transferred to a research setting they may
+        identify incidental findings. For those that
+        do return incidental findings, we would like to know your preferences.
+      popover: |
+        Tell us your preferences for knowing results that fall outside the main
+        reason you are having a genomic test.
+      ConsentGroup:
+      - order: 1
+        header: ''
+        ConsentQuestion:
+        - order: 1
+          question: |
+            I want to know about the genetic change if it is medically actionable
+            (can alter my health management or treatment).
+          description: |
+            For example, there are some types of cancers that run in families.
+            Sometimes we can find a genetic change that means a family is more likely
+            to develop a cancer throughout their lifetime. If this genetic change is
+            medically actionable, it means these families can reduce that risk through
+            closer surveillance or surgical options.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 2
+          question: |
+            I want to know about the genetic change if it is non-medically actionable
+            (will not alter my health management or treatment).
+          description: |
+            There are some conditions that run in families and have a genetic cause,
+            but cannot be treated at this time. An example of this is early
+            onset Alzheimer’s disease. This type of result would mean that you know
+            that you are at risk of developing this condition,
+            but at this time your health management or treatment would not change.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 3
+          question: |
+            I want to know if I am a carrier of a genetic change that can cause disease
+            (it might affect decisions I make about having children, or for my grandchildren).
+          description: |
+            Sometimes we can be “carriers” of genetic changes that do not affect our
+            health but can cause problems when we have a baby with a partner who also carries
+            that same genetic change. An example of this is cystic fibrosis.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 4
+          question: |
+            Id like my medical team and the testing laboratory to decide whether I should be
+            told about medically actionable, non-medically actionable and carrier
+            status findings on a case by case basis.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 5
+          question: |
+            I would like a summary of the main findings of my genomic testing report securely stored in CTRL,
+            so I can access it at any time.
+          description: |
+            We are developing ways of showing your genomic results in a way that is understandable to you,
+            your family and anyone else you would like to show them to.
+            We will make this available to you as soon as it is ready,
+            if you indicate that you would like to have it.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 6
+          question: |
+            I understand all of the information above and the choices I have
+            made.</br>(leaving this box unchecked means you will be contacted by a
+            Genetic Counsellor who will give you more information)
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+    - order: 5
+      title: Consent to research outside this study
+      description: |
+        Genomic testing is not yet routinely done and we still don’t know a
+        lot about genetic changes that cause
+        health conditions. Sometimes we would like to share your DNA sample,
+        your genomic information or your
+        general health information with other researchers in Australia and
+        internationally. We will only share this
+        information with researchers whose projects meet our criteria and
+        have been approved by a Human Research
+        Ethics Committee (HREC). A HREC is a group of medical, scientific
+        and ethics experts, as well as members of
+        the public, who look closely at planned research to make sure it
+        is going to be beneficial and not harmful
+        to participants.
+        <br>
+        <br>
+        We will remove your personal details from your DNA sample, genomic and
+        health information (de-identify
+        them), but there always remains a small chance someone could work out
+        who you are from your genomic
+        information.
+        <br>
+        <br>
+        De-identified samples are coded and so it remains possible to re-identify you.
+        We will keep the
+        re-identification code with us, it will not be shared. By keeping the code,
+        it means that in some cases we
+        may be able to contact you if the research finds something that will
+        benefit you personally.
+        <br>
+        <br>
+        Whether we share this information outside the current study is your choice, and
+        you can use this section to
+        change your mind any time you want to. Your answers to these questions will
+        not stop you having the genomic
+        test.
+      popover: |
+        Decide who we can share your samples and information with,
+        and for what kinds of research.
+      ConsentGroup:
+      - order: 1
+        header: Who can have access to my de-identified samples and information?
+        ConsentQuestion:
+        - order: 1
+          question: Not-for-profit research organisations (eg Murdoch Children’s Research
+            Institute)
+
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 2
+          question: Universities and research institutes (eg The University of Queensland)
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 3
+          question: Government (eg Australian Government Department of Health)
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 4
+          question: Commercial companies (eg pharmaceutical companies)
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
       - order: 2
-        question: Health/medical/biomedical research
-        description: |
-          Health, medical and biomedical research could include research into
-          understanding how a genetic change affects the functioning of a tissue or organ
-          or whole-body system. It is often done in a research laboratory setting.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 3
-        question: Research must be specifically related to my condition
-        description: |
-          Your genomic information may be helpful to study other health conditions,
-          but if you prefer, we can restrict sharing your information to research into
-          your condition only.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 4
-        question: Population and ancestry research
-        description: |
-          Population and ancestry research may include working out how or when a certain
-          genetic change arose in a population, studying traits of certain populations.
-          Your information may be grouped with many other people’s information to be part
-          of a control or reference dataset. This helps us to understand normal genetic
-          variation in populations.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 5
-        question: |
-          I agree to my general health information (eg just my MRIs, blood
-          test or other results) being shared with other research studies that don’t
-          need my genomic information.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 6
-        question: |
-          I agree to my self-reported information (eg questionnaire responses)
-          being shared with other research studies that don’t need my genomic information.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 7
-        question: |
-          I want to be contacted every time my de-identified DNA sample, genomic,
-          health or self-reported information is shared.
-        default_answer: not sure
-        question_type: multiple choice
-        answer_choices_position: right
-        QuestionOption:
-        - value: 'yes'
-        - value: 'no'
-        - value: not sure
-      - order: 8
-        question: |
-          I agree to Australian Genomics sharing my contact details with
-          other research projects and clinical trials doing studies I am eligible for.
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
-      - order: 9
-        question: |
-          I understand all of the information above and the choices I have
-          made.</br>(leaving this box unchecked means you will be contacted
-          by a Genetic Counsellor who will give you more information)
-        default_answer: 'no'
-        question_type: checkbox
-        answer_choices_position: right
+        header: What kinds of research can they do with my de-identified samples and
+          information?
+        ConsentQuestion:
+        - order: 1
+          question: General research use and clinical care
+          description: |
+            General research use and clinical care refers to research where, for example,
+            your genomic information might be shared through clinical networks
+            internationally to see if there are any other cases in the world like yours.
+            This is for clinical benefit, but because of the close links between clinical
+            and research genomics, your genomic and other health information will
+            likely also be used in a research setting.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 2
+          question: Health/medical/biomedical research
+          description: |
+            Health, medical and biomedical research could include research into
+            understanding how a genetic change affects the functioning of a tissue or organ
+            or whole-body system. It is often done in a research laboratory setting.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 3
+          question: Research must be specifically related to my condition
+          description: |
+            Your genomic information may be helpful to study other health conditions,
+            but if you prefer, we can restrict sharing your information to research into
+            your condition only.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 4
+          question: Population and ancestry research
+          description: |
+            Population and ancestry research may include working out how or when a certain
+            genetic change arose in a population, studying traits of certain populations.
+            Your information may be grouped with many other people’s information to be part
+            of a control or reference dataset. This helps us to understand normal genetic
+            variation in populations.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 5
+          question: |
+            I agree to my general health information (eg just my MRIs, blood
+            test or other results) being shared with other research studies that don’t
+            need my genomic information.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 6
+          question: |
+            I agree to my self-reported information (eg questionnaire responses)
+            being shared with other research studies that don’t need my genomic information.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 7
+          question: |
+            I want to be contacted every time my de-identified DNA sample, genomic,
+            health or self-reported information is shared.
+          default_answer: not sure
+          question_type: multiple choice
+          answer_choices_position: right
+          QuestionOption:
+          - value: 'yes'
+          - value: 'no'
+          - value: not sure
+        - order: 8
+          question: |
+            I agree to Australian Genomics sharing my contact details with
+            other research projects and clinical trials doing studies I am eligible for.
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+        - order: 9
+          question: |
+            I understand all of the information above and the choices I have
+            made.</br>(leaving this box unchecked means you will be contacted
+            by a Genetic Counsellor who will give you more information)
+          default_answer: 'no'
+          question_type: checkbox
+          answer_choices_position: right
+- join:
+  - User: adminuser@email.com
+    Study: default
