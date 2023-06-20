@@ -1,6 +1,7 @@
 class Study < ApplicationRecord
   has_many :study_users, dependent: :destroy
   has_many :users, through: :study_users
+
   has_many :consent_steps, dependent: :destroy
   has_many :glossary_entries, dependent: :destroy
   has_many :api_users, dependent: :destroy

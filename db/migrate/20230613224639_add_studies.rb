@@ -6,10 +6,17 @@ class AddStudies < ActiveRecord::Migration[7.0]
     end
 
     create_join_table :studies, :users do |t|
-      t.index :study_id
-      t.index :user_id
+      # Each <study_id, user_id> pair is unique. But without giving each row an
+      # ID, rails can't figure out how to destroy associated records.
+      t.primary_key :id
+
+      t.foreign_key :studies
+      t.foreign_key :users
 
       t.string :participant_id, null: false
+
+      t.index :study_id
+      t.index :user_id
     end
 
     add_column :consent_steps, :study_id, :integer

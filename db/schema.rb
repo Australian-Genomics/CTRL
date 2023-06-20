@@ -173,7 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_224639) do
     t.index ["name"], name: "index_studies_on_name", unique: true
   end
 
-  create_table "studies_users", id: false, force: :cascade do |t|
+  create_table "studies_users", force: :cascade do |t|
     t.bigint "study_id", null: false
     t.bigint "user_id", null: false
     t.string "participant_id", null: false
@@ -266,4 +266,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_224639) do
   add_foreign_key "glossary_entries", "studies", on_delete: :cascade
   add_foreign_key "modal_fallbacks", "consent_steps"
   add_foreign_key "question_options", "consent_questions"
+  add_foreign_key "studies_users", "studies"
+  add_foreign_key "studies_users", "users"
 end

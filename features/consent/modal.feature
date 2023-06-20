@@ -4,7 +4,6 @@ Feature: Modal Fallback
 
   Scenario: User sees the modal fallback when some checkbox agreement elements aren't checked
     Given I do not exist as a user
-    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent

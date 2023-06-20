@@ -98,7 +98,9 @@
     <div class="form-row">
       <div class="col-12 mb-30">
         <div class="position-relative">
-          <%= f.input :participant_id, label: t('user_profile.participant_id'), required: false, placeholder: t('user_profile.participant_id'), input_html: {class: "form-control mb-0"} %>
+          <%= f.simple_fields_for :study_users, @study_user do |study_user| %>
+            <%= study_user.input :participant_id, label: t('user_profile.participant_id'), required: false, placeholder: t('user_profile.participant_id'), input_html: {class: "form-control mb-0"} %>
+          <% end %>
         </div>
       </div>
     </div>

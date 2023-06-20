@@ -41,7 +41,7 @@ class User < ApplicationRecord
 
   validates :terms_and_conditions, acceptance: true
 
-  accepts_nested_attributes_for :steps
+  accepts_nested_attributes_for :steps, :study_users
 
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
   enum preferred_contact_method: %w[Email Phone Mail]
