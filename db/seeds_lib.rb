@@ -23,37 +23,13 @@ def create_related_record_of_type(
   assert_type(related_record_type, String)
   assert_type(related_records_hash, Hash)
 
-  fields_, related_records_hash_ = fields_and_related_records(
-    related_records_hash
-  )
-  new_record =
-    case related_record_type
-    when 'AdminUser'
-      record.admin_users.new(fields_)
-    when 'ConsentGroup'
-      record.consent_groups.new(fields_)
-    when 'ConsentQuestion'
-      record.consent_questions.new(fields_)
-    when 'ConsentStep'
-      record.consent_steps.new(fields_)
-    when 'GlossaryEntry'
-      record.glossary_entries.new(fields_)
-    when 'ModalFallback'
-      record.modal_fallbacks.new(fields_)
-    when 'QuestionOption'
-      record.question_options.new(fields_)
-    when 'Study'
-      record.studies.new(fields_)
-    when 'SurveyConfig'
-      record.survey_configs.new(fields_)
-    when 'User'
-      record.users.new(fields_)
-    when 'UserColumnToRedcapFieldMapping'
-      record.user_column_to_redcap_field_mapping.new(fields_)
-    when 'ConditionalDuoLimitation'
-      record.conditional_duo_limitations.new(fields_)
-    else raise ArgumentError, "No such record type: #{record_type}"
-    end
+  # Check if the relation exists before attempting to create a new record
+  raise ArgumentError, "No such record type: #{related_record_type}" unless record.class.reflect_on_association(related_record_type.underscore.pluralize.to_sym)
+
+  fields_, related_records_hash_ = fields_and_related_records(related_records_hash)
+
+  # Create the new record
+  new_record = record.send(related_record_type.underscore.pluralize).new(fields_)
 
   new_records = [new_record] + create_related_records(new_record, related_records_hash_)
   new_record.save!
@@ -87,42 +63,39 @@ def create_related_records(record, related_records_hash)
   end
 end
 
+def create_join(record_hash)
+  record_hash.map do |record_type, records_hash|
+    kwargs = records_hash.map do |k, v|
+      if k =~ /^[A-Z]/
+        [k.downcase, k.constantize.find_by(**v)]
+      else
+        [k, v]
+      end
+    end.to_h
+
+    new_record = record_type.constantize.new(**kwargs)
+    new_record.save!
+    new_record
+  end
+end
+
 def create_record_of_type(record_type, record_hash)
   assert_type(record_type, String)
   assert_type(record_hash, Hash)
 
   fields_hash, related_records_hash = fields_and_related_records(record_hash)
-  new_record =
-    case record_type
-    when 'AdminUser'
-      AdminUser.new(fields_hash)
-    when 'ConsentGroup'
-      ConsentGroup.new(fields_hash)
-    when 'ConsentQuestion'
-      ConsentQuestion.new(fields_hash)
-    when 'ConsentStep'
-      ConsentStep.new(fields_hash)
-    when 'GlossaryEntry'
-      GlossaryEntry.new(fields_hash)
-    when 'ModalFallback'
-      ModalFallback.new(fields_hash)
-    when 'QuestionOption'
-      QuestionOption.new(fields_hash)
-    when 'Study'
-      Study.new(fields_hash)
-    when 'SurveyConfig'
-      SurveyConfig.new(fields_hash)
-    when 'User'
-      User.new(fields_hash)
-    when 'UserColumnToRedcapFieldMapping'
-      UserColumnToRedcapFieldMapping.new(fields_hash)
-    when 'ConditionalDuoLimitation'
-      ConditionalDuoLimitation.new(fields_hash)
-    else raise ArgumentError, "No such record type: #{record_type}"
-    end
 
-  new_records = [new_record] + create_related_records(new_record, related_records_hash)
-  new_record.save!
+  if record_type == 'join'
+    new_records = create_join(record_hash)
+  else
+    new_record = record_type.constantize.new(fields_hash)
+    new_records = [new_record] + create_related_records(
+      new_record,
+      related_records_hash
+    )
+    new_record.save!
+  end
+
   new_records
 end
 
@@ -135,21 +108,24 @@ def create_records_of_type(record_type, records_array)
   end
 end
 
-def destroy_all_records_of_type(record_type)
-  case record_type
-  when 'AdminUser'                      then AdminUser.destroy_all
-  when 'ConsentGroup'                   then ConsentGroup.destroy_all
-  when 'ConsentQuestion'                then ConsentQuestion.destroy_all
-  when 'ConsentStep'                    then ConsentStep.destroy_all
-  when 'GlossaryEntry'                  then GlossaryEntry.destroy_all
-  when 'ModalFallback'                  then ModalFallback.destroy_all
-  when 'QuestionOption'                 then QuestionOption.destroy_all
-  when 'Study'                          then Study.destroy_all
-  when 'SurveyConfig'                   then SurveyConfig.destroy_all
-  when 'User'                           then User.destroy_all
-  when 'UserColumnToRedcapFieldMapping' then UserColumnToRedcapFieldMapping.destroy_all
-  when 'ConditionalDuoLimitation'       then ConditionalDuoLimitation.destroy_all
-  else raise ArgumentError, "No such record type: #{record_type}"
+def destroy_all_joins(records_array)
+  assert_type(records_array, Array)
+  records_array.each do |record_hash|
+    assert_type(record_hash, Hash)
+  end
+
+  records_array.each do |record_hash|
+    record_hash.each_key do |record_type|
+      record_type.constantize.destroy_all
+    end
+  end
+end
+
+def destroy_all_records_of_type(record_type, record_array)
+  if record_type == 'join'
+    destroy_all_joins(record_array)
+  else
+    record_type.constantize.destroy_all
   end
 end
 
@@ -157,8 +133,8 @@ def replace_records(records_array)
   assert_type(records_array, Array)
   records_array.each do |record_hash|
     assert_type(record_hash, Hash)
-    record_hash.each_key do |record_type|
-      destroy_all_records_of_type(record_type)
+    record_hash.flat_map do |record_type, record_array|
+      destroy_all_records_of_type(record_type, record_array)
     end
   end
 

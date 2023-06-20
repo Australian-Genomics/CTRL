@@ -9,7 +9,6 @@
     password: 'tester123'
     password_confirmation: 'tester123'
     dob: 21-12-2002
-    participant_id: A1543457
 - UserColumnToRedcapFieldMapping:
   - user_column: created_at
     redcap_field: ctrl_reg_date
@@ -19,9 +18,6 @@
     redcap_event_name: proband_informatio_arm_1
   - user_column: family_name
     redcap_field: ctrl_pers_surname
-    redcap_event_name: proband_informatio_arm_1
-  - user_column: participant_id
-    redcap_field: ctrl_stud_id
     redcap_event_name: proband_informatio_arm_1
   - user_column: dob
     redcap_field: ctrl_dob
@@ -81,30 +77,10 @@
     value: 'false'
   - name: Landing Text
     value: Consent to participating in the Australian Genomics program
-- ConditionalDuoLimitation:
-  - json: |
-      {
-        "duo_limitation": {
-          "code": "DUO:0000004",
-          "modifiers": [ { "code": "DUO:0000046" } ]
-        },
-        "condition": true
-      }
-  - json: |
-      {
-        "duo_limitation": {
-          "code": "DUO:0000004",
-          "modifiers": [ { "code": "DUO:0000019" } ]
-        },
-        "condition": {
-          "consent_question_id": 1,
-          "answer": "yes"
-        }
-      }
 - Study:
   - name: default
-  - participant_id_format: "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
-  - GlossaryEntry:
+    participant_id_format: "\\AA[0-4]{1}[0-9]{1}[2-4]{1}[0-9]{4}\\z"
+    GlossaryEntry:
     - term: DNA
       definition: |
         <i>noun</i>
@@ -120,7 +96,7 @@
           <li>relating to genes or heredity.</li>
           <li>relating to origin, or arising from a common origin.</li>
         </ol>
-  - ConsentStep:
+    ConsentStep:
     - order: 1
       title: CTRL introduction
       description: |
@@ -716,6 +692,30 @@
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
+- ConditionalDuoLimitation:
+  - json: |
+      {
+        "duo_limitation": {
+          "code": "DUO:0000004",
+          "modifiers": [ { "code": "DUO:0000046" } ]
+        },
+        "condition": true
+      }
+  - json: |
+      {
+        "duo_limitation": {
+          "code": "DUO:0000004",
+          "modifiers": [ { "code": "DUO:0000019" } ]
+        },
+        "condition": {
+          "consent_question_id": 1,
+          "answer": "yes"
+        }
+      }
 - join:
-  - User: adminuser@email.com
-    Study: default
+  - StudyUser:
+      User:
+        email: testuser@email.com
+      Study:
+        name: default
+      participant_id: A1543457

@@ -162,7 +162,10 @@ class Redcap
 
     return nil if UserColumnToRedcapFieldMapping.count.zero?
 
-    participant_id = user.participant_id
+    participant_id = StudyUser.find_by(
+      study_id: Study.find_by(name: 'default').id,
+      user_id: user.id,
+    ).participant_id
 
     UserColumnToRedcapFieldMapping.all.map do |user_column_to_redcap_field_mapping|
       user_column = user_column_to_redcap_field_mapping.user_column

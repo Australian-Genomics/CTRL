@@ -170,11 +170,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_224639) do
   create_table "studies", force: :cascade do |t|
     t.string "name", null: false
     t.string "participant_id_format", null: false
+    t.index ["name"], name: "index_studies_on_name", unique: true
   end
 
   create_table "studies_users", id: false, force: :cascade do |t|
     t.bigint "study_id", null: false
     t.bigint "user_id", null: false
+    t.string "participant_id", null: false
+    t.index ["study_id"], name: "index_studies_users_on_study_id"
+    t.index ["user_id"], name: "index_studies_users_on_user_id"
   end
 
   create_table "survey_configs", force: :cascade do |t|
@@ -223,7 +227,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_224639) do
     t.string "kin_family_name"
     t.string "kin_contact_no"
     t.string "kin_email"
-    t.string "participant_id"
     t.string "child_first_name"
     t.string "child_middle_name"
     t.string "child_family_name"
@@ -242,7 +245,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_224639) do
     t.date "red_cap_date_of_result_disclosure"
     t.integer "preferred_contact_method", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["participant_id"], name: "index_users_on_participant_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -257,11 +259,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_224639) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "api_users", "studies"
+  add_foreign_key "api_users", "studies", on_delete: :cascade
   add_foreign_key "consent_groups", "consent_steps"
   add_foreign_key "consent_questions", "consent_groups"
-  add_foreign_key "consent_steps", "studies"
-  add_foreign_key "glossary_entries", "studies"
+  add_foreign_key "consent_steps", "studies", on_delete: :cascade
+  add_foreign_key "glossary_entries", "studies", on_delete: :cascade
   add_foreign_key "modal_fallbacks", "consent_steps"
   add_foreign_key "question_options", "consent_questions"
 end
