@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-bullseye
+FROM ruby:3.2.2-bookworm
 
 # Use a directory called /code in which to store
 # this application's files. (The directory name
