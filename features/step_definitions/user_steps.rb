@@ -10,7 +10,7 @@ def create_visitor
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
-                 dob: Date.today.at_beginning_of_month.last_month}
+                 dob: Date.today.at_beginning_of_month.last_month }
 end
 
 def delete_user
@@ -25,7 +25,7 @@ def create_user
   StudyUser.create!(
     study_id: Study.find_by(name: 'default').id,
     user_id: User.create!(@visitor).id,
-    participant_id: @participant_id_random_example1,
+    participant_id: @participant_id_random_example1
   )
 end
 
@@ -213,7 +213,7 @@ Then('I should be signed in') do
 end
 
 Then('I should not see the welcome message') do
-  expect(page).to have_content "Register Now"
+  expect(page).to have_content 'Register Now'
 end
 
 Then('I should see an error {string} on the page') do |message|

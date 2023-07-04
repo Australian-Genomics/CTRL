@@ -112,9 +112,6 @@ def destroy_all_joins(records_array)
   assert_type(records_array, Array)
   records_array.each do |record_hash|
     assert_type(record_hash, Hash)
-  end
-
-  records_array.each do |record_hash|
     record_hash.each_key do |record_type|
       record_type.constantize.destroy_all
     end

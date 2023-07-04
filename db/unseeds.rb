@@ -140,7 +140,7 @@ def fetch_records
   [
     fetch_records_of_type('Study'),
     fetch_records_of_type('UserColumnToRedcapFieldMapping'),
-    fetch_records_of_type('SurveyConfig'),
+    fetch_records_of_type('SurveyConfig')
   ]
 end
 

@@ -18,4 +18,3 @@ class Study < ApplicationRecord
     )
   end
 end
-
