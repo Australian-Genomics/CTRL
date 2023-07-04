@@ -64,18 +64,20 @@ def create_related_records(record, related_records_hash)
 end
 
 def create_join(record_hash)
-  record_hash.map do |record_type, records_hash|
-    kwargs = records_hash.map do |k, v|
-      if k =~ /^[A-Z]/
-        [k.downcase, k.constantize.find_by(**v)]
-      else
-        [k, v]
-      end
-    end.to_h
+  record_hash.flat_map do |record_type, records_array|
+    records_array.map do |records_hash|
+      kwargs = records_hash.map do |k, v|
+        if k =~ /^[A-Z]/
+          [k.downcase, k.constantize.find_by(**v)]
+        else
+          [k, v]
+        end
+      end.to_h
 
-    new_record = record_type.constantize.new(**kwargs)
-    new_record.save!
-    new_record
+      new_record = record_type.constantize.new(**kwargs)
+      new_record.save!
+      new_record
+    end
   end
 end
 

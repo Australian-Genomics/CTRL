@@ -1,6 +1,7 @@
 ---
-- ParticipantIdFormat: []
 - UserColumnToRedcapFieldMapping: []
 - SurveyConfig: []
-- GlossaryEntry: []
-- ConsentStep: []
+- Study: []
+- ConditionalDuoLimitation: []
+- join:
+  - StudyUser: []

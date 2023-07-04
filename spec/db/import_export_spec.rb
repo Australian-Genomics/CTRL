@@ -17,6 +17,17 @@ RSpec.describe 'import/export round-trip' do
     expect(fetch_records.to_yaml).to eq(empty_unparsed_yaml)
 
     # Round-trip for full.yml
+    #
+    # We create a user outside of full.yml because the yaml file can't contain
+    # passwords.
+    User.create(
+      'email' => 'testuser@email.com',
+      'first_name' => 'testuser',
+      'family_name' => 'familyOfUser',
+      'password' => 'tester123',
+      'password_confirmation' => 'tester123',
+      'dob' => '21-12-2002'
+    )
     replace_records(full_parsed_yaml)
     expect(fetch_records.to_yaml).to eq(full_unparsed_yaml)
 

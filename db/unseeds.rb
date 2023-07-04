@@ -68,6 +68,7 @@ def fetch_related_records(record)
                       .class
                       .reflect_on_all_associations(:has_many)
                       .map(&:name)
+                      .filter { |n| !%i[studies users study_users].include?(n) }
 
   association_names.each_with_object({}) do |association_name, accumulator|
     unsorted_related_records =
@@ -100,34 +101,7 @@ def fetch_related_records(record)
 end
 
 def fetch_records_of_type(record_type)
-  records =
-    case record_type
-    when 'AdminUser'
-      AdminUser.all
-    when 'ConsentGroup'
-      ConsentGroup.all
-    when 'ConsentQuestion'
-      ConsentQuestion.all
-    when 'ConsentStep'
-      ConsentStep.all
-    when 'GlossaryEntry'
-      GlossaryEntry.all
-    when 'ModalFallback'
-      ModalFallback.all
-    when 'QuestionOption'
-      QuestionOption.all
-    when 'Study'
-      Study.all
-    when 'SurveyConfig'
-      SurveyConfig.all
-    when 'User'
-      User.all
-    when 'UserColumnToRedcapFieldMapping'
-      UserColumnToRedcapFieldMapping.all
-    when 'ConditionalDuoLimitation'
-      ConditionalDuoLimitation.all
-    else raise ArgumentError, "No such record type: #{record_type}"
-    end
+  records = record_type.constantize.all
 
   filtered_records = records.map do |record|
     record_to_yaml(record)
@@ -138,9 +112,21 @@ end
 
 def fetch_records
   [
-    fetch_records_of_type('Study'),
     fetch_records_of_type('UserColumnToRedcapFieldMapping'),
-    fetch_records_of_type('SurveyConfig')
+    fetch_records_of_type('SurveyConfig'),
+    fetch_records_of_type('Study'),
+    fetch_records_of_type('ConditionalDuoLimitation'),
+    {
+      'join' => [
+        'StudyUser' => StudyUser.all.map do |study_user|
+          {
+            'User' => { 'email' => study_user.user.email },
+            'Study' => { 'name' => study_user.study.name },
+            'participant_id' => study_user.participant_id
+          }
+        end
+      ]
+    }
   ]
 end
 

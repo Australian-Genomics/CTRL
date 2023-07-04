@@ -714,7 +714,7 @@
       }
 - join:
   - StudyUser:
-      User:
+    - User:
         email: testuser@email.com
       Study:
         name: default
