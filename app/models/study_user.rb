@@ -5,8 +5,8 @@ class StudyUser < ApplicationRecord
   belongs_to :user
 
   validates :participant_id, presence: true, uniqueness: true
-  validate :check_participant_id_format_by_regex, if: -> { participant_id.present? }, on: :create
-  validate :check_participant_id_format_by_redcap, if: -> { participant_id.present? }, on: :create
+  validate :check_participant_id_format_by_regex, if: -> { participant_id.present? }
+  validate :check_participant_id_format_by_redcap, if: -> { participant_id.present? }
 
   after_save :upload_redcap_details
 
@@ -37,7 +37,7 @@ class StudyUser < ApplicationRecord
       errors.add(:participant_id, 'Participant ID not found')
       false
     elsif redcap_details.length == 1
-      if redcap_details[0][redcap_email_field] != email
+      if redcap_details[0][redcap_email_field] != user.email
         errors.add(:participant_id, 'Participant ID does not match the provided email address')
         false
       else
