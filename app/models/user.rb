@@ -46,8 +46,7 @@ class User < ApplicationRecord
   enum state: %w[ACT NSW NT QLD SA TAS VIC WA]
   enum preferred_contact_method: %w[Email Phone Mail]
 
-  # TODO
-  # after_save :upload_redcap_details
+  after_save :upload_redcap_details
 
   def kin_details_and_child_details_on_create
     if is_parent == false

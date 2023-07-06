@@ -165,7 +165,9 @@ class Redcap
     participant_id = StudyUser.find_by(
       study_id: Study.find_by(name: 'default').id,
       user_id: user.id
-    ).participant_id
+    )&.participant_id
+
+    return nil if participant_id.nil?
 
     UserColumnToRedcapFieldMapping.all.map do |user_column_to_redcap_field_mapping|
       user_column = user_column_to_redcap_field_mapping.user_column

@@ -8,6 +8,8 @@ class StudyUser < ApplicationRecord
   validate :check_participant_id_format_by_regex, if: -> { participant_id.present? }, on: :create
   validate :check_participant_id_format_by_redcap, if: -> { participant_id.present? }, on: :create
 
+  after_save :upload_redcap_details
+
   def check_participant_id_format_by_regex
     format = Regexp.new(study.participant_id_format)
     if participant_id.match(format)
@@ -51,6 +53,15 @@ class StudyUser < ApplicationRecord
       :user_to_export_redcap_response,
       :get_export_payload,
       record: self
+    )
+  end
+
+  def upload_redcap_details
+    Redcap.perform(
+      :user_to_import_redcap_response,
+      :get_import_payload,
+      record: user,
+      expected_count: 1
     )
   end
 end
