@@ -29,29 +29,29 @@ def create_related_record_of_type(
   new_record =
     case related_record_type
     when 'AdminUser'
-      then record.admin_users.new(fields_)
+      record.admin_users.new(fields_)
     when 'ConsentGroup'
-      then record.consent_groups.new(fields_)
+      record.consent_groups.new(fields_)
     when 'ConsentQuestion'
-      then record.consent_questions.new(fields_)
+      record.consent_questions.new(fields_)
     when 'ConsentStep'
-      then record.consent_steps.new(fields_)
+      record.consent_steps.new(fields_)
     when 'GlossaryEntry'
-      then record.glossary_entries.new(fields_)
+      record.glossary_entries.new(fields_)
     when 'ModalFallback'
-      then record.modal_fallbacks.new(fields_)
+      record.modal_fallbacks.new(fields_)
     when 'QuestionOption'
-      then record.question_options.new(fields_)
+      record.question_options.new(fields_)
     when 'ParticipantIdFormat'
-      then record.participant_id_formats.new(fields_)
+      record.participant_id_formats.new(fields_)
     when 'SurveyConfig'
-      then record.survey_configs.new(fields_)
+      record.survey_configs.new(fields_)
     when 'User'
-      then record.users.new(fields_)
+      record.users.new(fields_)
     when 'UserColumnToRedcapFieldMapping'
-      then record.user_column_to_redcap_field_mapping.new(fields_)
+      record.user_column_to_redcap_field_mapping.new(fields_)
     when 'ConditionalDuoLimitation'
-      then record.conditional_duo_limitations.new(fields_)
+      record.conditional_duo_limitations.new(fields_)
     else raise ArgumentError, "No such record type: #{record_type}"
     end
 
@@ -95,29 +95,29 @@ def create_record_of_type(record_type, record_hash)
   new_record =
     case record_type
     when 'AdminUser'
-      then AdminUser.new(fields_hash)
+      AdminUser.new(fields_hash)
     when 'ConsentGroup'
-      then ConsentGroup.new(fields_hash)
+      ConsentGroup.new(fields_hash)
     when 'ConsentQuestion'
-      then ConsentQuestion.new(fields_hash)
+      ConsentQuestion.new(fields_hash)
     when 'ConsentStep'
-      then ConsentStep.new(fields_hash)
+      ConsentStep.new(fields_hash)
     when 'GlossaryEntry'
-      then GlossaryEntry.new(fields_hash)
+      GlossaryEntry.new(fields_hash)
     when 'ModalFallback'
-      then ModalFallback.new(fields_hash)
+      ModalFallback.new(fields_hash)
     when 'QuestionOption'
-      then QuestionOption.new(fields_hash)
+      QuestionOption.new(fields_hash)
     when 'ParticipantIdFormat'
-      then ParticipantIdFormat.new(fields_hash)
+      ParticipantIdFormat.new(fields_hash)
     when 'SurveyConfig'
-      then SurveyConfig.new(fields_hash)
+      SurveyConfig.new(fields_hash)
     when 'User'
-      then User.new(fields_hash)
+      User.new(fields_hash)
     when 'UserColumnToRedcapFieldMapping'
-      then UserColumnToRedcapFieldMapping.new(fields_hash)
+      UserColumnToRedcapFieldMapping.new(fields_hash)
     when 'ConditionalDuoLimitation'
-      then ConditionalDuoLimitation.new(fields_hash)
+      ConditionalDuoLimitation.new(fields_hash)
     else raise ArgumentError, "No such record type: #{record_type}"
     end
 
@@ -157,9 +157,6 @@ def replace_records(records_array)
   assert_type(records_array, Array)
   records_array.each do |record_hash|
     assert_type(record_hash, Hash)
-  end
-
-  records_array.each do |record_hash|
     record_hash.each_key do |record_type|
       destroy_all_records_of_type(record_type)
     end

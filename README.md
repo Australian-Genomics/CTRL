@@ -40,7 +40,7 @@ There are two ways to get started, via Docker or the standard way. We recommend 
 ##### From the project root, build the containers:
 
 ```shell
-docker-compose build
+docker-compose build --progress=plain
 ```
 
 #### Decode or create `config/credentials.yml`
@@ -91,7 +91,7 @@ docker-compose --env-file=.env.dev run web bundle exec rails db:migrate
 #### Seed the database
 
 ```shell
-docker-compose --env-file=.env.dev run web bundle exec rails db:seed
+docker-compose --env-file=.env.dev run web bundle exec rails db:reset
 ```
 
 After seeding, an Admin user is created with the following credentials:
@@ -147,7 +147,7 @@ yarn install
 ##### Seed the database
 
 ```shell
-rails db:seed
+rails db:reset
 ```
 
 ##### Start the server! `rails s`

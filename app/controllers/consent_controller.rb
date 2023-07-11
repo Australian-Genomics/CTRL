@@ -5,13 +5,13 @@ class ConsentController < ApplicationController
   def edit; end
 
   def index
-    render 'index.json.jbuilder'
+    render formats: :json
   end
 
   def update
     mark_step_as_reviewed(params[:consent_step_id]).touch
     params[:answers].each { |answer| answer_question(answer) }
-    render 'index.json.jbuilder'
+    render 'index', formats: :json
   end
 
   private

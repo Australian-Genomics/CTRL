@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_04_051318) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_001727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,10 +18,10 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -30,15 +29,15 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
   create_table "api_users", force: :cascade do |t|
     t.string "name"
     t.string "token_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name"], name: "index_api_users_on_name", unique: true
   end
 
   create_table "conditional_duo_limitations", force: :cascade do |t|
     t.text "json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "conditional_duo_limitations_consent_questions", id: false, force: :cascade do |t|
@@ -50,8 +49,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.integer "order"
     t.bigint "consent_step_id"
     t.string "header"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["consent_step_id"], name: "index_consent_groups_on_consent_step_id"
     t.index ["order"], name: "index_consent_groups_on_order"
   end
@@ -65,8 +64,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.string "default_answer"
     t.string "question_type"
     t.string "answer_choices_position", default: "right"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "is_published", default: true
     t.string "redcap_event_name"
     t.index ["consent_group_id"], name: "index_consent_questions_on_consent_group_id"
@@ -78,8 +77,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.string "title"
     t.text "description"
     t.text "popover"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "tour_videos"
     t.index ["order"], name: "index_consent_steps_on_order", unique: true
   end
@@ -89,21 +88,21 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
     t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
+    t.datetime "run_at", precision: nil
+    t.datetime "locked_at", precision: nil
+    t.datetime "failed_at", precision: nil
     t.string "locked_by"
     t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "glossary_entries", force: :cascade do |t|
     t.string "term", null: false
     t.text "definition", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "modal_fallbacks", force: :cascade do |t|
@@ -112,23 +111,23 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.string "review_answers_btn"
     t.text "small_note"
     t.bigint "consent_step_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["consent_step_id"], name: "index_modal_fallbacks_on_consent_step_id"
   end
 
   create_table "participant_id_formats", force: :cascade do |t|
     t.string "participant_id_format"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "question_answers", force: :cascade do |t|
     t.integer "consent_question_id"
     t.integer "user_id"
     t.string "answer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["consent_question_id"], name: "index_question_answers_on_consent_question_id"
     t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
@@ -145,8 +144,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.integer "number"
     t.integer "answer"
     t.bigint "step_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "question_id"
     t.bigint "user_id"
     t.index ["step_id"], name: "index_questions_on_step_id"
@@ -156,8 +155,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
   create_table "step_reviews", force: :cascade do |t|
     t.integer "user_id"
     t.integer "consent_step_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["consent_step_id"], name: "index_step_reviews_on_consent_step_id"
     t.index ["user_id"], name: "index_step_reviews_on_user_id"
   end
@@ -166,8 +165,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.integer "number"
     t.boolean "accepted"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_steps_on_user_id"
   end
 
@@ -175,8 +174,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.string "name"
     t.string "value"
     t.string "key"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "is_file"
     t.string "hint"
   end
@@ -193,15 +192,15 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "first_name"
     t.string "middle_name"
     t.string "family_name"
@@ -246,7 +245,7 @@ ActiveRecord::Schema.define(version: 2023_05_04_051318) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.text "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end

@@ -103,29 +103,29 @@ def fetch_records_of_type(record_type)
   records =
     case record_type
     when 'AdminUser'
-      then AdminUser.all
+      AdminUser.all
     when 'ConsentGroup'
-      then ConsentGroup.all
+      ConsentGroup.all
     when 'ConsentQuestion'
-      then ConsentQuestion.all
+      ConsentQuestion.all
     when 'ConsentStep'
-      then ConsentStep.all
+      ConsentStep.all
     when 'GlossaryEntry'
-      then GlossaryEntry.all
+      GlossaryEntry.all
     when 'ModalFallback'
-      then ModalFallback.all
+      ModalFallback.all
     when 'QuestionOption'
-      then QuestionOption.all
+      QuestionOption.all
     when 'ParticipantIdFormat'
-      then ParticipantIdFormat.all
+      ParticipantIdFormat.all
     when 'SurveyConfig'
-      then SurveyConfig.all
+      SurveyConfig.all
     when 'User'
-      then User.all
+      User.all
     when 'UserColumnToRedcapFieldMapping'
-      then UserColumnToRedcapFieldMapping.all
+      UserColumnToRedcapFieldMapping.all
     when 'ConditionalDuoLimitation'
-      then ConditionalDuoLimitation.all
+      ConditionalDuoLimitation.all
     else raise ArgumentError, "No such record type: #{record_type}"
     end
 

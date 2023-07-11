@@ -16,7 +16,7 @@ jobs:
       - run: docker-compose --env-file=.env.test run web yarn install
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:seed
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:reset
       - run: docker-compose --env-file=.env.test run web bundle exec rspec
   run-cucumber:
     name: "cucumber"
@@ -32,7 +32,7 @@ jobs:
       - run: docker-compose --env-file=.env.test run web yarn install
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
       - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:seed
+      - run: docker-compose --env-file=.env.test run web bundle exec rails db:reset
       - run: |
           docker-compose --env-file=.env.test up -d
           # Wait until the selenium container is ready

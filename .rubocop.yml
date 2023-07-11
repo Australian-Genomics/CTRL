@@ -1,34 +1,16 @@
-Lint/NestedMethodDefinition:
-  Enabled: false
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/LineLength:
-  Max: 200
-
-Metrics/ClassLength:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
 AllCops:
   Exclude:
+    - 'Gemfile'
+    - 'bin/**/*'
+    - 'config.ru' # auto-generated
+    - 'config/**/*'
+    - 'db/migrate/*' # auto-generated
     - 'db/schema.rb'
     - 'db/seeds.rb'
-    - 'lib/tasks/*.rake' # auto-generated
     - 'lib/tasks'
-    - 'config/**/*'
-    - 'bin/**/*'
-    - 'Gemfile'
+    - 'lib/tasks/*.rake' # auto-generated
     - 'vendor/**/*'
+  SuggestExtensions: false
 
 Style/SafeNavigation:
   Exclude:
@@ -51,4 +33,37 @@ Metrics/MethodLength:
       - "features/step_definitions/*.rb"
 
 Metrics/BlockLength:
+  Enabled: false
+
+Lint/NestedMethodDefinition:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 200
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
   Enabled: false

@@ -5,7 +5,7 @@ ActiveAdmin.register ConsentStep do
                   :_destroy,
                   :header,
                   :order,
-                  consent_questions_attributes: [
+                  { consent_questions_attributes: [
                     :id,
                     :_destroy,
                     :order,
@@ -16,14 +16,14 @@ ActiveAdmin.register ConsentStep do
                     :answer_choices_position,
                     :redcap_field,
                     :redcap_event_name,
-                    question_options_attributes: %i[
+                    { question_options_attributes: %i[
                       id
                       _destroy
                       value
                       redcap_code
                       color
-                    ]
-                  ]
+                    ] }
+                  ] }
                 ],
                 modal_fallbacks_attributes: %i[
                   id
@@ -85,7 +85,6 @@ ActiveAdmin.register ConsentStep do
                    sortable: :order,
                    sortable_start: 1,
                    allow_destroy: true do |c|
-
           c.input :order
           c.input :question
           c.input :description
@@ -99,7 +98,6 @@ ActiveAdmin.register ConsentStep do
                      new_record: 'Add Multiple Choice Option',
                      remove_record: 'Remove Option',
                      allow_destroy: true do |d|
-
             d.input :value
             d.input :redcap_code
             d.input :color, as: :color_picker, palette: [
@@ -138,7 +136,6 @@ ActiveAdmin.register ConsentStep do
                  new_record: 'Add Modal Fallback',
                  remove_record: 'Remove Modal Fallback',
                  allow_destroy: true do |b|
-
         b.input :description
         b.input :small_note
         b.input :review_answers_btn
