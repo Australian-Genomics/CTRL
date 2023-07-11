@@ -3,9 +3,9 @@ require 'spec_helper'
 RSpec.describe ApiController, type: :request do
   let(:test_token) { SecureRandom.hex(10) }
 
-  let(:user) { create(:user) }
+  let(:study_user) { create(:study_user) }
 
-  let(:other_user) { create(:user) }
+  let(:other_study_user) { create(:study_user) }
 
   let(:consent_question_1) { create(:consent_question) }
   let(:consent_question_2) { create(:consent_question) }
@@ -128,9 +128,9 @@ RSpec.describe ApiController, type: :request do
     end
 
     it 'yields only the DUO limitation which is unconditionally true when no questions are answered' do
-      request_body = %( ["#{user.participant_id}"] )
+      request_body = %( ["#{study_user.participant_id}"] )
       response_body = %(
-        {"#{user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]}]}
+        {"#{study_user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]}]}
       ).strip
 
       post '/api/v1/duo_limitations', params: request_body, headers: headers
@@ -142,13 +142,13 @@ RSpec.describe ApiController, type: :request do
     it 'yields merged DUO limitations when multiple conditions are satisfied' do
       QuestionAnswer.create!(
         consent_question: consent_question_1,
-        user: user,
+        user: study_user.user,
         answer: 'yes'
       )
 
-      request_body = %( ["#{user.participant_id}"] )
+      request_body = %( ["#{study_user.participant_id}"] )
       response_body = %(
-        {"#{user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"},{"code":"DUO:0000019"}]}]}
+        {"#{study_user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"},{"code":"DUO:0000019"}]}]}
       ).strip
 
       post '/api/v1/duo_limitations', params: request_body, headers: headers
@@ -160,18 +160,18 @@ RSpec.describe ApiController, type: :request do
     it 'correctly evaluates a condition using all the logical operators and literals' do
       QuestionAnswer.create!(
         consent_question: consent_question_1,
-        user: user,
+        user: study_user.user,
         answer: 'no'
       )
       QuestionAnswer.create!(
         consent_question: consent_question_2,
-        user: user,
+        user: study_user.user,
         answer: 'yes'
       )
 
-      request_body = %( ["#{user.participant_id}"] )
+      request_body = %( ["#{study_user.participant_id}"] )
       response_body = %(
-        {"#{user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]},{"code":"DUO:0000011","modifiers":[]}]}
+        {"#{study_user.participant_id}":[{"code":"DUO:0000004","modifiers":[{"code":"DUO:0000046"}]},{"code":"DUO:0000011","modifiers":[]}]}
       ).strip
 
       post '/api/v1/duo_limitations', params: request_body, headers: headers
@@ -183,20 +183,20 @@ RSpec.describe ApiController, type: :request do
     it 'yields DUO limitations for the right user' do
       QuestionAnswer.create!(
         consent_question: consent_question_1,
-        user: user,
+        user: study_user.user,
         answer: 'yes'
       )
 
-      request_body = %( ["#{user.participant_id}", "#{other_user.participant_id}"] )
+      request_body = %( ["#{study_user.participant_id}", "#{other_study_user.participant_id}"] )
       response_body = %(
         {
-          "#{user.participant_id}":[
+          "#{study_user.participant_id}":[
             {
               "code": "DUO:0000004",
               "modifiers": [{"code": "DUO:0000046"}, {"code": "DUO:0000019"}]
             }
           ],
-          "#{other_user.participant_id}":[
+          "#{other_study_user.participant_id}":[
             {
               "code": "DUO:0000004",
               "modifiers": [{"code":"DUO:0000046"}]

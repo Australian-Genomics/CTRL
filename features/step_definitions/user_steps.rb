@@ -10,12 +10,7 @@ def create_visitor
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
-                 dob: Date.today.at_beginning_of_month.last_month,
-                 participant_id: @participant_id_random_example1 }
-end
-
-def create_participant_id
-  ParticipantIdFormat.create!(participant_id_format: @participant_id_regexp_str) unless ParticipantIdFormat.find_by(participant_id_format: @participant_id_regexp_str)
+                 dob: Date.today.at_beginning_of_month.last_month }
 end
 
 def delete_user
@@ -27,7 +22,11 @@ end
 def create_user
   create_visitor
   delete_user
-  User.create!(@visitor)
+  StudyUser.create!(
+    study_id: Study.find_by(name: 'default').id,
+    user_id: User.create!(@visitor).id,
+    participant_id: @participant_id_random_example1
+  )
 end
 
 def sign_in
@@ -48,7 +47,7 @@ def sign_up
   find('table > tbody > tr > td.day', text: /\A1\z/, match: :first).click
   find('input[name="user[dob]"]').send_keys(:escape)
 
-  fill_in 'user[participant_id]', with: @visitor[:participant_id]
+  fill_in 'user[participant_id]', with: @participant_id_random_example1
   fill_in 'user[password]', with: @visitor[:password]
   fill_in 'user[password_confirmation]', with: @visitor[:password_confirmation]
   find('#new_user > div.col.mb-30 > label > span').click
@@ -73,7 +72,7 @@ def edit_user_details
   select 'VIC', from: 'user_state'
   fill_in 'user_post_code', with: '3000'
   select 'Phone', from: 'user_preferred_contact_method'
-  fill_in 'user_participant_id', with: @participant_id_random_example2
+  fill_in 'user_study_users_attributes_0_participant_id', with: @participant_id_random_example2
   find('#user_is_parent + span').click
   fill_in 'user_child_first_name', with: 'Luca'
   fill_in 'user_child_family_name', with: 'DSouza'
@@ -88,10 +87,6 @@ end
 Given('I am not logged in') do
   visit 'dashboard'
   click_button 'Log Out' if has_button?('Log Out')
-end
-
-Given('A participant ID format exists') do
-  create_participant_id
 end
 
 Given('I do not exist as a user') do
@@ -168,8 +163,7 @@ end
 
 When(/^I fill in the user details (without|invalid) filling the Participant ID$/) do |arg|
   create_visitor
-  participant_id = arg.eql?('invalid') ? 'B1523456' : ''
-  @visitor = @visitor.merge(participant_id: participant_id)
+  @participant_id_random_example1 = arg.eql?('invalid') ? 'B1523456' : ''
   sign_up
 end
 
@@ -190,7 +184,7 @@ When('I did not fill the mandatory fields') do
   fill_in 'user_address', with: '413'
   fill_in 'user_suburb', with: ''
   fill_in 'user_post_code', with: '3000'
-  fill_in 'user_participant_id', with: 'Research'
+  fill_in 'user_study_users_attributes_0_participant_id', with: 'Research'
 end
 
 When('I submit the user details') do
@@ -219,7 +213,7 @@ Then('I should be signed in') do
 end
 
 Then('I should not see the welcome message') do
-  expect(page).to have_content "Can't be blank"
+  expect(page).to have_content 'Register Now'
 end
 
 Then('I should see an error {string} on the page') do |message|
@@ -279,6 +273,6 @@ Then('I should see error on edit page') do
   expect(page).to have_content('Invalid format')
 end
 
-Then('I should see \'Invalid format\' error on edit page') do
-  expect(page).to have_content('Invalid format', count: 1)
+Then('I should see \'Invalid\' error on edit page') do
+  expect(page).to have_content('Invalid', count: 1)
 end

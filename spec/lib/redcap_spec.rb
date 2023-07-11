@@ -434,7 +434,8 @@ RSpec.describe Redcap do
     end
 
     it 'produces the correct response for UserColumnToRedcapFieldMapping.count > 0' do
-      user = create(:user)
+      study_user = create(:study_user)
+      user = User.find(study_user.user_id)
 
       create(
         :user_column_to_redcap_field_mapping,
@@ -469,16 +470,16 @@ RSpec.describe Redcap do
 
       actual = Redcap.user_to_import_redcap_response(record: user)
       expected = [
-        { 'record_id' => user.participant_id,
+        { 'record_id' => study_user.participant_id,
           'redcap_event_name' => 'proband_informatio_arm_1',
           'ctrl_dob' => user.dob },
-        { 'record_id' => user.participant_id,
+        { 'record_id' => study_user.participant_id,
           'redcap_event_name' => 'proband_informatio_arm_1',
           'ctrl_email' => user.email },
-        { 'record_id' => user.participant_id,
+        { 'record_id' => study_user.participant_id,
           'redcap_event_name' => 'proband_informatio_arm_1',
           'ctrl_is_parent' => '1' },
-        { 'record_id' => user.participant_id,
+        { 'record_id' => study_user.participant_id,
           'ctrl_family_name' => user.family_name }
       ]
       expect(actual).to eq(expected)

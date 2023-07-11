@@ -12,7 +12,6 @@ Feature: Dashboard Page
 
   Scenario: User sees the dashboard page
     Given I do not exist as a user
-    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -21,7 +20,6 @@ Feature: Dashboard Page
 
   Scenario: User can see the progress of step one consent
     Given I do not exist as a user
-    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -35,7 +33,6 @@ Feature: Dashboard Page
 
   Scenario: User can see the progress of step two consent
     Given I do not exist as a user
-    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -52,7 +49,6 @@ Feature: Dashboard Page
 
   Scenario: User can see the progress of step three consent
     Given I do not exist as a user
-    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -72,7 +68,6 @@ Feature: Dashboard Page
 
   Scenario: User can see the progress of step four consent
     Given I do not exist as a user
-    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
@@ -95,7 +90,6 @@ Feature: Dashboard Page
 
   Scenario: User can see the progress of step five consent
     Given I do not exist as a user
-    And A participant ID format exists
     When I click on Register
     And I fill in the user details
     Then I should see the step one of consent
