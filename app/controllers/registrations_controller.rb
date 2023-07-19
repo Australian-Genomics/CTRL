@@ -12,12 +12,13 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    study_name = 'default'
     build_resource(sign_up_params)
 
     resource.save
     yield resource if block_given?
     if resource.persisted?
-      study = Study.find_by(name: 'default')
+      study = Study.find_by(name: study_name)
       study_user = StudyUser.new(
         user: resource,
         study: study,
@@ -27,6 +28,8 @@ class RegistrationsController < Devise::RegistrationsController
         if resource.active_for_authentication?
           set_flash_message! :notice, :signed_up
           sign_up(resource_name, resource)
+          # TODO: Set this when signing in. Replace reads from vars with reads from cookies
+          user_session[:study_name] = study_name
           respond_with resource, location: after_sign_up_path_for(resource)
         else
           set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
