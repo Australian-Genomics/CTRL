@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = current_user
     if @user
       @study_user = @user.study_users.find_by(
-        study: Study.find_by(name: 'default')
+        study: Study.find_by(name: user_session["study_name"])
       )
     end
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   post '/admin/import_export', to: 'admin/import_export#post'
   ActiveAdmin.routes(self)
-  devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations' }
+  devise_for :users, controllers: { passwords: 'passwords', registrations: 'registrations', sessions: 'users/sessions' }
 
   get 'welcome/index'
   root 'welcome#index'
