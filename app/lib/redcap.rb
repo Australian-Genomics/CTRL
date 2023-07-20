@@ -159,11 +159,13 @@ class Redcap
 
   def self.user_to_import_redcap_response(record: nil, **_)
     user = record
+    study_name = user_session&.[]("study_name")
 
+    return nil if study_name.nil?
     return nil if UserColumnToRedcapFieldMapping.count.zero?
 
     participant_id = StudyUser.find_by(
-      study_id: Study.find_by(name: 'default').id,
+      study_id: Study.find_by(name: study_name).id,
       user_id: user.id
     )&.participant_id
 

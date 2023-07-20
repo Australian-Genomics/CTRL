@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
     sign_in(resource_name, resource)
 
     # TODO: Once front end is implemented, use: params[:user][:study_name]
-    user_session["study_name"] = 'default'
+    user_session['study_name'] = 'default'
 
     yield resource if block_given?
     respond_with resource, location: after_sign_in_path_for(resource)
