@@ -4,6 +4,9 @@
       <div class="bg-white border px-15">
         <%= render partial: 'layouts/header-modal' %>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+          <%= f.hidden_field :study_name, value: 'default' %>
+
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
@@ -12,6 +15,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-row">
             <div class="col mb-30">
               <div class="position-relative">
@@ -23,6 +27,7 @@
               </div>
             </div>
           </div>
+
           <% if flash[:alert].present? %>
             <div class="flash alert">
               <%= flash[:alert] %>
@@ -38,6 +43,7 @@
           </div>
         <% end %>
       </div>
+
       <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
         <%=
           t(
