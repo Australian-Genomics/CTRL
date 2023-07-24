@@ -468,7 +468,10 @@ RSpec.describe Redcap do
         redcap_event_name: ''
       )
 
-      actual = Redcap.user_to_import_redcap_response(record: user, study_name: study_user.study.name)
+      actual = Redcap.user_to_import_redcap_response(
+        record: user,
+        study_name: study_user.study.name
+      )
       expected = [
         { 'record_id' => study_user.participant_id,
           'redcap_event_name' => 'proband_informatio_arm_1',

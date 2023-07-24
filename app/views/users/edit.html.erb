@@ -1,6 +1,7 @@
 <section class="dashboard dashboard__edit">
   <%= simple_form_for @user, :html => {class: "dashboard__modal position-relative form-control mb-0"} do |f| %>
 
+    <%= f.hidden_field :study_name, value: 'default' %>
 
     <h3 class="h3 text-center">
       <%= t 'user_profile.edit_personal_details' %>
