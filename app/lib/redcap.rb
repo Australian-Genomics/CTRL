@@ -133,6 +133,7 @@ class Redcap
 
     question_type = consent_question.question_type
 
+    # TODO: This is broken
     participant_id = question_answer.user.participant_id
 
     construct_redcap_response(
@@ -157,9 +158,8 @@ class Redcap
     )
   end
 
-  def self.user_to_import_redcap_response(record: nil, **_)
+  def self.user_to_import_redcap_response(record: nil, study_name: nil, **_)
     user = record
-    study_name = user_session&.[]("study_name")
 
     return nil if study_name.nil?
     return nil if UserColumnToRedcapFieldMapping.count.zero?

@@ -79,11 +79,14 @@ class User < ApplicationRecord
   end
 
   def upload_redcap_details
-    Redcap.perform(
-      :user_to_import_redcap_response,
-      :get_import_payload,
-      record: self,
-      expected_count: 1
-    )
+    studies.each do |study|
+      Redcap.perform(
+        :user_to_import_redcap_response,
+        :get_import_payload,
+        record: self,
+        study_name: study.name,
+        expected_count: 1
+      )
+    end
   end
 end
