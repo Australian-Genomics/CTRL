@@ -29,7 +29,7 @@ class RegistrationsController < Devise::RegistrationsController
           set_flash_message! :notice, :signed_up
           sign_up(resource_name, resource)
           # TODO: Set this when signing in. Replace reads from vars with reads from cookies
-          user_session["study_name"] = study_name
+          user_session['study_name'] = study_name
           respond_with resource, location: after_sign_up_path_for(resource)
         else
           set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
