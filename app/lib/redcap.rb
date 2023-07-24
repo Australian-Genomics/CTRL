@@ -133,8 +133,14 @@ class Redcap
 
     question_type = consent_question.question_type
 
-    # TODO: This is broken
-    participant_id = question_answer.user.participant_id
+    # TODO: This shouldn't be hard-coded but we don't have a clear enough idea
+    #       of the data model we should use yet. Needs more discussions with
+    #       stakeholders. For now, we'll use the participant ID associated with
+    #       the 'default' study.
+    participant_id = StudyUser.find_by(
+      study_id: Study.find_by(name: 'default').id,
+      user_id: question_answer.user.id
+    ).participant_id
 
     construct_redcap_response(
       raw_redcap_code,
