@@ -221,8 +221,10 @@ RSpec.describe Redcap do
 
   describe '#question_answer_to_redcap_response' do
     it 'passes the right arguments to construct_redcap_response when when the redcap_event_name is blank' do
+      study_user = create(:study_user)
       question_answer = create(
         :question_answer,
+        user: study_user.user,
         traits: %i[
           multiple_checkboxes
           with_redcap_field
@@ -240,15 +242,17 @@ RSpec.describe Redcap do
         nil,
         'yes',
         'multiple checkboxes',
-        question_answer.user.participant_id,
+        study_user.participant_id,
         false
       )
       expect(actual).to eq(:response)
     end
 
     it 'passes the right arguments to construct_redcap_response when when the redcap_event_name is filled' do
+      study_user = create(:study_user)
       question_answer = create(
         :question_answer,
+        user: study_user.user,
         traits: %i[
           multiple_checkboxes
           with_redcap_field
@@ -267,7 +271,7 @@ RSpec.describe Redcap do
         'redcap_event_name',
         'yes',
         'multiple checkboxes',
-        question_answer.user.participant_id,
+        study_user.participant_id,
         false
       )
       expect(actual).to eq(:response)
