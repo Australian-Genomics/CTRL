@@ -5,9 +5,6 @@ class User < ApplicationRecord
   include UserDateValidator
   include NextOfKinRegistrationValidator
 
-  has_many :study_users, dependent: :destroy
-  has_many :studies, through: :study_users
-
   has_many :reviewed_steps,
            class_name: 'StepReview',
            dependent: :destroy
@@ -17,6 +14,9 @@ class User < ApplicationRecord
            dependent: :destroy
 
   has_many :steps, dependent: :destroy, class_name: 'Step'
+
+  has_many :study_users, dependent: :destroy
+  has_many :studies, through: :study_users
 
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable
