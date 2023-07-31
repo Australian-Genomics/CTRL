@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  devise :two_factor_authenticatable
   attr_accessor :skip_validation, :participant_id
 
   has_paper_trail
@@ -18,7 +19,7 @@ class User < ApplicationRecord
   has_many :study_users, dependent: :destroy
   has_many :studies, through: :study_users
 
-  devise :database_authenticatable, :registerable, :timeoutable,
+  devise :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :first_name, :family_name, presence: true
