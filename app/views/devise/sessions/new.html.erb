@@ -1,47 +1,86 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" integrity="sha512-ueXKWOB9liraz677EVGxz6H8nLk3RJjNv8Bfc0WrO9K9NyxROX3D/6bvZ9RYvAcYFxsVU+I0Jt/AMK0Nk8ya5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+const next = () => $("#form-container").transition({x: '-50%'});
+const back = () => $("#form-container").transition({x:   '0%'});
+</script>
 <div class="container my-15 my-sm-180">
   <div class="row flex-column">
     <div class="col-12 col-sm-9 col-md-7 col-lg-5 mx-auto">
-      <div class="bg-white border px-15">
+      <div class="bg-white border">
         <%= render partial: 'layouts/header-modal' %>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div id="form-container-container" class="mx-15 overflow-hidden">
+          <div id="form-container" style="width: 200%">
+            <%= form_for(
+              resource,
+              as: resource_name,
+              url: session_path(resource_name),
+              html: { style: "display: flex; flex-direction: row" }
+            ) do |f| %>
+              <div id="page1" style="flex: 1">
+                <%= f.hidden_field :study_name, value: 'default' %>
 
-          <%= f.hidden_field :study_name, value: 'default' %>
+                <div class="form-row">
+                  <div class="col mb-30">
+                    <div class="position-relative">
+                      <%= f.label t(:email), for: "email" %>
+                      <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: t(:email) %>
+                    </div>
+                  </div>
+                </div>
 
-          <div class="form-row">
-            <div class="col mb-30">
-              <div class="position-relative">
-                <%= f.label t(:email), for: "email", class: "position-absolute" %><br/>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: t(:email) %>
-              </div>
-            </div>
-          </div>
+                <div class="form-row">
+                  <div class="col mb-30">
+                    <div class="position-relative">
+                      <%= f.label t(:password), for: "inputPassword" %>
+                      <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: t(:password) %>
+                      <div class="h-100 d-flex">
+                        <%= link_to t('user_login.forgot'), new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-          <div class="form-row">
-            <div class="col mb-30">
-              <div class="position-relative">
-                <%= f.label t(:password), for: "inputPassword", class: "position-absolute" %><br/>
-                <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: t(:password) %>
-                <div class="position-absolute top-0 right-0 h-100 d-flex">
-                  <%= link_to t('user_login.forgot'), new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
+                <% if flash[:alert].present? %>
+                  <div class="flash alert">
+                    <%= flash[:alert] %>
+                  </div>
+                <% end %>
+                <div class="d-flex">
+                  <button
+                    onclick="next()"
+                    type="button"
+                    class="btn btn-primary mb-30 mx-auto">
+                      <%= t(:next) %>
+                  </button>
                 </div>
               </div>
-            </div>
+              <div id="page2" style="flex: 1">
+                <div class="form-row">
+                  <div class="col mb-30">
+                    <div class="position-relative">
+                      <%= f.label t(:one_time_code), for: "otp_attempt" %>
+                      <%= f.text_field :otp_attempt, autofocus: true, autocomplete: "one-time-code", type: "number", inputmode: "numeric", pattern: "\\d*", class: "[&::-webkit-inner-spin-button]:appearance-none form-control mb-0", id: "otp_attempt", placeholder: t(:one_time_code) %>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex">
+                  <button
+                    onclick="back()"
+                    type="button"
+                    class="btn btn-outline-primary mb-30 mx-auto">
+                      <%= t(:back) %>
+                  </button>
+                  <button
+                    onclick="back()"
+                    type="button"
+                    class="btn btn-primary mb-30 mx-auto">
+                      <%= t(:log_in) %>
+                  </button>
+                </div>
+              </div>
+            <% end %>
           </div>
-
-          <% if flash[:alert].present? %>
-            <div class="flash alert">
-              <%= flash[:alert] %>
-            </div>
-          <% end %>
-          <div class="d-flex">
-
-            <button
-            type="submit"
-            class="btn btn-primary mb-30 mx-auto">
-              <%= t(:log_in) %>
-            </button>
-          </div>
-        <% end %>
+        </div>
       </div>
 
       <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">
