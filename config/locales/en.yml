@@ -100,6 +100,10 @@ en:
         If you don’t have an account, please
       </span>
       %{register_link}
+    invalid_email_or_password: Invalid email or password
+    invalid_one_time_code: Invalid one time code
+    you_have_already_used_this_page_to_sign_in: You have already used this page to sign in. Please refresh this page and try again.
+    something_went_wrong: Something went wrong
   user_password_sent:
     we_emailed_you_a_link: We have emailed you a link to reset your password.
   navbar:

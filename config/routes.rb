@@ -39,4 +39,6 @@ Rails.application.routes.draw do
 
   post '/api/v1/duo_limitations', to: 'api#duo_limitations'
   match '/api/*path', to: 'api#not_found', via: :all
+
+  post '/request_otp', to: 'credentials#request_otp'
 end

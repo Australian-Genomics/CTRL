@@ -1,7 +1,94 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" integrity="sha512-ueXKWOB9liraz677EVGxz6H8nLk3RJjNv8Bfc0WrO9K9NyxROX3D/6bvZ9RYvAcYFxsVU+I0Jt/AMK0Nk8ya5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
-const next = () => $("#form-container").transition({x: '-50%'});
-const back = () => $("#form-container").transition({x:   '0%'});
+const nextPage = () => $("#form-container").transition({x: '-50%'});
+const prevPage = () => $("#form-container").transition({x:   '0%'});
+
+const setCsrfHeader = () => {
+  const token = document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute('content');
+
+  axios.defaults.headers.common['X-CSRF-Token'] = token;
+};
+
+const handleError = (data) => {
+  if (data.response.status === 401) {
+    $("#invalid_email_or_password").removeClass("d-none");
+  } else if (data.response.status === 422) {
+    // The CSRF token is probably stale. Ask the user to refresh the page and
+    // try again.
+    $("#page_already_used").removeClass("d-none");
+  } else {
+    $(".something_went_wrong").removeClass("d-none");
+    console.error(data);
+  }
+};
+
+const requestOtp = () => {
+  const userCredentials = {
+    email: $("#email").val(),
+    password: $("#password").val(),
+  };
+
+  setCsrfHeader();
+
+  axios
+    .post('/request_otp', { user: userCredentials })
+    .then((response) => {
+      nextPage();
+      $("#invalid_email_or_password").addClass("d-none");
+    })
+    .catch(handleError);
+};
+
+const signIn = () => {
+  const userCredentials = {
+    authenticity_token: $("[name='authenticity_token']").val(),
+    user: {
+      study_name: $("#user_study_name").val(),
+      email: $("#email").val(),
+      password: $("#password").val(),
+      otp_attempt: $("#otp_attempt").val(),
+    }
+  };
+
+  setCsrfHeader();
+
+  axios
+    .post('<%= session_path(resource_name) %>', userCredentials)
+    .then((response) => {
+      const newLocation = response?.data?.redirect;
+      if (newLocation === '<%= session_path(resource_name) %>') {
+        $("#invalid_one_time_code").removeClass("d-none");
+      } else {
+        window.location = newLocation;
+        $("#invalid_one_time_code").addClass("d-none");
+      }
+    })
+    .catch(handleError);
+};
+
+const overrideEnterKey = (id, func) => {
+  $(id).keydown(function(event) {
+    if (event.key === "Enter" || event.keyCode === 13) {
+      event.preventDefault();
+      func();
+    }
+  });
+};
+
+$(document).ready(() => {
+  overrideEnterKey('#email', requestOtp);
+  overrideEnterKey('#password', requestOtp);
+  overrideEnterKey('#otp_attempt', signIn);
+});
+
+const nextButton   = () => requestOtp();
+const backButton   = () => prevPage();
+const signInButton = () => signIn();
 </script>
 <div class="container my-15 my-sm-180">
   <div class="row flex-column">
@@ -31,23 +118,26 @@ const back = () => $("#form-container").transition({x:   '0%'});
                 <div class="form-row">
                   <div class="col mb-30">
                     <div class="position-relative">
-                      <%= f.label t(:password), for: "inputPassword" %>
-                      <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: t(:password) %>
+                      <%= f.label t(:password), for: "password" %>
+                      <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "password", placeholder: t(:password) %>
                       <div class="h-100 d-flex">
                         <%= link_to t('user_login.forgot'), new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <% if flash[:alert].present? %>
-                  <div class="flash alert">
-                    <%= flash[:alert] %>
-                  </div>
-                <% end %>
+                <div id="invalid_email_or_password" class="flash alert d-none">
+                  <%= t('user_login.invalid_email_or_password') %>
+                </div>
+                <div id="page_already_used" class="flash alert d-none">
+                  <%= t('user_login.you_have_already_used_this_page_to_sign_in') %>
+                </div>
+                <div class="something_went_wrong flash alert d-none">
+                  <%= t('user_login.something_went_wrong') %>
+                </div>
                 <div class="d-flex">
                   <button
-                    onclick="next()"
+                    onclick="nextButton()"
                     type="button"
                     class="btn btn-primary mb-30 mx-auto">
                       <%= t(:next) %>
@@ -63,15 +153,21 @@ const back = () => $("#form-container").transition({x:   '0%'});
                     </div>
                   </div>
                 </div>
+                <div id="invalid_one_time_code" class="flash alert d-none">
+                  <%= t('user_login.invalid_one_time_code') %>
+                </div>
+                <div class="something_went_wrong flash alert d-none">
+                  <%= t('user_login.something_went_wrong') %>
+                </div>
                 <div class="d-flex">
                   <button
-                    onclick="back()"
+                    onclick="backButton()"
                     type="button"
                     class="btn btn-outline-primary mb-30 mx-auto">
                       <%= t(:back) %>
                   </button>
                   <button
-                    onclick="back()"
+                    onclick="signInButton()"
                     type="button"
                     class="btn btn-primary mb-30 mx-auto">
                       <%= t(:log_in) %>
