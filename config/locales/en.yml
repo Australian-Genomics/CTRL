@@ -41,7 +41,7 @@ en:
   powered_by_ctrl: Powered by CTRL
   participant_survey_1: Participant Survey 1
   participant_survey_2: Participant Survey 2
-  one_time_code: One-time code
+  one_time_password: One-time password
   password: Password
   preferences_about_your_results: Preferences about your results
   reenter_password: Re-enter Password
@@ -101,7 +101,7 @@ en:
       </span>
       %{register_link}
     invalid_email_or_password: Invalid email or password
-    invalid_one_time_code: Invalid one time code
+    invalid_one_time_password: Invalid one time password
     you_have_already_used_this_page_to_sign_in: You have already used this page to sign in. Please refresh this page and try again.
     something_went_wrong: Something went wrong
   user_password_sent:

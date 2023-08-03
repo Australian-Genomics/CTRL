@@ -62,10 +62,10 @@ const signIn = () => {
     .then((response) => {
       const newLocation = response?.data?.redirect;
       if (newLocation === '<%= session_path(resource_name) %>') {
-        $("#invalid_one_time_code").removeClass("d-none");
+        $("#invalid_one_time_password").removeClass("d-none");
       } else {
         window.location = newLocation;
-        $("#invalid_one_time_code").addClass("d-none");
+        $("#invalid_one_time_password").addClass("d-none");
       }
     })
     .catch(handleError);
@@ -148,13 +148,13 @@ const signInButton = () => signIn();
                 <div class="form-row">
                   <div class="col mb-30">
                     <div class="position-relative">
-                      <%= f.label t(:one_time_code), for: "otp_attempt" %>
-                      <%= f.text_field :otp_attempt, autofocus: true, autocomplete: "one-time-code", type: "number", inputmode: "numeric", pattern: "\\d*", class: "[&::-webkit-inner-spin-button]:appearance-none form-control mb-0", id: "otp_attempt", placeholder: t(:one_time_code) %>
+                      <%= f.label t(:one_time_password), for: "otp_attempt" %>
+                      <%= f.text_field :otp_attempt, autofocus: true, autocomplete: "one-time-code", type: "number", inputmode: "numeric", pattern: "\\d*", class: "[&::-webkit-inner-spin-button]:appearance-none form-control mb-0", id: "otp_attempt", placeholder: t(:one_time_password) %>
                     </div>
                   </div>
                 </div>
-                <div id="invalid_one_time_code" class="flash alert d-none">
-                  <%= t('user_login.invalid_one_time_code') %>
+                <div id="invalid_one_time_password" class="flash alert d-none">
+                  <%= t('user_login.invalid_one_time_password') %>
                 </div>
                 <div class="something_went_wrong flash alert d-none">
                   <%= t('user_login.something_went_wrong') %>
