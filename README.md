@@ -114,7 +114,8 @@ password: tester123
 docker-compose --env-file=.env.dev up
 ```
 
-To access the homepage and login, go to `localhost:3000`.
+To access the homepage and login, go to `localhost:3000`. When you login, you will be sent a one-time password (OTP) via email. An in-memory SMTP server runs at `localhost:1025`. View your OTP by visiting the SMTP server's web interface at `localhost:8025`.
+
 To access the Active Admin interface and the survey builder, go to `localhost:3000/admin`.
 
 If you want to try and register a new user, you can append with the following Participant ID: A1543457

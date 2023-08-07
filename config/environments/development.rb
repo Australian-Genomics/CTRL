@@ -54,7 +54,7 @@ Rails.application.configure do
   }
 
   localhost_email = {
-      address: "host.docker.internal",
+      address: "smtp",
       port: 1025,
       authentication: "plain",
       enable_starttls_auto: false,

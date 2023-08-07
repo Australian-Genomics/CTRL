@@ -22,7 +22,19 @@ const resetErrors = () => {
   $(".something_went_wrong").addClass("d-none");
 };
 
+const setLoading = (isLoading) => {
+  if (isLoading) {
+    $("button").addClass("d-none");
+    $(".spinner-border").removeClass("d-none");
+  } else {
+    $("button").removeClass("d-none");
+    $(".spinner-border").addClass("d-none");
+  }
+};
+
 const handleError = (data) => {
+  setLoading(false);
+
   if (data.response.status === 401) {
     $("#invalid_email_or_password").removeClass("d-none");
   } else if (data.response.status === 422) {
@@ -44,9 +56,11 @@ const requestOtp = () => {
   setCsrfHeader();
 
   resetErrors();
+  setLoading(true);
   axios
     .post('/request_otp', { user: userCredentials })
     .then((response) => {
+      setLoading(false);
       nextPage();
     })
     .catch(handleError);
@@ -66,9 +80,11 @@ const signIn = () => {
   setCsrfHeader();
 
   resetErrors();
+  setLoading(true);
   axios
     .post('<%= session_path(resource_name) %>', userCredentials)
     .then((response) => {
+      setLoading(false);
       const newLocation = response?.data?.redirect;
       if (newLocation === '<%= session_path(resource_name) %>') {
         $("#invalid_one_time_password").removeClass("d-none");
@@ -150,7 +166,7 @@ const signInButton = () => signIn();
                     class="btn btn-primary mb-30 mx-auto">
                       <%= t(:next) %>
                   </button>
-                  <div class="spinner-border" role="status">
+                  <div class="spinner-border mb-30 mx-auto d-none" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                 </div>
@@ -183,6 +199,9 @@ const signInButton = () => signIn();
                     class="btn btn-primary mb-30 mx-auto">
                       <%= t(:log_in) %>
                   </button>
+                  <div class="spinner-border mb-30 mx-auto d-none" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
               </div>
             <% end %>
