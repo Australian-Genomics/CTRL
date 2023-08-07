@@ -6,6 +6,10 @@ class SurveyConfig < ApplicationRecord
     update(key: snakecase(name))
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "hint", "id", "is_file", "key", "name", "updated_at", "value"]
+  end
+
   private
 
   def snakecase(string)

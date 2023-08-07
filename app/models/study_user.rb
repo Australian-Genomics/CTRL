@@ -10,6 +10,10 @@ class StudyUser < ApplicationRecord
 
   after_save :upload_redcap_details
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["id", "participant_id", "study_id", "user_id"]
+  end
+
   def check_participant_id_format_by_regex
     format = Regexp.new(study.participant_id_format)
     if participant_id.match(format)

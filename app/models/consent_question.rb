@@ -51,6 +51,10 @@ class ConsentQuestion < ApplicationRecord
 
   before_destroy :destroy_associated_conditional_duo_limitations
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["answer_choices_position", "consent_group_id", "created_at", "default_answer", "description", "id", "is_published", "options", "order", "question", "question_type", "redcap_event_name", "redcap_field", "updated_at"]
+  end
+
   def valid_answers
     case question_type
     when 'checkbox'
