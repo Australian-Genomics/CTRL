@@ -36,7 +36,7 @@ Feature: Error Page
   Scenario: User sees the 404 page when not logged in
     Given I do not exist as a user
     And I am not logged in
-    When I sign in with valid credentials
+    When I request an OTP
     Then I see an invalid login message
     And I should not be signed in
     When I visit the page that does not exist
@@ -44,7 +44,7 @@ Feature: Error Page
 
   Scenario: User sees the welcome page after clicking on Back to homepage from 404 error page
     Given I do not exist as a user
-    When I sign in with valid credentials
+    When I request an OTP
     Then I see an invalid login message
     And I should not be signed in
     When I visit the page that does not exist

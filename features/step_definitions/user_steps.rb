@@ -29,10 +29,20 @@ def create_user
   )
 end
 
-def sign_in
+def request_otp
   visit 'users/sign_in'
   fill_in 'user[email]', with: @visitor[:email]
   fill_in 'user[password]', with: @visitor[:password]
+  click_button 'Next'
+end
+
+def sign_in
+  request_otp
+
+  # Wait until OTP request has succeeded
+  expect(page).to have_content 'Log in'
+
+  fill_in 'user[otp_attempt]', with: User.find_by_email(@visitor[:email])&.current_otp
   click_button 'Log in'
 end
 
@@ -97,6 +107,10 @@ Given('I exist as a user') do
   create_user
 end
 
+When('I request an OTP') do
+  request_otp
+end
+
 When('I sign in with valid credentials') do
   create_visitor
   sign_in
@@ -104,12 +118,12 @@ end
 
 When('I sign in with a wrong email') do
   @visitor = @visitor.merge(email: 'wrong@example.com')
-  sign_in
+  request_otp
 end
 
 When('I sign in with a wrong password') do
   @visitor = @visitor.merge(password: 'wrongpass')
-  sign_in
+  request_otp
 end
 
 When('I click on Register') do
@@ -196,11 +210,11 @@ When('I click on Cancel') do
 end
 
 Then('I see an invalid login message') do
-  expect(page).to have_content('Invalid Email or password.')
+  expect(page).to have_content('Invalid email or password')
 end
 
 Then('I should not be signed in') do
-  expect(page).to have_content 'Log in'
+  expect(page).to have_content 'If you don’t have an account, please'
   expect(page).to_not have_content 'Logout'
 end
 

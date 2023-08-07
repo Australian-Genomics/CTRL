@@ -5,7 +5,7 @@ Feature: Welcome Page
 
   Scenario: User is not signed up
     Given I do not exist as a user
-    When I sign in with valid credentials
+    When I request an OTP
     Then I see an invalid login message
     And I should not be signed in
 
