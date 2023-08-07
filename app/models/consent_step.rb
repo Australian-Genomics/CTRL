@@ -19,8 +19,8 @@ class ConsentStep < ApplicationRecord
 
   scope :ordered, -> { order(order: :asc) }
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "description", "id", "order", "popover", "study_id", "title", "tour_videos", "updated_at"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at description id order popover study_id title tour_videos updated_at]
   end
 
   def modal_fallback

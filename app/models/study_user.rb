@@ -10,8 +10,8 @@ class StudyUser < ApplicationRecord
 
   after_save :upload_redcap_details
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["id", "participant_id", "study_id", "user_id"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id participant_id study_id user_id]
   end
 
   def check_participant_id_format_by_regex

@@ -9,12 +9,12 @@ class Study < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validate :participant_id_format_is_valid_regexp
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["id", "name", "participant_id_format"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id name participant_id_format]
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    ["api_users", "consent_steps", "glossary_entries", "study_users", "users"]
+  def self.ransackable_associations(_auth_object = nil)
+    %w[api_users consent_steps glossary_entries study_users users]
   end
 
   def participant_id_format_is_valid_regexp
