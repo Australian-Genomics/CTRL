@@ -2,7 +2,7 @@ class CredentialsController < ApplicationController
   def request_otp
     user = User.find_by_email(params[:user][:email])
 
-    if user && user.valid_password?(params[:user][:password])
+    if user&.valid_password?(params[:user][:password])
       user.otp_secret = User.generate_otp_secret
 
       # TODO
