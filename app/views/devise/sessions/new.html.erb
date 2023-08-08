@@ -8,6 +8,18 @@
 const nextPage = () => $("#form-container").transition({x: '-50%'});
 const prevPage = () => $("#form-container").transition({x:   '0%'});
 
+areUrlsEquivalent = (absoluteUrl, relativeUrl) => {
+  try {
+    const base = new URL(absoluteUrl);
+    const resolved = new URL(relativeUrl, base.origin + base.pathname);
+
+    return resolved.href === base.href;
+  } catch (error) {
+    console.error("Error parsing URLs:", error);
+    return false;
+  }
+}
+
 const setCsrfHeader = () => {
   const token = document
     .querySelector('meta[name="csrf-token"]')
@@ -85,11 +97,13 @@ const signIn = () => {
     .post('<%= session_path(resource_name) %>', userCredentials)
     .then((response) => {
       setLoading(false);
-      const newLocation = response?.data?.redirect;
-      if (newLocation === '<%= session_path(resource_name) %>') {
+      const newLocation = response?.request?.responseURL;
+      if (areUrlsEquivalent(newLocation, '<%= session_path(resource_name) %>')) {
         $("#invalid_one_time_password").removeClass("d-none");
-      } else {
+      } else if (newLocation) {
         window.location = newLocation;
+      } else {
+        $(".something_went_wrong").removeClass("d-none");
       }
     })
     .catch(handleError);
