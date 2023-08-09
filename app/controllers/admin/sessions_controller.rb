@@ -26,15 +26,15 @@ module Admin
     private
 
     def authenticate(admin_user, password, otp_attempt)
-      return [false, "Invalid email or password"] unless (
-        admin_user.present? && admin_user.valid_password?(password))
+      return [false, 'Invalid email or password'] unless
+        admin_user.present? && admin_user.valid_password?(password)
 
-      return [true, ""] unless admin_user.otp_required_for_login
+      return [true, ''] unless admin_user.otp_required_for_login
 
-      return [false, "Invalid one-time password"] unless (
-        admin_user.validate_and_consume_otp!(otp_attempt))
+      return [false, 'Invalid one-time password'] unless
+        admin_user.validate_and_consume_otp!(otp_attempt)
 
-      return [true, ""]
+      [true, '']
     end
 
     def sign_in_params

@@ -27,7 +27,7 @@ ActiveAdmin.register AdminUser do
 
   action_item :edit_two_factor, only: :show do
     link_to(
-      "Set-up 2FA",
+      'Set-up 2FA',
       edit_two_factor_admin_admin_user_path(admin_user)
     )
   end
@@ -36,26 +36,24 @@ ActiveAdmin.register AdminUser do
     @admin_user = AdminUser.find(params[:id])
     respond_to do |f|
       f.html do
-        render template: "admin/admin_user/edit_two_factor"
+        render template: 'admin/admin_user/edit_two_factor'
       end
     end
   end
 
   member_action :update_two_factor, method: :patch do
-    begin
-      admin_user = AdminUser.find(params[:id])
-      admin_user.update!(permitted_params[:admin_user])
-      admin_user.reload # TODO: necessary?
-      if admin_user.otp_required_for_login && !admin_user.otp_secret.present?
-        admin_user.otp_secret = AdminUser.generate_otp_secret
-        admin_user.save!
-      end
-      @admin_user = admin_user.reload # TODO: necessary?
-      flash[:notice] = "Successfully updated!"
-      render template: "admin/admin_user/edit_two_factor"
-    rescue => e
-      flash[:error] = e
-      redirect_to edit_two_factor_admin_admin_user_path(params[:id])
+    admin_user = AdminUser.find(params[:id])
+    admin_user.update!(permitted_params[:admin_user])
+    admin_user.reload # TODO: necessary?
+    if admin_user.otp_required_for_login && !admin_user.otp_secret.present?
+      admin_user.otp_secret = AdminUser.generate_otp_secret
+      admin_user.save!
     end
+    @admin_user = admin_user.reload # TODO: necessary?
+    flash[:notice] = 'Successfully updated!'
+    render template: 'admin/admin_user/edit_two_factor'
+  rescue StandardError => e
+    flash[:error] = e
+    redirect_to edit_two_factor_admin_admin_user_path(params[:id])
   end
 end
