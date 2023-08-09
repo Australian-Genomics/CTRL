@@ -3,6 +3,8 @@ module Admin
     layout 'active_admin_logged_out'
     helper ActiveAdmin::ViewHelpers
 
+    before_action :configure_sign_in_params, only: [:create]
+
     def create
       admin_user = AdminUser.find_by(email: sign_in_params[:email])
       is_valid, error = authenticate(
@@ -24,9 +26,6 @@ module Admin
     private
 
     def authenticate(admin_user, password, otp_attempt)
-      # TODO
-      pp admin_user, password, otp_attempt
-
       return [false, "Invalid email or password"] unless (
         admin_user.present? && admin_user.valid_password?(password))
 
@@ -36,6 +35,18 @@ module Admin
         admin_user.validate_and_consume_otp!(otp_attempt))
 
       return [true, ""]
+    end
+
+    def sign_in_params
+      if params[:admin_user]
+        super.merge(otp_attempt: params[:admin_user][:otp_attempt])
+      else
+        super
+      end
+    end
+
+    def configure_sign_in_params
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
     end
   end
 end
