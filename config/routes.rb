@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :admin_users, ActiveAdmin::Devise.config.merge(
+    controllers: { sessions: 'admin/sessions' }
+  )
 
   post '/admin/import_export', to: 'admin/import_export#post'
   ActiveAdmin.routes(self)

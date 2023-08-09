@@ -2,6 +2,8 @@
 
 en:
   devise:
+    active_admin:
+      one_time_password: One-time password
     confirmations:
       confirmed: "Your email address has been successfully confirmed."
       send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
