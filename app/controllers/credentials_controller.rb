@@ -5,8 +5,6 @@ class CredentialsController < ApplicationController
     if user&.valid_password?(params[:user][:password])
       user.otp_secret = User.generate_otp_secret
 
-      # TODO
-      pp user.current_otp
       OneTimePasswordMailer.send_one_time_password(user).deliver_now
 
       user.skip_validation = true
