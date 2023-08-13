@@ -8,7 +8,13 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(user_params)
+    params = user_params
+
+    user_session['study_name'] = params[:study_name]
+
+    params.delete(:study_name)
+
+    if @user.update(params)
       redirect_to profile_path
     else
       render 'users/edit'
@@ -21,7 +27,7 @@ class UsersController < ApplicationController
     @user = current_user
     if @user
       @study_user = @user.study_users.find_by(
-        study: Study.find_by(name: 'default')
+        study: Study.find_by(name: user_session['study_name'])
       )
     end
 
@@ -33,6 +39,7 @@ class UsersController < ApplicationController
                                  :address, :suburb, :state, :is_parent, :post_code, :phone_no, :preferred_contact_method,
                                  :kin_first_name, :kin_middle_name, :kin_family_name, :kin_email, :kin_contact_no,
                                  :child_first_name, :child_middle_name, :child_family_name, :child_dob,
+                                 :study_name,
                                  study_users_attributes: %i[id participant_id])
   end
 end

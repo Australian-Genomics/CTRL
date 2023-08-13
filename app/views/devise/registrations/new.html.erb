@@ -52,6 +52,8 @@
             <div class="col mb-30">
               <div class="position-relative">
                 <%= f.input :participant_id, label: false, placeholder: t('user_profile.participant_id'), required: false %>
+
+                <%= f.hidden_field :study_name, value: 'default' %>
               </div>
             </div>
           </div>

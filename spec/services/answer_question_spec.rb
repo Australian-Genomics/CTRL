@@ -1,6 +1,6 @@
 RSpec.describe AnswerQuestion do
   let(:question) { create(:consent_question) }
-  let(:user) { create(:user) }
+  let(:study_user) { create(:study_user) }
 
   describe '#call' do
     context 'answer doesn\'t exist' do
@@ -13,7 +13,7 @@ RSpec.describe AnswerQuestion do
 
       it 'saves the answer' do
         expect do
-          AnswerQuestion.call(answer_params, user)
+          AnswerQuestion.call(answer_params, study_user.user)
         end.to change(QuestionAnswer, :count).by(1)
 
         answer = QuestionAnswer.first
@@ -27,7 +27,7 @@ RSpec.describe AnswerQuestion do
         create(
           :question_answer,
           consent_question: question,
-          user: user,
+          user: study_user.user,
           answer: 'yes'
         )
       end
@@ -45,7 +45,7 @@ RSpec.describe AnswerQuestion do
         expect(answer.reload.answer).to eq('yes')
 
         expect do
-          AnswerQuestion.call(answer_params, user)
+          AnswerQuestion.call(answer_params, study_user.user)
         end.to change(QuestionAnswer, :count).by(0)
 
         expect(answer.reload.answer).to eq('no')
@@ -62,7 +62,7 @@ RSpec.describe AnswerQuestion do
 
       it 'raises an error' do
         expect do
-          AnswerQuestion.call(answer_params, user)
+          AnswerQuestion.call(answer_params, study_user.user)
         end.to change(QuestionAnswer, :count).by(0)
                                              .and raise_error(ActiveRecord::RecordNotFound)
       end

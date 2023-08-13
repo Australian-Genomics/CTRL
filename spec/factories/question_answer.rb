@@ -4,7 +4,7 @@ FactoryBot.define do
       traits { [] }
     end
     consent_question { create(:consent_question, *traits) }
-    user { create(:user) }
+    user { create(:study_user).user }
 
     answer { consent_question.default_answer }
   end
