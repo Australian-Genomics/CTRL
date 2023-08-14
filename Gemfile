@@ -37,6 +37,7 @@ gem 'activeadmin_addons'
 gem 'bootstrap-datepicker-rails'
 gem 'regexp-examples', '~> 1.5', '>= 1.5.1'
 gem 'devise-two-factor'
+gem 'rqrcode'
 
 group :development, :test do
   gem 'awesome_print'

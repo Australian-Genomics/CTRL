@@ -1,0 +1,53 @@
+<%= form_for @admin_user, url: update_two_factor_admin_admin_user_path, html: { method: :patch, class: "formtastic" } do |f| %>
+  <fieldset class="inputs">
+    <legend>
+      <span>Enable/Disable 2FA</span>
+    </legend>
+    <ol>
+      <li>
+        <%= f.check_box :otp_required_for_login %>
+        <%= f.label :otp_required_for_login, "Enable/Disable 2FA" %>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="actions">
+    <ol>
+      <li class="action input_action">
+        <%= f.submit "Save" %>
+      </li>
+      <li class="cancel">
+        <%= link_to "Cancel", admin_admin_user_path(@admin_user.id) %>
+      </li>
+    </ol>
+  </fieldset>
+<% end %>
+
+<% if @admin_user.otp_required_for_login %>
+  <div class="panel">
+    <h3>Setup Google Authenticator (or any other 2-step verification app)</h3>
+    <div class="panel-contents">
+      <div class="attributes_table">
+        <table>
+          <tbody>
+            <tr class="row">
+              <th>Scan the QR Code</th>
+              <td>
+                <% issuer = "AGHA CTRL" %>
+                <% label = "#{issuer}:#{@admin_user.email}" %>
+                <% code = @admin_user.otp_provisioning_uri(label, issuer: issuer) %>
+                <%= RQRCode::QRCode.new(code).as_svg(module_size: 4).html_safe %>
+              </td>
+            </tr>
+            <tr class="row">
+              <th>OTP Key</th>
+              <td>
+                <%= @admin_user.otp_secret %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
+
