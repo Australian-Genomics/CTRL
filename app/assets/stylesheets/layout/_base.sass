@@ -26,6 +26,9 @@ video
 .right-0
   right: 0
 
+.overflow-hidden
+  overflow: hidden
+
 .fit-contain
   object-fit: contain
 
@@ -50,6 +53,20 @@ video
 .generic-person-image
   height: 150px
   margin: 30px auto 30px
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+  -webkit-appearance: none
+  margin: 0
+
+/* Firefox */
+input[type=number]
+  -moz-appearance: textfield
+
+/* Internet Explorer 11 */
+input[type=number]::-ms-clear
+  display: none
 
 #modal-loading
     position: fixed

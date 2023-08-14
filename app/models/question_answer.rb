@@ -10,6 +10,10 @@ class QuestionAnswer < ApplicationRecord
   after_save :upload_redcap_details
   before_destroy :destroy_redcap_details
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[answer consent_question_id created_at id updated_at user_id]
+  end
+
   private
 
   def upload_redcap_details

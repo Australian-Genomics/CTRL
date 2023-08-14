@@ -6,7 +6,7 @@ ruby '3.2.2'
 gem 'activeadmin'
 gem 'benchmark'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.3.0'
 gem 'bootstrap4-datetime-picker-rails'
 gem 'delayed_job', '4.1.11'
 gem 'delayed_job_recurring', '0.3.8'
@@ -36,6 +36,7 @@ gem 'wkhtmltopdf-binary'
 gem 'activeadmin_addons'
 gem 'bootstrap-datepicker-rails'
 gem 'regexp-examples', '~> 1.5', '>= 1.5.1'
+gem 'devise-two-factor'
 
 group :development, :test do
   gem 'awesome_print'

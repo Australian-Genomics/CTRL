@@ -1,47 +1,226 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js" integrity="sha512-ueXKWOB9liraz677EVGxz6H8nLk3RJjNv8Bfc0WrO9K9NyxROX3D/6bvZ9RYvAcYFxsVU+I0Jt/AMK0Nk8ya5g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+// If this page gets any more complicated than it is now, it should be rewritten
+// using vue.
+const nextPage = () => $("#form-container").transition({x: '-50%'});
+const prevPage = () => $("#form-container").transition({x:   '0%'});
+
+areUrlsEquivalent = (absoluteUrl, relativeUrl) => {
+  try {
+    const base = new URL(absoluteUrl);
+    const resolved = new URL(relativeUrl, base.origin + base.pathname);
+
+    return resolved.href === base.href;
+  } catch (error) {
+    console.error("Error parsing URLs:", error);
+    return false;
+  }
+}
+
+const setCsrfHeader = () => {
+  const token = document
+    .querySelector('meta[name="csrf-token"]')
+    .getAttribute('content');
+
+  axios.defaults.headers.common['X-CSRF-Token'] = token;
+};
+
+const resetErrors = () => {
+  $("#invalid_email_or_password").addClass("d-none");
+  $("#page_already_used").addClass("d-none");
+  $(".something_went_wrong").addClass("d-none");
+};
+
+const setLoading = (isLoading) => {
+  if (isLoading) {
+    $("button").addClass("d-none");
+    $(".spinner-border").removeClass("d-none");
+  } else {
+    $("button").removeClass("d-none");
+    $(".spinner-border").addClass("d-none");
+  }
+};
+
+const handleError = (data) => {
+  setLoading(false);
+
+  if (data.response.status === 401) {
+    $("#invalid_email_or_password").removeClass("d-none");
+  } else if (data.response.status === 422) {
+    // The CSRF token is probably stale. Ask the user to refresh the page and
+    // try again.
+    $("#page_already_used").removeClass("d-none");
+  } else {
+    $(".something_went_wrong").removeClass("d-none");
+    console.error(data);
+  }
+};
+
+const requestOtp = () => {
+  const userCredentials = {
+    email: $("#email").val(),
+    password: $("#password").val(),
+  };
+
+  setCsrfHeader();
+
+  resetErrors();
+  setLoading(true);
+  axios
+    .post('/request_otp', { user: userCredentials })
+    .then((response) => {
+      setLoading(false);
+      nextPage();
+    })
+    .catch(handleError);
+};
+
+const signIn = () => {
+  const userCredentials = {
+    authenticity_token: $("[name='authenticity_token']").val(),
+    user: {
+      study_name: $("#user_study_name").val(),
+      email: $("#email").val(),
+      password: $("#password").val(),
+      otp_attempt: $("#otp_attempt").val(),
+    }
+  };
+
+  setCsrfHeader();
+
+  resetErrors();
+  setLoading(true);
+  axios
+    .post('<%= session_path(resource_name) %>', userCredentials)
+    .then((response) => {
+      setLoading(false);
+      const newLocation = response?.request?.responseURL;
+      if (areUrlsEquivalent(newLocation, '<%= session_path(resource_name) %>')) {
+        $("#invalid_one_time_password").removeClass("d-none");
+      } else if (newLocation) {
+        window.location = newLocation;
+      } else {
+        $(".something_went_wrong").removeClass("d-none");
+      }
+    })
+    .catch(handleError);
+};
+
+const overrideEnterKey = (id, func) => {
+  $(id).keydown(function(event) {
+    if (event.key === "Enter" || event.keyCode === 13) {
+      event.preventDefault();
+      func();
+    }
+  });
+};
+
+$(document).ready(() => {
+  overrideEnterKey('#email', requestOtp);
+  overrideEnterKey('#password', requestOtp);
+  overrideEnterKey('#otp_attempt', signIn);
+});
+
+const nextButton   = () => requestOtp();
+const backButton   = () => prevPage();
+const signInButton = () => signIn();
+</script>
 <div class="container my-15 my-sm-180">
   <div class="row flex-column">
     <div class="col-12 col-sm-9 col-md-7 col-lg-5 mx-auto">
-      <div class="bg-white border px-15">
+      <div class="bg-white border">
         <%= render partial: 'layouts/header-modal' %>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div id="form-container-container" class="mx-15 overflow-hidden">
+          <div id="form-container" style="width: 200%">
+            <%= form_for(
+              resource,
+              as: resource_name,
+              url: session_path(resource_name),
+              html: { style: "display: flex; flex-direction: row" }
+            ) do |f| %>
+              <div id="page1" style="flex: 1">
+                <%= f.hidden_field :study_name, value: 'default' %>
 
-          <%= f.hidden_field :study_name, value: 'default' %>
+                <div class="form-row">
+                  <div class="col mb-30">
+                    <div class="position-relative">
+                      <%= f.label t(:email), for: "email" %>
+                      <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: t(:email) %>
+                    </div>
+                  </div>
+                </div>
 
-          <div class="form-row">
-            <div class="col mb-30">
-              <div class="position-relative">
-                <%= f.label t(:email), for: "email", class: "position-absolute" %><br/>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", type: "email", class: "form-control mb-0", id: "email", placeholder: t(:email) %>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="col mb-30">
-              <div class="position-relative">
-                <%= f.label t(:password), for: "inputPassword", class: "position-absolute" %><br/>
-                <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "inputPassword", placeholder: t(:password) %>
-                <div class="position-absolute top-0 right-0 h-100 d-flex">
-                  <%= link_to t('user_login.forgot'), new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
+                <div class="form-row">
+                  <div class="col mb-30">
+                    <div class="position-relative">
+                      <%= f.label t(:password), for: "password" %>
+                      <%= f.password_field :password, autocomplete: "off", type: "password", class: "form-control mb-0", id: "password", placeholder: t(:password) %>
+                      <div class="h-100 d-flex">
+                        <%= link_to t('user_login.forgot'), new_password_path(resource_name), class: "d-block my-auto ml-auto text-primary" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="invalid_email_or_password" class="flash alert d-none">
+                  <%= t('user_login.invalid_email_or_password') %>
+                </div>
+                <div id="page_already_used" class="flash alert d-none">
+                  <%= t('user_login.you_have_already_used_this_page_to_sign_in') %>
+                </div>
+                <div class="something_went_wrong flash alert d-none">
+                  <%= t('user_login.something_went_wrong') %>
+                </div>
+                <div class="d-flex">
+                  <button
+                    onclick="nextButton()"
+                    type="button"
+                    class="btn btn-primary mb-30 mx-auto">
+                      <%= t(:next) %>
+                  </button>
+                  <div class="spinner-border mb-30 mx-auto d-none" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
               </div>
-            </div>
+              <div id="page2" style="flex: 1">
+                <div class="form-row">
+                  <div class="col mb-30">
+                    <div class="position-relative">
+                      <%= f.label t(:one_time_password), for: "otp_attempt" %>
+                      <%= f.text_field :otp_attempt, autofocus: true, autocomplete: "one-time-code", type: "number", inputmode: "numeric", pattern: "\\d*", class: "[&::-webkit-inner-spin-button]:appearance-none form-control mb-0", id: "otp_attempt", placeholder: t(:one_time_password) %>
+                    </div>
+                  </div>
+                </div>
+                <div id="invalid_one_time_password" class="flash alert d-none">
+                  <%= t('user_login.invalid_one_time_password') %>
+                </div>
+                <div class="something_went_wrong flash alert d-none">
+                  <%= t('user_login.something_went_wrong') %>
+                </div>
+                <div class="d-flex">
+                  <button
+                    onclick="backButton()"
+                    type="button"
+                    class="btn btn-outline-primary mb-30 mx-auto">
+                      <%= t(:back) %>
+                  </button>
+                  <button
+                    onclick="signInButton()"
+                    type="button"
+                    class="btn btn-primary mb-30 mx-auto">
+                      <%= t(:log_in) %>
+                  </button>
+                  <div class="spinner-border mb-30 mx-auto d-none" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
           </div>
-
-          <% if flash[:alert].present? %>
-            <div class="flash alert">
-              <%= flash[:alert] %>
-            </div>
-          <% end %>
-          <div class="d-flex">
-
-            <button
-            type="submit"
-            class="btn btn-primary mb-30 mx-auto">
-              <%= t(:log_in) %>
-            </button>
-          </div>
-        <% end %>
+        </div>
       </div>
 
       <div class="mx-auto text-center py-3 bg-light d-flex flex-column flex-sm-row justify-content-center">

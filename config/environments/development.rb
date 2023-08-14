@@ -53,16 +53,14 @@ Rails.application.configure do
       enable_starttls_auto: true,
   }
 
-  gmail_email = {
-      address: "smtp.gmail.com",
-      port: 587,
+  localhost_email = {
+      address: "smtp",
+      port: 1025,
       authentication: "plain",
-      enable_starttls_auto: true,
-      user_name: Rails.application.credentials[Rails.env.to_sym][:mailer][:email],
-      password: Rails.application.credentials[Rails.env.to_sym][:mailer][:password]
+      enable_starttls_auto: false,
   }
 
-  config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : gmail_email
+  config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : localhost_email
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

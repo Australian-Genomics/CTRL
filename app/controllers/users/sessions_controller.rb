@@ -1,4 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
+  before_action :configure_sign_in_params, only: [:create]
+
   def create
     # Get the study_name from params
     study_name = params[:user][:study_name]
@@ -19,5 +21,11 @@ class Users::SessionsController < Devise::SessionsController
       set_flash_message! :alert, :invalid_study_name
       redirect_to new_session_path(resource_name)
     end
+  end
+
+  protected
+
+  def configure_sign_in_params
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:study_name])
   end
 end

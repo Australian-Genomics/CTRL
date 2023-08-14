@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  devise :two_factor_authenticatable
   attr_accessor :skip_validation, :participant_id
 
   has_paper_trail
@@ -18,7 +19,7 @@ class User < ApplicationRecord
   has_many :study_users, dependent: :destroy
   has_many :studies, through: :study_users
 
-  devise :database_authenticatable, :registerable, :timeoutable,
+  devise :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :first_name, :family_name, presence: true
@@ -47,6 +48,59 @@ class User < ApplicationRecord
   enum preferred_contact_method: %w[Email Phone Mail]
 
   after_save :upload_redcap_details
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[
+      address
+      child_dob
+      child_family_name
+      child_first_name
+      child_middle_name
+      consumed_timestep
+      created_at
+      current_sign_in_at
+      current_sign_in_ip
+      dob
+      email
+      encrypted_password
+      family_name
+      first_name
+      id
+      is_parent
+      kin_contact_no
+      kin_email
+      kin_family_name
+      kin_first_name
+      kin_middle_name
+      last_sign_in_at
+      last_sign_in_ip
+      middle_name
+      otp_required_for_login
+      otp_secret
+      phone_no
+      post_code
+      preferred_contact_method
+      red_cap_date_consent_signed
+      red_cap_date_of_result_disclosure
+      red_cap_survey_one_link
+      red_cap_survey_one_return_code
+      red_cap_survey_one_status
+      red_cap_survey_two_link
+      red_cap_survey_two_return_code
+      red_cap_survey_two_status
+      remember_created_at
+      reset_password_sent_at
+      reset_password_token
+      sign_in_count
+      state
+      suburb
+      survey_one_email_reminder_sent
+      survey_one_email_sent
+      survey_two_email_reminder_sent
+      survey_two_email_sent
+      updated_at
+    ]
+  end
 
   def kin_details_and_child_details_on_create
     if is_parent == false
