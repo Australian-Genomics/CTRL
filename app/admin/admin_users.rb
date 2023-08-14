@@ -44,12 +44,12 @@ ActiveAdmin.register AdminUser do
   member_action :update_two_factor, method: :patch do
     admin_user = AdminUser.find(params[:id])
     admin_user.update!(permitted_params[:admin_user])
-    admin_user.reload # TODO: necessary?
+    admin_user.reload
     if admin_user.otp_required_for_login && !admin_user.otp_secret.present?
       admin_user.otp_secret = AdminUser.generate_otp_secret
       admin_user.save!
     end
-    @admin_user = admin_user.reload # TODO: necessary?
+    @admin_user = admin_user.reload
     flash[:notice] = 'Successfully updated!'
     render template: 'admin/admin_user/edit_two_factor'
   rescue StandardError => e
