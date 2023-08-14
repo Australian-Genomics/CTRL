@@ -5,7 +5,7 @@
   </h2>
 
   <% scope = Devise::Mapping.find_scope!(resource_name) %>
-  <%= active_admin_form_for(resource, as: resource_name, url: send(:"#{scope}_session_path"), html: { id: "session_new" }) do |f|
+  <%= active_admin_form_for(resource, as: resource_name, url: send(:"#{scope}_session_path"), html: { id: "session_new", method: :post }) do |f|
     f.inputs do
       resource.class.authentication_keys.each_with_index { |key, index|
         f.input key, label: t("active_admin.devise.#{key}.title"), input_html: { autofocus: index.zero? }
@@ -22,4 +22,3 @@
 
   <%= render partial: "active_admin/devise/shared/links" %>
 </div>
-
