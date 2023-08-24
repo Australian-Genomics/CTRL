@@ -175,8 +175,14 @@
                     </div>
                     <div class="steps__row-collapse"
                       v-if="question.show_description && question.description">
-                      <div class="steps__text-question"
-                        v-html="question.description">
+                      <div class="steps__text-question">
+                        <div v-html="question.description"/>
+                        <div class="steps__description-image-container">
+                          <img
+                            class="steps__description-image"
+                            v-if="question.image_url"
+                            :src="question.image_url"/>
+                        </div>
                       </div>
                     </div>
                   </div>
