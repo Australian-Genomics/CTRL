@@ -40,7 +40,7 @@ json.consent_steps do
         json.question_type question.question_type
         json.answer_choices_position question.answer_choices_position
         json.show_description false
-        json.image_url question.image.attached? ? url_for(question.image) : nil
+        json.description_image_url question.description_image.attached? ? url_for(question.description_image) : nil
 
         json.options question.question_options do |option|
           json.value option.value

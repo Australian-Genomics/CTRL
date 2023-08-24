@@ -180,8 +180,8 @@
                         <div class="steps__description-image-container">
                           <img
                             class="steps__description-image"
-                            v-if="question.image_url"
-                            :src="question.image_url"/>
+                            v-if="question.description_image_url"
+                            :src="question.description_image_url"/>
                         </div>
                       </div>
                     </div>

@@ -11,8 +11,8 @@ class ConsentQuestion < ApplicationRecord
     right
   ].freeze
 
-  has_one_attached :image
-  attr_accessor :remove_image
+  has_one_attached :description_image
+  attr_accessor :remove_description_image
 
   has_and_belongs_to_many :conditional_duo_limitations
 
