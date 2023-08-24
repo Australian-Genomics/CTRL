@@ -4,6 +4,8 @@ ActiveAdmin.register ConsentQuestion do
                 :redcap_field,
                 :is_published,
                 :answer_choices_position,
+                :question_image,
+                :remove_question_image,
                 :description_image,
                 :remove_description_image
 
@@ -14,6 +16,11 @@ ActiveAdmin.register ConsentQuestion do
     column :description
     column :is_published
     column :conditional_duo_limitations
+    column :question_image do |consent_question|
+      if consent_question.question_image.attached?
+        image_tag url_for(consent_question.question_image), class: 'question-image'
+      end
+    end
     column :description_image do |consent_question|
       if consent_question.description_image.attached?
         image_tag url_for(consent_question.description_image), class: 'question-image'
@@ -38,6 +45,11 @@ ActiveAdmin.register ConsentQuestion do
       row :question_type
       row :answer_choices_position
       row :conditional_duo_limitations
+      row :question_image do |consent_question|
+        if consent_question.question_image.attached?
+          image_tag url_for(consent_question.question_image), class: 'question-image'
+        end
+      end
       row :description_image do |consent_question|
         if consent_question.description_image.attached?
           image_tag url_for(consent_question.description_image), class: 'question-image'
@@ -59,6 +71,15 @@ ActiveAdmin.register ConsentQuestion do
       f.input :question_type
       f.input :answer_choices_position
       f.input :redcap_event_name
+      f.input :question_image,
+              as: :file,
+              hint: (
+                f.object.question_image.attached? ?
+                f.object.question_image.filename.to_s :
+                content_tag(:span, "No image uploaded yet"))
+      if f.object.question_image.attached?
+        f.input :remove_question_image, as: :boolean, label: "Remove question image"
+      end
       f.input :description_image,
               as: :file,
               hint: (
@@ -66,7 +87,7 @@ ActiveAdmin.register ConsentQuestion do
                 f.object.description_image.filename.to_s :
                 content_tag(:span, "No image uploaded yet"))
       if f.object.description_image.attached?
-        f.input :remove_description_image, as: :boolean, label: "Remove image"
+        f.input :remove_description_image, as: :boolean, label: "Remove description image"
       end
     end
 
@@ -75,11 +96,16 @@ ActiveAdmin.register ConsentQuestion do
 
   controller do
     def update
+      if params[:consent_question][:remove_question_image] == '1'
+        resource.question_image.purge
+      end
       if params[:consent_question][:remove_description_image] == '1'
         resource.description_image.purge
       end
 
-      # Remove the remove_description_image attribute so it doesn't interfere with regular update logic
+      # Remove the remove_*_image attributes so they don't interfere with
+      # regular update logic
+      params[:consent_question].delete(:remove_question_image)
       params[:consent_question].delete(:remove_description_image)
 
       super

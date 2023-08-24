@@ -94,6 +94,14 @@ $component: 'steps'
         @include media-breakpoint-down(md)
             text-align: left !important
 
+    +element('question-image-container')
+        display: flex
+        justify-content: center
+
+    +element('question-image')
+        max-width: 100%
+        margin-bottom: 20px
+
     +element('description-image-container')
         display: flex
         justify-content: center
