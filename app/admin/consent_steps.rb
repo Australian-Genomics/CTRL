@@ -1,5 +1,11 @@
 ActiveAdmin.register ConsentStep do
-  permit_params :order, :title, :description, :popover, :tour_videos,
+  permit_params :order,
+                :title,
+                :description,
+                :description_image,
+                :remove_description_image,
+                :popover,
+                :tour_videos,
                 consent_groups_attributes: [
                   :id,
                   :_destroy,
@@ -69,6 +75,15 @@ ActiveAdmin.register ConsentStep do
       f.input :order
       f.input :title
       f.input :description
+      f.input :description_image,
+              as: :file,
+              hint: (
+                if f.object.description_image.attached?
+                  f.object.description_image.filename.to_s
+                else
+                  content_tag(:span, 'No image uploaded yet')
+                end)
+      f.input :remove_description_image, as: :boolean, label: 'Remove description image' if f.object.description_image.attached?
       f.input :popover
       f.input :tour_videos, label: 'Tour Videos (Separated by Comma(,)'
     end
@@ -170,6 +185,11 @@ ActiveAdmin.register ConsentStep do
 
   controller do
     def update
+      if params[:consent_step][:remove_description_image] == '1'
+        resource.description_image.purge
+        params[:consent_step].delete(:remove_description_image)
+      end
+
       consent_groups = params[:consent_step][:consent_groups_attributes]
       return super unless consent_groups
 

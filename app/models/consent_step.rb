@@ -10,6 +10,10 @@ class ConsentStep < ApplicationRecord
   # buggy with has_one associations
   has_many :modal_fallbacks, dependent: :destroy
 
+  has_one_attached :description_image
+
+  attr_accessor :remove_description_image
+
   accepts_nested_attributes_for :consent_groups, allow_destroy: true
   accepts_nested_attributes_for :modal_fallbacks, allow_destroy: true
 

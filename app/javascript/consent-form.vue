@@ -47,6 +47,13 @@
                 </p>
               </div>
 
+              <div class="steps__question-image-container">
+                <img
+                  class="steps__question-image"
+                  v-if="currentSurveyStep.description_image_url"
+                  :src="currentSurveyStep.description_image_url"/>
+              </div>
+
               <div
                 v-for="(qstionGrp, qGindex) in questionGroups"
                 v-bind:key="`qstionGrp-${qGindex}`"

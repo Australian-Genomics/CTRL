@@ -15,6 +15,7 @@ json.consent_steps do
     json.order step.order
     json.title step.title
     json.description step.description
+    json.description_image_url step.description_image.attached? ? url_for(step.description_image) : nil
     json.tour_videos step.parse_tour_videos if step.tour_videos.present?
     json.reviewed StepReview.find_by(user: current_user, consent_step: step).present?
 
