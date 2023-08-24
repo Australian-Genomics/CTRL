@@ -16,6 +16,10 @@ ActiveAdmin.register ConsentStep do
                     :answer_choices_position,
                     :redcap_field,
                     :redcap_event_name,
+                    :question_image,
+                    :remove_question_image,
+                    :description_image,
+                    :remove_description_image,
                     { question_options_attributes: %i[
                       id
                       _destroy
@@ -93,6 +97,24 @@ ActiveAdmin.register ConsentStep do
           c.input :answer_choices_position, as: :select, collection: ConsentQuestion::POSITIONS
           c.input :redcap_field
           c.input :redcap_event_name
+          c.input :question_image,
+                  as: :file,
+                  hint: (
+                    if c.object.question_image.attached?
+                      c.object.question_image.filename.to_s
+                    else
+                      content_tag(:span, 'No image uploaded yet')
+                    end)
+          c.input :remove_question_image, as: :boolean, label: 'Remove question image' if c.object.question_image.attached?
+          c.input :description_image,
+                  as: :file,
+                  hint: (
+                    if c.object.description_image.attached?
+                      c.object.description_image.filename.to_s
+                    else
+                      content_tag(:span, 'No image uploaded yet')
+                    end)
+          c.input :remove_description_image, as: :boolean, label: 'Remove description image' if c.object.description_image.attached?
 
           c.has_many :question_options,
                      new_record: 'Add Multiple Choice Option',
@@ -144,5 +166,34 @@ ActiveAdmin.register ConsentStep do
     end
 
     f.actions
+  end
+
+  controller do
+    def update
+      consent_groups = params[:consent_step][:consent_groups_attributes]
+      return super unless consent_groups
+
+      consent_groups.each_value do |group_attributes|
+        questions = group_attributes[:consent_questions_attributes]
+        next unless questions
+
+        questions.each_value do |question_attributes|
+          question = ConsentQuestion.find_by(id: question_attributes[:id])
+          next unless question
+
+          if question_attributes[:remove_question_image] == '1'
+            question.question_image.purge
+            question_attributes.delete(:remove_question_image)
+          end
+
+          if question_attributes[:remove_description_image] == '1'
+            question.description_image.purge
+            question_attributes.delete(:remove_description_image)
+          end
+        end
+      end
+
+      super
+    end
   end
 end

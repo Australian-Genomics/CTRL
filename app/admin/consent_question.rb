@@ -16,12 +16,6 @@ ActiveAdmin.register ConsentQuestion do
     column :description
     column :is_published
     column :conditional_duo_limitations
-    column :question_image do |consent_question|
-      image_tag url_for(consent_question.question_image), class: 'question-image' if consent_question.question_image.attached?
-    end
-    column :description_image do |consent_question|
-      image_tag url_for(consent_question.description_image), class: 'question-image' if consent_question.description_image.attached?
-    end
     column :updated_at
     toggle_bool_column 'Publish Status', :is_published, success_message: 'Publish Status Updated Successfully!'
     actions
@@ -88,13 +82,15 @@ ActiveAdmin.register ConsentQuestion do
 
   controller do
     def update
-      resource.question_image.purge if params[:consent_question][:remove_question_image] == '1'
-      resource.description_image.purge if params[:consent_question][:remove_description_image] == '1'
+      if params[:consent_question][:remove_question_image] == '1'
+        resource.question_image.purge
+        params[:consent_question].delete(:remove_question_image)
+      end
 
-      # Remove the remove_*_image attributes so they don't interfere with
-      # regular update logic
-      params[:consent_question].delete(:remove_question_image)
-      params[:consent_question].delete(:remove_description_image)
+      if params[:consent_question][:remove_description_image] == '1'
+        resource.description_image.purge
+        params[:consent_question].delete(:remove_description_image)
+      end
 
       super
     end
