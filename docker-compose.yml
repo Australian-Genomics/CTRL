@@ -73,6 +73,7 @@ services:
       REDCAP_CONNECTION_ENABLED: ${REDCAP_CONNECTION_ENABLED}
       REDCAP_TOKEN: ${REDCAP_TOKEN}
       REDCAP_API_URL: ${REDCAP_API_URL}
+      OTP_ENABLED: ${OTP_ENABLED}
 
   selenium:
     image: seleniarm/standalone-chromium:4.3.0-20220728
@@ -91,6 +92,14 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+
+  playwright:
+    build:
+      context: .
+      dockerfile: playwright.Dockerfile
+
+    volumes:
+      - .:/code:cached
 
 # Declare the volumes that our application uses.
 volumes:
