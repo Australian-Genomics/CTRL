@@ -56,7 +56,7 @@ ActiveAdmin.register User do
       @user.assign_attributes(permitted_params[:user])
       @user.skip_validation = true
       if @user.save
-        redirect_to admin_user_path(@user), notice: "User was successfully updated!"
+        redirect_to admin_user_path(@user), notice: 'User was successfully updated!'
       else
         render :edit
       end
