@@ -49,4 +49,17 @@ ActiveAdmin.register User do
     end
     f.actions
   end
+
+  controller do
+    def update
+      @user = User.find(params[:id])
+      @user.assign_attributes(permitted_params[:user])
+      @user.skip_validation = true
+      if @user.save
+        redirect_to admin_user_path(@user), notice: "User was successfully updated!"
+      else
+        render :edit
+      end
+    end
+  end
 end
