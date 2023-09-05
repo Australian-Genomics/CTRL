@@ -47,6 +47,13 @@
                 </p>
               </div>
 
+              <div class="steps__question-image-container">
+                <img
+                  class="steps__question-image"
+                  v-if="currentSurveyStep.description_image_url"
+                  :src="currentSurveyStep.description_image_url"/>
+              </div>
+
               <div
                 v-for="(qstionGrp, qGindex) in questionGroups"
                 v-bind:key="`qstionGrp-${qGindex}`"
@@ -173,10 +180,22 @@
                           </span>
                       </div>
                     </div>
+                    <div class="steps__question-image-container">
+                      <img
+                        class="steps__question-image"
+                        v-if="question.question_image_url"
+                        :src="question.question_image_url"/>
+                    </div>
                     <div class="steps__row-collapse"
                       v-if="question.show_description && question.description">
-                      <div class="steps__text-question"
-                        v-html="question.description">
+                      <div class="steps__text-question">
+                        <div v-html="question.description"/>
+                        <div class="steps__description-image-container">
+                          <img
+                            class="steps__description-image"
+                            v-if="question.description_image_url"
+                            :src="question.description_image_url"/>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -15,6 +15,7 @@ json.consent_steps do
     json.order step.order
     json.title step.title
     json.description step.description
+    json.description_image_url step.description_image.attached? ? url_for(step.description_image) : nil
     json.tour_videos step.parse_tour_videos if step.tour_videos.present?
     json.reviewed StepReview.find_by(user: current_user, consent_step: step).present?
 
@@ -40,6 +41,8 @@ json.consent_steps do
         json.question_type question.question_type
         json.answer_choices_position question.answer_choices_position
         json.show_description false
+        json.question_image_url question.question_image.attached? ? url_for(question.question_image) : nil
+        json.description_image_url question.description_image.attached? ? url_for(question.description_image) : nil
 
         json.options question.question_options do |option|
           json.value option.value
