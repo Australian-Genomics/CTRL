@@ -1,7 +1,8 @@
+import { baseUrl } from './config';
 import { test, expect, Page } from '@playwright/test';
 
 const login = async (page: any) => {
-  await page.goto('http://web:3000/users/sign_in');
+  await page.goto(`${baseUrl}/users/sign_in`);
 
   // Enter email and password
   await page.getByLabel('Email').fill('testuser@email.com');
@@ -18,7 +19,7 @@ const login = async (page: any) => {
   ]);
 
   // Check we're logged in
-  expect(page.url()).toBe('http://web:3000/dashboard');
+  expect(page.url()).toBe(`${baseUrl}/dashboard`);
 };
 
 const expectScreenshot = async (
@@ -29,7 +30,7 @@ const expectScreenshot = async (
     expectFn?: (page: Page) => Promise<any>,
   }
 ) => {
-  await page.goto(`http://web:3000${url}`);
+  await page.goto(`${baseUrl}${url}`);
 
   if (expectText) {
     await page.waitForSelector(
