@@ -15,7 +15,7 @@ module Admin
       if is_valid
         flash.discard
         sign_in(admin_user, event: :authentication)
-        redirect_to admin_admin_users_path
+        redirect_to admin_dashboard_path
       else
         flash[:error] = error
         @admin_user = AdminUser.find_by(email: sign_in_params[:email]) || AdminUser.new
