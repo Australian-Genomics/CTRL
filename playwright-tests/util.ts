@@ -1,5 +1,5 @@
 import { baseUrl } from './config';
-import { test, expect, Page } from '@playwright/test';
+import { test, expect, Page, Locator } from '@playwright/test';
 
 const login = async (page: Page) => {
   await page.goto(`${baseUrl}/users/sign_in`);
@@ -33,11 +33,15 @@ const adminLogin = async (page: Page) => {
 const expectScreenshot = async (
   page: Page,
   url: string,
-  { expectText, expectFn }: {
+  options?: {
     expectText?: string,
     expectFn?: (page: Page) => Promise<any>,
+    mask?: Array<Locator>,
   }
 ) => {
+  const { expectText, expectFn, mask } = options ?? {};
+  const maskColor = '#ff00ff';
+
   await page.goto(`${baseUrl}${url}`);
 
   if (expectText) {
@@ -51,7 +55,7 @@ const expectScreenshot = async (
     await expectFn(page);
   }
 
-  await expect(page).toHaveScreenshot();
+  await expect(page).toHaveScreenshot({mask, maskColor});
 };
 
 export {
