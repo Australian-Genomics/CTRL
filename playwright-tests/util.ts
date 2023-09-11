@@ -41,6 +41,7 @@ const expectScreenshot = async (
 ) => {
   const { expectText, expectFn, mask } = options ?? {};
   const maskColor = '#ff00ff';
+  const fullPage = true;
 
   await page.goto(`${baseUrl}${url}`);
 
@@ -55,7 +56,7 @@ const expectScreenshot = async (
     await expectFn(page);
   }
 
-  await expect(page).toHaveScreenshot({mask, maskColor});
+  await expect(page).toHaveScreenshot({mask, maskColor, fullPage});
 };
 
 export {
