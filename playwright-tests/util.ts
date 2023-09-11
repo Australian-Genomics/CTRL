@@ -1,6 +1,12 @@
 import { baseUrl } from './config';
 import { test, expect, Page, Locator } from '@playwright/test';
 
+type Replacer = (node: HTMLElement) => void;
+type Replacement = {
+  selector: string,
+  replacer: Replacer,
+};
+
 const login = async (page: Page) => {
   await page.goto(`${baseUrl}/users/sign_in`);
 
@@ -37,13 +43,23 @@ const expectScreenshot = async (
     expectText?: string,
     expectFn?: (page: Page) => Promise<any>,
     mask?: Array<Locator>,
+    replace?: Array<Replacement>,
   }
 ) => {
-  const { expectText, expectFn, mask } = options ?? {};
+  const { expectText, expectFn, mask, replace } = options ?? {};
   const maskColor = '#ff00ff';
   const fullPage = true;
 
   await page.goto(`${baseUrl}${url}`);
+
+  const promises = (replace ?? []).map(async (replacement) => {
+    const { replacer, selector } = replacement;
+    const elementHandles = await page.$$(selector);
+    await elementHandles.forEach(
+      (elementHandle) => elementHandle.evaluate(replacer)
+    );
+  });
+  await Promise.all(promises);
 
   if (expectText) {
     await page.waitForSelector(

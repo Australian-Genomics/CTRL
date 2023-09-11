@@ -2,13 +2,17 @@ import { test } from '@playwright/test';
 import { expectScreenshot, adminLogin } from '../util';
 
 test('Active Admin - Index', async ({ page }) => {
-  const mask = [
-    page.locator('td.col-created_at'),
-    page.locator('td.col-current_sign_in_at'),
-    page.locator('td.col-sign_in_count'),
-    page.locator('td.col-updated_at'),
+  const replacer = (node: HTMLElement): void => {
+    node.replaceWith(document.createElement('td'))
+  };
+
+  const replace = [
+    { replacer, selector: 'td.col-created_at' },
+    { replacer, selector: 'td.col-current_sign_in_at' },
+    { replacer, selector: 'td.col-sign_in_count' },
+    { replacer, selector: 'td.col-updated_at' },
   ];
-  const options = { mask };
+  const options = { replace };
 
   await adminLogin(page);
 
