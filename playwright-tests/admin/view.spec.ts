@@ -8,6 +8,7 @@ test('Active Admin - View', async ({ page }) => {
     page.locator('.row-current_sign_in_ip > td'),
     page.locator('.row-last_sign_in_at > td'),
     page.locator('.row-last_sign_in_ip > td'),
+    page.locator('.row-otp_required_for_login span'),
     page.locator('.row-otp_secret > td'),
     page.locator('.row-updated_at > td'),
   ];

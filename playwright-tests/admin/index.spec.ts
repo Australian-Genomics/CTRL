@@ -6,6 +6,7 @@ test('Active Admin - Index', async ({ page }) => {
     page.locator('td.col-created_at'),
     page.locator('td.col-current_sign_in_at'),
     page.locator('td.col-sign_in_count'),
+    page.locator('td.col-updated_at'),
   ];
   const options = { mask };
 
