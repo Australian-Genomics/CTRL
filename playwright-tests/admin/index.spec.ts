@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { expectScreenshot, adminLogin } from '../util';
 
-test('Active Admin indexes', async ({ page }) => {
+test('Active Admin - Index', async ({ page }) => {
   const mask = [
     page.locator('td.col-created_at'),
     page.locator('td.col-current_sign_in_at'),

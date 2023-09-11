@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { expectScreenshot, adminLogin } from '../util';
 
-test('Active Admin forms', async ({ page }) => {
+test('Active Admin - View', async ({ page }) => {
   const mask = [
     page.locator('.row-created_at > td'),
     page.locator('.row-current_sign_in_at > td'),
