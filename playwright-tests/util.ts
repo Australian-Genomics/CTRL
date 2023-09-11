@@ -1,7 +1,7 @@
 import { baseUrl } from './config';
 import { test, expect, Page } from '@playwright/test';
 
-const login = async (page: any) => {
+const login = async (page: Page) => {
   await page.goto(`${baseUrl}/users/sign_in`);
 
   // Enter email and password
@@ -22,6 +22,14 @@ const login = async (page: any) => {
   expect(page.url()).toBe(`${baseUrl}/dashboard`);
 };
 
+const adminLogin = async (page: Page) => {
+  await page.goto(`${baseUrl}/admin/login`);
+  await page.getByLabel('Email*').fill('adminuser@email.com');
+  await page.getByLabel('Password*').fill('tester123');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByText('Welcome to Active Admin').waitFor({state: 'visible'});
+};
+
 const expectScreenshot = async (
   page: Page,
   url: string,
@@ -34,7 +42,7 @@ const expectScreenshot = async (
 
   if (expectText) {
     await page.waitForSelector(
-      `text="${expectText}"`,
+      `text=${expectText}`,
       { timeout: 60 * 1000 },
     );
   }
@@ -47,6 +55,7 @@ const expectScreenshot = async (
 };
 
 export {
+  adminLogin,
   expectScreenshot,
   login,
 };
