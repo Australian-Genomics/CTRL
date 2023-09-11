@@ -2,6 +2,8 @@ import { test } from '@playwright/test';
 import { expectScreenshot, adminLogin } from '../util';
 
 test('Active Admin - Index', async ({ page }) => {
+  // We replace the HTML nodes which contain data we can't easily control during
+  // testing.
   const replacer = (node: HTMLElement): void => {
     node.replaceWith(document.createElement('td'))
   };
@@ -12,6 +14,7 @@ test('Active Admin - Index', async ({ page }) => {
     { replacer, selector: 'td.col-sign_in_count' },
     { replacer, selector: 'td.col-updated_at' },
   ];
+
   const options = { replace };
 
   await adminLogin(page);

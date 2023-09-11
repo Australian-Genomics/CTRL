@@ -2,10 +2,13 @@ import { test } from '@playwright/test';
 import { expectScreenshot, adminLogin } from '../util';
 
 test('Active Admin - Edit', async ({ page }) => {
+  // We mask the HTML nodes which contain data we can't easily control during
+  // testing.
   const mask = [
     page.locator('#select2-consent_question_consent_group_id-container'),
     page.locator('p.inline-hints'),
   ];
+
   const options = { mask };
 
   await adminLogin(page);
