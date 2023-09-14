@@ -13,7 +13,7 @@
 
   <body>
   <%= yield %>
-  <footer class="bg-light justify-content-center navbar text-center">
+  <footer class="bg-light justify-content-center text-center position-absolute w-100">
     <%= t 'powered_by_ctrl' %>
   </footer>
   <% render 'layouts/ga_tags' if Rails.env.production? %>

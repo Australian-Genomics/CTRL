@@ -2,25 +2,44 @@
   .table thead th { border-bottom: none }
   .table th, .table td { border-top: none }
 }
-.carousel-item{
-  height: 480px !important
-}
+
 .checkbox-opts{
   padding-bottom: 3rem;
 }
+
 #custom-pos {
   position: relative;
   right: 18em;
 }
+
 .dropdown-menu {
   left: auto !important;
 }
+
 .glossary td {
   padding-top: 9px;
   padding-bottom: 9px;
   vertical-align: top;
   text-align: left;
 }
+
 .glossary .term {
   padding-right: 18px;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 70px;
+}
+
+body.landing {
+  padding-bottom: 50px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  height: 50px;
 }

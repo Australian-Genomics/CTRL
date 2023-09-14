@@ -1,3 +1,18 @@
 // Place all the styles related to the consent controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.vm--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.vm--modal {
+  left: unset !important;
+  top: unset !important;
+  width: unset !important;
+  height: unset !important;
+  margin: 10px;
+  max-width: 700px;
+}
