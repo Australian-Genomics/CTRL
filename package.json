@@ -4,6 +4,7 @@
   "dependencies": {
     "@activeadmin/activeadmin": "^2.11.1",
     "@rails/webpacker": "5.4.4",
+    "@types/node": "^20.5.7",
     "axios": "^0.24.0",
     "vue": "^2.6.14",
     "vue-js-modal": "^2.0.1",
@@ -14,6 +15,7 @@
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
+    "@playwright/test": "^1.37.1",
     "webpack-dev-server": "^3"
   }
 }
