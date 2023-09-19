@@ -52,8 +52,12 @@ present in this repo. Otherwise, you can create your own `config/master.key` and
 running:
 
 ```shell
-docker-compose --env-file=.env.dev run web bundle exec /bin/bash -c 'apt install nano -y && EDITOR=nano rails credentials:edit'
+# Copy the output of this command into your config/credentials.yml file
+docker-compose --env-file=.env.dev run web bundle exec rails db:encryption:init
+
+docker-compose --env-file=.env.dev run web bundle exec /bin/bash -c 'EDITOR=vim rails credentials:edit'
 ```
+
 
 In the editor which appears, append the following:
 
@@ -352,6 +356,30 @@ Similarly, to run the `rspec` tests:
 ```shell
 docker-compose --env-file=.env.test run web bundle exec rspec
 ```
+
+We also use playwright to test active admin. The `.github/workflows/pipeline.yml`
+file is the source of truth for how to run those tests. But the commands are
+copied here for your convenience:
+
+```shell
+docker-compose --env-file=.env.playwright run web yarn install
+docker-compose --env-file=.env.playwright run web bundle exec rails db:create
+docker-compose --env-file=.env.playwright run web bundle exec rails db:migrate
+docker-compose --env-file=.env.playwright run web bundle exec rails db:reset
+docker-compose --env-file=.env.playwright up -d
+
+# Wait until the web server is ready
+while ! curl -s http://localhost:3000 >/dev/null
+do
+  echo web server not ready, retrying in 5 seconds...
+  sleep 5
+done
+
+docker-compose --env-file=.env.playwright run playwright npx playwright test --trace on
+```
+
+You can update the snapshots using `npx playwright test` too, by deleting the
+existing snapshots before running the command.
 
 ### <a id="testingknownissues"></a> Known Issues
 *For MacOS Catalina and Big Sur*
