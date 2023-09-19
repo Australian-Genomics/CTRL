@@ -97,8 +97,8 @@ jobs:
           done
 
           docker-compose --env-file=.env.playwright run playwright npx playwright test --trace on
-
       - uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: playwright-report
           path: test-results/

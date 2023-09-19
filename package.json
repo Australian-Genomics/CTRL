@@ -15,7 +15,7 @@
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
-    "@playwright/test": "^1.37.1",
+    "@playwright/test": "^1.38.0",
     "webpack-dev-server": "^3"
   }
 }

@@ -1,3 +1,4 @@
+import { baseUrl } from './playwright-tests/config';
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
@@ -10,7 +11,7 @@ export default defineConfig({
   globalTimeout: 5 * 60 * 1000,
   timeout: 5 * 60 * 1000,
   use: {
-    baseURL: "http://web:3000",
+    baseURL: baseUrl,
   },
   expect: {
     timeout: 5 * 60 * 1000,
