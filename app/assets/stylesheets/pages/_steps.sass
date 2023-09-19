@@ -57,6 +57,8 @@ $component: 'steps'
     +element('row-main')
         display: flex
         padding: 15px
+        @media (max-width: 568px)
+            flex-direction: column
         +modifier('deeper')
             padding: 14px 18px
             align-items: center

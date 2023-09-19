@@ -7,6 +7,10 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'iPhone SE',
+      use: { ...devices['iPhone SE'] },
+    },
   ],
   globalTimeout: 5 * 60 * 1000,
   timeout: 5 * 60 * 1000,

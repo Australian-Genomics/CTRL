@@ -93,7 +93,7 @@
                         </label>
 
                         <div
-                            class="d-flex mt-3 mt-sm-0 text-capitalize"
+                            class="d-flex mt-3 mt-sm-0 text-capitalize justify-content-around"
                             v-else-if="question.question_type === 'multiple checkboxes'"
                         >
                           <span v-for="(option, oi) in question.options">
@@ -112,7 +112,7 @@
                             </label>
                           </span>
                         </div>
-                        <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-else-if="question.question_type === 'multiple choice'">
+                        <div class="d-flex mt-3 mt-sm-0 text-capitalize justify-content-around" v-else-if="question.question_type === 'multiple choice'">
                           <span v-for="(option, oi) in question.options">
                             <label>
                               <label class="controls controls__radio ml-sm-15" :class="['controls__radio_'+option.color.replace('#','')]">
@@ -133,7 +133,7 @@
 
                     <div class="col-12"
                       v-if="question.answer_choices_position === 'bottom'" >
-                      <div class="d-flex mt-3 mt-sm-0 text-capitalize" v-if="question.question_type === 'multiple choice'">
+                      <div class="d-flex mt-3 mt-sm-0 text-capitalize justify-content-around" v-if="question.question_type === 'multiple choice'">
                           <span v-for="(option, oi) in question.options">
                             <label>
                               <label class="controls controls__radio ml-sm-15" :class="['controls__radio_'+option.color.replace('#','')]">
@@ -160,7 +160,7 @@
                         <span class="checkmark"></span>
                       </label>
                       <div
-                          class="d-flex mt-3 mt-sm-0 text-capitalize"
+                          class="d-flex mt-3 mt-sm-0 text-capitalize justify-content-around"
                           v-else-if="question.question_type === 'multiple checkboxes'"
                       >
                           <span v-for="(option, oi) in question.options">
