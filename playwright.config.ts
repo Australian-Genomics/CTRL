@@ -5,11 +5,16 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+      },
     },
     {
       name: 'iPhone SE',
-      use: { ...devices['iPhone SE'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: devices['iPhone SE'].viewport,
+      },
     },
   ],
   globalTimeout: 5 * 60 * 1000,
