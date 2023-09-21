@@ -33,7 +33,7 @@ const adminLogin = async (page: Page) => {
   await page.getByLabel('Email*').fill('adminuser@email.com');
   await page.getByLabel('Password*').fill('tester123');
   await page.getByRole('button', { name: 'Login' }).click();
-  await page.getByText('Welcome to Active Admin').waitFor({state: 'visible'});
+  await page.getByText('Welcome to Active Admin').waitFor({state: 'attached'});
 };
 
 const expectScreenshot = async (
@@ -64,7 +64,7 @@ const expectScreenshot = async (
   if (expectText) {
     await page.waitForSelector(
       `text=${expectText}`,
-      { timeout: 60 * 1000 },
+      { state: 'attached', timeout: 60 * 1000 },
     );
   }
 

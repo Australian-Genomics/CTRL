@@ -2,20 +2,24 @@ import { test } from '@playwright/test';
 import { expectScreenshot, adminLogin } from '../util';
 
 test('Active Admin - View', async ({ page }) => {
-  // We mask the HTML nodes which contain data we can't easily control during
+  // We replace the HTML nodes which contain data we can't easily control during
   // testing.
-  const mask = [
-    page.locator('.row-created_at > td'),
-    page.locator('.row-current_sign_in_at > td'),
-    page.locator('.row-current_sign_in_ip > td'),
-    page.locator('.row-last_sign_in_at > td'),
-    page.locator('.row-last_sign_in_ip > td'),
-    page.locator('.row-otp_required_for_login > td'),
-    page.locator('.row-otp_secret > td'),
-    page.locator('.row-updated_at > td'),
+  const replacer = (node: HTMLElement): void => {
+    node.replaceWith(document.createElement('td'))
+  };
+
+  const replace = [
+    { replacer, selector: '.row-created_at > td' },
+    { replacer, selector: '.row-current_sign_in_at > td' },
+    { replacer, selector: '.row-current_sign_in_ip > td' },
+    { replacer, selector: '.row-last_sign_in_at > td' },
+    { replacer, selector: '.row-last_sign_in_ip > td' },
+    { replacer, selector: '.row-otp_required_for_login > td' },
+    { replacer, selector: '.row-otp_secret > td' },
+    { replacer, selector: '.row-updated_at > td' },
   ];
 
-  const options = { mask };
+  const options = { replace };
 
   await adminLogin(page);
 

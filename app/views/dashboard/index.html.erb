@@ -52,13 +52,13 @@
           <% if step_reviewed?(current_user, step) %>
             <div class="d-flex w-100 mb-15 mb-md-0">
               <i class="icon_placeholder mr-2"></i>
-              <div class="mr-auto">
+              <div class="mr-auto pr-3">
                 <%= t(:reviewed) %>
               </div>
               <%=
                 content_tag :div,
                 nil,
-                class: "mr-md-3",
+                class: "mr-md-3 text-center",
                 data: {
                   time: "#{step_review(current_user, step).updated_at.strftime("%A, %^B %-d, %Y")}"
                 }
@@ -77,7 +77,7 @@
 
           <div class="d-flex w-100 mb-15 mb-md-0">
             <i class="icon_placeholder mr-2"></i>
-            <div class="mr-auto">
+            <div class="mr-auto pr-3">
               <%= t 'dashboard.index.review_required' %>
             </div>
             <div class="mr-md-3"> - </div>

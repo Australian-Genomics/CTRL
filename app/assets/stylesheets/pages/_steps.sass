@@ -25,7 +25,6 @@ $component: 'steps'
         margin-right: -30px
 
     +element('iframe')
-        height: 240px
         border-radius: 2px
         @include media-breakpoint-up(md)
             height: 480px
@@ -37,10 +36,8 @@ $component: 'steps'
                 box-shadow: 0 20px 40px 0 rgba(73, 96, 136, 0.05)
 
     +element('iframe-news')
-        height: 240px
         border-radius: 2px
-        @include media-breakpoint-up(md)
-            height: 960px
+        height: 100vh
 
     +element('row')
         margin-bottom: .5rem
@@ -60,6 +57,8 @@ $component: 'steps'
     +element('row-main')
         display: flex
         padding: 15px
+        @media (max-width: 568px)
+            flex-direction: column
         +modifier('deeper')
             padding: 14px 18px
             align-items: center

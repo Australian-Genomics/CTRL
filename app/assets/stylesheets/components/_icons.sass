@@ -71,6 +71,8 @@ $component: 'icon'
         border-radius: 999px
         border: solid 1px $teal
         text-align: center
+        @media (max-width: 568px)
+            display: none
         +modifier(':before')
             content: ""
             position: absolute
