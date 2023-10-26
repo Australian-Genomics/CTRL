@@ -1,8 +1,8 @@
 ## Makefile to make it easy to run development commands
 
-# Default env is specified below. 
+# Default env is specified below.
 # To use a different env, specify before running make commands:
-# `ENV=test make up`
+# `make ENV=test up`
 ENV := dev
 
 # Build docker images
@@ -38,6 +38,10 @@ up: .seed
 down:
 	docker-compose --env-file=.env.$(ENV) down
 
+# Remove docker volume
+rm-volume: down
+	docker volume rm ctrl_db_data
+
 # run tests
 tests: rspec rubocop
 
@@ -52,8 +56,13 @@ console:
 	docker-compose --env-file=.env.$(ENV) run web bundle exec rails c
 
 # Opens unencrypted credentials in Vim
-edit_credentials:
+edit-credentials:
 	docker-compose --env-file=.env.$(ENV) run web bundle exec /bin/bash -c 'EDITOR=vim rails credentials:edit'
 
+# Generate new encryption keys and salts
+# (if you don't have a copy of `config/master.key`)
+generate-keys:
+	docker-compose --env-file=.env.$(ENV) run web bundle exec rails db:encryption:init
+
 clean:
-	rm .seed .migrate .db .yarn .docker
+	rm -f .seed .migrate .db .yarn .docker
