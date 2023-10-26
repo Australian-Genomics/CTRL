@@ -132,7 +132,7 @@ Each of the steps above has a separete `make` command (e.g. `make .docker`; see 
 
 Other commands are:
 
-````shell
+```shell
 # Stop servers
 make down
 
@@ -156,7 +156,7 @@ make console
 
 ```shell
 bundle install
-````
+```
 
 ##### Create and build the database.
 
