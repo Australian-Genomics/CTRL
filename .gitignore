@@ -50,3 +50,10 @@ yarn-debug.log*
 notes
 
 test-results/
+
+# Makefile generated files
+.db
+.docker
+.migrate
+.seed
+.yarn

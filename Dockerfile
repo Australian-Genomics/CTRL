@@ -21,7 +21,7 @@ RUN : \
        -ie 's/Suites: bookworm bookworm-updates/Suites: bookworm bookworm-updates oldstable/g' \
        /etc/apt/sources.list.d/debian.sources \
   && apt-get update \
-  && apt-get install -y nodejs yarn libssl1.1 \
+  && apt-get install -y nodejs yarn libssl1.1 vim \
   && rm -rf /var/lib/apt/lists/* \
   && bundle install
 
