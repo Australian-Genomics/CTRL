@@ -9,7 +9,7 @@ class ContactMailer < ApplicationMailer
       to: mail_to,
       subject: subject,
       sender: SENDER_EMAIL,
-      from: SENDER_EMAIL,
+      from: SENDER_EMAIL
     )
   end
 
