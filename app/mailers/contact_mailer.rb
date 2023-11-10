@@ -1,14 +1,16 @@
 class ContactMailer < ApplicationMailer
-  DEFAULT_SENDER = 'ctrl@australiangenomics.org.au'.freeze
-
   def send_contact_us_email(user, content, admin = true)
     @user = user
     @content = content
     @to_admin = admin
-    sender = DEFAULT_SENDER
     mail_to, subject = find_details
 
-    mail(to: mail_to, subject: subject, sender: sender, from: sender)
+    mail(
+      to: mail_to,
+      subject: subject,
+      sender: SENDER_EMAIL,
+      from: SENDER_EMAIL,
+    )
   end
 
   private

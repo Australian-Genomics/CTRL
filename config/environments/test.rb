@@ -37,12 +37,31 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
-  config.action_mailer.perform_caching = false
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = false
 
-  # Tell Action Mailer not to deliver emails to the real world.
-  # The :test delivery method accumulates sent emails in the
-  # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
+  config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  mcri_email = {
+      address: "smtp.mcri.edu.au",
+      port: 25,
+      authentication: "plain",
+      enable_starttls_auto: true,
+  }
+
+  localhost_email = {
+      address: "smtp",
+      port: 1025,
+      authentication: "plain",
+      enable_starttls_auto: false,
+  }
+
+  config.action_mailer.smtp_settings = ENV['EMAIL_SERVER'] == 'MCRI' ? mcri_email : localhost_email
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
