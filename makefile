@@ -7,7 +7,7 @@ ENV := dev
 
 # Build docker images
 .docker:
-	docker-compose --env-file=.env.$(ENV) build --progress=plain
+	docker-compose --env-file=.env.$(ENV) build
 	touch $@
 
 # Install yarn dependencies
