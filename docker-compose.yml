@@ -74,6 +74,7 @@ services:
       REDCAP_TOKEN: ${REDCAP_TOKEN}
       REDCAP_API_URL: ${REDCAP_API_URL}
       OTP_ENABLED: ${OTP_ENABLED}
+      CTRL_ADMIN_EMAIL: ${CTRL_ADMIN_EMAIL}
 
   selenium:
     image: seleniarm/standalone-chromium:4.3.0-20220728
