@@ -25,6 +25,7 @@ CTRL is distributed under the terms of the [MIT licence](LICENSE).
 - [Deployment](#deployment)
   - [Installing Heroku](#installingheroku)
   - [Deploying to Heroku](#deployingtoheroku)
+- [Environment Variables](#environment-variables)
 
 ## <a id="installation"></a> Installation
 
@@ -445,3 +446,10 @@ git add .
 git commit -m [Your message](https://github.com/erlang/otp/wiki/writing-good-commit-messages)
 git push heroku master
 ```
+
+## <a id="environment-variables"></a> Environment Variables
+
+- `OTP_ENABLED` - Whether or not login should be permitted without entering a valid OTP. Valid values are `true` and `false`. Defaults to `true`.
+- `REDCAP_API_URL`
+- `REDCAP_CONNECTION_ENABLED` - Whether data should be forwarded to REDCap. Valid values are `true` and `false`. Defaults to `false`.
+- `REDCAP_TOKEN`
