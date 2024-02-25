@@ -57,3 +57,9 @@ test-results/
 .migrate
 .seed
 .yarn
+
+# Terraform files
+terraform/initial-setup/terraform.tfstate
+terraform/initial-setup/terraform.tfstate.backup
+terraform/initial-setup/terraform.tfvars
+terraform/initial-setup/.terraform
