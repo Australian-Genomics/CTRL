@@ -59,7 +59,7 @@ test-results/
 .yarn
 
 # Terraform files
-terraform/initial-setup/terraform.tfstate
-terraform/initial-setup/terraform.tfstate.backup
-terraform/initial-setup/terraform.tfvars
-terraform/initial-setup/.terraform
+terraform/*/terraform.tfstate
+terraform/*/terraform.tfstate.backup
+terraform/*/terraform.tfvars
+terraform/*/.terraform
