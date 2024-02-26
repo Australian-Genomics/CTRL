@@ -41,6 +41,17 @@ resource "google_compute_subnetwork" "default" {
   network       = google_compute_network.vpc_network.id
 }
 
+data "cloudinit_config" "conf" {
+  gzip = false
+  base64_encode = false
+
+  part {
+    content_type = "text/cloud-config"
+    content = file("cloud-init.yaml")
+    filename = "cloud-init.yaml"
+  }
+}
+
 # Create a single Compute Engine instance
 resource "google_compute_instance" "default" {
   name         = "flask-vm"
@@ -50,12 +61,13 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = "ubuntu-os-cloud/ubuntu-2204-lts"
     }
   }
 
-  # Install Flask
-  metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python3-pip rsync; pip install flask"
+  metadata = {
+    user-data = "${data.cloudinit_config.conf.rendered}"
+  }
 
   network_interface {
     subnetwork = google_compute_subnetwork.default.id

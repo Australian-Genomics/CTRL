@@ -1,0 +1,6 @@
+#cloud-config
+
+# Create an empty file on the system
+write_files:
+- path: /root/CLOUD_INIT_WAS_HERE
+
