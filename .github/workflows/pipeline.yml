@@ -1,6 +1,10 @@
 on:
   push:
+    branches-ignore:
+      feature/deployment
   pull_request:
+    branches-ignore:
+      feature/deployment
 
 jobs:
   run-rspec:
