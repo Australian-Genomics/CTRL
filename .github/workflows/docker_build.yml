@@ -39,7 +39,7 @@ jobs:
         with:
           create_credentials_file: 'true'
           service_account: 'gcp-github-access@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
-          workload_identity_provider: 'projects/${{env.PROJECT_NUMBER}}/locations/global/workloadIdentityPools/gh-identity-pool/providers/gh-provider'
+          workload_identity_provider: 'projects/${{env.PROJECT_NUMBER}}/locations/global/workloadIdentityPools/ctrl-gh-identity-pool/providers/ctrl-gh-provider'
 
       - name: Set up gcloud SDK
         uses: google-github-actions/setup-gcloud@v2
