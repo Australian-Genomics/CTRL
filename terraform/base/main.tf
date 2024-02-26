@@ -2,10 +2,9 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "5.0.0"
+      version = "5.5.0"
     }
   }
-
 }
 
 provider "google" {
@@ -21,46 +20,76 @@ variable "region" {
   description = "region"
 }
 
-# Service accont and workload identity pool / provider for allowing GitHub Actions
-# to interact with GCP Artifact Registry (for pushing and pulling docker images) 
-
-# Service account associated with workload identity pool
-resource "google_service_account" "github-svc" {
-  project      = var.project_id
-  account_id   = "gcp-github-access"
-  display_name = "Service Account - github-svc"
+variable "zone" {
+  description = "zone"
 }
 
-resource "google_project_iam_member" "github-access" {
-
-  project = var.project_id
-  role    = "roles/artifactregistry.writer"
-  member  = "serviceAccount:${google_service_account.github-svc.email}"
+variable "environment" {
+  description = "env"
 }
 
-resource "google_project_service" "wif_api" {
-  for_each = toset([
-    "iam.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
-    "iamcredentials.googleapis.com",
-    "sts.googleapis.com",
-  ])
-
-  service            = each.value
-  disable_on_destroy = false
+resource "google_compute_network" "vpc_network" {
+  name                    = "ctrl-${var.environment}-network"
+  auto_create_subnetworks = false
+  mtu                     = 1460
 }
 
-module "gh_oidc" {
-  source            = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
-  version           = "v3.1.2"
-  project_id        = var.project_id
-  pool_id           = "gh-identity-pool"
-  pool_display_name = "GitHub Identity Pool"
-  provider_id       = "gh-provider"
-  sa_mapping = {
-    (google_service_account.github-svc.account_id) = {
-      sa_name   = google_service_account.github-svc.name
-      attribute = "*"
+resource "google_compute_subnetwork" "default" {
+  name          = "ctrl-${var.environment}-subnet"
+  ip_cidr_range = "10.0.1.0/24"
+  region        = var.region
+  network       = google_compute_network.vpc_network.id
+}
+
+# Create a single Compute Engine instance
+resource "google_compute_instance" "default" {
+  name         = "flask-vm"
+  machine_type = "f1-micro"
+  zone         = var.zone
+  tags         = ["ssh"]
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
     }
   }
+
+  # Install Flask
+  metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python3-pip rsync; pip install flask"
+
+  network_interface {
+    subnetwork = google_compute_subnetwork.default.id
+
+    access_config {
+      # Include this section to give the VM an external IP address
+    }
+  }
+}
+
+resource "google_compute_firewall" "ssh" {
+  name = "allow-ssh"
+  allow {
+    ports    = ["22"]
+    protocol = "tcp"
+  }
+  direction     = "INGRESS"
+  network       = google_compute_network.vpc_network.id
+  priority      = 1000
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["ssh"]
+}
+
+resource "google_compute_firewall" "flask" {
+  name    = "flask-app-firewall"
+  network = google_compute_network.vpc_network.id
+
+  allow {
+    protocol = "tcp"
+    ports    = ["5000"]
+  }
+  source_ranges = ["0.0.0.0/0"]
+}
+
+output "vm_ip" {
+  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
 }
