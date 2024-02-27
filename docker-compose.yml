@@ -105,6 +105,8 @@ services:
   caddy:
     image: caddy:2
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "80:80"
       - "443:443"
