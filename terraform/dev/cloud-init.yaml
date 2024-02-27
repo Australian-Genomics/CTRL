@@ -60,7 +60,7 @@ write_files:
 runcmd:
   - [ apt-get, -y, autoremove ]
   - [ chmod, +x, /usr/local/bin/docker-compose ]
-  - [ git, clone, https://github.com/Australian-Genomics/CTRL.git, /opt/CTRL ]
+  - [ git, clone, -b, feature/deployment, https://github.com/Australian-Genomics/CTRL.git, /opt/CTRL ]
   - [ systectl, enable, crtl-server.service ]
   - [ systemctl, daemon-reload ]
   - [ systemctl, start, ctrl-server ]
