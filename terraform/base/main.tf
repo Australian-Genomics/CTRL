@@ -54,14 +54,15 @@ data "cloudinit_config" "conf" {
 
 # Create a single Compute Engine instance
 resource "google_compute_instance" "default" {
-  name         = "flask-vm"
-  machine_type = "f1-micro"
+  name         = "ctrl-tf-${var.environment}-server"
+  machine_type = "e2-medium"
   zone         = var.zone
   tags         = ["ssh"]
 
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2204-lts"
+      size = 50
     }
   }
 
@@ -97,7 +98,7 @@ resource "google_compute_firewall" "flask" {
 
   allow {
     protocol = "tcp"
-    ports    = ["5000"]
+    ports    = ["3000"]
   }
   source_ranges = ["0.0.0.0/0"]
 }

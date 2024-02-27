@@ -1,6 +1,70 @@
 #cloud-config
+package_upgrade: true
+apt:
+  sources:
+    docker.list:
+      source: deb [arch=amd64] https://download.docker.com/linux/ubuntu $RELEASE stable
+      keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 
-# Create an empty file on the system
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - build-essential
+  - tmux
+  - make
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+# Enable ipv4 forwarding, required on CIS hardened machines
 write_files:
-- path: /root/CLOUD_INIT_WAS_HERE
+  - path: /etc/sysctl.d/enabled_ipv4_forwarding.conf
+    content: |
+      net.ipv4.conf.all.forwarding=1
 
+# create the docker group
+groups:
+  - docker
+
+# Add default auto created user to docker group
+system_info:
+  default_user:
+    groups: [docker]
+
+users: default
+write_files:
+- path: /usr/local/bin/docker-compose
+  content: |
+      #!/usr/bin/env bash
+      exec docker compose "$@"
+- path: /etc/systemd/system/ctrl-server.service
+  content: |
+      [Unit]
+      Description=ctrl-server
+      Requires=docker.service
+      After=docker.service
+
+      [Service]
+      TimeoutStartSet=0
+      KillMode=none
+      Restart=always
+      RestartSec=20
+
+      ExecStartPre=/bin/bash -c 'cd /opt/CTRL && make down'
+      ExecStart=/bin/bash -c 'cd /opt/CTRL && make up'
+      ExecStop=/bin/bash -c 'cd /opt/CTRL && make down'
+
+      [Install]
+      WantedBy=multi-user.target
+runcmd:
+  - [ apt-get, -y, autoremove ]
+  - [ chmod, +x, /usr/local/bin/docker-compose ]
+  - [ git, clone, https://github.com/Australian-Genomics/CTRL.git, /opt/CTRL ]
+  - [ systectl, enable, crtl-server.service ]
+  - [ systemctl, daemon-reload ]
+  - [ systemctl, start, ctrl-server ]
