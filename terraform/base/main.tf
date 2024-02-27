@@ -98,7 +98,7 @@ resource "google_compute_firewall" "flask" {
 
   allow {
     protocol = "tcp"
-    ports    = ["3000"]
+    ports    = ["80", "443"]
   }
   source_ranges = ["0.0.0.0/0"]
 }

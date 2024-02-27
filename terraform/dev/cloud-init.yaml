@@ -38,10 +38,6 @@ system_info:
 
 users: default
 write_files:
-- path: /usr/local/bin/docker-compose
-  content: |
-      #!/usr/bin/env bash
-      exec docker compose "$@"
 - path: /etc/systemd/system/ctrl-server.service
   content: |
       [Unit]
