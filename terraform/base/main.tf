@@ -52,6 +52,12 @@ data "cloudinit_config" "conf" {
   }
 }
 
+# read rails master.key from secret manager
+data "google_secret_manager_secret_version" "ctrl-master-key" {
+ secret   = "ctrl-master-key"
+}
+
+
 # Create a single Compute Engine instance
 resource "google_compute_instance" "default" {
   name         = "ctrl-tf-${var.environment}-server"
@@ -69,6 +75,8 @@ resource "google_compute_instance" "default" {
   metadata = {
     user-data = "${data.cloudinit_config.conf.rendered}"
   }
+
+  metadata_startup_script = "echo RAILS_MASTER_KEY=${data.google_secret_manager_secret_version.ctrl-master-key.secret_data} >> /etc/profile"
 
   network_interface {
     subnetwork = google_compute_subnetwork.default.id
