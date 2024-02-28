@@ -51,9 +51,9 @@ write_files:
       Restart=always
       RestartSec=20
 
-      ExecStartPre=/bin/bash -c 'cd /opt/CTRL && make down'
-      ExecStart=/bin/bash -c 'cd /opt/CTRL && make up'
-      ExecStop=/bin/bash -c 'cd /opt/CTRL && make down'
+      ExecStartPre=/bin/bash -c 'cd /opt/CTRL && RAILS_MASTER_KEY=$RAILS_MASTER_KEY DEPLOY_ENV=$DEPLOY_ENV make down'
+      ExecStart=/bin/bash -c 'cd /opt/CTRL && RAILS_MASTER_KEY=$RAILS_MASTER_KEY DEPLOY_ENV=$DEPLOY_ENV make up'
+      ExecStop=/bin/bash -c 'cd /opt/CTRL && RAILS_MASTER_KEY=$RAILS_MASTER_KEY DEPLOY_ENV=$DEPLOY_ENV make down'
 
       [Install]
       WantedBy=multi-user.target
