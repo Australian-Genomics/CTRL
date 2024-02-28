@@ -50,10 +50,11 @@ write_files:
       KillMode=none
       Restart=always
       RestartSec=20
+      EnvironmentFile=/etc/var_file
 
-      ExecStartPre=/bin/bash -c 'cd /opt/CTRL && RAILS_MASTER_KEY=$RAILS_MASTER_KEY DEPLOY_ENV=$DEPLOY_ENV make down'
+      ExecStartPre=/bin/bash -c 'cd /opt/CTRL && make down'
       ExecStart=/bin/bash -c 'cd /opt/CTRL && RAILS_MASTER_KEY=$RAILS_MASTER_KEY DEPLOY_ENV=$DEPLOY_ENV make up'
-      ExecStop=/bin/bash -c 'cd /opt/CTRL && RAILS_MASTER_KEY=$RAILS_MASTER_KEY DEPLOY_ENV=$DEPLOY_ENV make down'
+      ExecStop=/bin/bash -c 'cd /opt/CTRL && make down'
 
       [Install]
       WantedBy=multi-user.target

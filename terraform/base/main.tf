@@ -77,8 +77,8 @@ resource "google_compute_instance" "default" {
   }
 
   metadata_startup_script = <<-EOT
-  echo RAILS_MASTER_KEY=${data.google_secret_manager_secret_version.ctrl-master-key.secret_data} >> /etc/profile
-  echo DEPLOY_ENV=${var.environment} >> /etc/profile
+  echo RAILS_MASTER_KEY=${data.google_secret_manager_secret_version.ctrl-master-key.secret_data} >> /etc/var_file
+  echo DEPLOY_ENV=${var.environment} >> /etc/var_file
   EOT
 
   network_interface {
