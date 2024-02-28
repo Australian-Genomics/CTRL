@@ -1,0 +1,5 @@
+ctrl-dev.dsp.garvan.org.au {
+      reverse_proxy host.docker.internal:3000
+      header Strict-Transport-Security max-age=31536000;
+      encode gzip
+}

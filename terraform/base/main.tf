@@ -76,10 +76,10 @@ resource "google_compute_instance" "default" {
     user-data = "${data.cloudinit_config.conf.rendered}"
   }
 
-  metadata_startup_script = <<EOT
-    echo RAILS_MASTER_KEY=${data.google_secret_manager_secret_version.ctrl-master-key.secret_data} >> /etc/profile &&
-    echo DEPLOY_ENV=${var.environment} >> /etc/profile"
-    EOT
+  metadata_startup_script = <<-EOT
+  echo RAILS_MASTER_KEY=${data.google_secret_manager_secret_version.ctrl-master-key.secret_data} >> /etc/profile
+  echo DEPLOY_ENV=${var.environment} >> /etc/profile
+  EOT
 
   network_interface {
     subnetwork = google_compute_subnetwork.default.id
