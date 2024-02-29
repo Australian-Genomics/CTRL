@@ -57,6 +57,7 @@ data "google_secret_manager_secret_version" "ctrl-master-key" {
  secret   = "ctrl-master-key"
 }
 
+
 # Create a single Compute Engine instance
 resource "google_compute_instance" "default" {
   name         = "ctrl-tf-${var.environment}-server"
@@ -77,6 +78,7 @@ resource "google_compute_instance" "default" {
 
   metadata_startup_script = <<-EOT
   echo RAILS_MASTER_KEY=${data.google_secret_manager_secret_version.ctrl-master-key.secret_data} >> /etc/var_file
+  echo DEPLOY_ENV=${var.environment} >> /etc/var_file
   EOT
 
   network_interface {
@@ -112,10 +114,14 @@ resource "google_compute_firewall" "caddy" {
   source_ranges = ["0.0.0.0/0"]
 }
 
+output "vm_ip" {
+  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
+}
+
 resource "google_dns_record_set" "ctrl" {
   managed_zone = "dsp"
 
-  name    = "${var.environment}.ctrl.dsp.garvan.org.au."
+  name    = "ctrl-${var.environment}.dsp.garvan.org.au."
   type    = "A"
   rrdatas = ["${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"]
   ttl     = 300
