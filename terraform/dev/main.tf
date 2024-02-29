@@ -32,8 +32,3 @@ module "base" {
     zone        = var.zone
     environment = "dev"
 }
-
-// A variable for extracting the external IP address of the VM
-output "Web-server-URL" {
- value = join("",["http://","${module.base.vm_ip}",":5000"])
-}
