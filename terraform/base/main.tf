@@ -121,7 +121,7 @@ output "vm_ip" {
 resource "google_dns_record_set" "ctrl" {
   managed_zone = "dsp"
 
-  name    = "ctrl-${var.environment}.dsp.garvan.org.au."
+  name    = "${var.environment}.ctrl.dsp.garvan.org.au."
   type    = "A"
   rrdatas = ["${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"]
   ttl     = 300
