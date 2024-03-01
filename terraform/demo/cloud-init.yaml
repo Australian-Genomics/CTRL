@@ -58,10 +58,23 @@ write_files:
 
       [Install]
       WantedBy=multi-user.target
+- path: /etc/systemd/system/ctrl-server.timer
+  content: |
+      [Unit]
+      Description=Restart ctrl-server.service each night at 1am
+
+      [Timer]
+      OnCalendar=*-*-* 1:00:00 Australia/Sydney
+      Unit=ctrl-server.service
+
+      [Install]
+      WantedBy=multi-user.target
 runcmd:
   - [ apt-get, -y, autoremove ]
   - [ chmod, +x, /usr/local/bin/docker-compose ]
   - [ git, clone, -b, feature/deployment, https://github.com/Australian-Genomics/CTRL.git, /opt/CTRL ]
   - [ systectl, enable, crtl-server.service ]
+  - [ systectl, enable, crtl-server.timer ]
   - [ systemctl, daemon-reload ]
   - [ systemctl, start, ctrl-server ]
+  - [ systemctl, start, ctrl-server.timer ]
