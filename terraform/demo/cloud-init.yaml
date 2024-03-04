@@ -61,11 +61,30 @@ write_files:
 - path: /etc/systemd/system/ctrl-server.timer
   content: |
       [Unit]
-      Description=Restart ctrl-server.service each night at 1am
+      Description=Start ctrl-server.service each night at 1am
 
       [Timer]
       OnCalendar=*-*-* 1:00:00 Australia/Sydney
       Unit=ctrl-server.service
+
+      [Install]
+      WantedBy=multi-user.target
+- path: /etc/systemd/system/ctrl-server-stop.service
+  content: |
+      [Unit]
+      Description=Stop ctrl-server.service
+      
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/bin/systemctl stop ctrl-server.service
+- path: /etc/systemd/system/ctrl-server-stop.timer
+  content: |
+      [Unit]
+      Description=Stop ctrl-server.service each night at 12:30am
+
+      [Timer]
+      OnCalendar=*-*-* 0:30:00 Australia/Sydney
+      Unit=ctrl-server-stop.service
 
       [Install]
       WantedBy=multi-user.target
@@ -75,6 +94,10 @@ runcmd:
   - [ git, clone, -b, feature/deployment, https://github.com/Australian-Genomics/CTRL.git, /opt/CTRL ]
   - [ systectl, enable, crtl-server.service ]
   - [ systectl, enable, crtl-server.timer ]
+  - [ systectl, enable, crtl-server-stop.service ]
+  - [ systectl, enable, crtl-server-stop.timer ]
   - [ systemctl, daemon-reload ]
-  - [ systemctl, start, ctrl-server ]
+  - [ systemctl, start, ctrl-server.service ]
   - [ systemctl, start, ctrl-server.timer ]
+  - [ systemctl, start, ctrl-server-stop.service ]
+  - [ systemctl, start, ctrl-server-stop.timer ]
