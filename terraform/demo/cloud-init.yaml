@@ -52,7 +52,7 @@ write_files:
       RestartSec=20
       EnvironmentFile=/etc/var_file
 
-      ExecStartPre=/bin/bash -c 'cd /opt/CTRL && make down'
+      ExecStartPre=-/bin/bash -c 'cd /opt/CTRL && make down'
       ExecStart=/bin/bash -c 'cd /opt/CTRL && RAILS_MASTER_KEY=$RAILS_MASTER_KEY DEPLOY_ENV=$DEPLOY_ENV make up'
       ExecStop=/bin/bash -c 'cd /opt/CTRL && make down'
 
@@ -76,7 +76,7 @@ write_files:
       
       [Service]
       Type=oneshot
-      ExecStartPre=/bin/bash -c 'cd /opt/CTRL && rm .seed .migrate'
+      ExecStartPre=-/bin/bash -c 'cd /opt/CTRL && rm .seed .migrate'
       ExecStart=/usr/bin/systemctl stop ctrl-server.service
 
       [Install]
@@ -100,7 +100,7 @@ runcmd:
   - [ systemctl, enable, ctrl-server-stop.service ]
   - [ systemctl, enable, ctrl-server-stop.timer ]
   - [ systemctl, daemon-reload ]
-  - [ systemctl, start, ctrl-server.service ]
-  - [ systemctl, start, ctrl-server.timer ]
   - [ systemctl, start, ctrl-server-stop.service ]
   - [ systemctl, start, ctrl-server-stop.timer ]
+  - [ systemctl, start, ctrl-server.service ]
+  - [ systemctl, start, ctrl-server.timer ]
