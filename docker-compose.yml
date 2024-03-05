@@ -39,7 +39,7 @@ services:
 
   web:
     # The root directory from which we're building.
-    build: .
+    image: ${IMAGE_REGISTRY}/ctrl:latest
 
     platform: "linux/amd64"
 
