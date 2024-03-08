@@ -58,8 +58,5 @@ test-results/
 .seed
 .yarn
 
-# Terraform files
-terraform/*/terraform.tfstate
-terraform/*/terraform.tfstate.backup
-terraform/*/terraform.tfvars
-terraform/*/.terraform
+# Caddy config files
+Caddyfile
