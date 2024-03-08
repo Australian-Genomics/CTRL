@@ -39,7 +39,8 @@ services:
 
   web:
     # The root directory from which we're building.
-    image: ${IMAGE_REGISTRY}/ctrl:latest
+    image: ${IMAGE_REGISTRY}ctrl:latest
+    build: .
 
     platform: "linux/amd64"
 
@@ -77,16 +78,17 @@ services:
       CTRL_ADMIN_EMAIL: ${CTRL_ADMIN_EMAIL}
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
 
-#  selenium:
-#    image: seleniarm/standalone-chromium:4.3.0-20220728
-#
-#    ports:
-#      - "4444:4444"
-#
-#    shm_size: "2g"
-#
-#    environment:
-#      - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
+  selenium:
+    profiles: [test]
+    image: seleniarm/standalone-chromium:4.3.0-20220728
+
+    ports:
+      - "4444:4444"
+
+    shm_size: "2g"
+
+    environment:
+      - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
 
   smtp:
     image: mailhog/mailhog
@@ -95,15 +97,17 @@ services:
       - "1025:1025"
       - "8025:8025"
 
-#  playwright:
-#    build:
-#      context: .
-#      dockerfile: playwright.Dockerfile
-#
-#    volumes:
-#      - .:/code:cached
+  playwright:
+    profiles: [test]
+    build:
+      context: .
+      dockerfile: playwright.Dockerfile
+
+    volumes:
+      - .:/code:cached
 
   caddy:
+    profiles: [deploy]
     image: caddy:2
     restart: unless-stopped
     extra_hosts:
