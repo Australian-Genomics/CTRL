@@ -4,6 +4,7 @@
 # To use a different env, specify before running make commands:
 # `make ENV=test up`
 ENV := dev
+COMPOSE_PROFILES :=
 
 # Build docker images
 .docker:
@@ -32,7 +33,7 @@ ENV := dev
 
 # Start server
 up: .seed
-	docker compose --env-file=.env.$(ENV) up
+	COMPOSE_PROFILES=$(COMPOSE_PROFILES) docker compose --env-file=.env.$(ENV) up
 
 # Stop server
 down:
