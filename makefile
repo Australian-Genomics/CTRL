@@ -5,6 +5,7 @@
 # `make ENV=test up`
 ENV := dev
 COMPOSE_PROFILES :=
+ALLOWED_HOSTS :=
 
 # Build docker images
 .docker:
@@ -33,7 +34,9 @@ COMPOSE_PROFILES :=
 
 # Start server
 up: .seed
-	COMPOSE_PROFILES=$(COMPOSE_PROFILES) docker compose --env-file=.env.$(ENV) up
+	COMPOSE_PROFILES=$(COMPOSE_PROFILES) \
+	ALLOWED_HOSTS=$(ALLOWED_HOSTS) \
+	docker compose --env-file=.env.$(ENV) up
 
 # Stop server
 down:
