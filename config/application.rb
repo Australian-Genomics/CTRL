@@ -24,6 +24,6 @@ module Agha
     config.generators.system_tests = nil
     config.time_zone = 'Australia/Melbourne'
     config.active_record.legacy_connection_handling = false
-    config.hosts << ".ctrl.dsp.garvan.org.au"
+    if !ENV['ALLOWED_HOSTS'].empty? then config.hosts << ENV['ALLOWED_HOSTS'] end
   end
 end

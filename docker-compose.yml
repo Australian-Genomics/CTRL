@@ -77,6 +77,7 @@ services:
       OTP_ENABLED: ${OTP_ENABLED}
       CTRL_ADMIN_EMAIL: ${CTRL_ADMIN_EMAIL}
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
 
   selenium:
     profiles: [test]

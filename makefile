@@ -46,10 +46,10 @@ rm-volume: down
 tests: rspec rubocop
 
 rspec:
-	docker compose --env-file=.env.test run web bundle exec rspec
+	docker compose --profile=test --env-file=.env.test run web bundle exec rspec
 
 rubocop:
-	docker compose --env-file=.env.test run web bundle exec rubocop
+	docker compose --profile=test --env-file=.env.test run web bundle exec rubocop
 
 # opens a REPL-like console with application data loaded
 console:
