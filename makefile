@@ -6,6 +6,7 @@
 ENV := dev
 COMPOSE_PROFILES :=
 ALLOWED_HOSTS :=
+CADDYFILE_LOCATION := ./Caddyfile.example
 
 # Build docker images
 .docker:
@@ -36,6 +37,7 @@ ALLOWED_HOSTS :=
 up: .seed
 	COMPOSE_PROFILES=$(COMPOSE_PROFILES) \
 	ALLOWED_HOSTS=$(ALLOWED_HOSTS) \
+	CADDYFILE_LOCATION=$(CADDYFILE_LOCATION) \
 	docker compose --env-file=.env.$(ENV) up
 
 # Stop server
