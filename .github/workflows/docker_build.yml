@@ -39,7 +39,7 @@ jobs:
 
       - name: Test if docker image already pushed
         id: test-docker
-        run: echo "IMAGE_EXISTS=$(gcloud artifacts files list --location=${{secrets.LOCATION}} --project=${{secrets.PROJECT_ID}} --repository=${{secrets.REGISTRY_NAME}}--package=ctrl --tag=${{secrets.LAST_COMMIT_SHA}} &>/dev/null && echo 'TRUE' || echo 'FALSE')" >> $GITHUB_OUTPUT
+        run: echo "IMAGE_EXISTS=$(gcloud artifacts files list --location=${{secrets.LOCATION}} --project=${{secrets.PROJECT_ID}} --repository=${{secrets.REGISTRY_NAME}}--package=ctrl --tag=${{env.LAST_COMMIT_SHA}} &>/dev/null && echo 'TRUE' || echo 'FALSE')" >> $GITHUB_OUTPUT
 
       - name: Docker auth
         run: gcloud auth configure-docker ${{secrets.LOCATION}}-docker.pkg.dev
@@ -55,6 +55,6 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{secrets.LOCATION}}-docker.pkg.dev/${{secrets.PROJECT_ID}}/${{secrets.REGISTRY_NAME}}/ctrl:${{secrets.LAST_COMMIT_SHA}} , ${{secrets.LOCATION}}-docker.pkg.dev/${{secrets.PROJECT_ID}}/${{secrets.REGISTRY_NAME}}/ctrl:latest
+          tags: ${{secrets.LOCATION}}-docker.pkg.dev/${{secrets.PROJECT_ID}}/${{secrets.REGISTRY_NAME}}/ctrl:${{env.LAST_COMMIT_SHA}} , ${{secrets.LOCATION}}-docker.pkg.dev/${{secrets.PROJECT_ID}}/${{secrets.REGISTRY_NAME}}/ctrl:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
