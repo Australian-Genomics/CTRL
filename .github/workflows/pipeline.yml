@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker compose build
+      - run: docker compose --env-file=.env.test build
       - env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker compose build
+      - run: docker compose --env-file=.env.test build
       - env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker compose build
+      - run: docker compose --env-file=.env.test build
       - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:create
       - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:migrate
       - run: |
@@ -68,7 +68,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker compose build
+      - run: docker compose --env-file=.env.test build
       - run: docker compose --profile test --env-file=.env.test run web bundle exec rubocop
   run-playwright:
     name: "playwright"
@@ -77,7 +77,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker compose build
+      - run: docker compose --env-file=.env.test build
       - env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
