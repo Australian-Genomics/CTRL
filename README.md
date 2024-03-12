@@ -345,15 +345,13 @@ You can create the initial admin user by visiting `localhost:3000/subfolder/refi
 # that if services were removed from the docker-compose.yml file between running
 # `docker-compose up` and `docker-compose down`, those services will not be
 # stopped.
-docker-compose down
+make down
 
 # Remove CTRL docker volume
-docker volume rm ctrl_db_data
+make rm-volume
 
 # Remove, for example, `node_modules/`, `public/packs/`, `tmp/cache/`.
-# ***WARNING***: the command below will remove any files that are not being tracked by git.
-# use `git clean -xdfn` for a dry-run to see which files will be deleted
-git clean -xdf
+make clean
 ```
 
 ## <a id="testing"></a> Testing
@@ -372,7 +370,7 @@ With that done, you can run the `cucumber` tests in docker using the following
 command:
 
 ```shell
-docker-compose --env-file=.env.test run web bundle exec rake cucumber
+docker compose --env-file=.env.test run web bundle exec rake cucumber
 ```
 
 Similarly, to run the `rspec` tests:

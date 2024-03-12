@@ -71,4 +71,4 @@ generate-keys:
 	docker compose --env-file=.env.$(ENV) run web bundle exec rails db:encryption:init
 
 clean:
-	rm -f .seed .migrate .db .yarn .docker
+	rm -rf .seed .migrate .db .yarn .docker node_modules public/packs/* tmp/cache/*
