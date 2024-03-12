@@ -14,7 +14,7 @@ CADDYFILE_LOCATION := ./Caddyfile.example
 	touch $@
 
 # Install yarn dependencies
-.yarn: .docker
+.yarn:
 	docker compose --env-file=.env.$(ENV) run web yarn install
 	touch $@
 
