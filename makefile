@@ -4,10 +4,6 @@
 # To use a different env, specify before running make commands:
 # `make ENV=test up`
 ENV := dev
-COMPOSE_PROFILES := # This can remain unset for local development. Use `test` for testing, `deploy` for deployment.
-ALLOWED_HOSTS := # This can remain unset for local development. It is only required for deployment.
-IMAGE_REGISTRY := # This can remain unset for local development. If a registry is provided, it must end with a trailing `/`.
-RAILS_MASTER_KEY := # This can remain unset for local development. Rails will default to using the file in `config/master.key`.
 CADDYFILE_LOCATION := ./Caddyfile.example
 
 # Build docker images
@@ -40,8 +36,6 @@ up: .seed
 	COMPOSE_PROFILES=$(COMPOSE_PROFILES) \
 	ALLOWED_HOSTS=$(ALLOWED_HOSTS) \
 	CADDYFILE_LOCATION=$(CADDYFILE_LOCATION) \
-	IMAGE_REGISTRY=$(IMAGE_REGISTRY) \
-	RAILS_MASTER_KEY=$(IMAGE_REGISTRY) \
 	docker compose --env-file=.env.$(ENV) up
 
 # Stop server

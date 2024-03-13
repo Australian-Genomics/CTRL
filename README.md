@@ -466,6 +466,13 @@ These are used for deploying CTRL and do not need to be adjusted for local devel
 Variables specified at the top of the makefile can be overridden by passing them in when make is called.
 For example, to run docker compose commands with the `.env.test` file, run `make ENV=test up`.
 
+In addition the variables below can be passed in from environment variables (e.g. `COMPOSE_PROFILES=test make test`):
+
+- `COMPOSE_PROFILES` - This can remain unset for local development. Use `test` for testing, `deploy` for deployment.
+- `ALLOWED_HOSTS` - This can remain unset for local development. It is only required for deployment.
+- `IMAGE_REGISTRY` - This can remain unset for local development. If a registry is provided, it must end with a trailing `/`.
+- `RAILS_MASTER_KEY` - This can remain unset for local development. Rails will default to using the file in `config/master.key`.
+
 ## <a id="continuous-integration"></a> Continuous integration
 
 There are two Github Action pipelines that run on each push:
