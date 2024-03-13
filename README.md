@@ -343,7 +343,7 @@ You can create the initial admin user by visiting `localhost:3000/subfolder/refi
 ```bash
 # Stop all running containers mentioned in the docker-compose.yml file. Note
 # that if services were removed from the docker-compose.yml file between running
-# `docker-compose up` and `docker-compose down`, those services will not be
+# `docker compose up` and `docker compose down`, those services will not be
 # stopped.
 make down
 
@@ -376,7 +376,7 @@ docker compose --env-file=.env.test run web bundle exec rake cucumber
 Similarly, to run the `rspec` tests:
 
 ```shell
-docker-compose --env-file=.env.test run web bundle exec rspec
+docker compose --env-file=.env.test run web bundle exec rspec
 ```
 
 We also use playwright to test active admin. The `.github/workflows/pipeline.yml`
@@ -384,11 +384,11 @@ file is the source of truth for how to run those tests. But the commands are
 copied here for your convenience:
 
 ```shell
-docker-compose --env-file=.env.playwright run web yarn install
-docker-compose --env-file=.env.playwright run web bundle exec rails db:create
-docker-compose --env-file=.env.playwright run web bundle exec rails db:migrate
-docker-compose --env-file=.env.playwright run web bundle exec rails db:reset
-docker-compose --env-file=.env.playwright up -d
+docker compose --env-file=.env.playwright run web yarn install
+docker compose --env-file=.env.playwright run web bundle exec rails db:create
+docker compose --env-file=.env.playwright run web bundle exec rails db:migrate
+docker compose --env-file=.env.playwright run web bundle exec rails db:reset
+docker compose --env-file=.env.playwright up -d
 
 # Wait until the web server is ready
 while ! curl -s http://localhost:3000 >/dev/null
@@ -397,7 +397,7 @@ do
   sleep 5
 done
 
-docker-compose --env-file=.env.playwright run playwright npx playwright test --trace on
+docker compose --env-file=.env.playwright run playwright npx playwright test --trace on
 ```
 
 You can update the snapshots using `npx playwright test` too, by deleting the
@@ -447,8 +447,28 @@ git push heroku master
 
 ## <a id="environment-variables"></a> Environment Variables
 
+There are `.env.X` files containing environment variables that are passed to docker compose:
+
 - `CTRL_ADMIN_EMAIL` - This is the address from which emails are sent to study participants. It's also the address to which emails are sent when a study participant uses the "Contact Us" form.
-- `OTP_ENABLED` - Whether or not login should be permitted without entering a valid OTP. Valid values are `true` and `false`. Defaults to `true`.
-- `REDCAP_API_URL`
+- `RAILS_ENV` - This variable sets various Rails settings.
+- `DATABASE_NAME`
+- `DATABASE_USER`
+- `DATABASE_PASSWORD`
+- `DATABASE_HOST`
+- `REDCAP_TOKEN` - API token for REDCap api
+- `REDCAP_API_URL` - URL for REDCap API
 - `REDCAP_CONNECTION_ENABLED` - Whether data should be forwarded to REDCap. Valid values are `true` and `false`. Defaults to `false`.
-- `REDCAP_TOKEN`
+- `OTP_ENABLED` - Whether or not login should be permitted without entering a valid OTP. Valid values are `true` and `false`. Defaults to `true`.
+- `CADDYFILE_LOCATION` - This variable is required to be set for the docker-compose to be evaluated correctly. It currently points to an example Caddyfile. No changes to this file are required for local development. 
+
+In the makefile there are options to provide further configuration via environment variables.
+These are used for deploying CTRL and do not need to be adjusted for local development. 
+Variables specified at the top of the makefile can be overridden by passing them in when make is called.
+For example, to run docker compose commands with the `.env.test` file, run `make ENV=test up`.
+
+## <a id="continuous-integration"></a> Continuous integration
+
+There are two Github Action pipelines that run on each push:
+
+- `.github/workflows/pipeline.yml` - Runs all the tests
+- `.github/workflows/docker_build.yml` - Checks if there has been a change in the dockerfile. If there have been changes it then builds and pushes an image.
