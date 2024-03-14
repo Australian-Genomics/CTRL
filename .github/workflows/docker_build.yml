@@ -5,6 +5,7 @@ on:
 jobs:
   tests:
     uses: ./.github/workflows/pipeline.yml
+    secrets: inherit
   docker-test-and-build:
     needs: [tests]
     permissions:
