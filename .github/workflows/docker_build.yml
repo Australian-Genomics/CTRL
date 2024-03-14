@@ -1,9 +1,12 @@
-name: Docker build
+name: docker-build
 on:
   push:
 
 jobs:
+  tests:
+    uses: ./.github/workflows/pipeline.yml
   docker-test-and-build:
+    needs: [tests]
     permissions:
       contents: "read"
       id-token: "write"

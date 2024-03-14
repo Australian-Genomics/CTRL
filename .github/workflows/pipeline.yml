@@ -1,5 +1,5 @@
-on:
-  push:
+name: tests
+on: [worflow_call]
 
 jobs:
   run-rspec:
