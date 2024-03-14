@@ -1,6 +1,10 @@
 name: docker-build
 on:
-  push:
+  workflow_run:
+    workflows: ["tests"]
+    branches: [main, feature/deployment]
+    types: 
+      - completed
 
 jobs:
   tests:
