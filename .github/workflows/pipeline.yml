@@ -1,40 +1,39 @@
-on:
-  push:
-  pull_request:
+name: tests
+on: [workflow_call]
 
 jobs:
   run-rspec:
     name: "rspec"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker-compose build
+      - run: docker compose --env-file=.env.test build
       - env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
-      - run: docker-compose --env-file=.env.test run web yarn install
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:reset
-      - run: docker-compose --env-file=.env.test run web bundle exec rspec
+      - run: docker compose --profile test --env-file=.env.test run web yarn install
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:create
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:migrate
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:reset
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rspec
   run-cucumber:
     name: "cucumber"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker-compose build
+      - run: docker compose --env-file=.env.test build
       - env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
-      - run: docker-compose --env-file=.env.test run web yarn install
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:reset
+      - run: docker compose --profile test --env-file=.env.test run web yarn install
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:create
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:migrate
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:reset
       - run: |
-          docker-compose --env-file=.env.test up -d
+          docker compose --profile test --env-file=.env.test up -d
 
           # Wait until the selenium container is ready
           while ! curl -s http://localhost:4444/wd/hub/status | grep -qF '"ready": true'
@@ -43,16 +42,16 @@ jobs:
             sleep 5
           done
 
-          docker-compose --env-file=.env.test run web bundle exec rake cucumber
+          docker compose --profile test --env-file=.env.test run web bundle exec rake cucumber
   check-db-schema-up-to-date:
     name: "check-db-schema-up-to-date"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker-compose build
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:create
-      - run: docker-compose --env-file=.env.test run web bundle exec rails db:migrate
+      - run: docker compose --env-file=.env.test build
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:create
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rails db:migrate
       - run: |
           if [ -z "$(git status -s -- db/schema.rb)" ]
           then
@@ -65,29 +64,29 @@ jobs:
           fi
   run-rubocop:
     name: "run-rubocop"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker-compose build
-      - run: docker-compose --env-file=.env.test run web bundle exec rubocop
+      - run: docker compose --env-file=.env.test build
+      - run: docker compose --profile test --env-file=.env.test run web bundle exec rubocop
   run-playwright:
     name: "playwright"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: docker-compose build
+      - run: docker compose --env-file=.env.test build
       - env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
         run: printf "${MASTER_KEY}" > config/master.key
-      - run: docker-compose --env-file=.env.playwright run web yarn install
-      - run: docker-compose --env-file=.env.playwright run web bundle exec rails db:create
-      - run: docker-compose --env-file=.env.playwright run web bundle exec rails db:migrate
-      - run: docker-compose --env-file=.env.playwright run web bundle exec rails db:reset
+      - run: docker compose --profile test --env-file=.env.playwright run web yarn install
+      - run: docker compose --profile test --env-file=.env.playwright run web bundle exec rails db:create
+      - run: docker compose --profile test --env-file=.env.playwright run web bundle exec rails db:migrate
+      - run: docker compose --profile test --env-file=.env.playwright run web bundle exec rails db:reset
       - run: |
-          docker-compose --env-file=.env.playwright up -d
+          docker compose --profile test --env-file=.env.playwright up -d
 
           # Wait until the web server is ready
           while ! curl -s http://localhost:3000 >/dev/null
@@ -96,7 +95,7 @@ jobs:
             sleep 5
           done
 
-          docker-compose --env-file=.env.playwright run playwright npx playwright test --trace on
+          docker compose --profile test --env-file=.env.playwright run playwright npx playwright test --trace on
       - uses: actions/upload-artifact@v3
         if: always()
         with:

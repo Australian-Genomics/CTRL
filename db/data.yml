@@ -143,6 +143,7 @@
             testing to look for variations in genes involved looking at only one gene at a time.
             New technology means we can now look at many or all of our genes at once.
             This is known as “genomic testing”.
+          redcap_field: ctrl_und_res_particip
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -156,6 +157,7 @@
             testing. That is, 3 to 5 people in every 10 tested will receive a genetic explanation
             for their condition. We expect more patients will receive a diagnosis in the future,
             as the technology and our ability to interpret genomic information improve.
+          redcap_field: ctrl_und_benefits
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -171,6 +173,7 @@
             This allows for future re-analysis (looking at your genomic information again)
             if there is a specific reason or request to do so. For example, this might be done
             if new gene variants linked with your health condition are identified.
+          redcap_field: ctrl_und_samples
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -183,6 +186,7 @@
             your Genetic Counsellor or your GP. Agreeing to participate in the
             Australian Genomics research means your results will be shared with relevant investigators on the study.
             Your result may be included in your My Health Record, if you have one.
+          redcap_field: ctrl_und_privacy
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -196,6 +200,7 @@
             so it cannot be easily identified as yours. This kind of sharing is done to benefit research,
             but means that you will probably not personally benefit
             from anything that is discovered from sharing your information.
+          redcap_field: ctrl_und_sharing
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -208,6 +213,7 @@
             but it could be years. When doing any laboratory test, it is important to compare the
             test sample with a control sample. Your DNA may be used as a control sample.
             All of your personal, identifying information will be removed if your sample is used for this purpose.
+          redcap_field: ctrl_und_storage
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -226,6 +232,7 @@
             This is called an incidental finding. You will be given the opportunity to give your preferences about
             incidental findings in step 4.</li><li>You may have to disclose the information to insurance companies
             or employers. There is more information on this in the next question.</li></ul>
+          redcap_field: ctrl_und_risks
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -241,6 +248,7 @@
             <a href="http://www.genetics.edu.au/publications-and-resources/facts-sheets/fact-sheet-20-life-insurance-products-and-genetic-testing-in-australia" target="_blank">
             insurance fact sheet.
             </a>
+          redcap_field: ctrl_und_insur
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -254,6 +262,7 @@
             deciding whether you are able to fulfil a job role.
             In reality, very few employers do ask for your genetic testing results,
             but it's important that you know it may become more relevant in the future.
+          redcap_field: ctrl_und_employ
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right
@@ -268,6 +277,7 @@
             If you are planning to have (more) children your partner may need to know.
             Exactly who needs to know is different on a case by case basis. Your
             medical team will support you in sharing information with family members.
+          redcap_field: ctrl_und_family
           default_answer: 'no'
           question_type: checkbox
           answer_choices_position: right

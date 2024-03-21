@@ -57,3 +57,6 @@ test-results/
 .migrate
 .seed
 .yarn
+
+# Caddy config files
+Caddyfile

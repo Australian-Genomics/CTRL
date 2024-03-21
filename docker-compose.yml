@@ -39,6 +39,7 @@ services:
 
   web:
     # The root directory from which we're building.
+    image: ${IMAGE_REGISTRY}ctrl:latest
     build: .
 
     platform: "linux/amd64"
@@ -75,8 +76,11 @@ services:
       REDCAP_API_URL: ${REDCAP_API_URL}
       OTP_ENABLED: ${OTP_ENABLED}
       CTRL_ADMIN_EMAIL: ${CTRL_ADMIN_EMAIL}
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
 
   selenium:
+    profiles: [test]
     image: seleniarm/standalone-chromium:4.3.0-20220728
 
     ports:
@@ -95,6 +99,7 @@ services:
       - "8025:8025"
 
   playwright:
+    profiles: [test]
     build:
       context: .
       dockerfile: playwright.Dockerfile
@@ -102,9 +107,26 @@ services:
     volumes:
       - .:/code:cached
 
+  caddy:
+    profiles: [deploy]
+    image: caddy:2
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ${CADDYFILE_LOCATION}:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
 # Declare the volumes that our application uses.
 volumes:
   db_data:
+  caddy_data:
+  caddy_config:
 
 networks:
   default:
