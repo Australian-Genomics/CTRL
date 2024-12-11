@@ -10,7 +10,11 @@ def create_visitor
                  email: 'some@ahuja.com',
                  password: 'please2',
                  password_confirmation: 'please2',
-                 dob: Date.today.at_beginning_of_month.last_month }
+                 dob: Date.today.at_beginning_of_month.last_month,
+                 kin_first_name: 'Shweta',
+                 kin_family_name: 'Ahuja',
+                 kin_email: 'sister@ahuja.com'
+                  }
 end
 
 def delete_user
@@ -60,6 +64,9 @@ def sign_up
   fill_in 'user[participant_id]', with: @participant_id_random_example1
   fill_in 'user[password]', with: @visitor[:password]
   fill_in 'user[password_confirmation]', with: @visitor[:password_confirmation]
+  fill_in 'user[kin_first_name]', with: @visitor[:kin_first_name]
+  fill_in 'user[kin_family_name]', with: @visitor[:kin_family_name]
+  fill_in 'user[kin_email]', with: @visitor[:kin_email]
   find('#new_user > div.col.mb-30 > label > span').click
   click_button 'Register Now'
 end
@@ -283,7 +290,7 @@ Then('I should see the user edit page') do
 end
 
 Then('I should see error on edit page') do
-  expect(page).to have_content("Can't be blank", count: 3)
+  expect(page).to have_content("Can't be blank", count: 1)
   expect(page).to have_content('Invalid format')
 end
 
