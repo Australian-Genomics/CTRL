@@ -13,8 +13,7 @@ def create_visitor
                  dob: Date.today.at_beginning_of_month.last_month,
                  kin_first_name: 'Shweta',
                  kin_family_name: 'Ahuja',
-                 kin_email: 'sister@ahuja.com'
-                  }
+                 kin_email: 'sister@ahuja.com' }
 end
 
 def delete_user
